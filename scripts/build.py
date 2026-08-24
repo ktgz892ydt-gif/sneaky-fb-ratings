@@ -97,7 +97,25 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
     diag = connectivity(res.teams, res.games)
 
     team_ids = sorted(res.teams)
+
+    # Constants fitted against past seasons by scripts/tune.py, if that has
+    # been run. Otherwise the defaults, which are judgement rather than
+    # measurement -- see the module docstring in tune.py.
     cfg = RatingConfig()
+    tuned_meta = None
+    tpath = os.path.join(DATA, "tuned.json")
+    if os.path.exists(tpath):
+        with open(tpath, encoding="utf-8") as fh:
+            tb = json.load(fh)
+        best = tb.get("best") or {}
+        cfg = RatingConfig(
+            squash_scale=float(best.get("squash_scale", cfg.squash_scale)),
+            prior_games=float(best.get("prior_games", cfg.prior_games)),
+        )
+        tuned_meta = {k: best.get(k) for k in
+                      ("squash_scale", "prior_games", "carry",
+                       "accuracy", "logloss", "mae_margin", "n")}
+        tuned_meta["tunedOn"] = tb.get("tunedOn")
 
     # A preseason prior from last season, if one has been built. Teams are
     # matched on the school ID published on the ranking pages, which is stable
@@ -191,6 +209,7 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
         },
         "converged": result.converged,
         "prior": prior_meta,
+        "tuned": tuned_meta,
         "connectivity": diag,
         "conflicts": res.conflicts,
         "warnings": res.warnings,

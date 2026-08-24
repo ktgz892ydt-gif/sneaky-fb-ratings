@@ -140,249 +140,205 @@ def _record_tuple(rec: str):
 
 
 def resolve(roster_slots, games) -> Resolution:
-    # Collect every appearance of every bare name.
-    # outcome: 1 = won, 0 = lost, 0.5 = tie
+    """Map every team name in the schedule onto a school.
+
+    The unit of duplication is the WEEK, not the season. A team plays at most
+    one game a week, so two appearances of "Perry" in the same week are two
+    different schools -- but ten appearances across ten weeks are one school
+    playing a season. Counting appearances without regard to week was a bug
+    that shattered every school into one phantom team per week; the guard at
+    the end of this function exists to make that class of error loud.
+    """
+    # name -> list of appearances; each is (game_index, side, outcome, opponent, week)
     appearances = defaultdict(list)
     for gi, g in enumerate(games):
         m = g["home_score"] - g["away_score"]
         home_out = 1 if m > 0 else (0 if m < 0 else 0.5)
         away_out = 1 - home_out if home_out != 0.5 else 0.5
-        appearances[g["home"]].append((gi, "home", home_out, g["away"]))
-        appearances[g["away"]].append((gi, "away", away_out, g["home"]))
+        wk = g.get("week", 1)
+        appearances[g["home"]].append((gi, "home", home_out, g["away"], wk))
+        appearances[g["away"]].append((gi, "away", away_out, g["home"], wk))
 
     teams: dict[str, Team] = {}
-    conflicts = []
-    warnings = []
-    pending = []
-    # maps (name, appearance_position) -> team id
-    assignment: dict[tuple, str] = {}
+    conflicts, warnings = [], []
+    assignment: dict[tuple, str] = {}   # (name, appearance_index) -> team id
+    deferred = []
 
-    all_names = set(appearances) | set(roster_slots)
+    def make(tid, name, slot=None, **kw):
+        teams[tid] = Team(
+            tid, name,
+            division=slot["division"] if slot else kw.pop("division", None),
+            region=slot["region"] if slot else kw.pop("region", None),
+            harbin=slot["harbin"] if slot else kw.pop("harbin", None),
+            stated_record=slot["record"] if slot else None,
+            school_id=slot.get("school_id", "") if slot else kw.pop("school_id", ""),
+            city=slot.get("city", "") if slot else kw.pop("city", ""),
+            **kw,
+        )
+        return tid
 
-    for name in sorted(all_names):
+    for name in sorted(set(appearances) | set(roster_slots)):
         slots = roster_slots.get(name, [])
         apps = appearances.get(name, [])
 
-        # ---- Case 1: name not on the OHSAA roster -> out of state
+        by_week = defaultdict(list)
+        for i, a in enumerate(apps):
+            by_week[a[4]].append(i)
+
+        # How many distinct schools share this name? At least as many as ever
+        # played in the same week.
+        simultaneous = max((len(v) for v in by_week.values()), default=0)
+
+        # ---- not on the OHSAA roster: out of state
         if not slots:
-            if len(apps) <= 1:
-                tid = f"OOS::{name}"
-                teams[tid] = Team(tid, name, in_ohio=False, note="not on OHSAA roster")
-                for pos, _ in enumerate(apps):
-                    assignment[(name, pos)] = tid
+            n = max(simultaneous, 1)
+            if n == 1:
+                tid = make(f"OOS::{name}", name, in_ohio=False,
+                           note="not on OHSAA roster")
+                for i in range(len(apps)):
+                    assignment[(name, i)] = tid
             else:
-                # Same name, multiple games in one week -> definitely different
-                # schools. Split them; never merge.
-                for pos, _ in enumerate(apps):
-                    tid = f"OOS::{name}#{pos + 1}"
-                    teams[tid] = Team(
-                        tid, name, in_ohio=False, ambiguous=True,
-                        note="not on roster; multiple same-week games so split",
-                    )
-                    assignment[(name, pos)] = tid
-                conflicts.append(
-                    {"name": name, "kind": "oos-duplicate",
-                     "detail": f"{len(apps)} same-week games, no roster entry"}
-                )
+                for k in range(n):
+                    make(f"OOS::{name}#{k+1}", name, in_ohio=False, ambiguous=True,
+                         note="not on roster; several schools share this name")
+                _spread(name, apps, by_week, n, assignment, lambda k: f"OOS::{name}#{k+1}")
+                conflicts.append({"name": name, "kind": "oos-duplicate",
+                                  "detail": f"{n} schools share this name"})
             continue
 
-        # ---- Case 2: unique roster slot and at most one appearance
-        if len(slots) == 1 and len(apps) <= 1:
-            s = slots[0]
-            tid = f"{name}|{s['division']}-{s['region']}"
-            teams[tid] = Team(
-                tid, name, s["division"], s["region"], s["harbin"], s["record"],
-                school_id=s.get("school_id", ""), city=s.get("city", "")
-            )
-            for pos, _ in enumerate(apps):
-                assignment[(name, pos)] = tid
+        # ---- the ordinary case: one school, however many weeks it played
+        if simultaneous <= 1 and len(slots) == 1:
+            sl = slots[0]
+            tid = make(f"{name}|{sl['division']}-{sl['region']}", name, sl)
+            for i in range(len(apps)):
+                assignment[(name, i)] = tid
             continue
 
-        # ---- Case 3: duplicates. Try to match records to results.
-        n_slots, n_apps = len(slots), len(apps)
-
-        if n_apps > n_slots:
-            warnings.append(
-                f"{name}: {n_apps} games but only {n_slots} roster slots; "
-                f"{n_apps - n_slots} appearance(s) treated as out-of-state"
-            )
-
-        # Candidate assignments: which appearance goes to which slot.
-        # A slot's stated record must be consistent with the outcome of the
-        # game assigned to it (for a single week: 1-0 means it won).
-        def consistent(slot, outcome):
-            w, l, t = _record_tuple(slot["record"])
-            if outcome == 1:
-                return w >= 1
-            if outcome == 0:
-                return l >= 1
-            return t >= 1
-
-        viable = []
-        k = min(n_slots, n_apps)
-        for slot_perm in itertools.permutations(range(n_slots), k):
-            ok = all(
-                consistent(slots[slot_perm[i]], apps[i][2]) for i in range(k)
-            )
-            if ok:
-                viable.append(slot_perm)
-            if len(viable) > 1:
-                break  # ambiguous; no need to enumerate further
-
-        unique = len(viable) == 1
-
-        if unique:
-            perm = viable[0]
-            used = set()
-            for i in range(k):
-                s = slots[perm[i]]
-                tid = f"{name}|{s['division']}-{s['region']}"
-                # two schools can share a name AND a region (it happens);
-                # disambiguate the id further in that case
-                bump = 1
-                base = tid
-                while tid in teams and tid in used:
-                    bump += 1
-                    tid = f"{base}#{bump}"
-                used.add(tid)
-                teams[tid] = Team(
-                    tid, name, s["division"], s["region"], s["harbin"], s["record"],
-                    school_id=s.get("school_id", ""), city=s.get("city", "")
-                )
+        # ---- one stream of games, several roster entries sharing the name.
+        # We cannot say which school it is, but it is definitely one school.
+        if simultaneous <= 1:
+            divs = {s["division"] for s in slots}
+            regs = {s["region"] for s in slots}
+            tid = make(f"{name}|?", name, None, ambiguous=True,
+                       division=divs.pop() if len(divs) == 1 else None,
+                       region=regs.pop() if len(regs) == 1 else None,
+                       note=f"{len(slots)} schools share this name and only one "
+                            f"played each week; identity not determined")
+            for i in range(len(apps)):
                 assignment[(name, i)] = tid
-            for i in range(k, n_apps):
-                tid = f"OOS::{name}#{i + 1}"
-                teams[tid] = Team(tid, name, in_ohio=False, ambiguous=True,
-                                  note="surplus appearance beyond roster slots")
-                assignment[(name, i)] = tid
-        else:
-            # Record alone cannot separate them. Defer to the geography pass.
-            pending.append({"name": name, "slots": slots, "apps": apps,
-                            "consistent": consistent})
+            conflicts.append({"name": name, "kind": "ambiguous",
+                              "detail": f"{len(slots)} roster entries, never simultaneous"})
+            continue
+
+        # ---- genuinely several schools active at once: defer to the
+        # geography pass, which needs the co-occurrence table built first.
+        deferred.append({"name": name, "slots": slots, "apps": apps,
+                         "by_week": by_week, "n": max(simultaneous, len(slots))})
 
     # ------------------------------------------------------------------
-    # Geography pass
-    #
-    # Records alone leave ties: if two schools called Perry both went 1-0,
-    # either could own either win. But Ohio teams overwhelmingly play close to
-    # home, so *who they played* is informative. We learn the region-vs-region
-    # scheduling distribution from the games we already resolved, then score
-    # each candidate assignment by how plausible its opponents are.
-    #
-    # This is a likelihood, not a certainty. Assignments that stay close are
-    # reported as low-confidence rather than asserted.
+    # Geography pass: learn how regions schedule each other from the names
+    # already settled, then use it to split the ones that are still shared.
     # ------------------------------------------------------------------
-    region_of_name = {}
+    region_of = {}
     for tid, tm in teams.items():
         if tm.in_ohio and tm.region is not None and not tm.ambiguous:
-            # only names that resolved to exactly one entity
-            region_of_name.setdefault(tm.name, set()).add(tm.region)
-    region_of_name = {n: next(iter(r)) for n, r in region_of_name.items() if len(r) == 1}
+            region_of.setdefault(tm.name, set()).add(tm.region)
+    region_of = {n: next(iter(r)) for n, r in region_of.items() if len(r) == 1}
 
     cooc = defaultdict(lambda: defaultdict(float))
     totals = defaultdict(float)
     for g in games:
-        ra = region_of_name.get(g["home"])
-        rb = region_of_name.get(g["away"])
+        ra, rb = region_of.get(g["home"]), region_of.get(g["away"])
         if ra is None or rb is None:
             continue
-        cooc[ra][rb] += 1.0
-        cooc[rb][ra] += 1.0
-        totals[ra] += 1.0
-        totals[rb] += 1.0
+        cooc[ra][rb] += 1; cooc[rb][ra] += 1
+        totals[ra] += 1; totals[rb] += 1
 
-    N_REGIONS = 28
-    ALPHA = 0.5  # Laplace smoothing; keeps unseen region pairs merely unlikely
+    N_REGIONS, ALPHA = 28, 0.5
 
     def log_p(slot_region, opp_region):
         if slot_region is None or opp_region is None:
             return 0.0
-        num = cooc[slot_region][opp_region] + ALPHA
-        den = totals[slot_region] + ALPHA * N_REGIONS
-        return math.log(num / den)
+        return math.log((cooc[slot_region][opp_region] + ALPHA)
+                        / (totals[slot_region] + ALPHA * N_REGIONS))
 
-    for item in pending:
+    for item in deferred:
         name, slots, apps = item["name"], item["slots"], item["apps"]
-        consistent = item["consistent"]
-        n_slots, n_apps = len(slots), len(apps)
-        k = min(n_slots, n_apps)
+        # As many schools as ever played at once. Any beyond the roster's
+        # entries are out-of-state teams that happen to share the name.
+        n = item["n"]
+        n_ohio = min(n, len(slots))
 
-        scored = []
-        for perm in itertools.permutations(range(n_slots), k):
-            if not all(consistent(slots[perm[i]], apps[i][2]) for i in range(k)):
-                continue
-            score = 0.0
-            for i in range(k):
-                opp_region = region_of_name.get(apps[i][3])
-                score += log_p(slots[perm[i]]["region"], opp_region)
-            scored.append((score, perm))
-
-        scored.sort(key=lambda x: -x[0])
-
-        if not scored:
-            # No record-consistent assignment at all: something is off upstream.
-            best_perm = tuple(range(k))
-            gap = 0.0
-            confident = False
-            conflicts.append({"name": name, "kind": "no-consistent-assignment",
-                              "detail": f"{n_slots} slots, {n_apps} games"})
-        else:
-            best_perm = scored[0][1]
-            gap = (scored[0][0] - scored[1][0]) if len(scored) > 1 else float("inf")
-            # A gap of 1 log unit means the winner is ~2.7x more likely.
-            confident = gap >= 1.0
-
+        ids = []
         used = set()
-        for i in range(k):
-            s = slots[best_perm[i]]
-            base = f"{name}|{s['division']}-{s['region']}"
-            tid = base
-            bump = 1
-            while tid in teams or tid in used:
-                bump += 1
-                tid = f"{base}#{bump}"
+        for k in range(n):
+            if k < n_ohio:
+                sl = slots[k]
+                base = f"{name}|{sl['division']}-{sl['region']}"
+                tid, bump = base, 1
+                while tid in teams or tid in used:
+                    bump += 1
+                    tid = f"{base}#{bump}"
+                make(tid, name, sl)
+            else:
+                tid = f"OOS::{name}#{k + 1}"
+                make(tid, name, None, in_ohio=False, ambiguous=True,
+                     note="shares a name with an Ohio school but is not on the roster")
             used.add(tid)
-            teams[tid] = Team(
-                tid, name, s["division"], s["region"], s["harbin"], s["record"],
-                school_id=s.get("school_id", ""), city=s.get("city", ""),
-                ambiguous=not confident,
-                note="" if confident else
-                     f"shares a name with {n_slots - 1} other school(s); "
-                     f"assigned by opponent geography, low confidence",
-            )
-            assignment[(name, i)] = tid
+            ids.append(tid)
 
-        for i in range(k, n_apps):
-            tid = f"OOS::{name}#{i + 1}"
-            teams[tid] = Team(tid, name, in_ohio=False, ambiguous=True,
-                              note="surplus appearance beyond roster slots")
-            assignment[(name, i)] = tid
+        # Within each week, assign that week's games to distinct schools,
+        # choosing whichever pairing makes the opponents most plausible.
+        gaps = []
+        for wk, app_idx in sorted(item["by_week"].items()):
+            scored = []
+            for perm in itertools.permutations(range(n), min(n, len(app_idx))):
+                sc = sum(
+                    log_p(slots[perm[j]]["region"] if perm[j] < n_ohio else None,
+                          region_of.get(apps[ai][3]))
+                    for j, ai in enumerate(app_idx[:len(perm)])
+                )
+                scored.append((sc, perm))
+            scored.sort(key=lambda x: -x[0])
+            best = scored[0][1] if scored else tuple(range(len(app_idx)))
+            if len(scored) > 1:
+                gaps.append(scored[0][0] - scored[1][0])
+            for j, ai in enumerate(app_idx):
+                assignment[(name, ai)] = ids[best[j] if j < len(best) else min(j, n - 1)]
 
+        # A wide margin between the best and second-best pairing means the
+        # opponents really do point at one answer; a narrow one means we guessed.
+        mean_gap = sum(gaps) / len(gaps) if gaps else 0.0
+        confident = mean_gap >= 1.0
+        for tid in ids:
+            if teams[tid].in_ohio and not confident:
+                teams[tid].ambiguous = True
+                teams[tid].note = (f"{len(slots)} schools share this name; games "
+                                   f"split by opponent region, low confidence")
         if not confident:
-            conflicts.append({
-                "name": name,
-                "kind": "low-confidence",
-                "detail": f"{n_slots} schools share this name; "
-                          f"geography margin {gap:.2f} log-units",
-            })
+            conflicts.append({"name": name, "kind": "low-confidence",
+                              "detail": f"{n} schools share this name; "
+                                        f"geography margin {mean_gap:.2f} log-units"})
 
-    # Rewrite games to use resolved ids.
+    # ---- rewrite the games with resolved ids
     seen_pos = defaultdict(int)
-    resolved_games = []
-    for gi, g in enumerate(games):
+    resolved = []
+    for g in games:
         out = dict(g)
         for side in ("home", "away"):
             nm = g[side]
-            pos = seen_pos[nm]
+            i = seen_pos[nm]
             seen_pos[nm] += 1
-            out[side] = assignment[(nm, pos)]
-        resolved_games.append(out)
+            out[side] = assignment[(nm, i)]
+        resolved.append(out)
 
-    # Safety net: no team may appear twice in the same week.
+    # ---- the guard. A team cannot play twice in one week; if one does, the
+    # resolution above is wrong and the ratings built on it would be silently
+    # garbage. Fail loudly instead.
     per_week = defaultdict(lambda: defaultdict(int))
-    for g in resolved_games:
-        per_week[g["week"]][g["home"]] += 1
-        per_week[g["week"]][g["away"]] += 1
+    for g in resolved:
+        per_week[g.get("week", 1)][g["home"]] += 1
+        per_week[g.get("week", 1)][g["away"]] += 1
     for wk, counts in per_week.items():
         for tid, c in counts.items():
             if c > 1:
@@ -391,5 +347,12 @@ def resolve(roster_slots, games) -> Resolution:
                     f"resolution is wrong or the source has a duplicate row"
                 )
 
-    return Resolution(teams=teams, games=resolved_games,
+    return Resolution(teams=teams, games=resolved,
                       conflicts=conflicts, warnings=warnings)
+
+
+def _spread(name, apps, by_week, n, assignment, id_for):
+    """Hand out same-week appearances to distinct entities, round robin."""
+    for wk, idxs in sorted(by_week.items()):
+        for k, ai in enumerate(idxs):
+            assignment[(name, ai)] = id_for(min(k, n - 1))

@@ -95,16 +95,30 @@ def main():
     ap.add_argument("--from-ratings", required=True,
                     help="ratings.json produced for the previous season")
     ap.add_argument("--out", default=os.path.join(DATA, "prior.json"))
-    ap.add_argument("--carry", type=float, default=0.5,
-                    help="fraction of last year's rating to keep (default 0.5)")
+    ap.add_argument("--carry", type=float, default=None,
+                    help="fraction of last year's rating to keep; "
+                         "defaults to the fitted value in data/tuned.json, "
+                         "or 0.5 if nothing has been fitted")
     ap.add_argument("--clip", type=float, default=14.0,
                     help="cap on prior magnitude in points; 0 disables")
     args = ap.parse_args()
 
+    carry = args.carry
+    if carry is None:
+        tpath = os.path.join(DATA, "tuned.json")
+        if os.path.exists(tpath):
+            with open(tpath, encoding="utf-8") as fh:
+                carry = (json.load(fh).get("best") or {}).get("carry")
+        if carry is None:
+            carry = 0.5
+            print("  (no fitted carry available; using default 0.5)", file=sys.stderr)
+        else:
+            print(f"  using fitted carry {carry}", file=sys.stderr)
+
     with open(args.from_ratings, encoding="utf-8") as fh:
         prev = json.load(fh)
 
-    prior, meta = build_prior(prev, args.carry, args.clip or None)
+    prior, meta = build_prior(prev, float(carry), args.clip or None)
     payload = {"meta": meta, "prior": prior}
 
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
