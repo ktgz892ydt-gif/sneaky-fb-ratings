@@ -48,6 +48,8 @@ class Team:
     region: int | None = None
     harbin: float | None = None
     stated_record: str | None = None
+    school_id: str = ""
+    city: str = ""
     in_ohio: bool = True
     ambiguous: bool = False
     note: str = ""
@@ -72,6 +74,8 @@ def load_roster(path):
                     "region": int(row["region"]),
                     "record": row["record"],
                     "harbin": float(row["harbin"]),
+                    "school_id": (row.get("school_id") or "").strip(),
+                    "city": (row.get("city") or "").strip(),
                 }
             )
     return slots
@@ -187,7 +191,8 @@ def resolve(roster_slots, games) -> Resolution:
             s = slots[0]
             tid = f"{name}|{s['division']}-{s['region']}"
             teams[tid] = Team(
-                tid, name, s["division"], s["region"], s["harbin"], s["record"]
+                tid, name, s["division"], s["region"], s["harbin"], s["record"],
+                school_id=s.get("school_id", ""), city=s.get("city", "")
             )
             for pos, _ in enumerate(apps):
                 assignment[(name, pos)] = tid
@@ -241,7 +246,8 @@ def resolve(roster_slots, games) -> Resolution:
                     tid = f"{base}#{bump}"
                 used.add(tid)
                 teams[tid] = Team(
-                    tid, name, s["division"], s["region"], s["harbin"], s["record"]
+                    tid, name, s["division"], s["region"], s["harbin"], s["record"],
+                    school_id=s.get("school_id", ""), city=s.get("city", "")
                 )
                 assignment[(name, i)] = tid
             for i in range(k, n_apps):
@@ -338,6 +344,7 @@ def resolve(roster_slots, games) -> Resolution:
             used.add(tid)
             teams[tid] = Team(
                 tid, name, s["division"], s["region"], s["harbin"], s["record"],
+                school_id=s.get("school_id", ""), city=s.get("city", ""),
                 ambiguous=not confident,
                 note="" if confident else
                      f"shares a name with {n_slots - 1} other school(s); "

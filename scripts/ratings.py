@@ -120,6 +120,7 @@ def fit_bradley_terry(
     neutral,
     cfg: RatingConfig,
     weights=None,
+    prior=None,
 ):
     """Fit ratings by penalized logistic regression with continuous targets.
 
@@ -144,19 +145,27 @@ def fit_bradley_terry(
     if not cfg.fit_hfa:
         penalty[-1] = 1e9  # effectively pins HFA at zero
 
+    # Shrink toward the prior rather than toward zero. With no prior supplied
+    # this is identical to before -- every team starts at league average, which
+    # is exactly the assumption that makes Week 1 rank teams by margin alone.
+    centre = np.zeros(n_teams + 1)
+    if prior is not None:
+        centre[:n_teams] = prior
+
     def objective(theta):
         z = X @ theta
         # log(1 + exp(z)) computed stably
         logsig = -np.logaddexp(0.0, -z)
         log1msig = -np.logaddexp(0.0, z)
         nll = -np.sum(w * (y * logsig + (1.0 - y) * log1msig))
-        nll += 0.5 * np.sum(penalty * theta * theta)
+        delta = theta - centre
+        nll += 0.5 * np.sum(penalty * delta * delta)
 
         p = np.exp(logsig)
-        grad = X.T @ (w * (p - y)) + penalty * theta
+        grad = X.T @ (w * (p - y)) + penalty * delta
         return nll, grad
 
-    theta0 = np.zeros(n_teams + 1)
+    theta0 = centre.copy()
     res = minimize(
         objective,
         theta0,
@@ -179,7 +188,8 @@ def fit_bradley_terry(
 # Massey
 # ---------------------------------------------------------------------------
 
-def fit_massey(n_teams: int, home_idx, away_idx, margin, neutral, cfg: RatingConfig):
+def fit_massey(n_teams: int, home_idx, away_idx, margin, neutral, cfg: RatingConfig,
+               prior=None):
     """Ridge-regularized least squares on point margin. Ratings are in points."""
     X = _design(n_teams, home_idx, away_idx, neutral)
     m = np.clip(np.asarray(margin, dtype=float), -cfg.margin_cap, cfg.margin_cap)
@@ -190,8 +200,12 @@ def fit_massey(n_teams: int, home_idx, away_idx, margin, neutral, cfg: RatingCon
     if not cfg.fit_hfa:
         penalty[-1] = 1e9
 
+    centre = np.zeros(n_teams + 1)
+    if prior is not None:
+        centre[:n_teams] = prior
+
     A = (X.T @ X).tocsc() + sparse.diags(penalty).tocsc()
-    b = X.T @ m
+    b = X.T @ m + penalty * centre
     theta = spsolve(A, b)
 
     ratings = np.asarray(theta[:n_teams])
@@ -223,7 +237,7 @@ class RatingResult:
     notes: list = field(default_factory=list)
 
 
-def rate(team_ids, games, cfg: RatingConfig | None = None) -> RatingResult:
+def rate(team_ids, games, cfg: RatingConfig | None = None, priors=None) -> RatingResult:
     """Fit all three models.
 
     `games` is a sequence of dicts with keys:
@@ -250,20 +264,30 @@ def rate(team_ids, games, cfg: RatingConfig | None = None) -> RatingResult:
     neutral = np.array(neutral)
     margin = hs - as_
 
+    # Priors arrive in points (the scale people read); the logit models work on
+    # the squashed scale, so divide through.
+    prior_pts = np.zeros(n)
+    if priors:
+        for i, t in enumerate(team_ids):
+            prior_pts[i] = float(priors.get(t, 0.0))
+        prior_pts -= prior_pts.mean()
+    prior_logit = prior_pts / cfg.squash_scale
+
     # --- headline model: fractional wins from squashed margin
     y_frac = squash(margin, cfg.squash_scale, cfg.margin_cap)
     r_margin, hfa_margin, res = fit_bradley_terry(
-        n, home_idx, away_idx, y_frac, neutral, cfg
+        n, home_idx, away_idx, y_frac, neutral, cfg, prior=prior_logit
     )
 
     # --- plain Bradley-Terry on W/L
     y_bin = np.where(margin > 0, 1.0, np.where(margin < 0, 0.0, 0.5))
     r_binary, hfa_binary, _ = fit_bradley_terry(
-        n, home_idx, away_idx, y_bin, neutral, cfg
+        n, home_idx, away_idx, y_bin, neutral, cfg, prior=prior_logit
     )
 
     # --- Massey
-    r_massey, hfa_massey = fit_massey(n, home_idx, away_idx, margin, neutral, cfg)
+    r_massey, hfa_massey = fit_massey(n, home_idx, away_idx, margin, neutral, cfg,
+                                      prior=prior_pts)
 
     # Convert logit ratings to points. A rating difference of d points is the
     # model's expected neutral-field margin, which is what makes the headline

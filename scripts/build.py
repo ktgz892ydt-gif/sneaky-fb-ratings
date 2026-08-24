@@ -79,7 +79,8 @@ def connectivity(teams, games):
     }
 
 
-def main(games_path=None, roster_path=None, out_path=None, generated_at=None):
+def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
+         prior_path=None):
     # Prefer real scraped data when it exists; fall back to the checked-in
     # Week 1 fixture so the pipeline is runnable without network access.
     if games_path is None:
@@ -97,7 +98,27 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None):
 
     team_ids = sorted(res.teams)
     cfg = RatingConfig()
-    result = rate(team_ids, res.games, cfg)
+
+    # A preseason prior from last season, if one has been built. Teams are
+    # matched on the school ID published on the ranking pages, which is stable
+    # across years.
+    priors, prior_meta = None, None
+    ppath = prior_path or os.path.join(DATA, "prior.json")
+    if os.path.exists(ppath):
+        with open(ppath, encoding="utf-8") as fh:
+            blob = json.load(fh)
+        pmap = blob.get("prior", {})
+        priors = {}
+        for t in team_ids:
+            tm = res.teams[t]
+            key = (tm.school_id or "").strip()
+            if key and key in pmap:
+                priors[t] = pmap[key]
+            elif tm.name in pmap:
+                priors[t] = pmap[tm.name]
+        prior_meta = dict(blob.get("meta", {}), matched=len(priors))
+
+    result = rate(team_ids, res.games, cfg, priors=priors)
 
     idx = {t: i for i, t in enumerate(team_ids)}
 
@@ -128,6 +149,8 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None):
             {
                 "id": t,
                 "name": tm.name,
+                "schoolId": tm.school_id,
+                "city": tm.city,
                 "division": tm.division,
                 "region": tm.region,
                 "inOhio": tm.in_ohio,
@@ -167,6 +190,7 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None):
             "massey": round(result.hfa_massey, 2),
         },
         "converged": result.converged,
+        "prior": prior_meta,
         "connectivity": diag,
         "conflicts": res.conflicts,
         "warnings": res.warnings,
@@ -223,7 +247,28 @@ def emit_html(payload):
 
 
 if __name__ == "__main__":
-    payload, result, res = main()
+    import argparse
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--games")
+    ap.add_argument("--roster")
+    ap.add_argument("--out")
+    ap.add_argument("--prior", help="path to prior.json; omit to auto-detect")
+    ap.add_argument("--no-prior", action="store_true",
+                    help="ignore any prior (use when building a past season)")
+    ap.add_argument("--no-site", action="store_true",
+                    help="write ratings JSON only, do not rebuild the pages")
+    a = ap.parse_args()
+
+    if a.no_site:
+        globals()["emit_html"] = lambda payload: None
+
+    payload, result, res = main(
+        games_path=a.games,
+        roster_path=a.roster,
+        out_path=a.out,
+        prior_path=os.devnull if a.no_prior else a.prior,
+    )
     print(f"games          : {payload['gameCount']}")
     print(f"teams          : {payload['teamCount']}  (Ohio: {payload['ohioTeamCount']})")
     print(f"converged      : {payload['converged']}")
