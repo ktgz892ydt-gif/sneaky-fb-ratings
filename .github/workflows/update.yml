@@ -1,0 +1,68 @@
+name: Update ratings
+
+on:
+  schedule:
+    # Saturday 08:00 and Sunday 13:00 America/New_York, expressed in UTC.
+    # (EDT is UTC-4 for the whole football season, so no DST juggling.)
+    # Saturday morning catches Friday night; Sunday afternoon catches the
+    # corrections, forfeits and late-posted Saturday games.
+    - cron: "0 12 * * 6"
+    - cron: "0 17 * * 0"
+  workflow_dispatch:
+    inputs:
+      no_cache:
+        description: "Bypass the local HTTP cache"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ratings
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Scrape scores and roster
+        run: |
+          python scripts/scrape.py --season 2026 \
+            ${{ inputs.no_cache && '--no-cache' || '' }}
+
+      - name: Fit ratings and build the site
+        run: python scripts/build.py
+
+      - name: Sanity check the output
+        run: python scripts/check.py
+
+      - name: Commit refreshed data
+        run: |
+          git config user.name  "ratings-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/ site/ratings.json site/index.html
+          if git diff --staged --quiet; then
+            echo "No change this run."
+          else
+            git commit -m "ratings: refresh $(date -u +%Y-%m-%d)"
+            git push
+          fi
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4

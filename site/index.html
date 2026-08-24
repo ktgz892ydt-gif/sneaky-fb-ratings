@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Bradley-Terry and Massey ratings for Ohio high school varsity football, rebuilt weekly.">
+<title>Buckeye Rating Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+/* ---------- tokens: light is the base, both dark paths redefine ---------- */
+:root {
+  --paper:        #F6F7F8;
+  --surface:      #FFFFFF;
+  --surface-sunk: #EDEFF1;
+  --ink:          #14181B;
+  --ink-2:        #3D464D;
+  --ink-3:        #6B767E;
+  --rule:         #DCE0E4;
+  --rule-strong:  #C3C9CF;
+
+  --accent:       #A96D18;
+  --accent-bright:#C9862B;
+  --accent-wash:  #F6EBD8;
+
+  --sev-none:     #A93A33;
+  --sev-low:      #B4653B;
+  --sev-med:      #40667F;
+  --sev-high:     #3E6B4C;
+  --sev-wash:     #FFFFFF;
+
+  --shadow: 0 1px 2px rgba(20,24,27,.06), 0 4px 16px rgba(20,24,27,.05);
+
+  --step--1: .8125rem;
+  --step-0:  .9375rem;
+  --step-1:  1.125rem;
+  --step-2:  1.5rem;
+  --step-3:  2.25rem;
+  --step-4:  3.25rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:        #0F1316;
+    --surface:      #171C20;
+    --surface-sunk: #12171A;
+    --ink:          #E8ECEF;
+    --ink-2:        #AEB8BF;
+    --ink-3:        #7C868D;
+    --rule:         #262E33;
+    --rule-strong:  #3A444B;
+
+    --accent:       #D9992F;
+    --accent-bright:#E8AC45;
+    --accent-wash:  #2A2115;
+
+    --sev-none:     #D65F55;
+    --sev-low:      #D08551;
+    --sev-med:      #6D9DBC;
+    --sev-high:     #6BA681;
+    --sev-wash:     #0F1316;
+
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 4px 20px rgba(0,0,0,.32);
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper:        #0F1316;
+  --surface:      #171C20;
+  --surface-sunk: #12171A;
+  --ink:          #E8ECEF;
+  --ink-2:        #AEB8BF;
+  --ink-3:        #7C868D;
+  --rule:         #262E33;
+  --rule-strong:  #3A444B;
+
+  --accent:       #D9992F;
+  --accent-bright:#E8AC45;
+  --accent-wash:  #2A2115;
+
+  --sev-none:     #D65F55;
+  --sev-low:      #D08551;
+  --sev-med:      #6D9DBC;
+  --sev-high:     #6BA681;
+  --sev-wash:     #0F1316;
+
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 4px 20px rgba(0,0,0,.32);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Public Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: var(--step-0);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px 72px;
+}
+
+/* ---------- masthead ---------- */
+.masthead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 32px;
+  padding: 36px 0 20px;
+  border-bottom: 2px solid var(--ink);
+}
+.brand { display: flex; flex-direction: column; gap: 2px; }
+.brand h1 {
+  font-family: Oswald, "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: var(--step-4);
+  line-height: .95;
+  letter-spacing: -.01em;
+  margin: 0;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.brand h1 em {
+  font-style: normal;
+  color: var(--accent);
+}
+.brand .sub {
+  font-size: var(--step--1);
+  color: var(--ink-3);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.stamp {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: var(--step--1);
+  color: var(--ink-2);
+}
+.stamp div { display: flex; flex-direction: column; gap: 1px; }
+.stamp b {
+  font-weight: 600;
+  font-size: var(--step-1);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.stamp span {
+  font-family: "Public Sans", sans-serif;
+  font-size: 11px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ---------- reliability panel ---------- */
+.reliability {
+  margin-top: 28px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--sev);
+  border-radius: 3px;
+  box-shadow: var(--shadow);
+  padding: 22px 26px;
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto;
+  gap: 20px 40px;
+  align-items: start;
+}
+.reliability[data-level="none"] { --sev: var(--sev-none); }
+.reliability[data-level="low"]  { --sev: var(--sev-low); }
+.reliability[data-level="medium"]{ --sev: var(--sev-med); }
+.reliability[data-level="high"] { --sev: var(--sev-high); }
+
+.rel-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--sev);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border-radius: 2px;
+}
+.rel-head h2 {
+  margin: 0;
+  font-family: Oswald, "Arial Narrow", sans-serif;
+  font-weight: 500;
+  font-size: var(--step-2);
+  letter-spacing: .01em;
+}
+.reliability p {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--ink-2);
+}
+.reliability p + p { margin-top: 9px; }
+.reliability strong { color: var(--ink); font-weight: 600; }
+
+.diag {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 14px 26px;
+  font-family: "IBM Plex Mono", monospace;
+}
+.diag div { display: flex; flex-direction: column; }
+.diag b {
+  font-size: var(--step-2);
+  font-weight: 500;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  color: var(--sev);
+}
+.diag span {
+  font-family: "Public Sans", sans-serif;
+  font-size: 10.5px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-top: 2px;
+}
+
+/* ---------- controls ---------- */
+.controls {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 14px 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field label {
+  font-size: 10.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+.field input, .field select {
+  font: inherit;
+  font-size: var(--step-0);
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  padding: 7px 10px;
+  min-width: 150px;
+}
+.field input:focus-visible, .field select:focus-visible,
+.toggle:focus-visible, th button:focus-visible, .method summary:focus-visible {
+  outline: 2px solid var(--accent-bright);
+  outline-offset: 2px;
+}
+.field input { min-width: 230px; }
+
+.toggles { display: flex; gap: 8px; flex-wrap: wrap; }
+.toggle {
+  font: inherit;
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  padding: 8px 13px;
+  cursor: pointer;
+}
+.toggle[aria-pressed="true"] {
+  background: var(--accent-wash);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.count {
+  margin-left: auto;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: var(--step--1);
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+  padding-bottom: 8px;
+}
+
+/* ---------- board ---------- */
+.board-scroll { overflow-x: auto; margin-top: 4px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--paper);
+  border-bottom: 1.5px solid var(--ink);
+  padding: 0;
+  text-align: right;
+  white-space: nowrap;
+}
+thead th:nth-child(1), thead th:nth-child(2) { text-align: left; }
+th button {
+  font: inherit;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  background: none;
+  border: 0;
+  padding: 12px 9px;
+  cursor: pointer;
+  width: 100%;
+  text-align: inherit;
+  white-space: nowrap;
+}
+th button:hover { color: var(--ink); }
+th[aria-sort] button { color: var(--accent); }
+th button .car { opacity: .55; font-size: 9px; }
+
+tbody td {
+  padding: 9px;
+  border-bottom: 1px solid var(--rule);
+  text-align: right;
+  white-space: nowrap;
+}
+tbody td:nth-child(1), tbody td:nth-child(2) { text-align: left; }
+tbody tr:hover td { background: var(--surface-sunk); }
+
+.c-rank {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 500;
+  color: var(--ink-3);
+  width: 58px;
+}
+tr[data-top="1"] .c-rank {
+  color: var(--accent);
+  font-weight: 600;
+}
+tr[data-top="1"] .c-rank::before {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 13px;
+  background: var(--accent-bright);
+  margin-right: 8px;
+  vertical-align: -2px;
+}
+
+.c-team {
+  font-family: Oswald, "Arial Narrow", sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: .005em;
+  min-width: 210px;
+}
+.c-team .flag {
+  display: inline-block;
+  margin-left: 7px;
+  font-family: "Public Sans", sans-serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--sev-low);
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  padding: 0 4px;
+  vertical-align: 2px;
+  cursor: help;
+}
+.c-team .oos {
+  color: var(--ink-3);
+  border-color: var(--rule-strong);
+}
+
+.c-meta { font-size: var(--step--1); color: var(--ink-3); width: 82px; }
+.c-rec  { font-family: "IBM Plex Mono", monospace; font-size: var(--step--1); color: var(--ink-2); width: 62px; }
+
+.c-rating {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+  font-size: 1rem;
+  width: 86px;
+}
+.c-num {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: var(--step--1);
+  color: var(--ink-2);
+  width: 82px;
+}
+.pos { color: var(--sev-high); }
+.neg { color: var(--sev-none); }
+
+.empty {
+  padding: 60px 10px;
+  text-align: center;
+  color: var(--ink-3);
+}
+
+/* ---------- methodology ---------- */
+.method {
+  margin-top: 40px;
+  border-top: 1px solid var(--rule);
+  padding-top: 8px;
+}
+.method summary {
+  cursor: pointer;
+  font-family: Oswald, "Arial Narrow", sans-serif;
+  font-weight: 500;
+  font-size: var(--step-1);
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  padding: 12px 0;
+  list-style: none;
+}
+.method summary::-webkit-details-marker { display: none; }
+.method summary::before {
+  content: "+";
+  display: inline-block;
+  width: 20px;
+  color: var(--accent);
+  font-family: "IBM Plex Mono", monospace;
+}
+.method[open] summary::before { content: "\2212"; }
+.method-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(268px, 1fr));
+  gap: 28px 44px;
+  padding: 12px 0 8px 20px;
+}
+.method-body h3 {
+  margin: 0 0 6px;
+  font-size: var(--step-0);
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+.method-body h3 code {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .8125rem;
+  color: var(--accent);
+  background: var(--accent-wash);
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+.method-body p { margin: 0; color: var(--ink-2); font-size: var(--step--1); max-width: 60ch; }
+.method-body p + p { margin-top: 8px; }
+
+.foot {
+  margin-top: 34px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  font-size: var(--step--1);
+  color: var(--ink-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  justify-content: space-between;
+}
+.foot a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+.foot a:hover { color: var(--accent-bright); }
+
+@media (max-width: 860px) {
+  .reliability { grid-template-columns: minmax(0,1fr); }
+  .brand h1 { font-size: var(--step-3); }
+  .count { margin-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="brand">
+      <h1>Buckeye <em>Rating</em> Board</h1>
+      <div class="sub" id="sub">Ohio varsity football &middot; 2026</div>
+    </div>
+    <div class="stamp">
+      <div><b id="s-games">—</b><span>Games</span></div>
+      <div><b id="s-teams">—</b><span>Teams</span></div>
+      <div><b id="s-hfa">—</b><span>Home edge</span></div>
+      <div><b id="s-week">—</b><span>Latest</span></div>
+    </div>
+  </header>
+
+  <section class="reliability" id="rel" data-level="none">
+    <div>
+      <div class="rel-head">
+        <span class="pill" id="rel-pill">—</span>
+        <h2 id="rel-title">Reliability</h2>
+      </div>
+      <p id="rel-body"></p>
+      <p id="rel-body2"></p>
+    </div>
+    <div class="diag">
+      <div><b id="d-comp">—</b><span>Separate groups</span></div>
+      <div><b id="d-largest">—</b><span>Biggest group</span></div>
+      <div><b id="d-avg">—</b><span>Games per team</span></div>
+      <div><b id="d-frac">—</b><span>Field connected</span></div>
+    </div>
+  </section>
+
+  <div class="controls">
+    <div class="field">
+      <label for="q">Search</label>
+      <input id="q" type="search" placeholder="School name" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="div">Division</label>
+      <select id="div"><option value="">All divisions</option></select>
+    </div>
+    <div class="field">
+      <label for="reg">Region</label>
+      <select id="reg"><option value="">All regions</option></select>
+    </div>
+    <div class="toggles">
+      <button class="toggle" id="t-compare" aria-pressed="false">Compare models</button>
+      <button class="toggle" id="t-oos" aria-pressed="false">Show out-of-state</button>
+    </div>
+    <div class="count" id="count"></div>
+  </div>
+
+  <div class="board-scroll">
+    <table id="board">
+      <thead><tr id="head"></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div class="empty" id="empty" hidden>No schools match those filters.</div>
+  </div>
+
+  <details class="method">
+    <summary>How these numbers are made</summary>
+    <div class="method-body">
+      <div>
+        <h3><code>Rating</code> — the headline</h3>
+        <p>A Bradley-Terry model where each game counts as a <em>fractional</em> win taken from the point margin. A 3-point win is worth about .59 of a win, a 17-point win about .85, a 45-point win about .97.</p>
+        <p>So margin still matters, but a 63-0 game is not worth nine times a 7-0 game. The number is in points: the difference between two ratings is the expected margin on a neutral field.</p>
+      </div>
+      <div>
+        <h3><code>BT (W/L)</code> — record only</h3>
+        <p>Textbook Bradley-Terry on wins and losses, margin discarded entirely. Immune to running up the score, and blind to how close anything was.</p>
+        <p>Early in the season this column is nearly flat, because a single win or loss is one bit of information and every team has exactly one.</p>
+      </div>
+      <div>
+        <h3><code>Massey</code> — raw margin</h3>
+        <p>Least squares on point differential, with no diminishing returns at all. It uses every point, which is why it separates teams earliest — and why it rewards a running-clock blowout against a weak opponent.</p>
+        <p>Where Massey and the headline rating disagree sharply, a team's margins are doing more work than its schedule justifies.</p>
+      </div>
+      <div>
+        <h3><code>Harbin</code> — the official one</h3>
+        <p>OHSAA's playoff qualifier, shown for comparison. It counts wins weighted by opponent division and by the wins of teams you beat. It ignores margin and gives nothing at all for a loss, however narrow.</p>
+        <p>It answers "who earned a playoff spot", not "who is best". The two questions have different answers.</p>
+      </div>
+      <div>
+        <h3>Shrinkage</h3>
+        <p>Every model is pulled toward the field average by a fixed prior worth about 1.5 pseudo-games. This is what makes the math solvable at all in Week 1, when the unregularized estimate is infinite.</p>
+        <p>The prior does not decay on a schedule — real games simply outgrow it. By Week 8 it is noise.</p>
+      </div>
+      <div>
+        <h3>Same-name schools</h3>
+        <p>Ohio fields three schools called Northwest, three called Perry, three called Crestview, and a long tail of North / South / East. Names are matched to schools using each team's running record and the regions its opponents come from.</p>
+        <p>Where that is not decisive the schools are kept separate and tagged <span class="flag" style="cursor:default">?</span> — never merged, because merging two programs silently corrupts every rating that touches them.</p>
+      </div>
+    </div>
+  </details>
+
+  <div class="foot">
+    <div>Scores and OHSAA divisions from <a href="https://joeeitel.com/hsfoot/" target="_blank" rel="noopener">Joe Eitel's Ohio HS Football</a>, a one-person site running since 2000.</div>
+    <div id="foot-stamp"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var DATA = window.__RATINGS__ || null;
+
+  var COLS = [
+    { key: "rank",     label: "#",       cls: "c-rank",   always: true,  num: true,  dir: 1  },
+    { key: "name",     label: "School",  cls: "c-team",   always: true,  num: false, dir: 1  },
+    { key: "divreg",   label: "Div/Rg",  cls: "c-meta",   always: true,  num: false, dir: 1  },
+    { key: "rec",      label: "Rec",     cls: "c-rec",    always: true,  num: false, dir: 1  },
+    { key: "rating",   label: "Rating",  cls: "c-rating", always: true,  num: true,  dir: -1 },
+    { key: "btBinary", label: "BT (W/L)",cls: "c-num",    always: false, num: true,  dir: -1 },
+    { key: "massey",   label: "Massey",  cls: "c-num",    always: false, num: true,  dir: -1 },
+    { key: "harbin",   label: "Harbin",  cls: "c-num",    always: true,  num: true,  dir: -1 },
+    { key: "sos",      label: "SOS",     cls: "c-num",    always: true,  num: true,  dir: -1 },
+    { key: "pd",       label: "Pt diff", cls: "c-num",    always: true,  num: true,  dir: -1 }
+  ];
+
+  var state = { q: "", div: "", reg: "", compare: false, oos: false, sort: "rating", dir: -1 };
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  function pct(f) {
+    if (f >= 0.01 || f === 0) return Math.round(f * 100) + "%";
+    return "<1%";
+  }
+
+  function fmt(v, digits) {
+    if (v === null || v === undefined) return "—";
+    return Number(v).toFixed(digits === undefined ? 2 : digits);
+  }
+
+  function signed(v) {
+    if (v === null || v === undefined) return "—";
+    var n = Number(v);
+    return (n > 0 ? "+" : "") + n.toFixed(2);
+  }
+
+  function activeCols() {
+    return COLS.filter(function (c) { return c.always || state.compare; });
+  }
+
+  function renderHead() {
+    var tr = $("head");
+    tr.innerHTML = "";
+    activeCols().forEach(function (c) {
+      var th = document.createElement("th");
+      var b = document.createElement("button");
+      b.type = "button";
+      b.innerHTML = c.label + (state.sort === c.key
+        ? ' <span class="car">' + (state.dir === -1 ? "▼" : "▲") + "</span>"
+        : "");
+      if (state.sort === c.key) {
+        th.setAttribute("aria-sort", state.dir === -1 ? "descending" : "ascending");
+      }
+      b.addEventListener("click", function () {
+        if (state.sort === c.key) { state.dir = -state.dir; }
+        else { state.sort = c.key; state.dir = c.dir; }
+        render();
+      });
+      th.appendChild(b);
+      tr.appendChild(th);
+    });
+  }
+
+  function value(t, key) {
+    if (key === "divreg") return t.division ? t.division + "-" + t.region : "";
+    if (key === "rec") return t.w + "-" + t.l + (t.t ? "-" + t.t : "");
+    return t[key];
+  }
+
+  function filtered() {
+    var q = state.q.trim().toLowerCase();
+    return DATA.teams.filter(function (t) {
+      if (!state.oos && !t.inOhio) return false;
+      if (state.div && t.division !== state.div) return false;
+      if (state.reg && String(t.region) !== state.reg) return false;
+      if (q && t.name.toLowerCase().indexOf(q) === -1) return false;
+      return true;
+    });
+  }
+
+  function render() {
+    renderHead();
+    var rows = filtered();
+    var key = state.sort, dir = state.dir;
+
+    rows.sort(function (a, b) {
+      var va = value(a, key), vb = value(b, key);
+      if (va === null || va === undefined) va = dir === -1 ? -Infinity : Infinity;
+      if (vb === null || vb === undefined) vb = dir === -1 ? -Infinity : Infinity;
+      if (typeof va === "string" || typeof vb === "string") {
+        va = String(va); vb = String(vb);
+        return va < vb ? -dir : va > vb ? dir : 0;
+      }
+      return (va - vb) * dir;
+    });
+
+    var tb = $("rows");
+    tb.innerHTML = "";
+    var cols = activeCols();
+    var frag = document.createDocumentFragment();
+
+    rows.forEach(function (t) {
+      var tr = document.createElement("tr");
+      if (t.rank && t.rank <= 10) tr.setAttribute("data-top", "1");
+
+      cols.forEach(function (c) {
+        var td = document.createElement("td");
+        td.className = c.cls;
+
+        if (c.key === "name") {
+          td.appendChild(document.createTextNode(t.name));
+          if (!t.inOhio) {
+            var o = document.createElement("span");
+            o.className = "flag oos";
+            o.textContent = "OOS";
+            o.title = "Out of state — rated because the result informs its Ohio opponent, but not ranked.";
+            td.appendChild(o);
+          } else if (t.ambiguous) {
+            var f = document.createElement("span");
+            f.className = "flag";
+            f.textContent = "?";
+            f.title = t.note || "Shares a name with another school; identity not confirmed.";
+            td.appendChild(f);
+          }
+        } else if (c.key === "rank") {
+          td.textContent = t.rank ? t.rank : "—";
+        } else if (c.key === "divreg" || c.key === "rec") {
+          td.textContent = value(t, c.key) || "—";
+        } else if (c.key === "pd") {
+          td.textContent = (t.pd > 0 ? "+" : "") + t.pd;
+          td.className += t.pd > 0 ? " pos" : t.pd < 0 ? " neg" : "";
+        } else if (c.key === "harbin") {
+          td.textContent = t.harbin === null || t.harbin === undefined ? "—" : fmt(t.harbin, 1);
+        } else if (c.key === "rating") {
+          td.textContent = signed(t.rating);
+          td.className += t.rating > 0 ? " pos" : t.rating < 0 ? " neg" : "";
+        } else {
+          td.textContent = signed(t[c.key]);
+        }
+        tr.appendChild(td);
+      });
+      frag.appendChild(tr);
+    });
+
+    tb.appendChild(frag);
+    $("empty").hidden = rows.length > 0;
+    $("count").textContent = rows.length + " of " + DATA.teams.length + " shown";
+  }
+
+  var COPY = {
+    none: {
+      title: "These are not rankings yet",
+      body: "Every team has played about one game, so the schedule graph is still {comp} separate islands — the biggest one holds just {largest} teams. Ratings only carry meaning between teams joined by a chain of results, and almost no two teams here are joined at all.",
+      body2: "What the board is really showing you is margin of victory against an unknown opponent. Watch the <strong>BT (W/L)</strong> column under Compare models: it is nearly a flat line, because one win is one bit of information and everybody has exactly one. Expect this to become genuinely informative around Week 4 or 5, once non-conference and league play have stitched the regions together."
+    },
+    low: {
+      title: "Still fragmented",
+      body: "The schedule graph has consolidated into {comp} groups, the largest holding {largest} teams — {frac} of the field. Comparisons inside that group are starting to mean something; comparisons across groups are still mostly the prior talking.",
+      body2: "Treat divisional and regional views as more trustworthy than the statewide list for now."
+    },
+    medium: {
+      title: "Starting to mean something",
+      body: "{frac} of the field now sits in one connected group, averaging {avg} games per team. Strength of schedule is doing real work, and the ordering is no longer dominated by who scheduled the weakest Week 1 opponent.",
+      body2: "Cross-region comparisons remain the shakiest part of the board — Ohio teams mostly play close to home, so the links between distant regions are thin."
+    },
+    high: {
+      title: "The board is usable",
+      body: "{frac} of the field is connected in a single group at {avg} games per team. Ratings are comparable statewide, and strength of schedule is well identified.",
+      body2: "Where the headline rating and Massey disagree, the team's margins are outrunning its schedule."
+    }
+  };
+
+  function boot() {
+    if (!DATA) { return; }
+    var c = DATA.connectivity;
+
+    $("s-games").textContent = DATA.gameCount;
+    $("s-teams").textContent = DATA.ohioTeamCount;
+    $("s-hfa").textContent = "+" + fmt(DATA.hfa.rating, 1);
+    var wk = DATA.weeksLoaded.length ? Math.max.apply(null, DATA.weeksLoaded) : 0;
+    $("s-week").textContent = "Wk " + wk;
+    $("sub").textContent = "Ohio varsity football · " + DATA.season + " · through Week " + wk;
+
+    var rel = $("rel");
+    rel.setAttribute("data-level", c.level);
+    $("rel-pill").textContent = c.label;
+    var copy = COPY[c.level] || COPY.none;
+    var subs = {
+      comp: c.components,
+      largest: c.largestComponent,
+      avg: c.avgGamesPerTeam,
+      frac: pct(c.largestComponentFrac)
+    };
+    function fill(s) {
+      return s.replace(/\{(\w+)\}/g, function (_, k) { return subs[k]; });
+    }
+    $("rel-title").textContent = copy.title;
+    $("rel-body").innerHTML = fill(copy.body);
+    $("rel-body2").innerHTML = fill(copy.body2);
+
+    $("d-comp").textContent = c.components;
+    $("d-largest").textContent = c.largestComponent;
+    $("d-avg").textContent = c.avgGamesPerTeam.toFixed(2);
+    $("d-frac").textContent = pct(c.largestComponentFrac);
+
+    var divs = [], regs = [];
+    DATA.teams.forEach(function (t) {
+      if (t.division && divs.indexOf(t.division) === -1) divs.push(t.division);
+      if (t.region && regs.indexOf(t.region) === -1) regs.push(t.region);
+    });
+    var ORDER = ["I", "II", "III", "IV", "V", "VI", "VII"];
+    divs.sort(function (a, b) { return ORDER.indexOf(a) - ORDER.indexOf(b); });
+    regs.sort(function (a, b) { return a - b; });
+    divs.forEach(function (d) {
+      var o = document.createElement("option");
+      o.value = d; o.textContent = "Division " + d;
+      $("div").appendChild(o);
+    });
+    regs.forEach(function (r) {
+      var o = document.createElement("option");
+      o.value = String(r); o.textContent = "Region " + r;
+      $("reg").appendChild(o);
+    });
+
+    $("foot-stamp").textContent = "Generated " + DATA.generatedAt.replace("T", " ") + " · "
+      + DATA.conflicts.length + " unresolved name conflict"
+      + (DATA.conflicts.length === 1 ? "" : "s");
+
+    $("q").addEventListener("input", function (e) { state.q = e.target.value; render(); });
+    $("div").addEventListener("change", function (e) { state.div = e.target.value; render(); });
+    $("reg").addEventListener("change", function (e) { state.reg = e.target.value; render(); });
+    $("t-compare").addEventListener("click", function (e) {
+      state.compare = !state.compare;
+      e.currentTarget.setAttribute("aria-pressed", String(state.compare));
+      render();
+    });
+    $("t-oos").addEventListener("click", function (e) {
+      state.oos = !state.oos;
+      e.currentTarget.setAttribute("aria-pressed", String(state.oos));
+      render();
+    });
+
+    render();
+  }
+
+  if (DATA) {
+    boot();
+  } else {
+    fetch("ratings.json")
+      .then(function (r) { return r.json(); })
+      .then(function (j) { DATA = j; boot(); })
+      .catch(function () {
+        document.getElementById("empty").hidden = false;
+        document.getElementById("empty").textContent =
+          "Could not load ratings.json.";
+      });
+  }
+})();
+</script>
+
+</body>
+</html>

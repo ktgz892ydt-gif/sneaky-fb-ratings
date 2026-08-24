@@ -1,0 +1,700 @@
+name,division,region,record,harbin
+Brunswick,I,1,1-0,6.5
+Hudson,I,1,1-0,6.5
+St Edward,I,1,1-0,6.5
+Canton McKinley,I,1,1-0,6.0
+Euclid,I,1,1-0,6.0
+Mentor,I,1,1-0,6.0
+Strongsville,I,1,1-0,6.0
+Jackson,I,1,1-0,5.5
+Austintown-Fitch,I,1,0-1,0.0
+Berea-Midpark,I,1,0-1,0.0
+Cleveland Heights,I,1,0-1,0.0
+Elyria,I,1,0-1,0.0
+GlenOak,I,1,0-1,0.0
+John Marshall,I,1,0-1,0.0
+Lorain,I,1,0-1,0.0
+Medina,I,1,0-1,0.0
+Solon,I,1,0-1,0.0
+St Ignatius,I,1,0-1,0.0
+Stow-Munroe Falls,I,1,0-1,0.0
+Hilliard Darby,I,2,1-0,6.5
+Springfield,I,2,1-0,6.5
+Whitmer,I,2,1-0,6.5
+Beavercreek,I,2,1-0,6.0
+Grove City,I,2,1-0,6.0
+Westland,I,2,1-0,6.0
+Dublin Coffman,I,2,1-0,5.5
+Hilliard Davidson,I,2,1-0,5.5
+Miamisburg,I,2,1-0,5.5
+Perrysburg,I,2,1-0,5.5
+St John's Jesuit,I,2,1-0,5.5
+Centerville,I,2,0-1,0.0
+Central Crossing,I,2,0-1,0.0
+Dublin Jerome,I,2,0-1,0.0
+Dublin Scioto,I,2,0-1,0.0
+Hilliard Bradley,I,2,0-1,0.0
+Kettering Fairmont,I,2,0-1,0.0
+Marysville,I,2,0-1,0.0
+Northmont,I,2,0-1,0.0
+Wayne,I,2,0-1,0.0
+Gahanna Lincoln,I,3,1-0,6.5
+Newark,I,3,1-0,6.5
+Olentangy Berlin,I,3,1-0,6.5
+St Charles,I,3,1-0,6.5
+Thomas Worthington,I,3,1-0,6.5
+Upper Arlington,I,3,1-0,6.5
+Westerville North,I,3,1-0,6.5
+Westerville South,I,3,1-0,6.5
+Pickerington North,I,3,1-0,6.0
+Worthington Kilbourne,I,3,1-0,6.0
+Delaware Hayes,I,3,1-0,5.0
+Westerville Central,I,3,1-0,5.0
+Groveport Madison,I,3,1-0,4.5
+Lancaster,I,3,0-1,0.0
+Licking Heights,I,3,0-1,0.0
+Olentangy,I,3,0-1,0.0
+Olentangy Liberty,I,3,0-1,0.0
+Olentangy Orange,I,3,0-1,0.0
+Pickerington Central,I,3,0-1,0.0
+Reynoldsburg,I,3,0-1,0.0
+Elder,I,4,1-0,6.5
+Fairfield,I,4,1-0,6.5
+Lakota East,I,4,1-0,6.5
+Lakota West,I,4,1-0,6.5
+Lebanon,I,4,1-0,6.5
+Princeton,I,4,1-0,6.5
+Springboro,I,4,1-0,6.5
+Oak Hills,I,4,1-0,6.0
+West Clermont,I,4,1-0,5.5
+Little Miami,I,4,1-0,5.0
+Archbishop Moeller,I,4,0-1,0.0
+Colerain,I,4,0-1,0.0
+Hamilton,I,4,0-1,0.0
+Mason,I,4,0-1,0.0
+Middletown,I,4,0-1,0.0
+Milford,I,4,0-1,0.0
+St Xavier,I,4,0-1,0.0
+Sycamore,I,4,0-1,0.0
+Walnut Hills,I,4,0-1,0.0
+Western Hills,I,4,0-1,0.0
+Winton Woods,I,4,0-1,0.0
+Mayfield,II,5,1-0,6.5
+Wadsworth,II,5,1-0,6.5
+Barberton,II,5,1-0,6.0
+North,II,5,1-0,6.0
+North Royalton,II,5,1-0,6.0
+Walsh Jesuit,II,5,1-0,6.0
+Brecksville-Broadview Heights,II,5,1-0,5.5
+Nordonia,II,5,1-0,5.5
+Shaker Heights,II,5,1-0,5.5
+Archbishop Hoban,II,5,0-1,0.0
+Boardman,II,5,0-1,0.0
+Brush,II,5,0-1,0.0
+Cuyahoga Falls,II,5,0-1,0.0
+Ellet,II,5,0-1,0.0
+Firestone,II,5,0-1,0.0
+Garfield,II,5,0-1,0.0
+Highland,II,5,0-1,0.0
+John Hay,II,5,0-1,0.0
+North,II,5,0-1,0.0
+Riverside,II,5,0-1,0.0
+Twinsburg,II,5,0-1,0.0
+Villa Angela-St Joseph,II,5,0-1,0.0
+Warren G Harding,II,5,0-1,0.0
+Avon,II,6,1-0,6.5
+Findlay,II,6,1-0,6.5
+Lakewood,II,6,1-0,6.5
+Amherst Steele,II,6,1-0,6.0
+Central Catholic,II,6,1-0,6.0
+St Francis de Sales,II,6,1-0,6.0
+Sylvania Southview,II,6,1-0,6.0
+Clay,II,6,1-0,5.5
+Fremont Ross,II,6,1-0,5.5
+Springfield,II,6,1-0,5.5
+Start,II,6,1-0,5.5
+Anthony Wayne,II,6,0-1,0.0
+Avon Lake,II,6,0-1,0.0
+Bowsher,II,6,0-1,0.0
+Normandy,II,6,0-1,0.0
+North Olmsted,II,6,0-1,0.0
+North Ridgeville,II,6,0-1,0.0
+Olmsted Falls,II,6,0-1,0.0
+Rhodes,II,6,0-1,0.0
+Rogers,II,6,0-1,0.0
+Sandusky,II,6,0-1,0.0
+Sylvania Northview,II,6,0-1,0.0
+Valley Forge,II,6,0-1,0.0
+Waite,II,6,0-1,0.0
+Westlake,II,6,0-1,0.0
+Big Walnut,II,7,1-0,6.5
+Bishop Watterson,II,7,1-0,6.0
+Hamilton Township,II,7,1-0,6.0
+Lake,II,7,1-0,6.0
+Marion Harding,II,7,1-0,6.0
+Hoover,II,7,1-0,5.5
+Louisville,II,7,1-0,5.5
+Massillon Washington,II,7,1-0,5.5
+St Francis DeSales,II,7,1-0,5.5
+Ashland,II,7,1-0,5.0
+New Albany,II,7,1-0,5.0
+Perry,II,7,1-0,4.5
+Canal Winchester,II,7,0-1,0.0
+Green,II,7,0-1,0.0
+Independence,II,7,0-1,0.0
+Logan,II,7,0-1,0.0
+Mifflin,II,7,0-1,0.0
+Mount Vernon,II,7,0-1,0.0
+Northland,II,7,0-1,0.0
+Teays Valley,II,7,0-1,0.0
+Walnut Ridge,II,7,0-1,0.0
+Watkins Memorial,II,7,0-1,0.0
+Whetstone,II,7,0-1,0.0
+Whitehall-Yearling,II,7,0-1,0.0
+Wooster,II,7,0-1,0.0
+Badin,II,8,1-0,6.5
+Harrison,II,8,1-0,6.5
+Kings,II,8,1-0,6.5
+La Salle,II,8,1-0,6.5
+Withrow,II,8,1-0,6.5
+Lima Senior,II,8,1-0,6.0
+West,II,8,1-0,6.0
+Butler,II,8,1-0,5.5
+Fairborn,II,8,1-0,5.5
+Stebbins,II,8,1-0,5.5
+Aiken,II,8,1-0,5.0
+Belmont,II,8,1-0,5.0
+Talawanda,II,8,1-0,5.0
+Anderson,II,8,0-1,0.0
+Briggs,II,8,0-1,0.0
+Edgewood,II,8,0-1,0.0
+Franklin Heights,II,8,0-1,0.0
+Loveland,II,8,0-1,0.0
+Piqua,II,8,0-1,0.0
+Ross,II,8,0-1,0.0
+Sidney,II,8,0-1,0.0
+Trotwood-Madison,II,8,0-1,0.0
+Troy,II,8,0-1,0.0
+Turpin,II,8,0-1,0.0
+Xenia,II,8,0-1,0.0
+Aurora,III,9,1-0,6.5
+Kenston,III,9,1-0,6.5
+Maple Heights,III,9,1-0,6.5
+Kent Roosevelt,III,9,1-0,6.0
+South,III,9,1-0,6.0
+Tallmadge,III,9,1-0,6.0
+Benedictine,III,9,1-0,5.5
+Garfield Heights,III,9,1-0,5.5
+John Adams,III,9,1-0,5.5
+Hawken,III,9,1-0,5.0
+Howland,III,9,1-0,5.0
+Notre Dame-Cathedral Latin,III,9,1-0,5.0
+Salem,III,9,1-0,5.0
+University School,III,9,1-0,5.0
+Harvey,III,9,1-0,4.5
+Alliance,III,9,0-1,0.0
+Bedford,III,9,0-1,0.0
+Canfield,III,9,0-1,0.0
+Chardon,III,9,0-1,0.0
+Cuyahoga Valley Christian Academy,III,9,0-1,0.0
+Geneva,III,9,0-1,0.0
+Gilmour Academy,III,9,0-1,0.0
+John F Kennedy,III,9,0-1,0.0
+Lake Catholic,III,9,0-1,0.0
+Lakeside,III,9,0-0,0.0
+Madison,III,9,0-1,0.0
+Ursuline,III,9,0-1,0.0
+Holy Name,III,10,1-0,6.0
+Midview,III,10,1-0,6.0
+Elyria Catholic,III,10,1-0,5.5
+Ontario,III,10,1-0,5.5
+Cloverleaf,III,10,1-0,5.0
+Copley,III,10,1-0,5.0
+Defiance,III,10,1-0,5.0
+St Marys Memorial,III,10,1-0,4.5
+Celina,III,10,1-0,4.0
+Bowling Green,III,10,0-1,0.0
+Buchtel,III,10,0-1,0.0
+East Technical,III,10,0-0,0.0
+Lexington,III,10,0-1,0.0
+Lutheran West,III,10,0-1,0.0
+Madison Comprehensive,III,10,0-1,0.0
+Mansfield Senior,III,10,0-1,0.0
+Maumee,III,10,0-1,0.0
+Norwalk,III,10,0-1,0.0
+Padua Franciscan,III,10,0-1,0.0
+Revere,III,10,0-1,0.0
+Scott,III,10,0-1,0.0
+Shawnee,III,10,0-1,0.0
+St Vincent-St Mary,III,10,0-1,0.0
+Tiffin Columbian,III,10,0-1,0.0
+Wapakoneta,III,10,0-1,0.0
+Woodward,III,10,0-1,0.0
+Dover,III,11,1-0,6.5
+Athens,III,11,1-0,6.0
+East,III,11,1-0,6.0
+South,III,11,1-0,6.0
+Steubenville,III,11,1-0,6.0
+Beechcroft,III,11,1-0,5.5
+Licking Valley,III,11,1-0,5.5
+Linden McKinley,III,11,1-0,5.5
+Zanesville,III,11,1-0,5.5
+Bloom-Carroll,III,11,1-0,5.0
+Jonathan Alder,III,11,1-0,4.5
+Tri-Valley,III,11,1-0,4.5
+Bexley,III,11,0-1,0.0
+Bishop Hartley,III,11,0-1,0.0
+Centennial,III,11,0-1,0.0
+Eastmoor Academy,III,11,0-1,0.0
+Gallia Academy,III,11,0-1,0.0
+Granville,III,11,0-1,0.0
+Jackson,III,11,0-1,0.0
+KIPP Columbus,III,11,0-1,0.0
+Marietta,III,11,0-1,0.0
+Maysville,III,11,0-1,0.0
+New Philadelphia,III,11,0-1,0.0
+Sheridan,III,11,0-1,0.0
+Warren,III,11,0-1,0.0
+Archbishop Alter,III,12,1-0,6.5
+Archbishop McNicholas,III,12,1-0,6.0
+Bellefontaine,III,12,1-0,6.0
+Monroe,III,12,1-0,6.0
+Bellbrook,III,12,1-0,5.5
+Hughes,III,12,1-0,5.5
+Unioto,III,12,1-0,5.5
+Western Brown,III,12,1-0,5.5
+Chillicothe,III,12,1-0,5.0
+Goshen,III,12,1-0,5.0
+Indian Hill,III,12,1-0,5.0
+Miami Trace,III,12,1-0,5.0
+Northwest,III,12,1-0,5.0
+Archbishop Carroll,III,12,0-1,0.0
+Batavia,III,12,0-1,0.0
+Bethel,III,12,0-1,0.0
+Chaminade Julienne,III,12,0-1,0.0
+Franklin,III,12,0-1,0.0
+Greenville,III,12,0-1,0.0
+Hillsboro,III,12,0-1,0.0
+Mount Healthy,III,12,0-1,0.0
+Ponitz Tech,III,12,0-1,0.0
+Tecumseh,III,12,0-1,0.0
+Thurgood Marshall,III,12,0-1,0.0
+Tippecanoe,III,12,0-1,0.0
+West Carrollton,III,12,0-1,0.0
+Norton,IV,13,1-0,6.0
+Orange,IV,13,1-0,6.0
+Orrville,IV,13,1-0,6.0
+East,IV,13,1-0,5.5
+Northwest,IV,13,1-0,5.5
+Woodridge,IV,13,1-0,5.5
+Marlington,IV,13,1-0,5.0
+West Branch,IV,13,1-0,5.0
+Rocky River,IV,13,1-0,4.5
+West Geauga,IV,13,1-0,4.5
+Edgewood,IV,13,1-0,3.5
+Cleveland Central Catholic,IV,13,0-1,0.0
+Coventry,IV,13,0-1,0.0
+Field,IV,13,0-1,0.0
+Hubbard,IV,13,0-1,0.0
+Jefferson Area,IV,13,0-1,0.0
+Lutheran East,IV,13,0-1,0.0
+Niles McKinley,IV,13,0-1,0.0
+Poland Seminary,IV,13,0-1,0.0
+Springfield,IV,13,0-1,0.0
+Streetsboro,IV,13,0-1,0.0
+Struthers,IV,13,0-1,0.0
+Trinity,IV,13,0-1,0.0
+Warrensville Heights,IV,13,0-1,0.0
+Elida,IV,14,1-0,6.0
+Firelands,IV,14,1-0,6.0
+Otsego,IV,14,1-0,6.0
+Perkins,IV,14,1-0,6.0
+Clear Fork,IV,14,1-0,5.5
+Shelby,IV,14,1-0,5.5
+Bellevue,IV,14,1-0,5.0
+Van Wert,IV,14,1-0,5.0
+Ottawa-Glandorf,IV,14,1-0,4.5
+Highland,IV,14,1-0,4.0
+Upper Sandusky,IV,14,1-0,4.0
+Bay,IV,14,0-1,0.0
+Benjamin Logan,IV,14,0-1,0.0
+Brookside,IV,14,0-1,0.0
+Bryan,IV,14,0-1,0.0
+Buckeye,IV,14,0-1,0.0
+Clearview,IV,14,0-1,0.0
+Clyde,IV,14,0-1,0.0
+Fostoria,IV,14,0-1,0.0
+Kenton,IV,14,0-1,0.0
+Lake,IV,14,0-1,0.0
+Napoleon,IV,14,0-1,0.0
+River Valley,IV,14,0-1,0.0
+Rossford,IV,14,0-1,0.0
+Wauseon,IV,14,0-1,0.0
+Indian Valley,IV,15,1-0,6.0
+Bishop Ready,IV,15,1-0,5.5
+Union Local,IV,15,1-0,5.5
+East Liverpool,IV,15,1-0,5.0
+Indian Creek,IV,15,1-0,5.0
+New Lexington,IV,15,1-0,5.0
+Philo,IV,15,1-0,5.0
+West Muskingum,IV,15,1-0,5.0
+Beaver Local,IV,15,1-0,4.5
+Claymont,IV,15,1-0,4.5
+Johnstown,IV,15,1-0,4.5
+Alexander,IV,15,1-0,3.5
+Buckeye Valley,IV,15,0-1,0.0
+Cambridge,IV,15,0-1,0.0
+Canton South,IV,15,0-1,0.0
+Carrollton,IV,15,0-1,0.0
+Circleville,IV,15,0-1,0.0
+Fairfield Union,IV,15,0-1,0.0
+Heath,IV,15,0-1,0.0
+John Glenn,IV,15,0-1,0.0
+Lakewood,IV,15,0-1,0.0
+Marion-Franklin,IV,15,0-1,0.0
+Minerva,IV,15,0-1,0.0
+St Clairsville,IV,15,0-1,0.0
+Waverly,IV,15,0-1,0.0
+West Holmes,IV,15,0-1,0.0
+Dunbar,IV,16,1-0,6.0
+Meadowdale,IV,16,1-0,6.0
+Wyoming,IV,16,1-0,6.0
+Eaton,IV,16,1-0,5.5
+Oakwood,IV,16,1-0,5.5
+Cincinnati Hills Christian Academy,IV,16,1-0,4.5
+New Richmond,IV,16,1-0,4.5
+McClain,IV,16,1-0,4.0
+Urbana,IV,16,1-0,4.0
+Clark Montessori,IV,16,0-1,0.0
+Clinton-Massie,IV,16,0-1,0.0
+Kenton Ridge,IV,16,0-1,0.0
+London,IV,16,0-1,0.0
+North College Hill,IV,16,0-0,0.0
+Northridge,IV,16,0-1,0.0
+Norwood,IV,16,0-1,0.0
+Reading,IV,16,0-1,0.0
+Roger Bacon,IV,16,0-1,0.0
+Shawnee,IV,16,0-1,0.0
+Shroder,IV,16,0-1,0.0
+Taft,IV,16,0-1,0.0
+Taylor,IV,16,0-1,0.0
+Valley View,IV,16,0-1,0.0
+Washington,IV,16,0-1,0.0
+Wilmington,IV,16,0-1,0.0
+Woodward,IV,16,0-1,0.0
+Cardinal Mooney,V,17,1-0,5.5
+Perry,V,17,1-0,5.5
+Barnesville,V,17,1-0,5.0
+Chagrin Falls,V,17,1-0,5.0
+Girard,V,17,1-0,5.0
+Ravenna,V,17,1-0,5.0
+Shaw,V,17,1-0,5.0
+Bellaire,V,17,1-0,4.5
+Fairless,V,17,1-0,4.5
+Tuscarawas Valley,V,17,1-0,4.5
+Garfield,V,17,1-0,4.0
+Liberty,V,17,1-0,4.0
+Martins Ferry,V,17,1-0,4.0
+Conneaut,V,17,1-0,3.5
+Beachwood,V,17,0-1,0.0
+Berkshire,V,17,0-1,0.0
+Buckeye Local,V,17,0-1,0.0
+Canton Central Catholic,V,17,0-1,0.0
+Crestview,V,17,0-1,0.0
+Crestwood,V,17,0-1,0.0
+Edison,V,17,0-1,0.0
+Harrison Central,V,17,0-1,0.0
+Lakeview,V,17,0-1,0.0
+Manchester,V,17,0-1,0.0
+Sandy Valley,V,17,0-1,0.0
+Southeast,V,17,0-1,0.0
+Tuslaw,V,17,0-1,0.0
+Bluffton,V,18,1-0,5.0
+Coldwater,V,18,1-0,5.0
+Eastwood,V,18,1-0,5.0
+Northwood,V,18,1-0,5.0
+Triway,V,18,1-0,5.0
+Archbold,V,18,1-0,4.5
+Indian Lake,V,18,1-0,4.5
+Keystone,V,18,1-0,4.5
+North Union,V,18,1-0,4.5
+Oak Harbor,V,18,1-0,4.0
+Margaretta,V,18,1-0,3.5
+Port Clinton,V,18,1-0,3.5
+Swanton,V,18,1-0,3.5
+Willard,V,18,1-0,3.5
+Bath,V,18,0-1,0.0
+Brooklyn,V,18,0-1,0.0
+Edison,V,18,0-1,0.0
+Fairview,V,18,0-1,0.0
+Galion,V,18,0-1,0.0
+Genoa Area,V,18,0-1,0.0
+Liberty-Benton,V,18,0-1,0.0
+Norwayne,V,18,0-1,0.0
+Pleasant,V,18,0-1,0.0
+Vermilion,V,18,0-1,0.0
+Waynedale,V,18,0-1,0.0
+Columbus Academy,V,19,1-0,6.0
+Morgan,V,19,1-0,5.5
+Coshocton,V,19,1-0,4.5
+Fort Frye,V,19,1-0,4.5
+Ironton,V,19,1-0,4.5
+Wheelersburg,V,19,1-0,4.5
+Worthington Christian,V,19,1-0,4.5
+Piketon,V,19,1-0,4.0
+Wellston,V,19,1-0,4.0
+Meigs,V,19,1-0,3.5
+South Point,V,19,1-0,3.5
+Africentric Early College,V,19,0-1,0.0
+Amanda-Clearcreek,V,19,0-1,0.0
+Chesapeake,V,19,0-1,0.0
+Dawson-Bryant,V,19,0-1,0.0
+Fairbanks,V,19,0-1,0.0
+Fairland,V,19,0-1,0.0
+Grove City Christian,V,19,0-1,0.0
+Logan Elm,V,19,0-1,0.0
+Meadowbrook,V,19,0-1,0.0
+Portsmouth,V,19,0-1,0.0
+Ridgewood,V,19,0-1,0.0
+River Valley,V,19,0-1,0.0
+River View,V,19,0-1,0.0
+Utica,V,19,0-1,0.0
+Vinton County,V,19,0-1,0.0
+Westfall,V,19,0-1,0.0
+Purcell Marian,V,20,1-0,5.5
+Graham Local,V,20,1-0,5.0
+Greenon,V,20,1-0,5.0
+Madeira,V,20,1-0,5.0
+Waynesville,V,20,1-0,5.0
+Carlisle,V,20,1-0,4.5
+Gamble Montessori,V,20,1-0,4.5
+Greeneview,V,20,1-0,4.5
+Mariemont,V,20,1-0,4.5
+Miami East,V,20,1-0,4.5
+Preble Shawnee,V,20,1-0,4.5
+Arcanum,V,20,0-1,0.0
+Bethel-Tate,V,20,0-1,0.0
+Bishop Fenwick,V,20,0-1,0.0
+Blanchester,V,20,0-1,0.0
+Brookville,V,20,0-1,0.0
+Clermont Northeastern,V,20,0-1,0.0
+Dayton Christian,V,20,0-1,0.0
+East Clinton,V,20,0-1,0.0
+Madison,V,20,0-1,0.0
+Milton-Union,V,20,0-1,0.0
+Northwestern,V,20,0-1,0.0
+Stivers,V,20,0-1,0.0
+Summit Country Day,V,20,0-1,0.0
+West Liberty-Salem,V,20,0-1,0.0
+Williamsburg,V,20,0-1,0.0
+Champion,VI,21,1-0,6.0
+South Range,VI,21,1-0,5.5
+Brookfield,VI,21,1-0,5.0
+Kirtland,VI,21,1-0,5.0
+United,VI,21,1-0,5.0
+Grand Valley,VI,21,1-0,4.5
+Richmond Heights,VI,21,1-0,4.5
+Rootstown,VI,21,1-0,4.5
+Smithville,VI,21,1-0,4.5
+Hillsdale,VI,21,1-0,4.0
+Mineral Ridge,VI,21,1-0,4.0
+Northwestern,VI,21,1-0,4.0
+Chippewa,VI,21,1-0,3.5
+Columbia,VI,21,1-0,3.5
+Columbiana,VI,21,1-0,3.5
+LaBrae,VI,21,1-0,3.5
+Lisbon David Anderson,VI,21,1-0,3.5
+Newton Falls,VI,21,1-0,3.5
+Wickliffe,VI,21,1-0,3.5
+Black River,VI,21,0-1,0.0
+Campbell Memorial,VI,21,0-1,0.0
+East Palestine,VI,21,0-1,0.0
+John F Kennedy,VI,21,0-1,0.0
+Pymatuning Valley,VI,21,0-1,0.0
+St Thomas Aquinas,VI,21,0-1,0.0
+Valley Christian School,VI,21,0-1,0.0
+Wellington,VI,21,0-1,0.0
+Lima Central Catholic,VI,22,1-0,5.5
+Fairview,VI,22,1-0,5.0
+Van Buren,VI,22,1-0,5.0
+Parkway,VI,22,1-0,4.5
+Patrick Henry,VI,22,1-0,4.5
+Allen East,VI,22,1-0,4.0
+Elmwood,VI,22,1-0,4.0
+Liberty Center,VI,22,1-0,4.0
+Paulding,VI,22,1-0,4.0
+Western Reserve,VI,22,1-0,4.0
+Wynford,VI,22,1-0,4.0
+Ada,VI,22,1-0,3.5
+Columbus Grove,VI,22,1-0,3.5
+Delta,VI,22,1-0,3.5
+Ottawa Hills,VI,22,1-0,3.5
+Seneca East,VI,22,1-0,3.5
+Woodmore,VI,22,1-0,3.5
+Bucyrus,VI,22,0-1,0.0
+Carey,VI,22,0-1,0.0
+Crestview,VI,22,0-1,0.0
+Crestview,VI,22,0-1,0.0
+Evergreen,VI,22,0-1,0.0
+Huron,VI,22,0-1,0.0
+Lakota,VI,22,0-1,0.0
+Perry,VI,22,0-1,0.0
+Spencerville,VI,22,0-1,0.0
+Tinora,VI,22,0-1,0.0
+Grandview Heights,VI,23,1-0,5.5
+Garaway,VI,23,1-0,5.0
+Berne Union,VI,23,1-0,4.5
+Centerburg,VI,23,1-0,4.5
+Colonel Crawford,VI,23,1-0,4.5
+Waterford,VI,23,1-0,4.5
+West Jefferson,VI,23,1-0,4.5
+Caldwell,VI,23,1-0,4.0
+East Knox,VI,23,1-0,4.0
+Monroe Central,VI,23,1-0,4.0
+Newark Catholic,VI,23,1-0,4.0
+Newcomerstown,VI,23,1-0,4.0
+Elgin,VI,23,1-0,3.5
+Nelsonville-York,VI,23,1-0,3.5
+River,VI,23,1-0,3.5
+Shenandoah,VI,23,1-0,3.5
+Bridgeport,VI,23,0-1,0.0
+Buckeye Trail,VI,23,0-1,0.0
+Cardington-Lincoln,VI,23,0-1,0.0
+Crooksville,VI,23,0-1,0.0
+Fredericktown,VI,23,0-1,0.0
+Harvest Prep,VI,23,0-1,0.0
+Liberty Union,VI,23,0-1,0.0
+Mount Gilead,VI,23,0-1,0.0
+Northmor,VI,23,0-1,0.0
+Northridge,VI,23,0-1,0.0
+Tri-Village,VI,24,1-0,5.5
+Deer Park,VI,24,1-0,5.0
+Mechanicsburg,VI,24,1-0,5.0
+St Bernard-Elmwood Place,VI,24,1-0,5.0
+Covington,VI,24,1-0,4.5
+Madison-Plains,VI,24,1-0,4.5
+Miami Valley Christian Academy,VI,24,1-0,4.5
+Portsmouth West,VI,24,1-0,4.5
+Zane Trace,VI,24,1-0,4.5
+Anna,VI,24,1-0,4.0
+Rock Hill,VI,24,1-0,4.0
+Versailles,VI,24,1-0,4.0
+Cincinnati College Prep,VI,24,1-0,3.5
+Dixie,VI,24,1-0,3.5
+Fayetteville,VI,24,1-0,3.5
+National Trail,VI,24,1-0,3.5
+Southeastern,VI,24,1-0,3.5
+Troy Christian,VI,24,1-0,3.5
+Valley,VI,24,1-0,3.5
+Adena,VI,24,0-1,0.0
+Finneytown,VI,24,0-0,0.0
+Huntington,VI,24,0-1,0.0
+Minford,VI,24,0-1,0.0
+Northeastern,VI,24,0-1,0.0
+Northwest,VI,24,0-1,0.0
+Oak Hill,VI,24,0-1,0.0
+St Henry,VI,24,0-1,0.0
+Western Reserve,VII,25,1-0,6.0
+Rittman,VII,25,1-0,5.5
+Malvern,VII,25,1-0,5.0
+Waterloo,VII,25,1-0,5.0
+Mogadore,VII,25,1-0,4.5
+Springfield,VII,25,1-0,4.5
+McDonald,VII,25,1-0,4.0
+Mathews,VII,25,1-0,3.5
+Cardinal,VII,25,0-1,0.0
+Cuyahoga Heights,VII,25,0-1,0.0
+Dalton,VII,25,0-1,0.0
+East Canton,VII,25,0-1,0.0
+Fairport Harding,VII,25,0-0,0.0
+Independence,VII,25,0-1,0.0
+Jackson-Milton,VII,25,0-1,0.0
+Leetonia,VII,25,0-1,0.0
+Lowellville,VII,25,0-1,0.0
+Mapleton,VII,25,0-1,0.0
+Monroeville,VII,25,0-1,0.0
+New London,VII,25,0-1,0.0
+South Central,VII,25,0-1,0.0
+Southern,VII,25,0-1,0.0
+St John School,VII,25,0-1,0.0
+St Paul,VII,25,0-1,0.0
+Wellsville,VII,25,0-1,0.0
+Hopewell-Loudon,VII,26,1-0,5.0
+Jefferson,VII,26,1-0,4.0
+North Baltimore,VII,26,1-0,4.0
+Arcadia,VII,26,1-0,3.5
+Buckeye Central,VII,26,1-0,3.5
+Edon,VII,26,1-0,3.5
+Hilltop,VII,26,1-0,3.5
+Leipsic,VII,26,1-0,3.5
+McComb,VII,26,1-0,3.5
+Montpelier,VII,26,1-0,3.5
+Riverdale,VII,26,1-0,3.5
+St John's,VII,26,1-0,3.5
+Toledo Christian,VII,26,1-0,3.5
+Antwerp,VII,26,0-1,0.0
+Arlington,VII,26,0-1,0.0
+Ayersville,VII,26,0-1,0.0
+Calvert,VII,26,0-1,0.0
+Cory-Rawson,VII,26,0-1,0.0
+Edgerton,VII,26,0-1,0.0
+Gibsonburg,VII,26,0-1,0.0
+Hicksville,VII,26,0-1,0.0
+Mohawk,VII,26,0-1,0.0
+North Central,VII,26,0-1,0.0
+Pandora-Gilboa,VII,26,0-1,0.0
+Vanlue,VII,26,0-1,0.0
+Wayne Trace,VII,26,0-1,0.0
+Symmes Valley,VII,27,1-0,4.5
+Frontier,VII,27,1-0,4.0
+Shadyside,VII,27,1-0,4.0
+Strasburg-Franklin,VII,27,1-0,4.0
+Conotton Valley,VII,27,1-0,3.5
+Danville,VII,27,1-0,3.5
+Fisher Catholic,VII,27,1-0,3.5
+Green,VII,27,1-0,3.5
+Loudonville,VII,27,1-0,3.5
+Lucas,VII,27,1-0,3.5
+Millersport,VII,27,1-0,3.5
+South Gallia,VII,27,1-0,3.5
+Toronto,VII,27,1-0,3.5
+Belpre,VII,27,0-1,0.0
+Bishop Rosecrans,VII,27,0-1,0.0
+Catholic Central,VII,27,0-1,0.0
+Crestline,VII,27,0-1,0.0
+Eastern,VII,27,0-1,0.0
+Eastern,VII,27,0-1,0.0
+Fairfield Christian Academy,VII,27,0-1,0.0
+Federal Hocking,VII,27,0-1,0.0
+Miller,VII,27,0-1,0.0
+Notre Dame,VII,27,0-1,0.0
+Sciotoville Community,VII,27,0-1,0.0
+Southern,VII,27,0-1,0.0
+Trimble,VII,27,0-1,0.0
+Tuscarawas Central Catholic,VII,27,0-1,0.0
+Fort Recovery,VII,28,1-0,5.5
+Cincinnati Country Day,VII,28,1-0,4.5
+Southeastern Local,VII,28,1-0,4.5
+Tri-County North,VII,28,1-0,4.5
+Marion Local,VII,28,1-0,4.0
+Ansonia,VII,28,1-0,3.5
+Minster,VII,28,1-0,3.5
+New Bremen,VII,28,1-0,3.5
+Triad,VII,28,1-0,3.5
+Waynesfield-Goshen,VII,28,1-0,3.5
+Bradford,VII,28,0-1,0.0
+Catholic Central,VII,28,0-1,0.0
+Cedarville,VII,28,0-1,0.0
+Fort Loramie,VII,28,0-1,0.0
+Hardin Northern,VII,28,0-1,0.0
+Jefferson Township,VII,28,0-0,0.0
+Lehman Catholic,VII,28,0-1,0.0
+Manchester,VII,28,0-1,0.0
+Mississinawa Valley,VII,28,0-1,0.0
+New Miami,VII,28,0-1,0.0
+Paint Valley,VII,28,0-1,0.0
+Ridgedale,VII,28,0-1,0.0
+Ridgemont,VII,28,0-1,0.0
+Riverside,VII,28,0-1,0.0
+Twin Valley South,VII,28,0-1,0.0
+Upper Scioto Valley,VII,28,0-1,0.0
