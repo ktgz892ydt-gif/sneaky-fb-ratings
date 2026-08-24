@@ -59,6 +59,12 @@ class RatingConfig:
     # league-average opponent. Fixed, not scheduled: real games outgrow it.
     prior_games: float = 1.5
 
+    # How much of the *measured* division ladder to apply to a team's starting
+    # point. 1.0 uses it in full, 0.0 ignores divisions entirely. This is a
+    # dial on a number estimated from past cross-division results, not on an
+    # assumption about enrollment -- and tune.py fits it like any other.
+    division_weight: float = 1.0
+
     # Home field advantage is fitted, not assumed.
     fit_hfa: bool = True
 

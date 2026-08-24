@@ -39,38 +39,69 @@ import argparse
 import json
 import os
 import sys
+from collections import defaultdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
 
 
 def build_prior(prev, carry=0.5, clip=None):
-    """prev: a ratings.json payload from the previous season."""
+    """prev: a ratings.json payload from the previous season.
+
+    Returns two things, deliberately kept separate:
+
+      divisionEffects  the measured average rating of each division, taken
+                       from a full season where the schedule graph is well
+                       connected and cross-division games actually pin the
+                       divisions against each other
+
+      prior            each team's *deviation from its own division*, carried
+                       forward and regressed toward zero
+
+    Splitting them is what lets a team change divisions between seasons and
+    still keep its earned standing, and what lets Kirtland sit well above the
+    Division VI baseline instead of being capped by it. The division part is
+    measured from results, never assumed from enrollment.
+    """
     teams = [t for t in prev.get("teams", []) if t.get("inOhio")]
-    played = [t for t in teams if (t.get("games") or 0) > 0]
+    played = [t for t in teams if (t.get("games") or 0) >= 4]
     if not played:
         raise SystemExit("previous season has no completed games; nothing to carry forward")
 
     mean = sum(t["rating"] for t in played) / len(played)
 
-    out, skipped = {}, 0
+    # Measured division ladder, centred so it adds no overall level.
+    by_div = defaultdict(list)
     for t in played:
-        # Only carry a team we actually measured. A team with one or two games
-        # is barely evidence, and its rating is mostly last year's own prior.
+        if t.get("division"):
+            by_div[t["division"]].append(t["rating"] - mean)
+    div_effect = {d: sum(v) / len(v) for d, v in by_div.items() if len(v) >= 10}
+    if div_effect:
+        centre = sum(div_effect.values()) / len(div_effect)
+        div_effect = {d: round(v - centre, 3) for d, v in div_effect.items()}
+
+    out, skipped = {}, 0
+    for t in prev.get("teams", []):
+        if not t.get("inOhio"):
+            continue
         if (t.get("games") or 0) < 4:
             skipped += 1
             continue
-        val = (t["rating"] - mean) * carry
+        base = div_effect.get(t.get("division"), 0.0)
+        # Deviation from the team's own division, not from the whole league.
+        val = ((t["rating"] - mean) - base) * carry
         if clip:
             val = max(-clip, min(clip, val))
         key = (t.get("schoolId") or "").strip() or t["name"]
         out[key] = round(val, 3)
+
     return out, {
         "season": prev.get("season"),
         "carry": carry,
         "teamsCarried": len(out),
         "skippedTooFewGames": skipped,
         "sourceMean": round(mean, 3),
+        "divisionEffects": div_effect,
     }
 
 
@@ -119,7 +150,8 @@ def main():
         prev = json.load(fh)
 
     prior, meta = build_prior(prev, float(carry), args.clip or None)
-    payload = {"meta": meta, "prior": prior}
+    payload = {"meta": meta, "divisionEffects": meta.get("divisionEffects", {}),
+               "prior": prior}
 
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     with open(args.out, "w", encoding="utf-8") as fh:
@@ -130,8 +162,14 @@ def main():
           f"(skipped {meta['skippedTooFewGames']} with under 4 games)",
           file=sys.stderr)
     if vals:
-        print(f"prior range {vals[0]:+.1f} to {vals[-1]:+.1f} pts, "
+        print(f"deviation range {vals[0]:+.1f} to {vals[-1]:+.1f} pts, "
               f"median {vals[len(vals)//2]:+.1f}", file=sys.stderr)
+    de = meta.get("divisionEffects") or {}
+    if de:
+        print("measured division baselines (pts vs league average):", file=sys.stderr)
+        for d in ["I", "II", "III", "IV", "V", "VI", "VII"]:
+            if d in de:
+                print(f"    Div {d:<4} {de[d]:+6.2f}", file=sys.stderr)
     print(f"-> {args.out}", file=sys.stderr)
 
 

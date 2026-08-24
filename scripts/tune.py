@@ -99,25 +99,53 @@ def full_season_ratings(res, cfg):
     for g in res.games:
         played[g["home"]] += 1
         played[g["away"]] += 1
-    out = {}
+    out, by_div = {}, defaultdict(list)
     for i, t in enumerate(ids):
-        if played[t] >= 4 and res.teams[t].in_ohio:
-            out[stable_key(res.teams[t])] = float(pts[i])
-    return {"ratings": out, "hfa": float(hfa)}
+        tm = res.teams[t]
+        if played[t] >= 4 and tm.in_ohio:
+            out[stable_key(tm)] = float(pts[i])
+            if tm.division:
+                by_div[tm.division].append(float(pts[i]))
+    # Measured division ladder, centred so it adds no overall level.
+    eff = {d: sum(v) / len(v) for d, v in by_div.items() if len(v) >= 10}
+    if eff:
+        c = sum(eff.values()) / len(eff)
+        eff = {d: v - c for d, v in eff.items()}
+    return {"ratings": out, "hfa": float(hfa), "divEffects": eff,
+            "divOf": {stable_key(res.teams[t]): res.teams[t].division for t in ids}}
 
 
-def prior_for(res, prev_ratings, carry, clip=14.0):
-    """Map last season's ratings onto this season's team ids."""
+def prior_for(res, prev, carry, division_weight=1.0, clip=14.0):
+    """Compose each team's starting point.
+
+        prior = division_weight * (its division's measured baseline)
+              + carry * (what it personally earned above that baseline)
+
+    Both parts come from measurement. The division part is estimated from
+    last season's cross-division results, never from enrollment.
+    """
     ids = sorted(res.teams)
-    prev_ratings = (prev_ratings or {}).get("ratings", {})
-    if not prev_ratings:
+    prev = prev or {}
+    ratings = prev.get("ratings", {})
+    eff = prev.get("divEffects", {}) or {}
+    div_of_prev = prev.get("divOf", {}) or {}
+    if not ratings and not eff:
         return np.zeros(len(ids))
-    mean = float(np.mean(list(prev_ratings.values())))
+    mean = float(np.mean(list(ratings.values()))) if ratings else 0.0
+
     out = np.zeros(len(ids))
     for i, t in enumerate(ids):
-        v = prev_ratings.get(stable_key(res.teams[t]))
+        tm = res.teams[t]
+        if not tm.in_ohio:
+            continue
+        base = eff.get(tm.division, 0.0) * division_weight
+        key = stable_key(tm)
+        v = ratings.get(key)
+        dev = 0.0
         if v is not None:
-            out[i] = float(np.clip((v - mean) * carry, -clip, clip))
+            dev = ((v - mean) - eff.get(div_of_prev.get(key), 0.0)) * carry
+            dev = float(np.clip(dev, -clip, clip))
+        out[i] = base + dev
     return out - out.mean()
 
 
@@ -125,10 +153,10 @@ def prior_for(res, prev_ratings, carry, clip=14.0):
 # Scoring
 # ---------------------------------------------------------------------------
 
-def evaluate(res, prev_ratings, cfg, carry, holdouts):
+def evaluate(res, prev_ratings, cfg, carry, holdouts, division_weight=1.0):
     ids = sorted(res.teams)
     index = {t: i for i, t in enumerate(ids)}
-    prior = prior_for(res, prev_ratings, carry)
+    prior = prior_for(res, prev_ratings, carry, division_weight)
     prev_hfa = (prev_ratings or {}).get("hfa")
 
     by_week = defaultdict(list)
@@ -215,22 +243,24 @@ def main():
 
     if args.quick:
         grid_scale, grid_pg, grid_carry = [7.0, 9.0, 12.0], [1.0, 2.0], [0.4, 0.6]
+        grid_dw = [0.0, 1.0]
     else:
         grid_scale = [6.0, 8.0, 10.0, 13.0]
         grid_pg = [0.75, 1.5, 3.0]
         grid_carry = [0.3, 0.45, 0.6, 0.75]
+        grid_dw = [0.0, 0.5, 1.0, 1.5]
 
     prev_cache = {}
     results = []
-    combos = list(itertools.product(grid_scale, grid_pg, grid_carry))
-    for i, (scale, pg, carry) in enumerate(combos, 1):
-        cfg = RatingConfig(squash_scale=scale, prior_games=pg)
+    combos = list(itertools.product(grid_scale, grid_pg, grid_carry, grid_dw))
+    for i, (scale, pg, carry, dw) in enumerate(combos, 1):
+        cfg = RatingConfig(squash_scale=scale, prior_games=pg, division_weight=dw)
         agg = {"n": 0, "ll": 0.0, "corr": 0.0, "mae": 0.0}
         for S in evals:
             ck = (S - 1, scale, pg)
             if ck not in prev_cache:
                 prev_cache[ck] = full_season_ratings(loaded[S - 1], cfg)
-            m = evaluate(loaded[S], prev_cache[ck], cfg, carry, holdouts)
+            m = evaluate(loaded[S], prev_cache[ck], cfg, carry, holdouts, dw)
             if not m:
                 continue
             agg["n"] += m["n"]
@@ -241,12 +271,14 @@ def main():
             continue
         results.append({
             "squash_scale": scale, "prior_games": pg, "carry": carry,
+            "division_weight": dw,
             "logloss": agg["ll"] / agg["n"],
             "accuracy": agg["corr"] / agg["n"],
             "mae_margin": agg["mae"] / agg["n"],
             "n": agg["n"],
         })
         print(f"  [{i:>3}/{len(combos)}] scale={scale:<5} prior={pg:<5} carry={carry:<5} "
+              f"div={dw:<4} "
               f"logloss={results[-1]['logloss']:.4f} acc={results[-1]['accuracy']:.1%}",
               file=sys.stderr)
 
@@ -255,10 +287,12 @@ def main():
 
     # Calibration for the winner, so the report says whether the probabilities
     # mean anything, not just whether the ordering is good.
-    cfg = RatingConfig(squash_scale=best["squash_scale"], prior_games=best["prior_games"])
+    cfg = RatingConfig(squash_scale=best["squash_scale"], prior_games=best["prior_games"],
+                       division_weight=best["division_weight"])
     S = evals[-1]
     ck = (S - 1, best["squash_scale"], best["prior_games"])
-    detail = evaluate(loaded[S], prev_cache[ck], cfg, best["carry"], holdouts)
+    detail = evaluate(loaded[S], prev_cache[ck], cfg, best["carry"], holdouts,
+                      best["division_weight"])
 
     payload = {
         "tunedOn": evals,
@@ -272,7 +306,8 @@ def main():
 
     print("\n" + "=" * 64, file=sys.stderr)
     print(f"BEST  squash_scale={best['squash_scale']}  "
-          f"prior_games={best['prior_games']}  carry={best['carry']}", file=sys.stderr)
+          f"prior_games={best['prior_games']}  carry={best['carry']}  "
+          f"division_weight={best['division_weight']}", file=sys.stderr)
     print(f"      log loss {best['logloss']:.4f} | accuracy {best['accuracy']:.1%} "
           f"| margin error {best['mae_margin']:.1f} pts | {best['n']} games",
           file=sys.stderr)

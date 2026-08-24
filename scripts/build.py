@@ -117,9 +117,10 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
         cfg = RatingConfig(
             squash_scale=float(best.get("squash_scale", cfg.squash_scale)),
             prior_games=float(best.get("prior_games", cfg.prior_games)),
+            division_weight=float(best.get("division_weight", cfg.division_weight)),
         )
         tuned_meta = {k: best.get(k) for k in
-                      ("squash_scale", "prior_games", "carry",
+                      ("squash_scale", "prior_games", "carry", "division_weight",
                        "accuracy", "logloss", "mae_margin", "n")}
         tuned_meta["tunedOn"] = tb.get("tunedOn")
 
@@ -141,15 +142,24 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
             blob = None
     if blob:
         pmap = blob.get("prior", {})
-        priors = {}
+        deffect = blob.get("divisionEffects", {}) or {}
+        dw = cfg.division_weight
+        priors, matched = {}, 0
         for t in team_ids:
             tm = res.teams[t]
+            if not tm.in_ohio:
+                continue
             key = (tm.school_id or "").strip()
-            if key and key in pmap:
-                priors[t] = pmap[key]
-            elif tm.name in pmap:
-                priors[t] = pmap[tm.name]
-        prior_meta = dict(blob.get("meta", {}), matched=len(priors))
+            dev = pmap.get(key) if key and key in pmap else pmap.get(tm.name)
+            if dev is not None:
+                matched += 1
+            # A team starts at its division's measured baseline, plus whatever
+            # it personally earned above or below that division last season.
+            # A team new to the data starts at its division's baseline alone.
+            base = deffect.get(tm.division, 0.0) * dw
+            priors[t] = base + (dev or 0.0)
+        prior_meta = dict(blob.get("meta", {}), matched=matched,
+                          divisionWeight=dw)
         if not priors:
             priors = None
 
