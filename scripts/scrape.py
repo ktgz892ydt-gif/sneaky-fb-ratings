@@ -34,7 +34,7 @@ from bs4 import BeautifulSoup
 
 BASE = "https://joeeitel.com"
 UA = (
-    "sneaky-fb-ratings/1.0 (+https://github.com/YOURNAME/sneaky-fb-ratings; "
+    "sneaky-fb-ratings/1.0 (+https://github.com/ktgz892ydt-gif/sneaky-fb-ratings; "
     "weekly ratings project; contact via repo issues)"
 )
 DELAY = 1.5  # seconds between requests
