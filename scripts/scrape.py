@@ -59,6 +59,52 @@ for _r in range(1, 29):
 
 NAME = r"[A-Za-z][A-Za-z0-9'&.\-/ ]*?(?:\([^)]*\))?"
 
+# Every team on the scoreboard is written "School (City)", with an optional
+# state tag for non-Ohio opponents: "West Orange (Winter Garden) [FL]".
+# Requiring the parenthesised city makes this pattern precise enough to scan
+# the whole page at once.
+SB_TEAM = r"[A-Za-z][A-Za-z0-9'&.,\-/ ]*?\([^)]{1,40}\)(?:\s*\[[A-Za-z]{2}\])?"
+SB_TIME = r"(?:\d{1,2}(?::\d{2})?\s*[apAP]\.?[mM]\.?|\d{1,2}:\d{2}|[Nn]oon|TBA|TBD)"
+
+# A whole game, found anywhere in the page's flattened text. The ISO date is
+# the anchor -- it starts every record and appears nowhere else.
+#
+# This replaces line-based parsing because the site splits a single game
+# across multiple elements, putting the away team, its score, and the home
+# team in different nodes. Any approach that reads one line at a time sees
+# fragments; flattening first and anchoring on the date sees whole games.
+SB_GAME_RE = re.compile(
+    rf"(?P<date>\d{{4}}-\d{{2}}-\d{{2}})\s+(?:{SB_TIME}\s+)?"
+    rf"(?P<away>{SB_TEAM})\s+(?P<ascore>\d{{1,3}})\s+"
+    rf"(?P<sep>at|vs\.?)\s+"
+    rf"(?P<home>{SB_TEAM})\s+(?P<hscore>\d{{1,3}})(?!\d)",
+    re.IGNORECASE,
+)
+
+# Same idea for the ranking pages. The "Current Average" always carries four
+# decimals, which terminates the free-text city+school run reliably.
+RANK_FLAT_RE = re.compile(
+    r"(?P<rank>\d{1,3}t?)\s+"
+    r"(?P<w>\d{1,2})-(?P<l>\d{1,2})(?:-(?P<t>\d{1,2}))?\s+"
+    r"(?P<sid>\d{1,6})\s+"
+    r"(?P<middle>[A-Za-z][A-Za-z0-9'&.,\-/ ]{1,70}?)\s+"
+    r"(?P<harbin>\d+\.\d{4})(?!\d)"
+)
+
+STATE_TAG_RE = re.compile(r"\s*\[([A-Za-z]{2})\]\s*$")
+
+
+def flat_text(html):
+    """The entire page as one whitespace-normalised string.
+
+    Deliberately structure-blind: the markup splits records across elements,
+    so any structure we try to honour is structure we get wrong.
+    """
+    soup = BeautifulSoup(html, "html.parser")
+    for tag in soup(["script", "style", "head"]):
+        tag.decompose()
+    return re.sub(r"\s+", " ", soup.get_text(" ", strip=True))
+
 GAME_PATTERNS = [
     # "Antwerp 14 at Montpelier 21"  ("vs" implies a neutral site)
     re.compile(
@@ -262,6 +308,40 @@ def _rows_from_table(rows):
         yield team_key(school, city), _clean_name(school), _clean_name(city), sid, w, l, t, harbin
 
 
+def _rows_from_flat(flat, known_pairs):
+    """Scan the whole flattened ranking page, anchored on rank + record + id."""
+    for m in RANK_FLAT_RE.finditer(flat):
+        middle = _clean_name(m.group("middle"))
+        school, city = _split_city_school(middle, known_pairs)
+        if not _plausible_team(school):
+            continue
+        w, l = int(m.group("w")), int(m.group("l"))
+        t = int(m.groupdict().get("t") or 0)
+        if w > 16 or l > 16:
+            continue
+        yield (team_key(school, city), school, city, m.group("sid"),
+               w, l, t, float(m.group("harbin")))
+
+
+def _split_city_school(middle, known_pairs):
+    """Split 'Massillon Jackson' into city and school.
+
+    The site lists city first, then school, and both may contain spaces
+    ('Cuyahoga Falls' + 'Cuyahoga Valley Christian Academy'), so the boundary
+    is genuinely ambiguous. The scores already know every real (school, city)
+    pair, so test the splits against those and only fall back to a guess when
+    the team hasn't appeared in a game yet.
+    """
+    words = middle.split()
+    for cut in range(1, len(words)):
+        c, s = " ".join(words[:cut]), " ".join(words[cut:])
+        if (s.lower(), c.lower()) in known_pairs:
+            return s, c
+    if len(words) >= 2:
+        return " ".join(words[1:]), words[0]
+    return middle, ""
+
+
 def _rows_from_text(lines, known_pairs):
     """Fallback when the page isn't a real table.
 
@@ -297,13 +377,24 @@ def _rows_from_text(lines, known_pairs):
                w, l, t, float(m.group("harbin")))
 
 
-def _diagnose(label, lines, limit=45):
-    """Print what we actually saw, so a failed run is one round trip to fix."""
-    print(f"\n  !! {label}: nothing matched. First {limit} candidate lines:",
-          file=sys.stderr)
+def _diagnose(label, lines, limit=30, flat=None):
+    """Print what we actually saw, so a failed run is one round trip to fix.
+
+    The flattened sample matters more than the lines: this site splits single
+    records across elements, so per-line output shows fragments while the flat
+    text shows the record as the patterns actually see it.
+    """
+    print(f"\n  !! {label}: nothing matched.", file=sys.stderr)
+
+    if flat is not None:
+        print(f"\n     --- flattened text, first 1200 chars "
+              f"(this is what the patterns scan) ---", file=sys.stderr)
+        print(f"     {flat[:1200]}", file=sys.stderr)
+
+    print(f"\n     --- first {limit} individual lines ---", file=sys.stderr)
     shown = 0
     for ln in lines:
-        if len(ln) < 3 or len(ln) > 200:
+        if not ln or len(ln) > 200:
             continue
         print(f"     | {ln}", file=sys.stderr)
         shown += 1
@@ -382,15 +473,29 @@ def page_lines(html):
     return out
 
 
+def _split_state(name):
+    """'West Orange (Winter Garden) [FL]' -> ('West Orange (Winter Garden)', 'FL')."""
+    m = STATE_TAG_RE.search(name)
+    if m:
+        return _clean_name(name[: m.start()]), m.group(1).upper()
+    return _clean_name(name), ""
+
+
 def scrape_week(sess, season, week, use_cache=True, diagnose=False):
     html = fetch(sess, f"/hsfoot/scoreboard/{season}/week-{week}", use_cache)
-    lines = page_lines(html)
+    flat = flat_text(html)
+
     games, seen = [], set()
-    for ln in lines:
-        hit = _match_game(ln)
-        if not hit:
+    for m in SB_GAME_RE.finditer(flat):
+        away, astate = _split_state(m.group("away"))
+        home, hstate = _split_state(m.group("home"))
+        if not (_plausible_team(away) and _plausible_team(home)):
             continue
-        away, ascore, home, hscore, neutral = hit
+        if away.lower() == home.lower():
+            continue
+        a, h = int(m.group("ascore")), int(m.group("hscore"))
+        if a > 120 or h > 120:
+            continue
         key = (away.lower(), home.lower())
         if key in seen:
             continue
@@ -399,14 +504,17 @@ def scrape_week(sess, season, week, use_cache=True, diagnose=False):
             {
                 "week": week,
                 "away": away,
-                "away_score": ascore,
+                "away_score": a,
                 "home": home,
-                "home_score": hscore,
-                "neutral": neutral,
+                "home_score": h,
+                "neutral": 1 if m.group("sep").lower().startswith("vs") else 0,
+                "away_state": astate,
+                "home_state": hstate,
             }
         )
+
     if not games and diagnose:
-        _diagnose(f"week {week} scoreboard", lines)
+        _diagnose(f"week {week} scoreboard", page_lines(html), flat=flat)
     return games
 
 
@@ -418,6 +526,9 @@ def scrape_roster(sess, season, use_cache=True, known_pairs=frozenset()):
 
         parsed = list(_rows_from_table(page_rows(html)))
         source = "table"
+        if not parsed:
+            parsed = list(_rows_from_flat(flat_text(html), known_pairs))
+            source = "flat"
         if not parsed:
             parsed = list(_rows_from_text(page_lines(html), known_pairs))
             source = "text"
@@ -445,7 +556,8 @@ def scrape_roster(sess, season, use_cache=True, known_pairs=frozenset()):
         if found == 0:
             empty_regions.append(region)
             if len(empty_regions) == 1:
-                _diagnose(f"region {region} rankings", page_lines(html))
+                _diagnose(f"region {region} rankings", page_lines(html),
+                          flat=flat_text(html))
 
     if empty_regions:
         raise SystemExit(
@@ -507,7 +619,9 @@ def main():
 
     with open(gpath, "w", newline="", encoding="utf-8") as fh:
         wtr = csv.DictWriter(
-            fh, fieldnames=["week", "away", "away_score", "home", "home_score", "neutral"]
+            fh,
+            fieldnames=["week", "away", "away_score", "home", "home_score",
+                        "neutral", "away_state", "home_state"],
         )
         wtr.writeheader()
         wtr.writerows(all_games)
