@@ -1,0 +1,706 @@
+name,school,city,school_id,division,region,record,harbin
+Mentor (Mentor),Mentor,Mentor,1016,I,1,10-0,31.0423
+Whitmer (Toledo),Whitmer,Toledo,1704,I,1,8-2,23.9
+Perrysburg (Perrysburg),Perrysburg,Perrysburg,1248,I,1,8-2,23.65
+Jackson (Massillon),Jackson,Massillon,764,I,1,7-3,23.45
+Canton McKinley (Canton),Canton McKinley,Canton,306,I,1,6-4,22.3745
+Lorain (Lorain),Lorain,Lorain,894,I,1,9-1,21.2745
+St Edward (Lakewood),St Edward,Lakewood,1346,I,1,5-5,19.5211
+Strongsville (Strongsville),Strongsville,Strongsville,1498,I,1,6-4,15.4
+Cleveland Heights (Cleveland Heights),Cleveland Heights,Cleveland Heights,385,I,1,6-4,14.5354
+Findlay (Findlay),Findlay,Findlay,586,I,1,4-6,8.15
+Berea-Midpark (Berea),Berea-Midpark,Berea,200,I,1,3-7,7.95
+Normandy (Parma),Normandy,Parma,1118,I,1,3-7,6.4995
+Brunswick (Brunswick),Brunswick,Brunswick,268,I,1,3-7,6.05
+Medina (Medina),Medina,Medina,1006,I,1,2-8,4.2303
+John Marshall (Cleveland),John Marshall,Cleveland,792,I,1,2-8,2.2432
+St Ignatius (Cleveland),St Ignatius,Cleveland,1354,I,1,1-9,1.9126
+GlenOak (Canton),GlenOak,Canton,650,I,1,1-9,1.1112
+Elyria (Elyria),Elyria,Elyria,532,I,1,0-10,0.0
+Kettering Fairmont (Kettering),Kettering Fairmont,Kettering,807,I,2,8-2,25.4
+Centerville (Centerville),Centerville,Centerville,336,I,2,7-3,25.3081
+Westland (Galloway),Westland,Galloway,1686,I,2,8-2,23.0
+Springfield (Springfield),Springfield,Springfield,1480,I,2,6-4,19.2592
+Hilliard Davidson (Hilliard),Hilliard Davidson,Hilliard,716,I,2,6-4,16.1227
+Lebanon (Lebanon),Lebanon,Lebanon,846,I,2,6-4,14.0
+Springboro (Springboro),Springboro,Springboro,1470,I,2,6-4,13.45
+Wayne (Huber Heights),Wayne,Huber Heights,1638,I,2,5-5,12.4929
+Middletown (Middletown),Middletown,Middletown,1026,I,2,5-5,11.25
+Dublin Jerome (Dublin),Dublin Jerome,Dublin,486,I,2,4-6,6.4
+Northmont (Clayton),Northmont,Clayton,1142,I,2,2-8,5.75
+Marysville (Marysville),Marysville,Marysville,970,I,2,3-7,5.2
+Hilliard Bradley (Hilliard),Hilliard Bradley,Hilliard,713,I,2,2-8,3.9
+Dublin Coffman (Dublin),Dublin Coffman,Dublin,474,I,2,2-8,3.75
+Beavercreek (Beavercreek),Beavercreek,Beavercreek,178,I,2,3-7,3.3672
+Central Crossing (Grove City),Central Crossing,Grove City,345,I,2,1-9,2.75
+Hilliard Darby (Hilliard),Hilliard Darby,Hilliard,717,I,2,1-9,0.65
+Olentangy Liberty (Powell),Olentangy Liberty,Powell,1203,I,3,8-2,33.8
+Pickerington Central (Pickerington),Pickerington Central,Pickerington,1254,I,3,8-2,29.4944
+Gahanna Lincoln (Gahanna),Gahanna Lincoln,Gahanna,876,I,3,8-2,28.3
+Olentangy Orange (Lewis Center),Olentangy Orange,Lewis Center,1211,I,3,8-2,28.15
+Upper Arlington (Upper Arlington),Upper Arlington,Upper Arlington,1572,I,3,8-2,27.35
+Olentangy Berlin (Delaware),Olentangy Berlin,Delaware,1201,I,3,8-2,27.2
+Pickerington North (Pickerington),Pickerington North,Pickerington,1255,I,3,8-2,23.1803
+Groveport Madison (Groveport),Groveport Madison,Groveport,682,I,3,6-4,21.2
+Delaware Hayes (Delaware),Delaware Hayes,Delaware,704,I,3,7-3,18.75
+Westerville North (Westerville),Westerville North,Westerville,1672,I,3,6-4,16.45
+Grove City (Grove City),Grove City,Grove City,680,I,3,7-3,16.3
+Newark (Newark),Newark,Newark,1088,I,3,7-3,16.05
+Olentangy (Lewis Center),Olentangy,Lewis Center,1202,I,3,8-2,15.85
+Reynoldsburg (Reynoldsburg),Reynoldsburg,Reynoldsburg,1290,I,3,4-6,9.25
+Watkins Memorial (Pataskala),Watkins Memorial,Pataskala,1632,I,3,3-7,5.0
+Lancaster (Lancaster),Lancaster,Lancaster,838,I,3,3-7,4.2742
+Westerville Central (Westerville),Westerville Central,Westerville,1671,I,3,1-9,1.2
+Thomas Worthington (Worthington),Thomas Worthington,Worthington,1738,I,3,0-10,0.0
+Archbishop Moeller (Cincinnati),Archbishop Moeller,Cincinnati,1056,I,4,9-1,35.7563
+Lakota West (West Chester),Lakota West,West Chester,837,I,4,9-1,30.6
+Winton Woods (Cincinnati),Winton Woods,Cincinnati,1719,I,4,9-1,30.4
+Princeton (Cincinnati),Princeton,Cincinnati,1274,I,4,8-2,26.55
+Hamilton (Hamilton),Hamilton,Hamilton,685,I,4,8-2,25.6
+St Xavier (Cincinnati),St Xavier,Cincinnati,1388,I,4,7-3,23.7907
+Elder (Cincinnati),Elder,Cincinnati,522,I,4,5-5,21.0915
+Lakota East (Liberty Township),Lakota East,Liberty Township,836,I,4,7-3,20.65
+West Clermont (Cincinnati),West Clermont,Cincinnati,1677,I,4,7-3,20.15
+Mason (Mason),Mason,Mason,972,I,4,5-5,10.95
+Milford (Milford),Milford,Milford,1034,I,4,4-6,7.4
+Oak Hills (Cincinnati),Oak Hills,Cincinnati,1188,I,4,4-6,6.45
+Fairfield (Fairfield),Fairfield,Fairfield,550,I,4,2-8,1.95
+Little Miami (Morrow),Little Miami,Morrow,884,I,4,1-9,1.3
+Walnut Hills (Cincinnati),Walnut Hills,Cincinnati,1610,I,4,1-9,1.2
+Sycamore (Cincinnati),Sycamore,Cincinnati,1508,I,4,1-9,0.65
+Western Hills (Cincinnati),Western Hills,Cincinnati,1666,I,4,1-9,0.55
+Colerain (Cincinnati),Colerain,Cincinnati,396,I,4,0-10,0.0
+Walsh Jesuit (Cuyahoga Falls),Walsh Jesuit,Cuyahoga Falls,1614,II,5,10-0,35.35
+Archbishop Hoban (Akron),Archbishop Hoban,Akron,724,II,5,8-2,29.4917
+Nordonia (Macedonia),Nordonia,Macedonia,1116,II,5,8-2,22.7798
+Austintown-Fitch (Austintown),Austintown-Fitch,Austintown,148,II,5,7-3,21.05
+Warren G Harding (Warren),Warren G Harding,Warren,692,II,5,7-3,20.9697
+Green (Uniontown),Green,Uniontown,670,II,5,6-4,20.6
+Lake (Uniontown),Lake,Uniontown,822,II,5,6-4,17.6404
+Boardman (Youngstown),Boardman,Youngstown,238,II,5,6-4,17.2806
+Hudson (Hudson),Hudson,Hudson,740,II,5,5-5,16.85
+Hoover (North Canton),Hoover,North Canton,730,II,5,6-4,15.9
+Riverside (Painesville),Riverside,Painesville,1312,II,5,4-6,11.9465
+John Hay (Cleveland),John Hay,Cleveland,790,II,5,5-5,10.9609
+Mayfield (Mayfield),Mayfield,Mayfield,980,II,5,5-5,10.5758
+Solon (Solon),Solon,Solon,1428,II,5,3-7,10.5
+Firestone (Akron),Firestone,Akron,592,II,5,5-5,10.15
+South (Willoughby),South,Willoughby,1440,II,5,3-7,9.7798
+Louisville (Louisville),Louisville,Louisville,902,II,5,4-6,8.6652
+John Adams (Cleveland),John Adams,Cleveland,782,II,5,6-2,7.9596
+Garfield (Akron),Garfield,Akron,801,II,5,4-6,6.8
+Stow-Munroe Falls (Stow),Stow-Munroe Falls,Stow,1492,II,5,3-7,6.55
+Twinsburg (Twinsburg),Twinsburg,Twinsburg,350,II,5,3-7,6.5
+Shaker Heights (Shaker Heights),Shaker Heights,Shaker Heights,1408,II,5,3-7,5.95
+North (Eastlake),North,Eastlake,1122,II,5,3-7,5.5384
+Euclid (Euclid),Euclid,Euclid,540,II,5,2-8,3.6
+Garfield Heights (Garfield Heights),Garfield Heights,Garfield Heights,632,II,5,3-7,3.4072
+Cuyahoga Falls (Cuyahoga Falls),Cuyahoga Falls,Cuyahoga Falls,444,II,5,2-8,2.65
+St Vincent-St Mary (Akron),St Vincent-St Mary,Akron,1384,II,5,1-9,1.1112
+North (Akron),North,Akron,1120,II,5,0-10,0.0
+Avon (Avon),Avon,Avon,150,II,6,10-0,35.85
+Highland (Medina),Highland,Medina,710,II,6,10-0,32.2
+Anthony Wayne (Whitehouse),Anthony Wayne,Whitehouse,124,II,6,10-0,31.0
+North Ridgeville (North Ridgeville),North Ridgeville,North Ridgeville,1152,II,6,8-2,25.95
+Wadsworth (Wadsworth),Wadsworth,Wadsworth,1606,II,6,9-1,25.45
+Clay (Oregon),Clay,Oregon,372,II,6,8-2,23.3
+Avon Lake (Avon Lake),Avon Lake,Avon Lake,152,II,6,6-4,21.0232
+Olmsted Falls (Olmsted Falls),Olmsted Falls,Olmsted Falls,1204,II,6,7-3,20.5131
+Amherst Steele (Amherst),Amherst Steele,Amherst,1486,II,6,6-4,19.5
+St Francis de Sales (Toledo),St Francis de Sales,Toledo,1350,II,6,7-3,18.2105
+Sandusky (Sandusky),Sandusky,Sandusky,1394,II,6,6-4,18.15
+North Royalton (North Royalton),North Royalton,North Royalton,1154,II,6,5-5,16.85
+Start (Toledo),Start,Toledo,1482,II,6,7-3,16.2
+Rhodes (Cleveland),Rhodes,Cleveland,1292,II,6,5-4,15.0632
+Fremont Ross (Fremont),Fremont Ross,Fremont,616,II,6,5-5,14.5
+North Olmsted (North Olmsted),North Olmsted,North Olmsted,1146,II,6,5-5,13.95
+Valley Forge (Parma Heights),Valley Forge,Parma Heights,1588,II,6,4-6,9.05
+Lakewood (Lakewood),Lakewood,Lakewood,832,II,6,4-6,7.25
+Brecksville-Broadview Heights (Broadview Heights),Brecksville-Broadview Heights,Broadview Heights,248,II,6,3-7,7.2
+Westlake (Westlake),Westlake,Westlake,1684,II,6,2-8,4.4333
+Springfield (Holland),Springfield,Holland,1476,II,6,2-8,3.45
+Sylvania Southview (Sylvania),Sylvania Southview,Sylvania,1512,II,6,3-7,3.45
+Bowsher (Toledo),Bowsher,Toledo,244,II,6,3-7,3.4
+Barberton (Barberton),Barberton,Barberton,160,II,6,2-8,3.2
+St John's Jesuit (Toledo),St John's Jesuit,Toledo,1360,II,6,1-9,1.2593
+Waite (Toledo),Waite,Toledo,1608,II,6,1-9,0.55
+Sylvania Northview (Sylvania),Sylvania Northview,Sylvania,1510,II,6,0-10,0.0
+Big Walnut (Sunbury),Big Walnut,Sunbury,214,II,7,9-1,31.7
+Walnut Ridge (Columbus),Walnut Ridge,Columbus,1612,II,7,10-0,30.95
+Massillon Washington (Massillon),Massillon Washington,Massillon,1624,II,7,7-2,27.9177
+Ashland (Ashland),Ashland,Ashland,138,II,7,10-0,24.8408
+St Francis DeSales (Columbus),St Francis DeSales,Columbus,1348,II,7,8-2,22.8245
+Canal Winchester (Canal Winchester),Canal Winchester,Canal Winchester,302,II,7,7-3,19.7
+Teays Valley (Ashville),Teays Valley,Ashville,1526,II,7,6-4,18.1
+Northland (Columbus),Northland,Columbus,1140,II,7,7-3,13.9
+Perry (Massillon),Perry,Massillon,1244,II,7,5-5,13.5
+Briggs (Columbus),Briggs,Columbus,252,II,7,6-4,11.7338
+Westerville South (Westerville),Westerville South,Westerville,1674,II,7,5-5,11.3
+New Albany (New Albany),New Albany,New Albany,1086,II,7,4-6,9.6
+St Charles (Columbus),St Charles,Columbus,1342,II,7,4-6,8.15
+Licking Heights (Pataskala),Licking Heights,Pataskala,868,II,7,4-6,6.9
+Worthington Kilbourne (Columbus),Worthington Kilbourne,Columbus,1741,II,7,4-6,6.7
+Logan (Logan),Logan,Logan,888,II,7,1-9,4.1
+Franklin Heights (Columbus),Franklin Heights,Columbus,610,II,7,3-7,3.6182
+Mount Vernon (Mount Vernon),Mount Vernon,Mount Vernon,1078,II,7,2-8,3.2
+Wooster (Wooster),Wooster,Wooster,1736,II,7,2-8,2.75
+Marion Harding (Marion),Marion Harding,Marion,690,II,7,1-9,1.65
+Whitehall-Yearling (Whitehall),Whitehall-Yearling,Whitehall,1700,II,7,1-9,1.1561
+Dublin Scioto (Dublin),Dublin Scioto,Dublin,475,II,7,1-9,0.65
+Whetstone (Columbus),Whetstone,Columbus,1698,II,7,1-9,0.6
+Mifflin (Columbus),Mifflin,Columbus,1032,II,7,0-9,0.0
+Anderson (Cincinnati),Anderson,Cincinnati,118,II,8,10-0,37.1
+La Salle (Cincinnati),La Salle,Cincinnati,842,II,8,8-2,27.7366
+Xenia (Xenia),Xenia,Xenia,1746,II,8,9-1,25.2
+Badin (Hamilton),Badin,Hamilton,158,II,8,8-2,24.7
+Mount Healthy (Cincinnati),Mount Healthy,Cincinnati,1074,II,8,8-2,23.5
+Harrison (Harrison),Harrison,Harrison,696,II,8,8-2,22.8633
+Kings (Kings Mills),Kings,Kings Mills,810,II,8,8-2,21.55
+Butler (Vandalia),Butler,Vandalia,292,II,8,8-2,19.4
+Lima Senior (Lima),Lima Senior,Lima,872,II,8,9-1,16.35
+Withrow (Cincinnati),Withrow,Cincinnati,1720,II,8,5-5,13.5571
+Troy (Troy),Troy,Troy,1552,II,8,6-4,13.35
+Aiken (Cincinnati),Aiken,Cincinnati,106,II,8,6-3,12.6561
+Trotwood-Madison (Trotwood),Trotwood-Madison,Trotwood,1550,II,8,5-5,10.6071
+Sidney (Sidney),Sidney,Sidney,1422,II,8,5-5,9.8
+Monroe (Monroe),Monroe,Monroe,1062,II,8,4-6,8.7
+Edgewood (Trenton),Edgewood,Trenton,516,II,8,3-7,7.6
+Piqua (Piqua),Piqua,Piqua,1258,II,8,4-6,6.85
+Turpin (Cincinnati),Turpin,Cincinnati,1554,II,8,3-7,5.75
+Loveland (Loveland),Loveland,Loveland,904,II,8,3-7,5.15
+Stebbins (Riverside),Stebbins,Riverside,1484,II,8,4-6,5.05
+Miamisburg (Miamisburg),Miamisburg,Miamisburg,1020,II,8,2-8,2.95
+Belmont (Dayton),Belmont,Dayton,192,II,8,4-6,2.6208
+Northwest (Cincinnati),Northwest,Cincinnati,1164,II,8,2-8,2.25
+Fairborn (Fairborn),Fairborn,Fairborn,548,II,8,3-7,2.25
+West Carrollton (West Carrollton),West Carrollton,West Carrollton,1660,II,8,1-9,0.55
+Ursuline (Youngstown),Ursuline,Youngstown,1580,III,9,9-1,29.3292
+Gilmour Academy (Gates Mills),Gilmour Academy,Gates Mills,642,III,9,9-1,24.2167
+Cuyahoga Valley Christian Academy (Cuyahoga Falls),Cuyahoga Valley Christian Academy,Cuyahoga Falls,448,III,9,8-2,23.25
+Aurora (Aurora),Aurora,Aurora,146,III,9,9-1,22.35
+Geneva (Geneva),Geneva,Geneva,634,III,9,9-1,22.3268
+Chardon (Chardon),Chardon,Chardon,360,III,9,7-2,21.9962
+Kenston (Chagrin Falls),Kenston,Chagrin Falls,802,III,9,7-3,20.9408
+Hawken (Gates Mills),Hawken,Gates Mills,702,III,9,8-2,20.6646
+Villa Angela-St Joseph (Cleveland),Villa Angela-St Joseph,Cleveland,1364,III,9,7-2,19.6136
+Maple Heights (Maple Heights),Maple Heights,Maple Heights,944,III,9,7-3,17.5235
+Tallmadge (Tallmadge),Tallmadge,Tallmadge,1522,III,9,7-3,15.85
+Madison (Madison),Madison,Madison,922,III,9,7-3,13.8505
+Bedford (Bedford),Bedford,Bedford,180,III,9,5-4,12.8889
+University School (Hunting Valley),University School,Hunting Valley,1571,III,9,4-5,11.2513
+East (Akron),East,Akron,478,III,9,6-4,11.0273
+Chaney (Youngstown),Chaney,Youngstown,358,III,9,3-6,10.9031
+Canfield (Canfield),Canfield,Canfield,304,III,9,4-5,10.4226
+Youngstown East (Youngstown),Youngstown East,Youngstown,483,III,9,5-4,7.8256
+Harvey (Painesville),Harvey,Painesville,698,III,9,5-5,7.45
+Lakeside (Ashtabula),Lakeside,Ashtabula,140,III,9,4-6,6.6
+Alliance (Alliance),Alliance,Alliance,112,III,9,4-6,5.65
+Brush (Lyndhurst),Brush,Lyndhurst,270,III,9,2-8,5.1806
+Kent Roosevelt (Kent),Kent Roosevelt,Kent,1326,III,9,2-8,3.95
+Collinwood (Cleveland),Collinwood,Cleveland,398,III,9,1-6,2.4263
+Marlington (Alliance),Marlington,Alliance,964,III,9,2-8,1.85
+Howland (Warren),Howland,Warren,736,III,9,1-9,1.067
+Ellet (Akron),Ellet,Akron,528,III,9,1-9,0.6
+Central Catholic (Toledo),Central Catholic,Toledo,342,III,10,9-1,32.6277
+Buckeye (Medina),Buckeye,Medina,276,III,10,9-1,26.5
+Benedictine (Cleveland),Benedictine,Cleveland,196,III,10,8-2,23.6206
+Rocky River (Rocky River),Rocky River,Rocky River,1320,III,10,7-3,18.35
+Maumee (Maumee),Maumee,Maumee,976,III,10,8-2,15.85
+Defiance (Defiance),Defiance,Defiance,464,III,10,6-4,15.1
+Padua Franciscan (Parma),Padua Franciscan,Parma,1224,III,10,5-5,13.5076
+Copley (Copley),Copley,Copley,422,III,10,5-5,12.25
+Revere (Richfield),Revere,Richfield,1288,III,10,6-4,12.15
+Midview (Grafton),Midview,Grafton,1030,III,10,5-5,10.7
+Bowling Green (Bowling Green),Bowling Green,Bowling Green,242,III,10,6-4,10.65
+Lexington (Lexington),Lexington,Lexington,856,III,10,5-5,8.35
+Holy Name (Parma Heights),Holy Name,Parma Heights,728,III,10,3-6,7.8333
+Tiffin Columbian (Tiffin),Tiffin Columbian,Tiffin,406,III,10,4-6,7.6102
+Norwalk (Norwalk),Norwalk,Norwalk,1160,III,10,2-8,7.5
+Lutheran West (Rocky River),Lutheran West,Rocky River,914,III,10,2-8,5.9
+Rogers (Toledo),Rogers,Toledo,1324,III,10,4-6,5.7
+Cleveland Central Catholic (Cleveland),Cleveland Central Catholic,Cleveland,384,III,10,2-7,5.6024
+Shawnee (Lima),Shawnee,Lima,1412,III,10,2-8,5.1
+Elyria Catholic (Elyria),Elyria Catholic,Elyria,534,III,10,3-7,4.9828
+Mansfield Senior (Mansfield),Mansfield Senior,Mansfield,940,III,10,1-9,4.3255
+East Technical (Cleveland),East Technical,Cleveland,506,III,10,2-6,2.8797
+Madison Comprehensive (Mansfield),Madison Comprehensive,Mansfield,926,III,10,2-8,2.8
+John F Kennedy (Cleveland),John F Kennedy,Cleveland,784,III,10,2-7,1.8904
+Scott (Toledo),Scott,Toledo,1398,III,10,2-8,1.7
+Woodward (Toledo),Woodward,Toledo,1734,III,10,0-10,0.0
+Bishop Watterson (Columbus),Bishop Watterson,Columbus,224,III,11,10-0,37.2652
+Steubenville (Steubenville),Steubenville,Steubenville,1488,III,11,9-0,34.3631
+Tri-Valley (Dresden),Tri-Valley,Dresden,1544,III,11,10-0,28.5348
+Licking Valley (Newark),Licking Valley,Newark,870,III,11,9-1,23.5369
+Bloom-Carroll (Carroll),Bloom-Carroll,Carroll,232,III,11,8-2,22.0
+Granville (Granville),Granville,Granville,666,III,11,9-1,22.0
+Athens (The Plains),Athens,The Plains,144,III,11,9-1,21.7
+Jackson (Jackson),Jackson,Jackson,762,III,11,8-2,18.2
+New Philadelphia (New Philadelphia),New Philadelphia,New Philadelphia,1106,III,11,7-3,17.7206
+Linden McKinley (Columbus),Linden McKinley,Columbus,882,III,11,7-3,17.0184
+Dover (Dover),Dover,Dover,472,III,11,7-3,16.8792
+Bishop Hartley (Columbus),Bishop Hartley,Columbus,218,III,11,6-4,16.45
+Indian Creek (Wintersville),Indian Creek,Wintersville,751,III,11,8-2,16.0354
+Carrollton (Carrollton),Carrollton,Carrollton,322,III,11,7-3,14.35
+Buckeye Valley (Delaware),Buckeye Valley,Delaware,286,III,11,6-4,13.8545
+Warren (Vincent),Warren,Vincent,1618,III,11,7-3,13.0245
+Sheridan (Thornville),Sheridan,Thornville,1420,III,11,6-4,12.4939
+Independence (Columbus),Independence,Columbus,748,III,11,4-6,11.55
+Hamilton Township (Columbus),Hamilton Township,Columbus,686,III,11,5-5,10.45
+Marietta (Marietta),Marietta,Marietta,956,III,11,6-4,9.8129
+Circleville (Circleville),Circleville,Circleville,370,III,11,4-6,9.8
+Eastmoor Academy (Columbus),Eastmoor Academy,Columbus,502,III,11,4-6,8.75
+John Glenn (New Concord),John Glenn,New Concord,788,III,11,5-5,6.0874
+Beechcroft (Columbus),Beechcroft,Columbus,186,III,11,5-5,5.8092
+Centennial (Columbus),Centennial,Columbus,332,III,11,3-7,2.3622
+West (Columbus),West,Columbus,1656,III,11,3-7,2.2143
+Bexley (Columbus),Bexley,Columbus,212,III,11,1-8,0.6667
+South (Columbus),South,Columbus,1436,III,11,0-10,0.0
+Zanesville (Zanesville),Zanesville,Zanesville,1750,III,11,0-10,0.0
+Tippecanoe (Tipp City),Tippecanoe,Tipp City,1534,III,12,10-0,34.35
+Wapakoneta (Wapakoneta),Wapakoneta,Wapakoneta,1616,III,12,10-0,26.65
+Bellbrook (Bellbrook),Bellbrook,Bellbrook,184,III,12,9-1,25.6
+London (London),London,London,892,III,12,10-0,23.85
+Bellefontaine (Bellefontaine),Bellefontaine,Bellefontaine,188,III,12,8-2,22.15
+Archbishop McNicholas (Cincinnati),Archbishop McNicholas,Cincinnati,998,III,12,8-2,21.7061
+Batavia (Batavia),Batavia,Batavia,164,III,12,8-2,21.6
+St Marys Memorial (St Marys),St Marys Memorial,St Marys,1012,III,12,8-2,20.05
+Miami Trace (Washington Court House),Miami Trace,Washington Court House,1022,III,12,7-3,18.45
+Wilmington (Wilmington),Wilmington,Wilmington,1714,III,12,6-4,13.7
+Celina (Celina),Celina,Celina,330,III,12,6-4,12.75
+Chaminade Julienne (Dayton),Chaminade Julienne,Dayton,352,III,12,5-5,11.85
+Ross (Hamilton),Ross,Hamilton,1330,III,12,4-6,11.6
+Meadowdale (Dayton),Meadowdale,Dayton,1002,III,12,7-3,10.95
+Franklin (Franklin),Franklin,Franklin,608,III,12,4-6,9.9
+Talawanda (Oxford),Talawanda,Oxford,1520,III,12,3-7,8.1652
+Archbishop Carroll (Dayton),Archbishop Carroll,Dayton,320,III,12,4-6,7.9
+Western Brown (Mount Orab),Western Brown,Mount Orab,1664,III,12,4-6,7.85
+Hughes (Cincinnati),Hughes,Cincinnati,742,III,12,4-6,7.4031
+Chillicothe (Chillicothe),Chillicothe,Chillicothe,364,III,12,2-8,5.1
+Hillsboro (Hillsboro),Hillsboro,Hillsboro,718,III,12,4-6,4.85
+Dunbar (Dayton),Dunbar,Dayton,476,III,12,3-7,4.3031
+Goshen (Goshen),Goshen,Goshen,658,III,12,2-8,3.65
+Ponitz Tech (Dayton),Ponitz Tech,Dayton,1235,III,12,1-9,0.5
+Greenville (Greenville),Greenville,Greenville,678,III,12,0-10,0.0
+Tecumseh (New Carlisle),Tecumseh,New Carlisle,1528,III,12,0-10,0.0
+Woodward (Cincinnati),Woodward,Cincinnati,1732,III,12,0-10,0.0
+Lake Catholic (Mentor),Lake Catholic,Mentor,824,IV,13,10-0,31.1571
+Perry (Perry),Perry,Perry,1246,IV,13,9-1,28.2333
+Streetsboro (Streetsboro),Streetsboro,Streetsboro,1496,IV,13,10-0,27.0
+West Branch (Beloit),West Branch,Beloit,1658,IV,13,10-0,23.0051
+Glenville (Cleveland),Glenville,Cleveland,652,IV,13,7-3,21.9063
+Northwest (Canal Fulton),Northwest,Canal Fulton,1162,IV,13,8-2,20.45
+Struthers (Struthers),Struthers,Struthers,1500,IV,13,7-2,20.423
+Lutheran East (Cleveland Heights),Lutheran East,Cleveland Heights,912,IV,13,9-1,20.3771
+Field (Mogadore),Field,Mogadore,584,IV,13,8-2,18.3
+Norton (Norton),Norton,Norton,1158,IV,13,7-3,17.15
+Orange (Pepper Pike),Orange,Pepper Pike,1208,IV,13,7-3,13.1
+Notre Dame-Cathedral Latin (Chardon),Notre Dame-Cathedral Latin,Chardon,1180,IV,13,5-5,10.351
+Hubbard (Hubbard),Hubbard,Hubbard,738,IV,13,5-5,9.7742
+Cardinal Mooney (Youngstown),Cardinal Mooney,Youngstown,310,IV,13,3-7,9.3563
+Buchtel (Akron),Buchtel,Akron,274,IV,13,4-6,8.8652
+Ravenna (Ravenna),Ravenna,Ravenna,1281,IV,13,4-6,7.7
+Jefferson Area (Jefferson),Jefferson Area,Jefferson,774,IV,13,3-7,6.15
+Salem (Salem),Salem,Salem,1392,IV,13,3-7,5.8
+Woodridge (Peninsula),Woodridge,Peninsula,1724,IV,13,3-7,4.4
+West Geauga (Chesterland),West Geauga,Chesterland,1678,IV,13,2-8,3.55
+Niles McKinley (Niles),Niles McKinley,Niles,994,IV,13,1-9,2.7149
+Conneaut (Conneaut),Conneaut,Conneaut,416,IV,13,2-8,1.65
+Coventry (Akron),Coventry,Akron,428,IV,13,1-9,1.0
+Springfield (Akron),Springfield,Akron,1472,IV,13,1-9,0.9
+Warrensville Heights (Warrensville Heights),Warrensville Heights,Warrensville Heights,1620,IV,13,1-9,0.8071
+Edgewood (Ashtabula),Edgewood,Ashtabula,514,IV,13,1-9,0.75
+Lincoln West (Cleveland),Lincoln West,Cleveland,880,IV,13,0-4,0.0
+Perkins (Sandusky),Perkins,Sandusky,1240,IV,14,9-1,28.8409
+Shelby (Shelby),Shelby,Shelby,1416,IV,14,10-0,27.65
+Ontario (Ontario),Ontario,Ontario,1206,IV,14,9-1,24.4
+Clearview (Lorain),Clearview,Lorain,380,IV,14,8-2,17.5
+Bay (Bay Village),Bay,Bay Village,168,IV,14,6-4,17.4296
+Clyde (Clyde),Clyde,Clyde,392,IV,14,7-3,17.05
+Galion (Galion),Galion,Galion,620,IV,14,7-3,16.5
+Vermilion (Vermilion),Vermilion,Vermilion,1598,IV,14,8-2,16.2
+River Valley (Caledonia),River Valley,Caledonia,1314,IV,14,5-5,12.0
+Ottawa-Glandorf (Ottawa),Ottawa-Glandorf,Ottawa,1214,IV,14,5-5,11.75
+Otsego (Tontogany),Otsego,Tontogany,1212,IV,14,5-5,11.55
+Cloverleaf (Seville),Cloverleaf,Seville,390,IV,14,5-5,11.2
+Napoleon (Napoleon),Napoleon,Napoleon,1080,IV,14,5-5,10.65
+Clear Fork (Bellville),Clear Fork,Bellville,378,IV,14,4-6,9.75
+Elida (Elida),Elida,Elida,526,IV,14,3-7,9.05
+Upper Sandusky (Upper Sandusky),Upper Sandusky,Upper Sandusky,1574,IV,14,5-5,8.5
+Orrville (Orrville),Orrville,Orrville,1210,IV,14,4-6,7.85
+Van Wert (Van Wert),Van Wert,Van Wert,1596,IV,14,4-6,6.95
+Firelands (Oberlin),Firelands,Oberlin,590,IV,14,4-6,5.7
+Wauseon (Wauseon),Wauseon,Wauseon,1634,IV,14,3-7,4.55
+Benjamin Logan (Bellefontaine),Benjamin Logan,Bellefontaine,198,IV,14,3-7,4.35
+Bellevue (Bellevue),Bellevue,Bellevue,190,IV,14,2-8,3.55
+Kenton (Kenton),Kenton,Kenton,804,IV,14,2-8,3.5
+Brookside (Sheffield),Brookside,Sheffield,262,IV,14,3-7,3.1
+Rossford (Rossford),Rossford,Rossford,1332,IV,14,1-9,2.7
+Bryan (Bryan),Bryan,Bryan,272,IV,14,1-9,0.45
+St Clairsville (St Clairsville),St Clairsville,St Clairsville,1344,IV,15,10-0,27.3247
+Indian Valley (Gnadenhutten),Indian Valley,Gnadenhutten,758,IV,15,10-0,26.55
+New Lexington (New Lexington),New Lexington,New Lexington,1100,IV,15,9-1,23.5424
+Unioto (Chillicothe),Unioto,Chillicothe,1568,IV,15,9-1,21.05
+East (Columbus),East,Columbus,482,IV,15,8-2,18.4796
+Logan Elm (Circleville),Logan Elm,Circleville,890,IV,15,7-3,17.25
+Fairfield Union (Lancaster),Fairfield Union,Lancaster,554,IV,15,6-4,14.3265
+Bishop Ready (Columbus),Bishop Ready,Columbus,220,IV,15,6-4,13.3035
+Jonathan Alder (Plain City),Jonathan Alder,Plain City,796,IV,15,5-5,10.7
+Waverly (Waverly),Waverly,Waverly,1636,IV,15,5-5,10.65
+Philo (Duncan Falls),Philo,Duncan Falls,1252,IV,15,5-5,10.1778
+East Liverpool (East Liverpool),East Liverpool,East Liverpool,500,IV,15,6-4,10.0079
+West Holmes (Millersburg),West Holmes,Millersburg,1680,IV,15,5-5,9.0631
+Canton South (Canton),Canton South,Canton,1432,IV,15,4-6,8.6
+Heath (Heath),Heath,Heath,706,IV,15,5-5,8.2
+Marion-Franklin (Columbus),Marion-Franklin,Columbus,962,IV,15,4-6,8.1596
+Vinton County (McArthur),Vinton County,McArthur,1604,IV,15,4-6,7.75
+Beaver Local (East Liverpool),Beaver Local,East Liverpool,176,IV,15,4-6,7.101
+Maysville (Zanesville),Maysville,Zanesville,982,IV,15,4-6,6.85
+Westfall (Williamsport),Westfall,Williamsport,1676,IV,15,4-6,6.7
+Highland (Marengo),Highland,Marengo,712,IV,15,3-7,6.4
+Lakewood (Hebron),Lakewood,Hebron,830,IV,15,1-9,1.1622
+Gallia Academy (Gallipolis),Gallia Academy,Gallipolis,622,IV,15,1-9,0.8146
+Minerva (Minerva),Minerva,Minerva,1046,IV,15,1-9,0.75
+Cambridge (Cambridge),Cambridge,Cambridge,300,IV,15,0-10,0.0
+River Valley (Bidwell),River Valley,Bidwell,816,IV,15,0-10,0.0
+Clinton-Massie (Clarksville),Clinton-Massie,Clarksville,388,IV,16,8-2,27.3
+Wyoming (Cincinnati),Wyoming,Cincinnati,1744,IV,16,10-0,26.35
+Valley View (Germantown),Valley View,Germantown,1590,IV,16,8-2,23.85
+Cincinnati Hills Christian Academy (Cincinnati),Cincinnati Hills Christian Academy,Cincinnati,369,IV,16,9-1,18.4632
+Taft (Cincinnati),Taft,Cincinnati,1518,IV,16,8-2,17.2304
+Taylor (Cleves),Taylor,Cleves,1524,IV,16,8-2,16.7
+Eaton (Eaton),Eaton,Eaton,510,IV,16,8-2,16.55
+Northridge (Dayton),Northridge,Dayton,1148,IV,16,7-3,15.7
+Indian Hill (Cincinnati),Indian Hill,Cincinnati,752,IV,16,7-3,15.25
+Archbishop Alter (Kettering),Archbishop Alter,Kettering,132,IV,16,5-5,15.2
+Urbana (Urbana),Urbana,Urbana,1578,IV,16,7-3,13.4
+Kenton Ridge (Springfield),Kenton Ridge,Springfield,806,IV,16,7-3,13.348
+Brookville (Brookville),Brookville,Brookville,264,IV,16,6-4,12.7
+New Richmond (New Richmond),New Richmond,New Richmond,1108,IV,16,5-5,12.45
+Shroder (Cincinnati),Shroder,Cincinnati,1421,IV,16,7-3,12.2132
+Roger Bacon (St Bernard),Roger Bacon,St Bernard,1322,IV,16,6-4,10.2727
+Bishop Fenwick (Franklin),Bishop Fenwick,Franklin,582,IV,16,3-7,8.9727
+Reading (Reading),Reading,Reading,1284,IV,16,5-5,7.9061
+Northwestern (Springfield),Northwestern,Springfield,1168,IV,16,6-4,7.6
+Bethel-Tate (Bethel),Bethel-Tate,Bethel,208,IV,16,5-5,6.0827
+Washington (Washington Court House),Washington,Washington Court House,1626,IV,16,3-7,5.05
+Oakwood (Dayton),Oakwood,Dayton,1190,IV,16,2-8,4.7
+Bethel (Tipp City),Bethel,Tipp City,206,IV,16,3-7,3.8
+McClain (Greenfield),McClain,Greenfield,988,IV,16,1-9,0.75
+Shawnee (Springfield),Shawnee,Springfield,1414,IV,16,1-9,0.55
+Gamble Montessori (Cincinnati),Gamble Montessori,Cincinnati,9461,IV,16,0-8,0.0
+Thurgood Marshall (Dayton),Thurgood Marshall,Dayton,402,IV,16,0-9,0.0
+South Range (Canfield),South Range,Canfield,1460,V,17,10-0,28.6369
+Manchester (New Franklin),Manchester,New Franklin,936,V,17,9-1,21.6
+Poland Seminary (Poland),Poland Seminary,Poland,1264,V,17,8-2,19.6643
+Garfield (Garrettsville),Garfield,Garrettsville,630,V,17,9-1,17.2
+Garaway (Sugarcreek),Garaway,Sugarcreek,624,V,17,8-2,16.9684
+Crestview (Columbiana),Crestview,Columbiana,436,V,17,8-2,16.7
+Berkshire (Burton),Berkshire,Burton,202,V,17,7-3,16.2833
+Girard (Girard),Girard,Girard,644,V,17,6-4,15.3253
+Edison (Richmond),Edison,Richmond,519,V,17,7-3,14.6026
+Chagrin Falls (Chagrin Falls),Chagrin Falls,Chagrin Falls,346,V,17,6-4,13.8235
+Martins Ferry (Martins Ferry),Martins Ferry,Martins Ferry,968,V,17,9-1,12.9188
+Lakeview (Cortland),Lakeview,Cortland,828,V,17,5-5,10.4082
+Trinity (Garfield Heights),Trinity,Garfield Heights,1542,V,17,6-4,9.2588
+Canton Central Catholic (Canton),Canton Central Catholic,Canton,340,V,17,5-5,8.8289
+Liberty (Youngstown),Liberty,Youngstown,860,V,17,5-5,7.8
+Fairless (Brewster),Fairless,Brewster,560,V,17,4-6,5.95
+Crestwood (Mantua),Crestwood,Mantua,440,V,17,5-5,5.5848
+Sandy Valley (Magnolia),Sandy Valley,Magnolia,1396,V,17,5-5,4.8778
+Waynedale (Apple Creek),Waynedale,Apple Creek,1640,V,17,3-7,4.65
+Tuscarawas Valley (Zoarville),Tuscarawas Valley,Zoarville,1558,V,17,2-8,3.15
+Buckeye Local (Rayland),Buckeye Local,Rayland,282,V,17,2-8,2.6187
+Shaw (East Cleveland),Shaw,East Cleveland,1410,V,17,1-8,2.5799
+Coshocton (Coshocton),Coshocton,Coshocton,426,V,17,2-8,2.4816
+Bellaire (Bellaire),Bellaire,Bellaire,182,V,17,3-6,2.4176
+Harrison Central (Cadiz),Harrison Central,Cadiz,294,V,17,2-8,2.1
+Southeast (Ravenna),Southeast,Ravenna,1448,V,17,3-7,2.0
+Claymont (Uhrichsville),Claymont,Uhrichsville,376,V,17,1-9,1.25
+Champion (Warren),Champion,Warren,354,V,17,1-9,0.4
+Beachwood (Beachwood),Beachwood,Beachwood,170,V,17,0-10,0.0
+River View (Warsaw),River View,Warsaw,1316,V,17,0-9,0.0
+Edison (Milan),Edison,Milan,518,V,18,10-0,29.2
+Liberty Center (Liberty Center),Liberty Center,Liberty Center,864,V,18,10-0,25.95
+Oak Harbor (Oak Harbor),Oak Harbor,Oak Harbor,1184,V,18,10-0,25.1
+Norwayne (Creston),Norwayne,Creston,1174,V,18,9-1,22.35
+Eastwood (Pemberville),Eastwood,Pemberville,508,V,18,9-1,19.25
+Keystone (La Grange),Keystone,La Grange,808,V,18,9-1,19.05
+Liberty-Benton (Findlay),Liberty-Benton,Findlay,862,V,18,9-1,18.55
+Triway (Wooster),Triway,Wooster,1548,V,18,7-3,17.5
+Johnstown (Johnstown),Johnstown,Johnstown,794,V,18,9-1,15.45
+Fairview (Fairview Park),Fairview,Fairview Park,570,V,18,7-3,13.95
+Genoa Area (Genoa),Genoa Area,Genoa,636,V,18,6-4,13.1
+Archbold (Archbold),Archbold,Archbold,134,V,18,6-4,12.75
+Delta (Delta),Delta,Delta,466,V,18,6-4,9.4
+Fredericktown (Fredericktown),Fredericktown,Fredericktown,614,V,18,5-5,7.9
+Utica (Utica),Utica,Utica,1584,V,18,4-6,7.2
+Northridge (Johnstown),Northridge,Johnstown,1150,V,18,5-5,7.0475
+Lake (Millbury),Lake,Millbury,820,V,18,3-7,6.25
+Northwood (Northwood),Northwood,Northwood,1172,V,18,6-4,5.4271
+East Knox (Howard),East Knox,Howard,498,V,18,4-6,5.4
+Port Clinton (Port Clinton),Port Clinton,Port Clinton,1266,V,18,3-7,3.6707
+Wellington (Wellington),Wellington,Wellington,1650,V,18,3-7,3.3
+Fostoria (Fostoria),Fostoria,Fostoria,606,V,18,3-7,3.25
+Willard (Willard),Willard,Willard,1710,V,18,2-8,2.2306
+Northwestern (West Salem),Northwestern,West Salem,1170,V,18,1-9,2.1
+Swanton (Swanton),Swanton,Swanton,1506,V,18,0-10,0.0
+Ironton (Ironton),Ironton,Ironton,760,V,19,9-1,30.464
+Fairland (Proctorville),Fairland,Proctorville,556,V,19,9-1,24.4125
+Barnesville (Barnesville),Barnesville,Barnesville,162,V,19,10-0,24.3025
+Harvest Prep (Canal Winchester),Harvest Prep,Canal Winchester,1737,V,19,7-2,22.976
+Columbus Academy (Gahanna),Columbus Academy,Gahanna,410,V,19,9-1,20.8116
+Nelsonville-York (Nelsonville),Nelsonville-York,Nelsonville,1084,V,19,8-2,19.4
+West Muskingum (Zanesville),West Muskingum,Zanesville,1690,V,19,7-2,17.7222
+Portsmouth (Portsmouth),Portsmouth,Portsmouth,1268,V,19,7-3,16.4694
+Amanda-Clearcreek (Amanda),Amanda-Clearcreek,Amanda,114,V,19,6-4,16.35
+Africentric Early College (Columbus),Africentric Early College,Columbus,105,V,19,7-3,16.3
+Union Local (Belmont),Union Local,Belmont,1566,V,19,8-2,15.7712
+Piketon (Piketon),Piketon,Piketon,1256,V,19,7-3,14.5
+Dawson-Bryant (Coal Grove),Dawson-Bryant,Coal Grove,458,V,19,6-3,13.6754
+Wheelersburg (Wheelersburg),Wheelersburg,Wheelersburg,1696,V,19,6-4,13.3571
+Zane Trace (Chillicothe),Zane Trace,Chillicothe,1752,V,19,6-4,12.9
+Worthington Christian (Worthington),Worthington Christian,Worthington,1740,V,19,5-5,10.1622
+Northwest (McDermott),Northwest,McDermott,1166,V,19,6-4,9.35
+Wellston (Wellston),Wellston,Wellston,1652,V,19,5-5,7.3
+Meigs (Pomeroy),Meigs,Pomeroy,1008,V,19,5-5,6.8449
+Meadowbrook (Byesville),Meadowbrook,Byesville,1000,V,19,4-6,6.7985
+Crooksville (Crooksville),Crooksville,Crooksville,442,V,19,4-6,6.2439
+Morgan (McConnelsville),Morgan,McConnelsville,1068,V,19,2-8,3.399
+KIPP Columbus (Columbus),KIPP Columbus,Columbus,9592,V,19,1-9,2.7949
+Alexander (Albany),Alexander,Albany,108,V,19,3-7,1.95
+South Point (South Point),South Point,South Point,1458,V,19,1-9,1.6132
+Oak Hill (Oak Hill),Oak Hill,Oak Hill,1186,V,19,1-9,1.4106
+Minford (Minford),Minford,Minford,1048,V,19,1-9,0.8
+Greeneview (Jamestown),Greeneview,Jamestown,672,V,20,10-0,22.15
+West Liberty-Salem (West Liberty),West Liberty-Salem,West Liberty,1688,V,20,9-1,19.8
+Waynesville (Waynesville),Waynesville,Waynesville,1644,V,20,7-3,19.1
+Preble Shawnee (Camden),Preble Shawnee,Camden,1272,V,20,9-1,16.15
+Indian Lake (Lewistown),Indian Lake,Lewistown,754,V,20,8-2,15.3
+Williamsburg (Williamsburg),Williamsburg,Williamsburg,1712,V,20,9-1,14.5612
+Miami East (Casstown),Miami East,Casstown,1018,V,20,7-3,12.45
+Carlisle (Carlisle),Carlisle,Carlisle,318,V,20,5-5,12.1
+Bath (Lima),Bath,Lima,166,V,20,5-5,11.25
+Milton-Union (West Milton),Milton-Union,West Milton,1042,V,20,6-4,10.45
+Madeira (Cincinnati),Madeira,Cincinnati,920,V,20,5-5,10.2793
+Versailles (Versailles),Versailles,Versailles,1600,V,20,5-5,9.9
+Pleasant (Marion),Pleasant,Marion,1260,V,20,5-5,8.5086
+Madison (Middletown),Madison,Middletown,924,V,20,4-6,8.2255
+Arcanum (Arcanum),Arcanum,Arcanum,130,V,20,6-4,7.75
+Graham Local (St Paris),Graham Local,St Paris,660,V,20,3-7,5.75
+Clark Montessori (Cincinnati),Clark Montessori,Cincinnati,1956,V,20,5-5,4.0745
+North Union (Richwood),North Union,Richwood,1156,V,20,2-8,4.05
+North College Hill (Cincinnati),North College Hill,Cincinnati,1134,V,20,3-6,2.5326
+Clermont Northeastern (Batavia),Clermont Northeastern,Batavia,382,V,20,3-7,1.9071
+Mariemont (Cincinnati),Mariemont,Cincinnati,954,V,20,2-8,1.25
+Finneytown (Cincinnati),Finneytown,Cincinnati,588,V,20,1-9,1.1076
+Greenon (Enon),Greenon,Enon,676,V,20,1-9,1.05
+Norwood (Norwood),Norwood,Norwood,1176,V,20,0-10,0.0
+Kirtland (Kirtland),Kirtland,Kirtland,812,VI,21,10-0,29.2005
+Springfield (New Middletown),Springfield,New Middletown,1478,VI,21,8-2,18.1
+Pymatuning Valley (Andover),Pymatuning Valley,Andover,1280,VI,21,9-1,16.2051
+Columbia (Columbia Station),Columbia,Columbia Station,404,VI,21,8-2,14.9
+United (Hanoverton),United,Hanoverton,1570,VI,21,9-1,14.4606
+Dalton (Dalton),Dalton,Dalton,450,VI,21,7-3,14.35
+Toronto (Toronto),Toronto,Toronto,1536,VI,21,7-3,12.3763
+LaBrae (Leavittsburg),LaBrae,Leavittsburg,818,VI,21,7-3,10.95
+Smithville (Smithville),Smithville,Smithville,1426,VI,21,7-3,10.95
+Wickliffe (Wickliffe),Wickliffe,Wickliffe,1706,VI,21,7-3,10.048
+Valley Christian School (Youngstown),Valley Christian School,Youngstown,1751,VI,21,7-3,8.9636
+Mogadore (Mogadore),Mogadore,Mogadore,1058,VI,21,5-5,6.2191
+Rittman (Rittman),Rittman,Rittman,1304,VI,21,5-5,5.7
+Mineral Ridge (Mineral Ridge),Mineral Ridge,Mineral Ridge,1044,VI,21,4-6,5.55
+Black River (Sullivan),Black River,Sullivan,226,VI,21,4-6,4.8
+Rootstown (Rootstown),Rootstown,Rootstown,1328,VI,21,4-6,2.95
+Brookfield (Brookfield),Brookfield,Brookfield,256,VI,21,3-7,2.9
+Campbell Memorial (Campbell),Campbell Memorial,Campbell,1010,VI,21,3-7,2.75
+Columbiana (Columbiana),Columbiana,Columbiana,408,VI,21,3-7,2.4641
+St Thomas Aquinas (Louisville),St Thomas Aquinas,Louisville,1378,VI,21,1-9,2.3
+Chippewa (Doylestown),Chippewa,Doylestown,366,VI,21,2-8,1.85
+Tuslaw (Massillon),Tuslaw,Massillon,1560,VI,21,2-8,1.8096
+Jackson-Milton (North Jackson),Jackson-Milton,North Jackson,768,VI,21,2-8,1.15
+Brooklyn (Brooklyn),Brooklyn,Brooklyn,260,VI,21,2-8,0.8
+Grand Valley (Orwell),Grand Valley,Orwell,662,VI,21,1-9,0.7582
+Newton Falls (Newton Falls),Newton Falls,Newton Falls,1112,VI,21,0-10,0.0
+Richmond Heights (Richmond Heights),Richmond Heights,Richmond Heights,1294,VI,21,0-5,0.0
+Hopewell-Loudon (Bascom),Hopewell-Loudon,Bascom,732,VI,22,9-0,24.731
+Bluffton (Bluffton),Bluffton,Bluffton,236,VI,22,9-1,17.95
+Ottawa Hills (Toledo),Ottawa Hills,Toledo,1216,VI,22,8-1,17.0215
+Patrick Henry (Hamler),Patrick Henry,Hamler,1234,VI,22,8-2,14.65
+Tinora (Defiance),Tinora,Defiance,1532,VI,22,7-3,14.45
+Fairview (Sherwood),Fairview,Sherwood,572,VI,22,8-2,13.6
+Huron (Huron),Huron,Huron,746,VI,22,6-4,12.75
+Western Reserve (Collins),Western Reserve,Collins,1670,VI,22,7-3,11.3
+Seneca East (Attica),Seneca East,Attica,1400,VI,22,6-4,10.2
+Spencerville (Spencerville),Spencerville,Spencerville,1468,VI,22,5-5,9.9
+Woodmore (Elmore),Woodmore,Elmore,1722,VI,22,5-4,9.8384
+Carey (Carey),Carey,Carey,316,VI,22,5-5,9.1712
+Evergreen (Metamora),Evergreen,Metamora,542,VI,22,6-4,9.1136
+Crestview (Ashland),Crestview,Ashland,434,VI,22,5-5,8.25
+Paulding (Paulding),Paulding,Paulding,1236,VI,22,7-3,7.9
+Margaretta (Castalia),Margaretta,Castalia,950,VI,22,4-6,7.4163
+Van Buren (Van Buren),Van Buren,Van Buren,1592,VI,22,5-5,6.45
+Wayne Trace (Haviland),Wayne Trace,Haviland,1646,VI,22,4-6,5.9
+Crestview (Convoy),Crestview,Convoy,438,VI,22,4-6,5.65
+Allen East (Harrod),Allen East,Harrod,110,VI,22,4-6,5.3
+Mapleton (Ashland),Mapleton,Ashland,946,VI,22,4-6,3.65
+Hicksville (Hicksville),Hicksville,Hicksville,708,VI,22,2-8,1.85
+Lakota (Kansas),Lakota,Kansas,834,VI,22,2-8,1.5143
+New London (New London),New London,New London,1102,VI,22,2-8,1.4
+Riverdale (Mt Blanchard),Riverdale,Mt Blanchard,1308,VI,22,3-7,1.15
+Parkway (Rockford),Parkway,Rockford,1230,VI,22,1-9,0.8
+Elmwood (Bloomdale),Elmwood,Bloomdale,530,VI,22,0-10,0.0
+Grandview Heights (Columbus),Grandview Heights,Columbus,664,VI,23,9-0,22.5836
+Northmor (Galion),Northmor,Galion,1144,VI,23,10-0,20.8
+Ridgewood (West Lafayette),Ridgewood,West Lafayette,1300,VI,23,9-1,18.5449
+Fort Frye (Beverly),Fort Frye,Beverly,598,VI,23,7-3,17.3553
+Waterford (Waterford),Waterford,Waterford,1628,VI,23,8-2,17.1389
+Grove City Christian (Grove City),Grove City Christian,Grove City,681,VI,23,8-2,14.7177
+Eastern (Reedsville),Eastern,Reedsville,494,VI,23,8-2,14.2053
+Monroe Central (Woodsfield),Monroe Central,Woodsfield,1063,VI,23,9-1,13.348
+Colonel Crawford (North Robinson),Colonel Crawford,North Robinson,400,VI,23,8-2,13.1447
+Centerburg (Centerburg),Centerburg,Centerburg,334,VI,23,7-3,13.1
+Newcomerstown (Newcomerstown),Newcomerstown,Newcomerstown,1096,VI,23,8-2,12.4949
+Fairbanks (Milford Center),Fairbanks,Milford Center,544,VI,23,7-3,12.0
+Buckeye Trail (Lore City),Buckeye Trail,Lore City,284,VI,23,6-4,11.1
+Mechanicsburg (Mechanicsburg),Mechanicsburg,Mechanicsburg,1004,VI,23,7-3,10.7
+Caldwell (Caldwell),Caldwell,Caldwell,296,VI,23,5-5,10.45
+Elgin (Marion),Elgin,Marion,524,VI,23,5-5,8.2
+Bishop Rosecrans (Zanesville),Bishop Rosecrans,Zanesville,222,VI,23,6-4,7.45
+Mount Gilead (Mount Gilead),Mount Gilead,Mount Gilead,1072,VI,23,4-6,6.05
+West Jefferson (West Jefferson),West Jefferson,West Jefferson,1682,VI,23,3-7,5.4
+Berne Union (Sugar Grove),Berne Union,Sugar Grove,204,VI,23,3-7,5.0
+Shenandoah (Sarahsville),Shenandoah,Sarahsville,1418,VI,23,2-8,4.7
+Wynford (Bucyrus),Wynford,Bucyrus,1742,VI,23,3-7,4.6
+Cardington-Lincoln (Cardington),Cardington-Lincoln,Cardington,314,VI,23,3-7,2.95
+Liberty Union (Baltimore),Liberty Union,Baltimore,866,VI,23,2-8,2.45
+Belpre (Belpre),Belpre,Belpre,194,VI,23,1-9,0.7071
+Triad (North Lewisburg),Triad,North Lewisburg,1538,VI,23,1-9,0.4
+Bucyrus (Bucyrus),Bucyrus,Bucyrus,290,VI,23,0-10,0.0
+Coldwater (Coldwater),Coldwater,Coldwater,394,VI,24,9-1,23.85
+Cincinnati Country Day (Cincinnati),Cincinnati Country Day,Cincinnati,368,VI,24,9-1,18.3868
+Anna (Anna),Anna,Anna,120,VI,24,7-3,15.85
+Portsmouth West (West Portsmouth),Portsmouth West,West Portsmouth,1270,VI,24,7-3,13.65
+St Bernard-Elmwood Place (St Bernard),St Bernard-Elmwood Place,St Bernard,1340,VI,24,8-2,11.9479
+Paint Valley (Bainbridge),Paint Valley,Bainbridge,1226,VI,24,7-3,10.7
+Rock Hill (Ironton),Rock Hill,Ironton,1318,VI,24,7-3,8.3571
+Northeastern (South Vienna),Northeastern,South Vienna,1136,VI,24,6-4,8.05
+Miami Valley Christian Academy (Cincinnati),Miami Valley Christian Academy,Cincinnati,1023,VI,24,4-6,7.4854
+Madison-Plains (London),Madison-Plains,London,928,VI,24,6-4,7.2
+Purcell Marian (Cincinnati),Purcell Marian,Cincinnati,1276,VI,24,4-5,6.8864
+Dayton Christian (Miamisburg),Dayton Christian,Miamisburg,460,VI,24,4-5,5.9542
+Chesapeake (Chesapeake),Chesapeake,Chesapeake,362,VI,24,5-5,5.7979
+Perry (Lima),Perry,Lima,1242,VI,24,5-5,5.35
+Deer Park (Cincinnati),Deer Park,Cincinnati,462,VI,24,4-6,5.3
+Covington (Covington),Covington,Covington,430,VI,24,3-7,5.0384
+Valley (Lucasville),Valley,Lucasville,1586,VI,24,3-7,5.0235
+Blanchester (Blanchester),Blanchester,Blanchester,228,VI,24,4-6,4.3763
+Adena (Frankfort),Adena,Frankfort,102,VI,24,3-7,3.8
+National Trail (New Paris),National Trail,New Paris,1082,VI,24,4-6,3.7
+Huntington (Chillicothe),Huntington,Chillicothe,744,VI,24,3-7,3.15
+Summit Country Day (Cincinnati),Summit Country Day,Cincinnati,1504,VI,24,2-7,1.3467
+Southeastern (Chillicothe),Southeastern,Chillicothe,1450,VI,24,1-9,0.7
+East Clinton (Sabina),East Clinton,Sabina,490,VI,24,1-9,0.35
+Dixie (New Lebanon),Dixie,New Lebanon,470,VI,24,0-10,0.0
+Western Reserve (Berlin Center),Western Reserve,Berlin Center,1668,VII,25,9-1,20.45
+Hillsdale (Jeromesville),Hillsdale,Jeromesville,720,VII,25,9-1,17.95
+Malvern (Malvern),Malvern,Malvern,934,VII,25,9-1,17.9444
+Monroeville (Monroeville),Monroeville,Monroeville,1064,VII,25,9-1,17.25
+John F Kennedy (Warren),John F Kennedy,Warren,786,VII,25,8-2,17.0343
+McDonald (McDonald),McDonald,McDonald,992,VII,25,7-3,11.7
+Windham (Windham),Windham,Windham,1716,VII,25,9-1,11.5313
+St Paul (Norwalk),St Paul,Norwalk,1374,VII,25,6-4,11.25
+Cuyahoga Heights (Cuyahoga Heights),Cuyahoga Heights,Cuyahoga Heights,446,VII,25,5-4,11.1667
+Southern (Salineville),Southern,Salineville,1456,VII,25,6-4,9.5232
+Lowellville (Lowellville),Lowellville,Lowellville,906,VII,25,6-4,8.6131
+East Palestine (East Palestine),East Palestine,East Palestine,504,VII,25,6-4,5.7354
+Independence (Independence),Independence,Independence,750,VII,25,4-6,5.6394
+Lucas (Lucas),Lucas,Lucas,908,VII,25,5-5,5.6204
+Fairport Harding (Fairport Harbor),Fairport Harding,Fairport Harbor,566,VII,25,5-4,5.1292
+Crestline (Crestline),Crestline,Crestline,432,VII,25,5-5,5.0553
+Waterloo (Atwater),Waterloo,Atwater,1630,VII,25,4-6,4.1753
+Lisbon David Anderson (Lisbon),Lisbon David Anderson,Lisbon,456,VII,25,3-6,3.3889
+Buckeye Central (New Washington),Buckeye Central,New Washington,278,VII,25,2-8,2.7702
+East Canton (East Canton),East Canton,East Canton,488,VII,25,3-7,2.5141
+South Central (Greenwich),South Central,Greenwich,1446,VII,25,2-8,2.2
+St John School (Ashtabula),St John School,Ashtabula,1359,VII,25,3-6,2.176
+Plymouth (Plymouth),Plymouth,Plymouth,1262,VII,25,2-8,1.45
+Cardinal (Middlefield),Cardinal,Middlefield,308,VII,25,1-9,0.75
+Mathews (Vienna),Mathews,Vienna,974,VII,25,1-9,0.4
+Wellsville (Wellsville),Wellsville,Wellsville,1654,VII,25,1-9,0.35
+Leetonia (Leetonia),Leetonia,Leetonia,850,VII,25,0-10,0.0
+Oberlin (Oberlin),Oberlin,Oberlin,1192,VII,25,0-10,0.0
+Columbus Grove (Columbus Grove),Columbus Grove,Columbus Grove,412,VII,26,10-0,26.95
+Upper Scioto Valley (McGuffey),Upper Scioto Valley,McGuffey,1576,VII,26,9-1,18.704
+Gibsonburg (Gibsonburg),Gibsonburg,Gibsonburg,640,VII,26,8-2,16.8613
+Mohawk (Sycamore),Mohawk,Sycamore,1060,VII,26,8-2,15.55
+Edon (Edon),Edon,Edon,520,VII,26,9-1,15.4652
+Ada (Ada),Ada,Ada,100,VII,26,8-2,15.1
+Calvert (Tiffin),Calvert,Tiffin,298,VII,26,6-4,13.4224
+Lima Central Catholic (Lima),Lima Central Catholic,Lima,874,VII,26,7-3,13.25
+Pandora-Gilboa (Pandora),Pandora-Gilboa,Pandora,1228,VII,26,7-3,12.75
+Hardin Northern (Dola),Hardin Northern,Dola,694,VII,26,6-4,10.9
+Leipsic (Leipsic),Leipsic,Leipsic,854,VII,26,6-4,9.95
+McComb (McComb),McComb,McComb,990,VII,26,7-3,9.8
+Edgerton (Edgerton),Edgerton,Edgerton,512,VII,26,6-4,8.6141
+Arlington (Arlington),Arlington,Arlington,136,VII,26,5-5,8.1
+St John's (Delphos),St John's,Delphos,1358,VII,26,3-7,5.6
+North Baltimore (North Baltimore),North Baltimore,North Baltimore,1130,VII,26,4-6,4.4
+Antwerp (Antwerp),Antwerp,Antwerp,126,VII,26,3-7,2.9187
+North Central (Pioneer),North Central,Pioneer,1132,VII,26,3-7,2.4889
+Jefferson (Delphos),Jefferson,Delphos,772,VII,26,1-9,1.8641
+Hilltop (West Unity),Hilltop,West Unity,722,VII,26,1-8,1.6389
+Montpelier (Montpelier),Montpelier,Montpelier,1066,VII,26,3-7,1.4804
+Ayersville (Defiance),Ayersville,Defiance,154,VII,26,1-9,1.2
+Cory-Rawson (Rawson),Cory-Rawson,Rawson,424,VII,26,1-9,0.35
+Arcadia (Arcadia),Arcadia,Arcadia,128,VII,26,0-10,0.0
+Vanlue (Vanlue),Vanlue,Vanlue,1594,VII,26,0-10,0.0
+Danville (Danville),Danville,Danville,454,VII,27,8-2,16.5823
+Eastern (Beaver),Eastern,Beaver,492,VII,27,10-0,16.1789
+Conotton Valley (Bowerston),Conotton Valley,Bowerston,418,VII,27,7-3,13.1701
+Catholic Central (Steubenville),Catholic Central,Steubenville,326,VII,27,7-3,12.4783
+Miller (Corning),Miller,Corning,1036,VII,27,8-2,12.4455
+Trimble (Glouster),Trimble,Glouster,1540,VII,27,6-4,9.3677
+South Gallia (Crown City),South Gallia,Crown City,1453,VII,27,6-3,8.4634
+Notre Dame (Portsmouth),Notre Dame,Portsmouth,1178,VII,27,5-5,6.8515
+Shadyside (Shadyside),Shadyside,Shadyside,1406,VII,27,3-7,5.5
+Frontier (New Matamoras),Frontier,New Matamoras,618,VII,27,4-6,5.3894
+Fisher Catholic (Lancaster),Fisher Catholic,Lancaster,594,VII,27,4-6,5.1235
+Southern (Racine),Southern,Racine,1454,VII,27,3-6,5.0859
+River (Hannibal),River,Hannibal,1306,VII,27,4-6,5.0694
+Fairfield Christian Academy (Lancaster),Fairfield Christian Academy,Lancaster,553,VII,27,3-7,3.9793
+Strasburg-Franklin (Strasburg),Strasburg-Franklin,Strasburg,1494,VII,27,3-7,3.8278
+Bridgeport (Bridgeport),Bridgeport,Bridgeport,250,VII,27,3-7,3.2217
+Symmes Valley (Willow Wood),Symmes Valley,Willow Wood,1514,VII,27,3-6,2.5265
+Green (Franklin Furnace),Green,Franklin Furnace,668,VII,27,2-7,2.0719
+Sciotoville Community (Portsmouth),Sciotoville Community,Portsmouth,484,VII,27,1-9,1.6521
+Millersport (Millersport),Millersport,Millersport,1040,VII,27,2-8,1.4576
+Ridgedale (Morral),Ridgedale,Morral,1296,VII,27,2-8,1.4216
+Federal Hocking (Stewart),Federal Hocking,Stewart,578,VII,27,2-7,1.2821
+Newark Catholic (Newark),Newark Catholic,Newark,1090,VII,27,1-9,1.05
+Beallsville (Beallsville),Beallsville,Beallsville,172,VII,27,1-9,0.7433
+Loudonville (Loudonville),Loudonville,Loudonville,900,VII,27,0-10,0.0
+Tuscarawas Central Catholic (New Philadelphia),Tuscarawas Central Catholic,New Philadelphia,1556,VII,27,0-9,0.0
+Marion Local (Maria Stein),Marion Local,Maria Stein,958,VII,28,10-0,27.1
+Minster (Minster),Minster,Minster,1052,VII,28,8-2,19.05
+Cincinnati College Prep (Cincinnati),Cincinnati College Prep,Cincinnati,9272,VII,28,7-2,18.9866
+Ansonia (Ansonia),Ansonia,Ansonia,122,VII,28,9-1,17.65
+Lehman Catholic (Sidney),Lehman Catholic,Sidney,852,VII,28,8-2,15.8
+Ridgemont (Mt Victory),Ridgemont,Mt Victory,1298,VII,28,8-2,14.75
+St Henry (St Henry),St Henry,St Henry,1352,VII,28,6-4,11.3
+Waynesfield-Goshen (Waynesfield),Waynesfield-Goshen,Waynesfield,1642,VII,28,7-3,11.3
+Tri-Village (New Madison),Tri-Village,New Madison,1546,VII,28,8-2,10.75
+New Bremen (New Bremen),New Bremen,New Bremen,1092,VII,28,5-5,10.5
+Fort Loramie (Fort Loramie),Fort Loramie,Fort Loramie,602,VII,28,5-5,8.65
+Riverside (De Graff),Riverside,De Graff,1310,VII,28,4-6,7.4
+Twin Valley South (West Alexandria),Twin Valley South,West Alexandria,1564,VII,28,5-5,5.55
+Southeastern Local (South Charleston),Southeastern Local,South Charleston,1452,VII,28,4-6,4.55
+Manchester (Manchester),Manchester,Manchester,938,VII,28,3-6,4.354
+Cedarville (Cedarville),Cedarville,Cedarville,328,VII,28,4-6,2.9641
+New Miami (Hamilton),New Miami,Hamilton,1104,VII,28,3-6,2.8214
+Fort Recovery (Fort Recovery),Fort Recovery,Fort Recovery,604,VII,28,2-8,2.6
+Tri-County North (Lewisburg),Tri-County North,Lewisburg,1562,VII,28,3-7,2.25
+Mississinawa Valley (Union City),Mississinawa Valley,Union City,1054,VII,28,2-8,1.15
+Catholic Central (Springfield),Catholic Central,Springfield,324,VII,28,2-8,1.1
+Bradford (Bradford),Bradford,Bradford,246,VII,28,1-9,0.4
+Fayetteville (Fayetteville),Fayetteville,Fayetteville,576,VII,28,0-9,0.0
+Troy Christian (Troy),Troy Christian,Troy,1553,VII,28,0-10,0.0
