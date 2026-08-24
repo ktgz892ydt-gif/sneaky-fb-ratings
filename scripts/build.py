@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 
@@ -80,7 +81,7 @@ def connectivity(teams, games):
 
 
 def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
-         prior_path=None):
+         prior_path=None, use_prior=True):
     # Prefer real scraped data when it exists; fall back to the checked-in
     # Week 1 fixture so the pipeline is runnable without network access.
     if games_path is None:
@@ -90,6 +91,11 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
         )
     roster_path = roster_path or os.path.join(DATA, "roster_2026.csv")
     out_path = out_path or os.path.join(SITE, "ratings.json")
+
+    # The season is whichever one these files are for -- inferred from the
+    # filename so that building a past season does not mislabel its output.
+    m = re.search(r"(\d{4})", os.path.basename(games_path))
+    season = int(m.group(1)) if m else 2026
 
     roster = load_roster(roster_path)
     raw_games = load_games(games_path)
@@ -122,9 +128,18 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
     # across years.
     priors, prior_meta = None, None
     ppath = prior_path or os.path.join(DATA, "prior.json")
-    if os.path.exists(ppath):
-        with open(ppath, encoding="utf-8") as fh:
-            blob = json.load(fh)
+    blob = None
+    if use_prior and os.path.exists(ppath):
+        try:
+            with open(ppath, encoding="utf-8") as fh:
+                blob = json.load(fh)
+        except (json.JSONDecodeError, OSError) as exc:
+            # An unreadable prior is a reason to warn and carry on, not to
+            # abandon the week's ratings.
+            print(f"warning: could not read prior at {ppath} ({exc}); "
+                  f"continuing without one", file=sys.stderr)
+            blob = None
+    if blob:
         pmap = blob.get("prior", {})
         priors = {}
         for t in team_ids:
@@ -135,6 +150,8 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
             elif tm.name in pmap:
                 priors[t] = pmap[tm.name]
         prior_meta = dict(blob.get("meta", {}), matched=len(priors))
+        if not priors:
+            priors = None
 
     result = rate(team_ids, res.games, cfg, priors=priors)
 
@@ -192,7 +209,7 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
 
     payload = {
         "generatedAt": generated_at or datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "season": 2026,
+        "season": season,
         "weeksLoaded": sorted({g["week"] for g in res.games}),
         "gameCount": len(res.games),
         "teamCount": len(team_ids),
@@ -286,7 +303,8 @@ if __name__ == "__main__":
         games_path=a.games,
         roster_path=a.roster,
         out_path=a.out,
-        prior_path=os.devnull if a.no_prior else a.prior,
+        prior_path=a.prior,
+        use_prior=not a.no_prior,
     )
     print(f"games          : {payload['gameCount']}")
     print(f"teams          : {payload['teamCount']}  (Ohio: {payload['ohioTeamCount']})")
