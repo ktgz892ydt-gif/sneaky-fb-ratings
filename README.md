@@ -36,14 +36,6 @@ between two ratings is the expected neutral-field margin.
 Plain Bradley-Terry and plain Massey are still fitted and shown alongside, under
 "Compare models." Where they disagree is the interesting part.
 
-## The honest part
-
-Paired-comparison ratings only carry meaning between teams joined by a chain of
-games. The site computes the game graph's connected components every run and
-labels itself accordingly — in Week 1 it says, in large type, **"These are not
-rankings yet."** Expect the statewide board to become genuinely informative
-around Week 4–5, once league play has stitched the regions together.
-
 ## Same-name schools
 
 Ohio fields three schools named Northwest, three named Perry, three named
