@@ -37,6 +37,32 @@ jobs:
 
       - run: pip install -r requirements.txt
 
+      # One-time backfill. 2025 is finished, so once its scores are committed
+      # there is nothing to re-read -- skipping keeps the weekly run at 44
+      # requests instead of 88.
+      - name: Backfill last season (first run only)
+        run: |
+          if [ ! -f data/games_2025.csv ]; then
+            echo "No 2025 data yet -- backfilling."
+            python scripts/scrape.py --season 2025
+          else
+            echo "2025 already on disk, skipping."
+          fi
+
+      - name: Build last season's ratings and derive the preseason prior
+        run: |
+          if [ -f data/games_2025.csv ]; then
+            python scripts/build.py --no-site --no-prior \
+              --games data/games_2025.csv \
+              --roster data/roster_2025.csv \
+              --out data/ratings_2025.json
+            python scripts/season_prior.py \
+              --from-ratings data/ratings_2025.json \
+              --out data/prior.json --carry 0.5
+          else
+            echo "No 2025 data; this season will run without a prior."
+          fi
+
       - name: Scrape scores and roster
         run: |
           python scripts/scrape.py --season 2026 \
