@@ -41,6 +41,11 @@ jobs:
 
       - run: pip install -r requirements.txt
 
+      # Unit tests run before anything touches the network. A broken resolver
+      # or model should fail here, in seconds, not after 44 requests.
+      - name: Unit tests
+        run: python -m pytest tests/ -q
+
       # One-time backfill. Past seasons are finished, so once their scores are
       # committed there is nothing to re-read -- skipping keeps the weekly run
       # at 44 requests instead of 176.
@@ -91,7 +96,7 @@ jobs:
         run: |
           git config user.name  "ratings-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/ site/ratings.json site/index.html
+          git add data/ site/ratings.json site/index.html site/app.html
           if git diff --staged --quiet; then
             echo "No change this run."
           else
