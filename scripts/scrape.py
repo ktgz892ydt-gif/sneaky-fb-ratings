@@ -28,6 +28,7 @@ import os
 import re
 import sys
 import time
+from typing import NamedTuple
 
 import requests
 from bs4 import BeautifulSoup
@@ -80,6 +81,32 @@ SB_GAME_RE = re.compile(
     rf"(?P<home>{SB_TEAM})\s+(?P<hscore>\d{{1,3}})(?!\d)",
     re.IGNORECASE,
 )
+
+# A scheduled, not-yet-played game. Confirmed from a workflow-log probe of the
+# 2026 week 2 scoreboard: 466 records, every one of them shaped
+#
+#   2026-08-27 6:30pm Deer Park (Cincinnati) *** at Shroder (Cincinnati) ***
+#   2026-08-27 7pm Weir (Weirton) [WV] *** at Oak Glen (New Cumberland) [WV] ***
+#   2026-08-28 Lewis County (Vanceburg) [KY] *** at Morgan County (West Liberty) [KY] ***
+#
+# Both scores are replaced by '***', the kickoff time is sometimes absent, and
+# out-of-state teams sometimes carry an EMPTY city: "Flint Beecher () [MI]".
+# That last one is why this pattern allows {0,40} inside the parentheses where
+# the completed-game pattern demands {1,40} -- see the note on SB_TEAM_EMPTY.
+#
+# No neutral-site marker ('vs.') appeared anywhere in the 466. 'vs.' is still
+# accepted here because completed games do use it, and a neutral fixture
+# appearing later must not be silently dropped.
+SB_TEAM_EMPTY = r"[A-Za-z][A-Za-z0-9'&.,\-/ ]*?\([^)]{0,40}\)(?:\s*\[[A-Za-z]{2}\])?"
+SB_FUTURE_RE = re.compile(
+    rf"(?P<date>\d{{4}}-\d{{2}}-\d{{2}})\s+(?:(?P<time>{SB_TIME})\s+)?"
+    rf"(?P<away>{SB_TEAM_EMPTY})\s+\*\*\*\s+"
+    rf"(?P<sep>at|vs\.?)\s+"
+    rf"(?P<home>{SB_TEAM_EMPTY})\s+\*\*\*",
+    re.IGNORECASE,
+)
+
+EMPTY_CITY_RE = re.compile(r"\s*\(\s*\)\s*$")
 
 # Same idea for the ranking pages. The "Current Average" always carries four
 # decimals, which terminates the free-text city+school run reliably.
@@ -441,24 +468,24 @@ def probe_unscored(flat, label, samples=12, window=200):
     writing a pattern, because the last two pattern rewrites were built from a
     reassembled view of the page that does not exist in the HTML.
     """
-    matched_at = {m.start() for m in SB_GAME_RE.finditer(flat)}
+    played_at = {m.start() for m in SB_GAME_RE.finditer(flat)}
+    sched_at = {m.start() for m in SB_FUTURE_RE.finditer(flat)}
+    known = played_at | sched_at
     dates = list(ISO_DATE_RE.finditer(flat))
-    unmatched = [m for m in dates if m.start() not in matched_at]
+    unmatched = [m for m in dates if m.start() not in known]
 
     print(f"\n  == PROBE: {label} ==", file=sys.stderr)
     print(f"     date-anchored records on page : {len(dates)}", file=sys.stderr)
-    print(f"     matched as completed games    : {len(matched_at)}", file=sys.stderr)
-    print(f"     UNMATCHED (candidate futures) : {len(unmatched)}", file=sys.stderr)
+    print(f"     matched as completed games    : {len(played_at)}", file=sys.stderr)
+    print(f"     matched as scheduled games    : {len(sched_at)}", file=sys.stderr)
+    print(f"     UNRECOGNISED                  : {len(unmatched)}", file=sys.stderr)
 
-    # The roadmap asserts future games are flagged '***'. Assertion, not fact --
-    # so count it directly rather than building a pattern around a guess.
-    for token in ("***", "**", "TBA", "TBD", "vs.", " at "):
+    for token in ("***", "TBA", "TBD", "vs.", " at ", "()"):
         print(f"     literal {token!r:8} appears        : {flat.count(token)}",
               file=sys.stderr)
 
     if not unmatched:
-        print("     (nothing unmatched -- no future games on this page)",
-              file=sys.stderr)
+        print("     (every record on the page is accounted for)", file=sys.stderr)
         return []
 
     # One record per sample. Without this the window runs on into the next
@@ -556,12 +583,62 @@ def _split_state(name):
     return _clean_name(name), ""
 
 
+class WeekResult(NamedTuple):
+    games: list       # completed, with scores -- these drive the rating fit
+    scheduled: list   # fixtures with no result yet -- predictions only
+    residual: int     # date-anchored records neither pattern recognised
+    flat: str
+
+
+def _sched_name(raw):
+    """'Flint Beecher () [MI]' -> ('Flint Beecher', 'MI').
+
+    Out-of-state schools sometimes have no mailing city on the scoreboard, and
+    the site still writes the empty parentheses. Left in place they would
+    become part of the team's identity, so a team would appear as both
+    'Flint Beecher ()' and 'Flint Beecher' depending on which page named it.
+    """
+    name, state = _split_state(raw)
+    return _clean_name(EMPTY_CITY_RE.sub("", name)), state
+
+
+def scrape_schedule(flat, week):
+    """Not-yet-played fixtures on a scoreboard page.
+
+    Kept strictly separate from completed games: these have no result, must
+    never reach the rating fit, and exist only to be predicted.
+    """
+    out, seen = [], set()
+    for m in SB_FUTURE_RE.finditer(flat):
+        away, astate = _sched_name(m.group("away"))
+        home, hstate = _sched_name(m.group("home"))
+        if not (_plausible_team(away) and _plausible_team(home)):
+            continue
+        if away.lower() == home.lower():
+            continue
+        key = (away.lower(), home.lower())
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append({
+            "week": week,
+            "date": m.group("date"),
+            "time": (m.group("time") or "").strip(),
+            "away": away,
+            "home": home,
+            "neutral": 1 if m.group("sep").lower().startswith("vs") else 0,
+            "away_state": astate,
+            "home_state": hstate,
+        })
+    return out
+
+
 def scrape_week(sess, season, week, use_cache=True, diagnose=False, probe=False):
     html = fetch(sess, f"/hsfoot/scoreboard/{season}/week-{week}", use_cache)
     flat = flat_text(html)
 
     if probe:
-        probe_unscored(flat, f"{season} week {week} scoreboard")
+        probe_unscored(flat, f"{season} week {week} scoreboard", samples=40)
 
     games, seen = [], set()
     for m in SB_GAME_RE.finditer(flat):
@@ -591,9 +668,18 @@ def scrape_week(sess, season, week, use_cache=True, diagnose=False, probe=False)
             }
         )
 
-    if not games and diagnose:
+    scheduled = scrape_schedule(flat, week)
+
+    # Anything date-anchored that neither pattern claimed. Reported per week as
+    # a single number so a format change shows up as a rising count in the log
+    # rather than as games quietly going missing.
+    known = ({m.start() for m in SB_GAME_RE.finditer(flat)}
+             | {m.start() for m in SB_FUTURE_RE.finditer(flat)})
+    residual = sum(1 for m in ISO_DATE_RE.finditer(flat) if m.start() not in known)
+
+    if not games and not scheduled and diagnose:
         _diagnose(f"week {week} scoreboard", page_lines(html), flat=flat)
-    return games
+    return WeekResult(games=games, scheduled=scheduled, residual=residual, flat=flat)
 
 
 def scrape_roster(sess, season, use_cache=True, known_pairs=frozenset()):
@@ -675,32 +761,41 @@ def main():
 
     # Scores are read first: they establish the (school, city) pairs that the
     # roster's text fallback needs to split its city and school columns.
-    all_games = []
+    # The loop no longer stops at the first unplayed week. That week is exactly
+    # where the remaining schedule lives, and the season's fixtures are what
+    # the simulator predicts. It stops on a 404, or on a page holding no
+    # records of either kind -- i.e. genuinely past the end of the season.
+    all_games, all_sched = [], []
+    probed = 0
     print("games:", file=sys.stderr)
     for wk in range(1, args.through_week + 1):
         try:
             # Diagnose on week 1 only -- if that one is empty the pattern is
             # wrong, and dumping every week would bury the useful output.
-            g = scrape_week(sess, args.season, wk, use_cache, diagnose=(wk == 1))
+            r = scrape_week(sess, args.season, wk, use_cache, diagnose=(wk == 1))
         except requests.HTTPError as exc:
             if exc.response is not None and exc.response.status_code == 404:
-                break  # season hasn't reached this week
+                break  # no such page: past the end of the season
             raise
-        if not g:
-            # The first week with no completed games is the season's leading
-            # edge: the page exists and is full of scheduled fixtures that
-            # SB_GAME_RE cannot see because it requires both scores. Dump it
-            # once, from cache, so the log shows the real future-game format
-            # instead of us guessing at it.
-            print(f"  week {wk:>2}: 0 completed games -- probing the page",
+
+        if not r.games and not r.scheduled:
+            print(f"  week {wk:>2}: nothing on the page -- stopping",
                   file=sys.stderr)
-            try:
-                scrape_week(sess, args.season, wk, use_cache, probe=True)
-            except requests.HTTPError:
-                pass
-            break  # week not played yet
-        print(f"  week {wk:>2}: {len(g)} games", file=sys.stderr)
-        all_games.extend(g)
+            break
+
+        note = f"  week {wk:>2}: {len(r.games):>3} played, {len(r.scheduled):>3} scheduled"
+        if r.residual:
+            note += f"  [{r.residual} UNRECOGNISED]"
+        print(note, file=sys.stderr)
+
+        # Detail for the first two weeks that hold anything we cannot read.
+        # Capped because mid-season every remaining week would repeat it.
+        if r.residual and probed < 2:
+            probed += 1
+            probe_unscored(r.flat, f"{args.season} week {wk} scoreboard", samples=40)
+
+        all_games.extend(r.games)
+        all_sched.extend(r.scheduled)
 
     if not all_games:
         raise SystemExit(
@@ -730,6 +825,30 @@ def main():
         wtr.writeheader()
         wtr.writerows(all_games)
     print(f"games: {len(all_games)} -> {gpath}", file=sys.stderr)
+
+    # A fixture that has since been played is a completed game, not a fixture.
+    # The site rewrites '***' into scores so this should never fire, but a
+    # duplicated game would show a team two predicted opponents in one week.
+    played_keys = {(g["week"], g["away"].lower(), g["home"].lower())
+                   for g in all_games}
+    dropped = [s for s in all_sched
+               if (s["week"], s["away"].lower(), s["home"].lower()) in played_keys]
+    all_sched = [s for s in all_sched
+                 if (s["week"], s["away"].lower(), s["home"].lower()) not in played_keys]
+    if dropped:
+        print(f"  ({len(dropped)} fixtures dropped -- already played)",
+              file=sys.stderr)
+
+    spath = os.path.join(DATA, f"schedule_{args.season}.csv")
+    with open(spath, "w", newline="", encoding="utf-8") as fh:
+        wtr = csv.DictWriter(
+            fh,
+            fieldnames=["week", "date", "time", "away", "home",
+                        "neutral", "away_state", "home_state"],
+        )
+        wtr.writeheader()
+        wtr.writerows(all_sched)
+    print(f"schedule: {len(all_sched)} fixtures -> {spath}", file=sys.stderr)
 
     # Every (school, city) pair the scores mention, for the roster fallback.
     known_pairs = set()
