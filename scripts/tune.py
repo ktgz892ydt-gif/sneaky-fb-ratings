@@ -55,7 +55,9 @@ DATA = os.path.join(ROOT, "data")
 # 1: original, single "atGridEdge" list
 # 2: edge warnings split into outrightBestAtGridEdge / selectedConfigAtGridEdge,
 #    since those two conditions mean opposite things
-SCHEMA_VERSION = 2
+# 3: adds "probScale" -- the margin-to-probability curve, fitted separately
+#    from squash_scale. See fit_prob_scale() below.
+SCHEMA_VERSION = 3
 
 
 # ---------------------------------------------------------------------------
@@ -234,6 +236,205 @@ def evaluate(res, prev_ratings, cfg, carry, holdouts, division_weight=1.0):
 
 
 # ---------------------------------------------------------------------------
+# Probability calibration
+# ---------------------------------------------------------------------------
+#
+# squash_scale is chosen for how well it *fits* -- how much of a win a 21-point
+# margin should count as. Reusing it to turn a predicted margin into a win
+# probability quietly assumes those two jobs want the same number. They don't.
+#
+# Measured walk-forward on 2024-25, a flat scale of 9.0 leaves the model
+# underconfident once the season connects up: games it calls 80-90% are won
+# 89.9% of the time, and 90%+ games are won 97.2%. The error in a predicted
+# margin is part game noise and part rating error, and only the second part
+# shrinks as teams play, so the right curve steepens through the season.
+#
+# Fitting scale(g) = sqrt(a + b/g) against held-out games, where g is the games
+# played by the less established of the two teams, and validating it out of
+# sample (fit on 2024, score on 2025, and the reverse):
+#
+#     flat 9.0            0.4610 log loss
+#     one fitted constant 0.4561
+#     fitted curve        0.4510      <- all of the gain lands in weeks 5-10
+#
+# Week 1 is left on the flat scale deliberately: those predictions come from
+# the preseason prior rather than an in-season fit, and measured out of sample
+# the flat scale beats every fitted alternative there.
+#
+# This does NOT feed back into how squash_scale is selected -- selection still
+# scores on the flat scale, so the chosen constants stay comparable with every
+# previous run. Decoupling the two properly is a bigger change and wants its
+# own re-fit.
+
+def collect_predictions(res, prev_ratings, cfg, carry, holdouts, division_weight=1.0):
+    """Walk-forward again, keeping (predicted margin, won, games played).
+
+    Same protocol as evaluate() -- nothing in the fit sees the week being
+    predicted -- but it returns the raw predictions instead of scoring them,
+    so a probability curve can be fitted on top.
+    """
+    ids = sorted(res.teams)
+    index = {t: i for i, t in enumerate(ids)}
+    prior = prior_for(res, prev_ratings, carry, division_weight)
+    prev_hfa = (prev_ratings or {}).get("hfa")
+
+    by_week = defaultdict(list)
+    for g in res.games:
+        by_week[g["week"]].append(g)
+
+    out = []
+    for w in holdouts:
+        train = [g for g in res.games if g["week"] < w]
+        test = by_week.get(w, [])
+        if not test:
+            continue
+        played = defaultdict(int)
+        for g in train:
+            played[g["home"]] += 1
+            played[g["away"]] += 1
+        if len(train) < 50:
+            pts, hfa = prior, (prev_hfa if prev_hfa is not None else 1.5)
+        else:
+            pts, hfa = _fit(ids, train, cfg, prior)
+        for g in test:
+            m = g["home_score"] - g["away_score"]
+            if m == 0:
+                continue  # a tie tells us nothing about which side to favour
+            pred = pts[index[g["home"]]] - pts[index[g["away"]]] + \
+                (0.0 if g.get("neutral") else hfa)
+            out.append((float(pred), 1.0 if m > 0 else 0.0,
+                        float(min(played[g["home"]], played[g["away"]])),
+                        int(w)))
+    return out
+
+
+def _logloss(pred, y, scales):
+    p = np.clip(1.0 / (1.0 + np.exp(-pred / scales)), 1e-6, 1 - 1e-6)
+    return float(-(y * np.log(p) + (1 - y) * np.log(1 - p)).mean())
+
+
+def fit_prob_scale(samples, cfg):
+    """Fit scale(g) = sqrt(a + b/g) by maximum likelihood on held-out games.
+
+    Returns (a, b, report). Only games where the curve actually applies (g >= 1)
+    are fitted on, so the week-1 regime cannot drag the curve around.
+    """
+    from scipy.optimize import minimize as _minimize
+
+    arr = np.array([(p, y, g) for p, y, g, _ in samples], dtype=float)
+    if len(arr) < 500:
+        return None, None, {"skipped": f"only {len(arr)} usable games"}
+
+    fit_rows = arr[arr[:, 2] >= 1.0]
+    pred, y, g = fit_rows[:, 0], fit_rows[:, 1], fit_rows[:, 2]
+
+    def scales_for(theta, gg):
+        s = np.sqrt(np.maximum(theta[0], 0.1) + np.maximum(theta[1], 0.0)
+                    / np.maximum(gg, 1e-9))
+        return np.clip(s, cfg.prob_scale_min, cfg.prob_scale_max)
+
+    seed = [cfg.squash_scale ** 2, 100.0]
+    res = _minimize(lambda th: _logloss(pred, y, scales_for(th, g)), seed,
+                    method="Nelder-Mead",
+                    options={"xatol": 1e-5, "fatol": 1e-10, "maxiter": 8000})
+    a, b = float(res.x[0]), float(res.x[1])
+
+    # Score both curves over *everything*, week 1 included, on the same footing
+    # the site will use them: g < 1 keeps the flat scale either way.
+    all_pred, all_y, all_g = arr[:, 0], arr[:, 1], arr[:, 2]
+    flat = np.full_like(all_g, cfg.squash_scale)
+    fitted = np.where(all_g < 1.0, cfg.squash_scale, scales_for([a, b], all_g))
+
+    weeks = np.array([w for _, _, _, w in samples], dtype=float)
+    by_week = {}
+    for w in sorted({int(x) for x in weeks}):
+        m = weeks == w
+        if m.sum() < 30:
+            continue
+        by_week[str(w)] = {
+            "n": int(m.sum()),
+            "flat": round(_logloss(all_pred[m], all_y[m], flat[m]), 4),
+            "fitted": round(_logloss(all_pred[m], all_y[m], fitted[m]), 4),
+        }
+
+    return a, b, {
+        "n": int(len(arr)),
+        "loglossFlat": round(_logloss(all_pred, all_y, flat), 4),
+        "loglossFitted": round(_logloss(all_pred, all_y, fitted), 4),
+        "converged": bool(res.success),
+        "impliedScale": {str(k): round(float(scales_for([a, b], np.array([float(k)]))[0]), 2)
+                         for k in range(1, 11)},
+        "byWeek": by_week,
+    }
+
+
+def crossvalidate_prob_scale(per_season, cfg):
+    """Fit on one season, score on the other. In-sample gains prove nothing."""
+    seasons = sorted(per_season)
+    if len(seasons) < 2:
+        return None
+    folds = []
+    for held in seasons:
+        train = [s for y in seasons if y != held for s in per_season[y]]
+        a, b, _ = fit_prob_scale(train, cfg)
+        if a is None:
+            continue
+        arr = np.array([(p, y, g) for p, y, g, _ in per_season[held]], dtype=float)
+        pred, y, g = arr[:, 0], arr[:, 1], arr[:, 2]
+        curve = np.sqrt(max(a, 0.1) + max(b, 0.0) / np.maximum(g, 1e-9))
+        fitted = np.where(g < 1.0, cfg.squash_scale,
+                          np.clip(curve, cfg.prob_scale_min, cfg.prob_scale_max))
+        folds.append({
+            "heldOut": held,
+            "n": int(len(arr)),
+            "loglossFlat": round(_logloss(pred, y, np.full_like(g, cfg.squash_scale)), 4),
+            "loglossFitted": round(_logloss(pred, y, fitted), 4),
+        })
+    if not folds:
+        return None
+    n = sum(f["n"] for f in folds)
+    return {
+        "folds": folds,
+        "meanLoglossFlat": round(sum(f["loglossFlat"] * f["n"] for f in folds) / n, 4),
+        "meanLoglossFitted": round(sum(f["loglossFitted"] * f["n"] for f in folds) / n, 4),
+    }
+
+
+def calibrate(loaded, evals, cfg, carry, weeks):
+    """Everything the probScale block needs, given already-loaded seasons."""
+    per_season = {}
+    for S in evals:
+        prev = full_season_ratings(loaded[S - 1], cfg)
+        per_season[S] = collect_predictions(loaded[S], prev, cfg, carry, weeks,
+                                            cfg.division_weight)
+        print(f"    {S}: {len(per_season[S])} decided held-out games", file=sys.stderr)
+    pooled = [s for S in evals for s in per_season[S]]
+    a, b, report = fit_prob_scale(pooled, cfg)
+    if a is None:
+        print(f"    calibration skipped: {report.get('skipped')}", file=sys.stderr)
+        return None
+    cv = crossvalidate_prob_scale(per_season, cfg)
+    block = {
+        "form": "scale(g) = sqrt(a + b / g), g = games played by the less "
+                "established of the two teams; g < 1 uses squash_scale",
+        "a": round(a, 4),
+        "b": round(b, 4),
+        "flatScale": cfg.squash_scale,
+        "weeks": list(weeks),
+        "fit": report,
+        "crossValidated": cv,
+    }
+    print(f"    fitted a={a:.4f} b={b:.4f}", file=sys.stderr)
+    print(f"    in-sample log loss {report['loglossFlat']:.4f} -> "
+          f"{report['loglossFitted']:.4f}", file=sys.stderr)
+    if cv:
+        print(f"    out-of-sample     {cv['meanLoglossFlat']:.4f} -> "
+              f"{cv['meanLoglossFitted']:.4f}   <- the number that counts",
+              file=sys.stderr)
+    return block
+
+
+# ---------------------------------------------------------------------------
 # Search
 # ---------------------------------------------------------------------------
 
@@ -244,6 +445,14 @@ def main():
     ap.add_argument("--holdouts", default="6,8,10")
     ap.add_argument("--out", default=os.path.join(DATA, "tuned.json"))
     ap.add_argument("--quick", action="store_true", help="smaller grid")
+    ap.add_argument("--calibrate-weeks", default="1,2,3,4,5,6,7,8,9,10",
+                    help="holdout weeks used to fit the probability curve. More "
+                         "weeks is better here -- this is a two-parameter fit "
+                         "and it does not touch which constants get selected.")
+    ap.add_argument("--calibrate-only", action="store_true",
+                    help="skip the grid search entirely: keep the constants "
+                         "already in tuned.json and refit only the "
+                         "margin-to-probability curve. Minutes, not hours.")
     args = ap.parse_args()
 
     years = [int(y) for y in args.seasons.split(",")]
@@ -265,6 +474,41 @@ def main():
             "Run the backfill first."
         )
     print(f"  evaluating on: {evals}\n", file=sys.stderr)
+
+    cal_weeks = [int(w) for w in args.calibrate_weeks.split(",")]
+
+    # --calibrate-only: leave the selected constants exactly as they are and
+    # refit just the probability curve. This is the cheap path -- it is the
+    # right one whenever the model has not changed but the curve should be
+    # brought up to date, and it cannot alter the published ratings.
+    if args.calibrate_only:
+        if not os.path.exists(args.out):
+            raise SystemExit(f"{args.out} does not exist -- run a full tune first.")
+        with open(args.out, encoding="utf-8") as fh:
+            payload = json.load(fh)
+        best = payload.get("best") or {}
+        if not best:
+            raise SystemExit(f"{args.out} has no 'best' block to calibrate against.")
+        cfg = RatingConfig(squash_scale=float(best["squash_scale"]),
+                           prior_games=float(best["prior_games"]),
+                           division_weight=float(best["division_weight"]))
+        print(f"  calibrating against the existing constants "
+              f"(scale={cfg.squash_scale} prior={cfg.prior_games} "
+              f"carry={best['carry']} div={cfg.division_weight})", file=sys.stderr)
+        block = calibrate(loaded, evals, cfg, float(best["carry"]), cal_weeks)
+        if block is None:
+            raise SystemExit("calibration produced nothing; tuned.json left alone.")
+        payload["probScale"] = block
+        # Deliberately NOT bumping "schema" here. That number describes what a
+        # full run of this script produces; a calibrate-only pass adds one
+        # block and leaves every other field as whatever wrote it. Claiming the
+        # current schema would assert fields this file may not have -- and if
+        # the file is genuinely stale, the warning about that is worth keeping.
+        with open(args.out, "w", encoding="utf-8") as fh:
+            json.dump(payload, fh, indent=1)
+        print(f"\n-> {args.out} (probability curve only; constants untouched)",
+              file=sys.stderr)
+        return
 
     if args.quick:
         grid_scale, grid_pg, grid_carry = [7.0, 9.0, 12.0], [1.0, 2.0], [0.4, 0.6]
@@ -423,6 +667,11 @@ def main():
             print(f"    week {w:>2}: logloss {ws['ll']/ws['n']:.4f}  "
                   f"accuracy {acc:.1%}  ({ws['n']} games)", file=sys.stderr)
 
+    # Fit the margin-to-probability curve on top of the winning constants. This
+    # runs after selection and deliberately does not feed back into it.
+    print("\n  fitting the margin-to-probability curve:", file=sys.stderr)
+    prob_scale_block = calibrate(loaded, evals, cfg, best["carry"], cal_weeks)
+
     payload = {
         # Bumped whenever the shape of this file changes, so check.py can spot
         # a tuned.json produced by an older script. The metadata drifting out
@@ -451,6 +700,7 @@ def main():
         "holdoutWeeks": holdouts,
         "best": best,
         "calibration": detail["calibration"] if detail else None,
+        "probScale": prob_scale_block,
         "leaderboard": results[:10],
     }
     with open(args.out, "w", encoding="utf-8") as fh:

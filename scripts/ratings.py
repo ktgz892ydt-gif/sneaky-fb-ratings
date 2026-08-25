@@ -68,6 +68,39 @@ class RatingConfig:
     # Home field advantage is fitted, not assumed.
     fit_hfa: bool = True
 
+    # --- turning a predicted margin into a win probability -------------------
+    #
+    # squash_scale above answers "how much of a win was this result?" -- it is
+    # a *fitting* device. Converting a predicted margin into a win probability
+    # is a different question, and the same number is not the right answer to
+    # both. Measured walk-forward on 2024-25, holding the probability scale at
+    # squash_scale leaves late-season predictions systematically underconfident:
+    # games the model calls 80-90% are won 89.9% of the time.
+    #
+    # The reason is that the error on a predicted margin has two parts -- the
+    # irreducible noise of a football game, and the error in the two ratings
+    # themselves. The second part shrinks as teams accumulate games, so the
+    # probability curve should steepen through the season:
+    #
+    #     scale(g) = sqrt(prob_scale_a + prob_scale_b / g)
+    #
+    # where g is the number of games played by the *less* established of the
+    # two teams -- the one carrying more of the uncertainty.
+    #
+    # Fitted by tune.py on held-out games and written to data/tuned.json. The
+    # defaults below are the 2024-25 fit. Out-of-sample (fit on one season,
+    # scored on the other) this is worth 0.010 nats/game against a flat 9.0,
+    # effectively all of it in weeks 5-10.
+    prob_scale_a: float = 18.6235
+    prob_scale_b: float = 98.7279
+
+    # Week 1 predictions come from the preseason prior, not from a fitted
+    # rating, so the curve above does not describe them. Measured, the flat
+    # squash_scale beats every fitted alternative there, so g=0 keeps it.
+    # Anything outside these bounds is a fitting accident, not a football fact.
+    prob_scale_min: float = 3.0
+    prob_scale_max: float = 20.0
+
     # L-BFGS convergence
     tol: float = 1e-9
     max_iter: int = 800
@@ -358,3 +391,29 @@ def predict_margin(result: RatingResult, home: str, away: str, neutral: bool = F
     idx = {t: i for i, t in enumerate(result.team_ids)}
     d = result.bt_margin[idx[home]] - result.bt_margin[idx[away]]
     return d + (0.0 if neutral else result.hfa_margin)
+
+
+def prob_scale(games_played, cfg: RatingConfig) -> float:
+    """Points-per-logit for converting a predicted margin into a probability.
+
+    `games_played` is the number of completed games behind the *less*
+    established of the two teams. Fewer games means a less certain rating
+    difference, which means a flatter probability curve.
+
+    Below one game there is no in-season fit to be uncertain about -- the
+    prediction is the preseason prior -- so the flat squash_scale is used.
+    """
+    g = float(games_played)
+    if g < 1.0:
+        return float(cfg.squash_scale)
+    s = math.sqrt(max(cfg.prob_scale_a, 0.1) + max(cfg.prob_scale_b, 0.0) / g)
+    return float(min(max(s, cfg.prob_scale_min), cfg.prob_scale_max))
+
+
+def win_probability(margin: float, games_played, cfg: RatingConfig) -> float:
+    """P(the team favoured by `margin` wins), calibrated for how far in we are.
+
+    `margin` is from one team's perspective; pass the predicted margin from
+    predict_margin() and you get the home team's win probability.
+    """
+    return 1.0 / (1.0 + math.exp(-float(margin) / prob_scale(games_played, cfg)))

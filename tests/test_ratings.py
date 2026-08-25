@@ -8,7 +8,9 @@ import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts"))
 
-from ratings import RatingConfig, rate, squash  # noqa: E402
+from ratings import (  # noqa: E402
+    RatingConfig, prob_scale, rate, squash, win_probability,
+)
 
 
 CFG = RatingConfig()
@@ -160,3 +162,56 @@ def test_records_match_the_games_supplied():
 def test_a_tie_counts_as_a_tie():
     r = rate(list("AB"), [_game("A", "B", 14, 14)], CFG)
     assert r.ties[0] == 1 and r.wins[0] == 0 and r.losses[0] == 0
+
+
+# ------------------------------------------------- margin -> win probability
+
+def test_prob_scale_falls_back_to_squash_scale_before_any_games():
+    """Week 1 predictions come from the prior, not a fit. Flat scale there."""
+    assert prob_scale(0, CFG) == pytest.approx(CFG.squash_scale)
+
+
+def test_prob_scale_steepens_as_teams_play():
+    """More games -> less rating error -> a sharper probability curve."""
+    scales = [prob_scale(g, CFG) for g in range(1, 11)]
+    assert all(b < a for a, b in zip(scales, scales[1:])), scales
+
+
+def test_prob_scale_stays_inside_its_bounds():
+    for g in (1, 2, 5, 10, 50, 10_000):
+        assert CFG.prob_scale_min <= prob_scale(g, CFG) <= CFG.prob_scale_max
+
+
+def test_prob_scale_uses_the_fitted_curve_not_the_squash_scale():
+    """Regression guard: the two must not silently collapse back together."""
+    assert abs(prob_scale(10, CFG) - CFG.squash_scale) > 1.0
+
+
+def test_win_probability_is_a_half_at_zero_margin():
+    for g in (0, 1, 5, 10):
+        assert win_probability(0.0, g, CFG) == pytest.approx(0.5)
+
+
+@pytest.mark.parametrize("g", [0, 1, 4, 10])
+@pytest.mark.parametrize("m", [1.0, 3.5, 7.0, 21.0, 45.0])
+def test_win_probability_is_symmetric(g, m):
+    assert win_probability(m, g, CFG) + win_probability(-m, g, CFG) == pytest.approx(1.0)
+
+
+@pytest.mark.parametrize("m", [1.0, 3.5, 7.0, 21.0])
+def test_favourites_get_more_confident_later_in_the_season(m):
+    """The same predicted margin means more in week 10 than in week 2."""
+    assert win_probability(m, 9, CFG) > win_probability(m, 1, CFG)
+
+
+def test_win_probability_is_monotone_in_margin():
+    ps = [win_probability(m, 5, CFG) for m in range(-40, 41, 5)]
+    assert all(b > a for a, b in zip(ps, ps[1:]))
+
+
+def test_prob_scale_survives_a_degenerate_config():
+    """A tuned.json full of nonsense must not produce a NaN probability."""
+    bad = RatingConfig(prob_scale_a=-5.0, prob_scale_b=-5.0)
+    for g in (0, 1, 10):
+        p = win_probability(7.0, g, bad)
+        assert 0.0 < p < 1.0

@@ -114,15 +114,23 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
         with open(tpath, encoding="utf-8") as fh:
             tb = json.load(fh)
         best = tb.get("best") or {}
+        # The margin-to-probability curve, if this tuned.json is new enough to
+        # carry one. An older file simply keeps the dataclass defaults.
+        ps = tb.get("probScale") or {}
         cfg = RatingConfig(
             squash_scale=float(best.get("squash_scale", cfg.squash_scale)),
             prior_games=float(best.get("prior_games", cfg.prior_games)),
             division_weight=float(best.get("division_weight", cfg.division_weight)),
+            prob_scale_a=float(ps.get("a", cfg.prob_scale_a)),
+            prob_scale_b=float(ps.get("b", cfg.prob_scale_b)),
         )
         tuned_meta = {k: best.get(k) for k in
                       ("squash_scale", "prior_games", "carry", "division_weight",
                        "accuracy", "logloss", "mae_margin", "n")}
         tuned_meta["tunedOn"] = tb.get("tunedOn")
+        if ps:
+            tuned_meta["probScaleLogloss"] = (ps.get("crossValidated") or {}).get(
+                "meanLoglossFitted")
 
     # A preseason prior from last season, if one has been built. Teams are
     # matched on the school ID published on the ranking pages, which is stable
@@ -239,6 +247,19 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
             "squashScale": cfg.squash_scale,
             "marginCap": cfg.margin_cap,
             "priorGames": cfg.prior_games,
+            # Everything a consumer needs to turn a rating difference into a
+            # win probability without re-deriving it:
+            #     scale = sqrt(a + b / gamesPlayed), floored/capped, and
+            #     flatScale when gamesPlayed < 1
+            #     p(home) = 1 / (1 + exp(-margin / scale))
+            # gamesPlayed is w+l+t of the *less* established of the two teams.
+            "probScale": {
+                "a": round(cfg.prob_scale_a, 4),
+                "b": round(cfg.prob_scale_b, 4),
+                "flatScale": cfg.squash_scale,
+                "min": cfg.prob_scale_min,
+                "max": cfg.prob_scale_max,
+            },
         },
         "hfa": {
             "rating": round(result.hfa_margin, 2),

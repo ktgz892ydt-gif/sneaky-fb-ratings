@@ -287,5 +287,111 @@
    "mae_margin": 17.75810259533092,
    "n": 4345
   }
- ]
+ ],
+ "probScale": {
+  "form": "scale(g) = sqrt(a + b / g), g = games played by the less established of the two teams; g < 1 uses squash_scale",
+  "a": 18.6235,
+  "b": 98.7279,
+  "flatScale": 9.0,
+  "weeks": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10
+  ],
+  "fit": {
+   "n": 9005,
+   "loglossFlat": 0.461,
+   "loglossFitted": 0.4509,
+   "converged": true,
+   "impliedScale": {
+    "1": 10.83,
+    "2": 8.25,
+    "3": 7.18,
+    "4": 6.58,
+    "5": 6.19,
+    "6": 5.92,
+    "7": 5.72,
+    "8": 5.56,
+    "9": 5.44,
+    "10": 5.34
+   },
+   "byWeek": {
+    "1": {
+     "n": 767,
+     "flat": 0.5864,
+     "fitted": 0.5864
+    },
+    "2": {
+     "n": 847,
+     "flat": 0.5689,
+     "fitted": 0.5739
+    },
+    "3": {
+     "n": 867,
+     "flat": 0.5542,
+     "fitted": 0.5512
+    },
+    "4": {
+     "n": 870,
+     "flat": 0.4879,
+     "fitted": 0.4877
+    },
+    "5": {
+     "n": 952,
+     "flat": 0.4676,
+     "fitted": 0.4576
+    },
+    "6": {
+     "n": 939,
+     "flat": 0.4331,
+     "fitted": 0.4251
+    },
+    "7": {
+     "n": 938,
+     "flat": 0.3962,
+     "fitted": 0.3814
+    },
+    "8": {
+     "n": 952,
+     "flat": 0.389,
+     "fitted": 0.3648
+    },
+    "9": {
+     "n": 950,
+     "flat": 0.3933,
+     "fitted": 0.373
+    },
+    "10": {
+     "n": 923,
+     "flat": 0.3766,
+     "fitted": 0.3558
+    }
+   }
+  },
+  "crossValidated": {
+   "folds": [
+    {
+     "heldOut": 2024,
+     "n": 4774,
+     "loglossFlat": 0.4634,
+     "loglossFitted": 0.4528
+    },
+    {
+     "heldOut": 2025,
+     "n": 4231,
+     "loglossFlat": 0.4584,
+     "loglossFitted": 0.4489
+    }
+   ],
+   "meanLoglossFlat": 0.4611,
+   "meanLoglossFitted": 0.451
+  }
+ }
 }

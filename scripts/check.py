@@ -123,6 +123,13 @@ def main():
     warn(-1.0 < hfa < 6.0,
          f"fitted home-field advantage of {hfa:.2f} pts is outside the usual range")
 
+    # ---- the published page must carry everything a consumer needs to turn a
+    # rating difference into a win probability. The simulator reads this; if it
+    # silently vanishes, every projection quietly falls back to a wrong scale.
+    cps = (d.get("config") or {}).get("probScale")
+    check(isinstance(cps, dict) and all(k in cps for k in ("a", "b", "flatScale")),
+          "ratings.json config is missing the probScale block")
+
     # ---- ambiguity should be reported, not hidden
     amb = [t for t in ohio if t["ambiguous"]]
     warn(len(amb) < 40, f"{len(amb)} Ohio teams flagged ambiguous -- resolver is struggling")
@@ -148,6 +155,35 @@ def main():
                 check("outrightBestAtGridEdge" in tb and
                       "selectedConfigAtGridEdge" in tb,
                       "a schema 2 tuned.json must carry both edge fields")
+            # Gated on the block being *present*, not on the schema number: a
+            # `tune.py --calibrate-only` pass adds probScale to a tuned.json of
+            # any vintage without claiming the current schema, and the curve
+            # still has to be sane wherever it came from.
+            ps = tb.get("probScale")
+            if ver >= 3:
+                check(isinstance(ps, dict) and "a" in ps and "b" in ps,
+                      "a schema 3 tuned.json must carry a probScale block")
+            if isinstance(ps, dict) and "a" in ps and "b" in ps:
+                # The curve must steepen as teams play, and stay inside sane
+                # bounds at both ends of a season. One that runs backwards
+                # means the fit found noise, not information.
+                def _s(g):
+                    return math.sqrt(max(float(ps["a"]), 0.1)
+                                     + max(float(ps["b"]), 0.0) / g)
+                early, late = _s(1), _s(10)
+                check(late < early,
+                      f"the probability curve does not steepen through the "
+                      f"season ({early:.2f} at 1 game, {late:.2f} at 10) -- "
+                      f"the fit is backwards")
+                warn(3.0 <= late <= 20.0 and 3.0 <= early <= 20.0,
+                     f"probability scale leaves the sane range "
+                     f"({early:.2f} at 1 game, {late:.2f} at 10)")
+                cv = ps.get("crossValidated") or {}
+                if cv.get("meanLoglossFitted") and cv.get("meanLoglossFlat"):
+                    warn(cv["meanLoglossFitted"] <= cv["meanLoglossFlat"],
+                         f"the fitted probability curve is worse out of sample "
+                         f"than a flat scale ({cv['meanLoglossFitted']:.4f} vs "
+                         f"{cv['meanLoglossFlat']:.4f}) -- do not ship it")
 
     # ---- connectivity must be reported honestly
     c = d["connectivity"]
