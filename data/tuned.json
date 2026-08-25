@@ -1,0 +1,291 @@
+{
+ "tunedOn": [
+  2024,
+  2025
+ ],
+ "atGridEdge": [
+  "carry=0.5 (grid 0.5..1.0)"
+ ],
+ "stability": [
+  {
+   "season": 2024,
+   "bestHere": {
+    "squash_scale": 9.0,
+    "prior_games": 0.25,
+    "carry": 0.6,
+    "division_weight": 1.0
+   },
+   "bestHereLogloss": 0.4675,
+   "chosenConfigLogloss": 0.4722
+  },
+  {
+   "season": 2025,
+   "bestHere": {
+    "squash_scale": 7.0,
+    "prior_games": 0.75,
+    "carry": 0.9,
+    "division_weight": 1.5
+   },
+   "bestHereLogloss": 0.477,
+   "chosenConfigLogloss": 0.4835
+  }
+ ],
+ "perWeek": {
+  "1": {
+   "n": 387,
+   "ll": 226.1628334286067,
+   "correct": 277,
+   "total": 387
+  },
+  "2": {
+   "n": 433,
+   "ll": 245.29333738644866,
+   "correct": 314,
+   "total": 433
+  },
+  "4": {
+   "n": 431,
+   "ll": 218.20186499195526,
+   "correct": 310,
+   "total": 431
+  },
+  "7": {
+   "n": 415,
+   "ll": 167.74392526414238,
+   "correct": 334,
+   "total": 415
+  },
+  "10": {
+   "n": 416,
+   "ll": 149.2929445352807,
+   "correct": 348,
+   "total": 416
+  }
+ },
+ "selection": {
+  "rule": "one-standard-error rule",
+  "standardError": 0.00713,
+  "candidatesWithinOneSE": 294,
+  "outrightBest": {
+   "squash_scale": 8.0,
+   "prior_games": 0.5,
+   "carry": 0.7,
+   "division_weight": 1.0,
+   "logloss": 0.47331618380104445
+  }
+ },
+ "holdoutWeeks": [
+  1,
+  2,
+  4,
+  7,
+  10
+ ],
+ "best": {
+  "ll_sumsq": 1773.19951298992,
+  "perSeason": {
+   "2024": 0.4722,
+   "2025": 0.4835
+  },
+  "squash_scale": 9.0,
+  "prior_games": 0.5,
+  "carry": 0.5,
+  "division_weight": 1.0,
+  "logloss": 0.4776419272336861,
+  "accuracy": 0.7659378596087457,
+  "decided": 4345,
+  "mae_margin": 17.36577400451505,
+  "n": 4345,
+  "selectedBy": "one-standard-error rule",
+  "seLogloss": 0.00713,
+  "candidatesWithinOneSE": 294
+ },
+ "calibration": {
+  "0.5": [
+   0.5432525951557093,
+   289
+  ],
+  "0.6": [
+   0.6081424936386769,
+   393
+  ],
+  "0.7": [
+   0.7232142857142857,
+   448
+  ],
+  "0.8": [
+   0.8509615384615384,
+   416
+  ],
+  "0.9": [
+   0.9278074866310161,
+   374
+  ],
+  "1.0": [
+   0.9938271604938271,
+   162
+  ]
+ },
+ "leaderboard": [
+  {
+   "ll_sumsq": 1933.137133915253,
+   "perSeason": {
+    "2024": 0.4694,
+    "2025": 0.4776
+   },
+   "squash_scale": 8.0,
+   "prior_games": 0.5,
+   "carry": 0.7,
+   "division_weight": 1.0,
+   "logloss": 0.47331618380104445,
+   "accuracy": 0.7636363636363637,
+   "decided": 4345,
+   "mae_margin": 17.389598901920603,
+   "n": 4345
+  },
+  {
+   "ll_sumsq": 2041.3685913821628,
+   "perSeason": {
+    "2024": 0.4692,
+    "2025": 0.4782
+   },
+   "squash_scale": 7.0,
+   "prior_games": 0.5,
+   "carry": 0.7,
+   "division_weight": 1.0,
+   "logloss": 0.4735108175401776,
+   "accuracy": 0.7624856156501726,
+   "decided": 4345,
+   "mae_margin": 17.788457326311363,
+   "n": 4345
+  },
+  {
+   "ll_sumsq": 1986.4573671751396,
+   "perSeason": {
+    "2024": 0.4708,
+    "2025": 0.4772
+   },
+   "squash_scale": 8.0,
+   "prior_games": 0.5,
+   "carry": 0.8,
+   "division_weight": 1.0,
+   "logloss": 0.47385446386893754,
+   "accuracy": 0.7638665132336019,
+   "decided": 4345,
+   "mae_margin": 17.31043082284374,
+   "n": 4345
+  },
+  {
+   "ll_sumsq": 1883.7769271478073,
+   "perSeason": {
+    "2024": 0.4691,
+    "2025": 0.4794
+   },
+   "squash_scale": 8.0,
+   "prior_games": 0.5,
+   "carry": 0.6,
+   "division_weight": 1.0,
+   "logloss": 0.4740330262417448,
+   "accuracy": 0.7643268124280782,
+   "decided": 4345,
+   "mae_margin": 17.518806479740892,
+   "n": 4345
+  },
+  {
+   "ll_sumsq": 1842.1428546352267,
+   "perSeason": {
+    "2024": 0.4705,
+    "2025": 0.4783
+   },
+   "squash_scale": 9.0,
+   "prior_games": 0.5,
+   "carry": 0.7,
+   "division_weight": 1.0,
+   "logloss": 0.4742077005776614,
+   "accuracy": 0.7631760644418872,
+   "decided": 4345,
+   "mae_margin": 17.09241946177829,
+   "n": 4345
+  },
+  {
+   "ll_sumsq": 2109.5484812401814,
+   "perSeason": {
+    "2024": 0.4711,
+    "2025": 0.4777
+   },
+   "squash_scale": 7.0,
+   "prior_games": 0.5,
+   "carry": 0.8,
+   "division_weight": 1.0,
+   "logloss": 0.47423495298215995,
+   "accuracy": 0.762945914844649,
+   "decided": 4345,
+   "mae_margin": 17.683453024966255,
+   "n": 4345
+  },
+  {
+   "ll_sumsq": 1979.2288566226914,
+   "perSeason": {
+    "2024": 0.469,
+    "2025": 0.4799
+   },
+   "squash_scale": 7.0,
+   "prior_games": 0.5,
+   "carry": 0.6,
+   "division_weight": 1.0,
+   "logloss": 0.4742409984953759,
+   "accuracy": 0.7643268124280782,
+   "decided": 4345,
+   "mae_margin": 17.94482319606505,
+   "n": 4345
+  },
+  {
+   "ll_sumsq": 1968.545886201097,
+   "perSeason": {
+    "2024": 0.4703,
+    "2025": 0.4789
+   },
+   "squash_scale": 8.0,
+   "prior_games": 0.5,
+   "carry": 0.7,
+   "division_weight": 1.5,
+   "logloss": 0.47441727161758285,
+   "accuracy": 0.7608745684695052,
+   "decided": 4345,
+   "mae_margin": 17.363232802160546,
+   "n": 4345
+  },
+  {
+   "ll_sumsq": 2018.9214930686062,
+   "perSeason": {
+    "2024": 0.4675,
+    "2025": 0.4822
+   },
+   "squash_scale": 9.0,
+   "prior_games": 0.25,
+   "carry": 0.6,
+   "division_weight": 1.0,
+   "logloss": 0.4745325625083147,
+   "accuracy": 0.7611047180667434,
+   "decided": 4345,
+   "mae_margin": 16.66389179893713,
+   "n": 4345
+  },
+  {
+   "ll_sumsq": 2078.157747028807,
+   "perSeason": {
+    "2024": 0.4701,
+    "2025": 0.4794
+   },
+   "squash_scale": 7.0,
+   "prior_games": 0.5,
+   "carry": 0.7,
+   "division_weight": 1.5,
+   "logloss": 0.47457754800383184,
+   "accuracy": 0.7622554660529344,
+   "decided": 4345,
+   "mae_margin": 17.75810259533092,
+   "n": 4345
+  }
+ ]
+}
