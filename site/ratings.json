@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-08-25T15:03:25+00:00",
+ "generatedAt": "2026-08-25T15:48:38+00:00",
  "season": 2026,
  "weeksLoaded": [
   1
@@ -12,7 +12,14 @@
  "config": {
   "squashScale": 9.0,
   "marginCap": 49.0,
-  "priorGames": 0.5
+  "priorGames": 0.5,
+  "probScale": {
+   "a": 18.6235,
+   "b": 98.7279,
+   "flatScale": 9.0,
+   "min": 3.0,
+   "max": 20.0
+  }
  },
  "hfa": {
   "rating": 1.87,
@@ -50,7 +57,8 @@
   "tunedOn": [
    2024,
    2025
-  ]
+  ],
+  "probScaleLogloss": 0.451
  },
  "connectivity": {
   "components": 382,
