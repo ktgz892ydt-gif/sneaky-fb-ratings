@@ -547,7 +547,7 @@ tr[data-top="1"] .c-rank::before {
     <summary>How these numbers are made</summary>
     <div class="method-body">
       <div>
-        <h3><code>Rating</code> — the headline</h3>
+        <h3><code>Alex Points</code> — the headline</h3>
         <p>A Bradley-Terry model where each game counts as a <em>fractional</em> win taken from the point margin. A 3-point win is worth about .59 of a win, a 17-point win about .85, a 45-point win about .97.</p>
         <p>So margin still matters, but a 63-0 game is not worth nine times a 7-0 game. The number is in points: the difference between two ratings is the expected margin on a neutral field.</p>
       </div>
@@ -597,7 +597,7 @@ tr[data-top="1"] .c-rank::before {
     { key: "divreg",   label: "Div/Rg",  cls: "c-meta",   always: true,  num: false, dir: 1  },
     { key: "rec",      label: "Rec",     cls: "c-rec",    always: true,  num: false, dir: 1  },
     { key: "games",    label: "G",       cls: "c-meta",   always: true,  num: true,  dir: -1 },
-    { key: "rating",   label: "Rating",  cls: "c-rating", always: true,  num: true,  dir: -1 },
+    { key: "rating",   label: "Alex Points", cls: "c-rating", always: true,  num: true,  dir: -1 },
     { key: "btBinary", label: "BT (W/L)",cls: "c-num",    always: false, num: true,  dir: -1 },
     { key: "massey",   label: "Massey",  cls: "c-num",    always: false, num: true,  dir: -1 },
     { key: "harbin",   label: "Harbin",  cls: "c-num",    always: true,  num: true,  dir: -1 },
@@ -638,12 +638,13 @@ tr[data-top="1"] .c-rank::before {
       var th = document.createElement("th");
       var b = document.createElement("button");
       b.type = "button";
-      var label = (c.key === "rating" && early) ? "Early rating" : c.label;
+      var label = c.label + ((c.key === "rating" && early) ? " *" : "");
       b.innerHTML = label + (state.sort === c.key
         ? ' <span class="car">' + (state.dir === -1 ? "▼" : "▲") + "</span>"
         : "");
       if (c.key === "rating" && early) {
-        b.title = "Statewide order is prior-heavy until the schedule graph connects.";
+        b.title = "* Early season: statewide order is prior-heavy until the "
+          + "schedule graph connects. See the panel above.";
       }
       if (state.sort === c.key) {
         th.setAttribute("aria-sort", state.dir === -1 ? "descending" : "ascending");
