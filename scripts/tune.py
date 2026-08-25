@@ -202,6 +202,11 @@ def evaluate(res, prev_ratings, cfg, carry, holdouts, division_weight=1.0):
     return {
         "n": n,
         "logloss": ll / n,
+        # correct/total are returned raw so callers can aggregate across
+        # seasons without reweighting a ratio whose denominator (non-tie
+        # games) differs from n (all games).
+        "correct": correct,
+        "total": total,
         "accuracy": correct / total if total else float("nan"),
         "mae_margin": abs_err / n,
         "calibration": {str(k): (v[0] / v[1], v[1]) for k, v in sorted(bins.items())},
@@ -245,17 +250,20 @@ def main():
         grid_scale, grid_pg, grid_carry = [7.0, 9.0, 12.0], [1.0, 2.0], [0.4, 0.6]
         grid_dw = [0.0, 1.0]
     else:
-        grid_scale = [6.0, 8.0, 10.0, 13.0]
-        grid_pg = [0.75, 1.5, 3.0]
-        grid_carry = [0.3, 0.45, 0.6, 0.75]
-        grid_dw = [0.0, 0.5, 1.0, 1.5]
+        # Widened after a first pass put the optimum on the boundary for
+        # carry and division_weight -- an edge winner means the grid, not the
+        # data, chose the answer.
+        grid_scale = [4.5, 6.0, 7.0, 8.0, 10.0]
+        grid_pg = [0.25, 0.5, 0.75, 1.5, 3.0]
+        grid_carry = [0.45, 0.6, 0.7, 0.8, 0.9]
+        grid_dw = [0.0, 0.5, 1.0, 1.5, 2.0]
 
     prev_cache = {}
     results = []
     combos = list(itertools.product(grid_scale, grid_pg, grid_carry, grid_dw))
     for i, (scale, pg, carry, dw) in enumerate(combos, 1):
         cfg = RatingConfig(squash_scale=scale, prior_games=pg, division_weight=dw)
-        agg = {"n": 0, "ll": 0.0, "corr": 0.0, "mae": 0.0}
+        agg = {"n": 0, "ll": 0.0, "correct": 0, "total": 0, "mae": 0.0}
         for S in evals:
             ck = (S - 1, scale, pg)
             if ck not in prev_cache:
@@ -265,7 +273,8 @@ def main():
                 continue
             agg["n"] += m["n"]
             agg["ll"] += m["logloss"] * m["n"]
-            agg["corr"] += m["accuracy"] * m["n"]
+            agg["correct"] += m["correct"]
+            agg["total"] += m["total"]
             agg["mae"] += m["mae_margin"] * m["n"]
         if agg["n"] == 0:
             continue
@@ -273,7 +282,8 @@ def main():
             "squash_scale": scale, "prior_games": pg, "carry": carry,
             "division_weight": dw,
             "logloss": agg["ll"] / agg["n"],
-            "accuracy": agg["corr"] / agg["n"],
+            "accuracy": (agg["correct"] / agg["total"]) if agg["total"] else float("nan"),
+            "decided": agg["total"],
             "mae_margin": agg["mae"] / agg["n"],
             "n": agg["n"],
         })
@@ -294,8 +304,22 @@ def main():
     detail = evaluate(loaded[S], prev_cache[ck], cfg, best["carry"], holdouts,
                       best["division_weight"])
 
+    # An optimum on the edge of the search means the grid constrained the
+    # answer. Say so rather than presenting it as settled.
+    edges = []
+    for key, grid in (("squash_scale", grid_scale), ("prior_games", grid_pg),
+                      ("carry", grid_carry), ("division_weight", grid_dw)):
+        if len(grid) > 1 and best[key] in (min(grid), max(grid)):
+            edges.append(f"{key}={best[key]} (grid {min(grid)}..{max(grid)})")
+    if edges:
+        print("\n  NOTE: the best point sits on the edge of the grid for: "
+              + "; ".join(edges), file=sys.stderr)
+        print("  Widen those ranges and re-run before treating this as final.",
+              file=sys.stderr)
+
     payload = {
         "tunedOn": evals,
+        "atGridEdge": edges,
         "holdoutWeeks": holdouts,
         "best": best,
         "calibration": detail["calibration"] if detail else None,

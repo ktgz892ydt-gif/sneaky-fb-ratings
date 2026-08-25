@@ -98,7 +98,14 @@ def main():
 
     # ---- ranks are dense, unique and ordered by rating
     ranked = sorted([t for t in ohio if t["rank"]], key=lambda t: t["rank"])
-    check(len(ranked) == len(ohio), "every Ohio team should carry a rank")
+    playedn = [t for t in ohio if t["games"] > 0]
+    check(len(ranked) == len(playedn),
+          f"every Ohio team that has played should carry a rank "
+          f"({len(ranked)} ranked vs {len(playedn)} played)")
+    check(all(not t["rank"] for t in ohio if t["games"] == 0),
+          "a team with no games this season must not hold a rank")
+    check(all(t.get("unplayed") == (t["games"] == 0) for t in ohio),
+          "the unplayed flag must agree with the game count")
     check([t["rank"] for t in ranked] == list(range(1, len(ranked) + 1)),
           "ranks must be 1..N with no gaps or duplicates")
     for a, b in zip(ranked, ranked[1:]):

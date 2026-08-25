@@ -210,6 +210,12 @@ def fit_massey(n_teams: int, home_idx, away_idx, margin, neutral, cfg: RatingCon
     if prior is not None:
         centre[:n_teams] = prior
 
+    # With no home games at all, the home-field column is entirely zero and
+    # the normal equations are singular. Pin the term rather than solving a
+    # degenerate system.
+    if not np.any(~np.asarray(neutral, dtype=bool)):
+        penalty[-1] = 1e9
+
     A = (X.T @ X).tocsc() + sparse.diags(penalty).tocsc()
     b = X.T @ m + penalty * centre
     theta = spsolve(A, b)

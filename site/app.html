@@ -596,6 +596,7 @@ tr[data-top="1"] .c-rank::before {
     { key: "name",     label: "School",  cls: "c-team",   always: true,  num: false, dir: 1  },
     { key: "divreg",   label: "Div/Rg",  cls: "c-meta",   always: true,  num: false, dir: 1  },
     { key: "rec",      label: "Rec",     cls: "c-rec",    always: true,  num: false, dir: 1  },
+    { key: "games",    label: "G",       cls: "c-meta",   always: true,  num: true,  dir: -1 },
     { key: "rating",   label: "Rating",  cls: "c-rating", always: true,  num: true,  dir: -1 },
     { key: "btBinary", label: "BT (W/L)",cls: "c-num",    always: false, num: true,  dir: -1 },
     { key: "massey",   label: "Massey",  cls: "c-num",    always: false, num: true,  dir: -1 },
@@ -631,13 +632,19 @@ tr[data-top="1"] .c-rank::before {
   function renderHead() {
     var tr = $("head");
     tr.innerHTML = "";
+    var early = DATA && DATA.connectivity &&
+                (DATA.connectivity.level === "none" || DATA.connectivity.level === "low");
     activeCols().forEach(function (c) {
       var th = document.createElement("th");
       var b = document.createElement("button");
       b.type = "button";
-      b.innerHTML = c.label + (state.sort === c.key
+      var label = (c.key === "rating" && early) ? "Early rating" : c.label;
+      b.innerHTML = label + (state.sort === c.key
         ? ' <span class="car">' + (state.dir === -1 ? "▼" : "▲") + "</span>"
         : "");
+      if (c.key === "rating" && early) {
+        b.title = "Statewide order is prior-heavy until the schedule graph connects.";
+      }
       if (state.sort === c.key) {
         th.setAttribute("aria-sort", state.dir === -1 ? "descending" : "ascending");
       }
@@ -705,6 +712,13 @@ tr[data-top="1"] .c-rank::before {
             o.textContent = "OOS";
             o.title = "Out of state — rated because the result informs its Ohio opponent, but not ranked.";
             td.appendChild(o);
+          } else if (t.unplayed) {
+            var u = document.createElement("span");
+            u.className = "flag oos";
+            u.textContent = "NO RESULT";
+            u.title = "Has not played this season. The rating shown is its "
+              + "preseason estimate only, and it holds no rank.";
+            td.appendChild(u);
           } else if (t.ambiguous) {
             var f = document.createElement("span");
             f.className = "flag";
@@ -714,6 +728,8 @@ tr[data-top="1"] .c-rank::before {
           }
         } else if (c.key === "rank") {
           td.textContent = t.rank ? t.rank : "—";
+        } else if (c.key === "games") {
+          td.textContent = t.games;
         } else if (c.key === "divreg" || c.key === "rec") {
           td.textContent = value(t, c.key) || "—";
         } else if (c.key === "pd") {
@@ -812,9 +828,22 @@ tr[data-top="1"] .c-rank::before {
       $("reg").appendChild(o);
     });
 
-    $("foot-stamp").textContent = "Generated " + DATA.generatedAt.replace("T", " ") + " · "
+    var stamp = "Generated " + DATA.generatedAt.replace("T", " ") + " · "
       + DATA.conflicts.length + " unresolved name conflict"
       + (DATA.conflicts.length === 1 ? "" : "s");
+    if (DATA.tuned && DATA.tuned.squash_scale) {
+      stamp += " · constants fitted on " + (DATA.tuned.tunedOn || []).join(", ")
+        + " (margin scale " + DATA.tuned.squash_scale
+        + ", prior " + DATA.tuned.prior_games
+        + ", carry " + DATA.tuned.carry
+        + ", division " + DATA.tuned.division_weight
+        + (DATA.tuned.accuracy
+            ? "; " + Math.round(DATA.tuned.accuracy * 100) + "% of games called correctly"
+            : "") + ")";
+    } else {
+      stamp += " · constants NOT fitted \u2014 using defaults";
+    }
+    $("foot-stamp").textContent = stamp;
 
     $("q").addEventListener("input", function (e) { state.q = e.target.value; render(); });
     $("div").addEventListener("change", function (e) { state.div = e.target.value; render(); });

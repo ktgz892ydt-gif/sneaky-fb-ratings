@@ -131,13 +131,6 @@ def load_games(path):
     return games
 
 
-def _record_tuple(rec: str):
-    parts = rec.split("-")
-    w = int(parts[0])
-    l = int(parts[1])
-    t = int(parts[2]) if len(parts) > 2 else 0
-    return (w, l, t)
-
 
 def resolve(roster_slots, games) -> Resolution:
     """Map every team name in the schedule onto a school.

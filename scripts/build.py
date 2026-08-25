@@ -167,10 +167,18 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
 
     idx = {t: i for i, t in enumerate(team_ids)}
 
-    # Rank Ohio teams only; out-of-state teams are rated but not ranked.
+    # Rank Ohio teams only, and only those that have actually played.
+    #
+    # A team with no result this season still gets a rating -- the prior and
+    # the regularizer see to that -- but it has not earned a place in the
+    # standings the way a team that took the field has. Ranking them anyway
+    # buries real teams beneath placeholders. They stay in the table, carry
+    # their prior-based rating, and are labelled.
     ohio = [t for t in team_ids if res.teams[t].in_ohio]
-    ohio_sorted = sorted(ohio, key=lambda t: -result.bt_margin[idx[t]])
+    played = [t for t in ohio if result.games[idx[t]] > 0]
+    ohio_sorted = sorted(played, key=lambda t: -result.bt_margin[idx[t]])
     rank_of = {t: i + 1 for i, t in enumerate(ohio_sorted)}
+    unplayed = [t for t in ohio if result.games[idx[t]] == 0]
 
     # Division and region ranks
     div_rank, reg_rank = {}, {}
@@ -202,6 +210,7 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
                 "ambiguous": tm.ambiguous,
                 "note": tm.note,
                 "rank": rank_of.get(t),
+                "unplayed": bool(tm.in_ohio and result.games[i] == 0),
                 "divRank": div_rank.get(t),
                 "regRank": reg_rank.get(t),
                 "rating": round(float(result.bt_margin[i]), 2),
@@ -224,6 +233,8 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
         "gameCount": len(res.games),
         "teamCount": len(team_ids),
         "ohioTeamCount": len(ohio),
+        "rankedTeamCount": len(ohio_sorted),
+        "unplayedTeamCount": len(unplayed),
         "config": {
             "squashScale": cfg.squash_scale,
             "marginCap": cfg.margin_cap,
