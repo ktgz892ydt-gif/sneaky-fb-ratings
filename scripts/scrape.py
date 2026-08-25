@@ -407,6 +407,81 @@ def _diagnose(label, lines, limit=30, flat=None):
     print("", file=sys.stderr)
 
 
+ISO_DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}")
+
+
+def _shape(s):
+    """Collapse a sample to its format signature.
+
+    'Antwerp (Antwerp) *** at Montpelier (Montpelier)' and the 400 other rows
+    shaped exactly like it are one finding, not 400. Letters and digits are
+    flattened so only punctuation, keywords and layout survive.
+    """
+    s = ISO_DATE_RE.sub("\x00", s)          # placeholders survive the letter pass
+    # Kickoff time is spelled several ways on one page -- "7pm", "7:30 PM",
+    # "noon", "TBA". Left alone, each spelling becomes its own "format" and
+    # buries the real distinction we are looking for.
+    s = re.sub(SB_TIME, "\x01", s)
+    s = re.sub(r"\d+", "#", s)
+    s = re.sub(r"[A-Za-z]+", "w", s)
+    s = re.sub(r"(?:w ?)+", "w ", s)
+    s = re.sub(r"\s+", " ", s).strip()
+    return s.replace("\x00", "<DATE>").replace("\x01", "<TIME>")
+
+
+def probe_unscored(flat, label, samples=12, window=200):
+    """Report every date-anchored record that the scored-game pattern missed.
+
+    SB_GAME_RE requires both scores, so an unplayed game is invisible to it --
+    which is precisely why we have never seen how one is written. Anchoring on
+    the ISO date instead finds every record on the page, and the difference
+    between those two sets is the future-game format we need.
+
+    This prints and returns; it never parses. The point is to look before
+    writing a pattern, because the last two pattern rewrites were built from a
+    reassembled view of the page that does not exist in the HTML.
+    """
+    matched_at = {m.start() for m in SB_GAME_RE.finditer(flat)}
+    dates = list(ISO_DATE_RE.finditer(flat))
+    unmatched = [m for m in dates if m.start() not in matched_at]
+
+    print(f"\n  == PROBE: {label} ==", file=sys.stderr)
+    print(f"     date-anchored records on page : {len(dates)}", file=sys.stderr)
+    print(f"     matched as completed games    : {len(matched_at)}", file=sys.stderr)
+    print(f"     UNMATCHED (candidate futures) : {len(unmatched)}", file=sys.stderr)
+
+    # The roadmap asserts future games are flagged '***'. Assertion, not fact --
+    # so count it directly rather than building a pattern around a guess.
+    for token in ("***", "**", "TBA", "TBD", "vs.", " at "):
+        print(f"     literal {token!r:8} appears        : {flat.count(token)}",
+              file=sys.stderr)
+
+    if not unmatched:
+        print("     (nothing unmatched -- no future games on this page)",
+              file=sys.stderr)
+        return []
+
+    # One record per sample. Without this the window runs on into the next
+    # game and every sample is unique, which defeats the whole point of
+    # grouping -- 400 identical rows would print as 400 distinct "formats".
+    starts = [m.start() for m in dates]
+    by_shape = {}
+    for m in unmatched:
+        nxt = next((s for s in starts if s > m.start()), len(flat))
+        chunk = flat[m.start(): min(nxt, m.start() + window)].strip()
+        by_shape.setdefault(_shape(chunk), []).append(chunk)
+
+    print(f"\n     --- {len(by_shape)} distinct format(s), most common first ---",
+          file=sys.stderr)
+    ordered = sorted(by_shape.items(), key=lambda kv: -len(kv[1]))
+    for shape, chunks in ordered[:samples]:
+        print(f"\n     [{len(chunks)}x] shape: {shape}", file=sys.stderr)
+        for c in chunks[:2]:
+            print(f"           | {c}", file=sys.stderr)
+    print("", file=sys.stderr)
+    return [c for _, chunks in ordered for c in chunks[:2]]
+
+
 def _session():
     s = requests.Session()
     s.headers.update({"User-Agent": UA, "Accept": "text/html"})
@@ -481,9 +556,12 @@ def _split_state(name):
     return _clean_name(name), ""
 
 
-def scrape_week(sess, season, week, use_cache=True, diagnose=False):
+def scrape_week(sess, season, week, use_cache=True, diagnose=False, probe=False):
     html = fetch(sess, f"/hsfoot/scoreboard/{season}/week-{week}", use_cache)
     flat = flat_text(html)
+
+    if probe:
+        probe_unscored(flat, f"{season} week {week} scoreboard")
 
     games, seen = [], set()
     for m in SB_GAME_RE.finditer(flat):
@@ -574,11 +652,26 @@ def main():
     ap.add_argument("--season", type=int, default=2026)
     ap.add_argument("--through-week", type=int, default=16)
     ap.add_argument("--no-cache", action="store_true")
+    ap.add_argument(
+        "--probe-weeks", default="",
+        help="Comma-separated weeks to dump unmatched date-anchored records "
+             "for, then exit without writing anything. Reconnaissance only.",
+    )
     args = ap.parse_args()
 
     sess = _session()
     use_cache = not args.no_cache
     os.makedirs(DATA, exist_ok=True)
+
+    if args.probe_weeks:
+        for wk in [int(w) for w in args.probe_weeks.split(",") if w.strip()]:
+            try:
+                scrape_week(sess, args.season, wk, use_cache, probe=True)
+            except requests.HTTPError as exc:
+                code = exc.response.status_code if exc.response is not None else "?"
+                print(f"\n  == PROBE: week {wk} -> HTTP {code} "
+                      f"(no such page) ==", file=sys.stderr)
+        return
 
     # Scores are read first: they establish the (school, city) pairs that the
     # roster's text fallback needs to split its city and school columns.
@@ -594,6 +687,17 @@ def main():
                 break  # season hasn't reached this week
             raise
         if not g:
+            # The first week with no completed games is the season's leading
+            # edge: the page exists and is full of scheduled fixtures that
+            # SB_GAME_RE cannot see because it requires both scores. Dump it
+            # once, from cache, so the log shows the real future-game format
+            # instead of us guessing at it.
+            print(f"  week {wk:>2}: 0 completed games -- probing the page",
+                  file=sys.stderr)
+            try:
+                scrape_week(sess, args.season, wk, use_cache, probe=True)
+            except requests.HTTPError:
+                pass
             break  # week not played yet
         print(f"  week {wk:>2}: {len(g)} games", file=sys.stderr)
         all_games.extend(g)
