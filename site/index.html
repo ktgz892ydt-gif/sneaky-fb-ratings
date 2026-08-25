@@ -487,21 +487,23 @@ tr[data-top="1"] .c-rank::before {
 /* ---------------------------------------------------------------------------
    Narrow screens.
 
-   Nine columns cannot be squeezed onto a phone; squeezing them is how you get
-   horizontal scrolling and a table nobody can read. So below this breakpoint
-   the table stops being a table and becomes a list of rows, each carrying the
-   three things a phone reader actually wants -- where the team ranks, who it
-   is, and its rating. The rest is one tap away.
+   Nine columns cannot be squeezed onto a phone; squeezing them is what
+   produces horizontal scrolling. So below this breakpoint the table stops
+   being a table and becomes a list: rank, school and rating on the first
+   line, and every remaining stat as a wrapped caption beneath it.
 
-   The breakpoint is set from measurement, not taste: the nine-column table
-   needs roughly 990px before it starts overflowing, so every width below that
-   was going to scroll sideways no matter how it was styled. 900px covers all
-   phones and both iPad orientations; laptops keep the full table.
+   Nothing is hidden and nothing needs tapping. It is the same data the
+   desktop columns carry, set as a caption instead of a grid, because a
+   caption wraps and a grid does not.
 
-   The desktop layout above is untouched.
+   The breakpoint is measured, not chosen by taste: the nine-column table
+   needs roughly 990px before it overflows, so every width below that was
+   going to scroll sideways whatever the styling. 900px covers all phones and
+   both iPad orientations; laptops keep the full table.
    --------------------------------------------------------------------------- */
 
 .only-narrow { display: none; }
+.c-statline { display: none; }
 
 @media (max-width: 900px) {
   .only-narrow { display: flex; }
@@ -513,6 +515,7 @@ tr[data-top="1"] .c-rank::before {
   .toggles { width: 100%; }
   .toggles .toggle { flex: 1 1 auto; }
   #sortdir { flex: 0 0 auto; min-width: 44px; }
+  .count { width: 100%; padding-bottom: 0; }
 
   .board-scroll { overflow-x: visible; }
   table, tbody, tr, td { display: block; width: auto; }
@@ -520,76 +523,67 @@ tr[data-top="1"] .c-rank::before {
 
   tbody tr {
     display: grid;
-    grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+    grid-template-columns: 2.1rem minmax(0, 1fr) auto;
     align-items: baseline;
-    gap: 0 10px;
-    padding: 11px 2px;
+    gap: 2px 9px;
+    padding: 10px 2px 11px;
     border-bottom: 1px solid var(--rule);
-    cursor: pointer;
   }
   tbody tr:hover td { background: none; }
+  tbody td { padding: 0; border: 0; white-space: normal; }
 
-  tbody td {
-    padding: 0;
-    border: 0;
-    white-space: normal;
-  }
-
-  /* the three that always show */
-  td[data-primary] { display: block; }
   .c-rank   { grid-column: 1; grid-row: 1; width: auto; font-size: .9375rem; }
-  .c-team   { grid-column: 2; grid-row: 1; font-size: 1.0625rem; line-height: 1.25; }
+  .c-team   { grid-column: 2; grid-row: 1; font-size: 1.0625rem; line-height: 1.25;
+              min-width: 0; }
   .c-rating { grid-column: 3; grid-row: 1; width: auto; text-align: right;
               font-size: 1.0625rem; }
 
   tr[data-top="1"] .c-rank::before { display: none; }
   tr[data-top="1"] .c-rank { color: var(--accent); }
 
-  /* everything else collapses until the row is tapped */
-  tbody td:not([data-primary]) { display: none; }
+  /* the desktop cells are redundant here -- the caption carries them */
+  .c-meta, .c-rec, .c-num { display: none; }
 
-  tbody tr.open td:not([data-primary]) {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+  .c-statline {
+    display: block;
     grid-column: 2 / -1;
-    width: auto;
-    padding: 4px 0 0;
-    font-size: var(--step--1);
+    grid-row: 2;
+    /* the table's cells are right-aligned; this caption is prose, so it is not */
     text-align: left;
-  }
-  tbody tr.open td:not([data-primary])::before {
-    content: attr(data-label);
-    font-size: 10.5px;
-    letter-spacing: .07em;
-    text-transform: uppercase;
-    font-weight: 700;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    line-height: 1.7;
     color: var(--ink-3);
-    padding-right: 14px;
+    letter-spacing: -.01em;
   }
-  tbody tr.open {
-    background: var(--surface);
-    box-shadow: inset 3px 0 0 var(--accent-bright);
-    padding-left: 10px;
-    padding-bottom: 12px;
+  .c-statline .chip { white-space: nowrap; }
+  .c-statline .chip:not(:last-child)::after {
+    content: " ·";
+    padding-left: 5px;
+    color: var(--rule-strong);
   }
-
-  /* a hint that there is more underneath */
-  tbody tr .c-team::after {
-    content: "";
-    display: inline-block;
-    width: 0; height: 0;
-    margin-left: 7px;
-    vertical-align: 2px;
-    border-left: 3.5px solid transparent;
-    border-right: 3.5px solid transparent;
-    border-top: 4px solid var(--ink-3);
-    opacity: .5;
+  .c-statline .chip b {
+    font-family: "Public Sans", sans-serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    opacity: .75;
+    padding-right: 3px;
   }
-  tbody tr.open .c-team::after { transform: rotate(180deg); opacity: .9; }
+  .c-statline .chip.pos { color: var(--sev-high); }
+  .c-statline .chip.neg { color: var(--sev-none); }
 
   .method-body { padding-left: 0; }
   .figbox { padding: 14px 10px; }
+}
+
+/* Very small phones: let the caption breathe rather than clip. */
+@media (max-width: 380px) {
+  tbody tr { grid-template-columns: 1.9rem minmax(0, 1fr) auto; }
+  .c-team { font-size: 1rem; }
+  .c-statline { font-size: 11px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -749,6 +743,34 @@ tr[data-top="1"] .c-rank::before {
     return (n > 0 ? "+" : "") + n.toFixed(2);
   }
 
+  function chip(label, value, cls) {
+    return '<span class="chip' + (cls ? " " + cls : "") + '">'
+      + '<b>' + label + '</b>' + value + "</span>";
+  }
+
+  // Every secondary column, rendered as a wrapped caption line. Deliberately
+  // always visible: a stat you have to tap for is a stat most people never see.
+  function statLine(t) {
+    var out = [];
+    if (t.division) out.push(chip("Div", t.division + "-" + t.region));
+    out.push(chip("Rec", t.w + "-" + t.l + (t.t ? "-" + t.t : "")));
+    out.push(chip("G", String(t.games)));
+    if (t.harbin !== null && t.harbin !== undefined) {
+      out.push(chip("Harbin", fmt(t.harbin, 1)));
+    }
+    out.push(chip("SOS", signed(t.sos)));
+    out.push(chip("Pt diff", (t.pd > 0 ? "+" : "") + t.pd,
+                  t.pd > 0 ? "pos" : t.pd < 0 ? "neg" : ""));
+    if (state.compare) {
+      out.push(chip("BT", signed(t.btBinary)));
+      out.push(chip("Massey", signed(t.massey)));
+    }
+    // Joined with a space on purpose: adjacent inline elements with no
+    // whitespace between them give the browser nowhere to break the line, and
+    // the caption runs off the screen edge instead of wrapping.
+    return out.join(" ");
+  }
+
   function activeCols() {
     return COLS.filter(function (c) { return c.always || state.compare; });
   }
@@ -828,11 +850,6 @@ tr[data-top="1"] .c-rank::before {
     rows.forEach(function (t) {
       var tr = document.createElement("tr");
       if (t.rank && t.rank <= 10) tr.setAttribute("data-top", "1");
-      // On narrow screens the secondary columns are collapsed; tapping the row
-      // reveals them. Harmless on desktop, where nothing is hidden.
-      tr.addEventListener("click", function () {
-        tr.classList.toggle("open");
-      });
 
       cols.forEach(function (c) {
         var td = document.createElement("td");
@@ -883,6 +900,11 @@ tr[data-top="1"] .c-rank::before {
         }
         tr.appendChild(td);
       });
+      var meta = document.createElement("td");
+      meta.className = "c-statline";
+      meta.innerHTML = statLine(t);
+      tr.appendChild(meta);
+
       frag.appendChild(tr);
     });
 
