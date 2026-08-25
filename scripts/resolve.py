@@ -63,6 +63,26 @@ class Resolution:
     warnings: list = field(default_factory=list)
 
 
+def team_identity(name, state):
+    """The key a team is known by everywhere: 'Salem (Salem)', 'Salem (Salem) [NJ]'.
+
+    Ohio has a Salem and so does New Jersey, and the scoreboard writes both as
+    "Salem (Salem)" -- distinguished only by a trailing state tag. Dropping
+    that tag merged the two into one entity, and the Ohio school inherited New
+    Jersey's whole schedule: eighteen remaining games instead of nine.
+
+    Seven Ohio schools were affected (Salem, Middletown, Bellevue, Bluffton,
+    Celina, Lancaster, Marietta), and the failure is invisible in the ratings
+    table -- the team just looks unusually busy.
+
+    Ohio teams carry no tag, so their identity is unchanged by this, and the
+    join against the OHSAA roster still works exactly as before.
+    """
+    name = (name or "").strip()
+    state = (state or "").strip().upper()
+    return f"{name} [{state}]" if state else name
+
+
 def load_roster(path):
     slots = defaultdict(list)
     with open(path, newline="", encoding="utf-8") as fh:
@@ -91,9 +111,11 @@ def load_games(path):
                     games.append(
                         {
                             "week": int(row["week"]),
-                            "away": row["away"].strip(),
+                            # The state tag is part of the identity, not
+                            # decoration -- see team_identity().
+                            "away": team_identity(row["away"], row.get("away_state")),
                             "away_score": int(row["away_score"]),
-                            "home": row["home"].strip(),
+                            "home": team_identity(row["home"], row.get("home_state")),
                             "home_score": int(row["home_score"]),
                             "neutral": bool(int(row.get("neutral") or 0)),
                         }

@@ -14,7 +14,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from ratings import RatingConfig, rate, win_probability  # noqa: E402
-from resolve import load_games, load_roster, resolve  # noqa: E402
+from resolve import load_games, load_roster, resolve, team_identity  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
@@ -99,8 +99,10 @@ def load_schedule(path):
                     "week": int(row["week"]),
                     "date": (row.get("date") or "").strip(),
                     "time": (row.get("time") or "").strip(),
-                    "away": row["away"].strip(),
-                    "home": row["home"].strip(),
+                    # Same identity rule as completed games, or a fixture
+                    # against New Jersey's Salem would be matched to Ohio's.
+                    "away": team_identity(row["away"], row.get("away_state")),
+                    "home": team_identity(row["home"], row.get("home_state")),
                     "neutral": bool(int(row.get("neutral") or 0)),
                 })
             except (ValueError, KeyError):
@@ -402,6 +404,21 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
         schedule_path = cand if os.path.exists(cand) else None
     fixtures = load_schedule(schedule_path)
 
+    # The source is an Ohio scoreboard, but it also carries border-state games
+    # between two schools that are both from elsewhere -- Kentucky at Kentucky,
+    # Michigan at Michigan. About a fifth of the fixture list.
+    #
+    # A completed one of those is worth keeping: it rates an out-of-state team
+    # that some Ohio school will later play. An unplayed one carries no
+    # information at all -- it is a prediction about two teams nobody here
+    # follows, made from two stand-in ratings. Dropping them removes a fifth of
+    # the payload and most of the "estimated" flags.
+    in_ohio_names = {res.teams[t].name for t in team_ids if res.teams[t].in_ohio}
+    before = len(fixtures)
+    fixtures = [f for f in fixtures
+                if f["home"] in in_ohio_names or f["away"] in in_ohio_names]
+    dropped_foreign = before - len(fixtures)
+
     fallback = division_baseline(blob, "III", cfg)
     if fixtures and fallback[0] is None:
         # No prior to read a division ladder from -- use the middle of the
@@ -533,6 +550,7 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
                         "o=assumedOhio x=whyNotPredicted; h/a are indexes into "
                         "teams, or a name when unresolved",
         "scheduleGameCount": len(schedule),
+        "scheduleForeignDropped": dropped_foreign,
         "schedulePredictedCount": sum(1 for g in schedule if g.get("predicted")),
         "scheduleEstimatedCount": sum(1 for g in schedule if g.get("estimated")),
         # How an unrateable opponent was stood in for, so the site can say so
@@ -638,7 +656,8 @@ if __name__ == "__main__":
     print(f"                 {payload['hfa']['massey']:.2f} pts (Massey)")
     print(f"schedule       : {payload['scheduleGameCount']} fixtures, "
           f"{payload['schedulePredictedCount']} predicted, "
-          f"{payload['scheduleEstimatedCount']} using a stand-in opponent")
+          f"{payload['scheduleEstimatedCount']} using a stand-in opponent "
+          f"({payload['scheduleForeignDropped']} dropped: no Ohio team)")
     if payload["fallbackRating"]:
         print(f"stand-in rating: {payload['fallbackRating']['value']:+.2f} "
               f"({payload['fallbackRating']['basis']})")
