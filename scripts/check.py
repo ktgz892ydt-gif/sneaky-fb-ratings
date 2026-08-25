@@ -185,6 +185,90 @@ def main():
                          f"than a flat scale ({cv['meanLoglossFitted']:.4f} vs "
                          f"{cv['meanLoglossFlat']:.4f}) -- do not ship it")
 
+    # ---- the remaining schedule
+    #
+    # Predictions are a separate list from results on purpose. The failure that
+    # matters is leakage in either direction: a fixture counted as a result
+    # would be a phantom 0-0 tie, and a result still listed as a fixture would
+    # show a team two opponents in one week.
+    sched = d.get("schedule") or []
+    check(len(sched) == d.get("scheduleGameCount", len(sched)),
+          "scheduleGameCount disagrees with the schedule it describes")
+
+    n_teams = len(d["teams"])
+    played_pairs = set()
+    for r in d.get("results") or []:
+        played_pairs.add((r["w"], r["h"], r["a"]))
+
+    per_week = defaultdict(lambda: defaultdict(int))
+    for r in d.get("results") or []:
+        per_week[r["w"]][r["h"]] += 1
+        per_week[r["w"]][r["a"]] += 1
+
+    bad_index = est_without_basis = 0
+    for g in sched:
+        for side in ("h", "a"):
+            v = g[side]
+            if isinstance(v, int):
+                if not (0 <= v < n_teams):
+                    bad_index += 1
+                else:
+                    per_week[g["w"]][v] += 1
+            elif not isinstance(v, str):
+                bad_index += 1
+
+        if "m" in g:
+            check(0.0 < g["p"] < 1.0,
+                  f"win probability out of range in week {g['w']}: {g['p']}")
+            # A probability that disagrees with its own margin means the two
+            # were computed from different numbers.
+            check((g["p"] > 0.5) == (g["m"] > 0) or abs(g["m"]) < 1e-9,
+                  f"week {g['w']}: probability {g['p']} contradicts margin {g['m']}")
+            if g.get("e"):
+                est_without_basis += 0 if d.get("fallbackRating") else 1
+        else:
+            check(bool(g.get("x")),
+                  f"week {g['w']}: a fixture with no prediction must say why")
+
+        # Source quality, not a code bug: warn loudly, but do not stop the
+        # week's ratings from publishing over it.
+        warn((g["w"], g["h"], g["a"]) not in played_pairs,
+             f"week {g['w']}: a game already played is still listed as a fixture")
+
+    check(bad_index == 0,
+          f"{bad_index} schedule entries point at a team that does not exist")
+    check(est_without_basis == 0,
+          "a prediction is flagged as estimated but no stand-in rating is published")
+
+    # A team plays at most once a week. This is the same invariant the resolver
+    # enforces on results, extended across the fixtures -- a duplicated fixture
+    # would quietly inflate every projected record built on it.
+    #
+    # A warning rather than a failure: it distorts projections, which are the
+    # newest and least load-bearing part of the page, and the ratings beneath
+    # them are unaffected. Blocking the week's publish over it would trade a
+    # working board for a broken one.
+    doubled = [(wk, t) for wk, counts in per_week.items()
+               for t, c in counts.items() if c > 1]
+    warn(not doubled,
+         f"{len(doubled)} team-weeks hold more than one game "
+         f"(first: team index {doubled[0][1]} in week {doubled[0][0]}) -- "
+         f"projected records for those teams will be overstated"
+         if doubled else "")
+
+    # Projections must be arithmetic on the games actually listed.
+    for t in d["teams"]:
+        if "remaining" not in t:
+            continue
+        total = t["projWins"] + t["projLosses"]
+        expect = t["w"] + t["l"] + t["remaining"]
+        check(abs(total - expect) < 0.02,
+              f"{t['name']}: projected record adds to {total:.1f} games but the "
+              f"team has {t['w']}-{t['l']} decided with {t['remaining']} left")
+        check(t["projWins"] >= t["w"] - 0.05,
+              f"{t['name']}: projected wins {t['projWins']} is below the "
+              f"{t['w']} already banked")
+
     # ---- connectivity must be reported honestly
     c = d["connectivity"]
     check(c["level"] in ("none", "low", "medium", "high"), "bad connectivity level")

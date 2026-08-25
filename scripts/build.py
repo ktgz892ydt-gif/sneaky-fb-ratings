@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import csv
 import json
 import os
 import re
@@ -12,7 +13,7 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from ratings import RatingConfig, rate  # noqa: E402
+from ratings import RatingConfig, rate, win_probability  # noqa: E402
 from resolve import load_games, load_roster, resolve  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -80,8 +81,226 @@ def connectivity(teams, games):
     }
 
 
+def load_schedule(path):
+    """Read not-yet-played fixtures written by scrape.py.
+
+    Deliberately separate from load_games(). These rows have no scores, and
+    they must never reach resolve() or rate() -- a fixture treated as a result
+    would inject a phantom 0-0 tie between two real teams, and it would do so
+    invisibly, because the ratings table would still look entirely normal.
+    """
+    if not path or not os.path.exists(path):
+        return []
+    out = []
+    with open(path, newline="", encoding="utf-8") as fh:
+        for row in csv.DictReader(fh):
+            try:
+                out.append({
+                    "week": int(row["week"]),
+                    "date": (row.get("date") or "").strip(),
+                    "time": (row.get("time") or "").strip(),
+                    "away": row["away"].strip(),
+                    "home": row["home"].strip(),
+                    "neutral": bool(int(row.get("neutral") or 0)),
+                })
+            except (ValueError, KeyError):
+                continue
+    return out
+
+
+def division_baseline(blob, division, cfg):
+    """The measured rating of an average team in `division`.
+
+    Used as the stand-in for an opponent we cannot rate: an out-of-state
+    school that has not played anybody yet has no rating at all, and there is
+    no evidence from which to invent one. Division III is the middle of the
+    seven-division ladder, so it is the least-committal guess available.
+
+    Matches how priors are composed in main(), so the number is on the same
+    scale as the ratings themselves rather than merely near them.
+    """
+    if blob:
+        eff = (blob.get("divisionEffects") or {}).get(division)
+        if eff is not None:
+            return float(eff) * cfg.division_weight, f"division {division} baseline"
+    return None, ""
+
+
+def predict_schedule(fixtures, res, result, team_ids, cfg, fallback):
+    """Attach a predicted margin and win probability to each fixture.
+
+    Fixtures are matched to rated teams BY NAME, against the table resolve()
+    already built from completed games. They are not passed through resolve()
+    itself: that function derives identity from results, which a fixture does
+    not have, and feeding it one risks changing how real teams are resolved.
+
+    A name shared by several rated teams is left unresolved rather than
+    guessed. The resolver's contract is that it declines to guess before it
+    merges, and predictions inherit it.
+    """
+    idx = {t: i for i, t in enumerate(team_ids)}
+    fb_rating, fb_note = fallback
+
+    by_name = {}
+    for tid in team_ids:
+        by_name.setdefault(res.teams[tid].name, []).append(tid)
+
+    def rated(tid):
+        i = idx[tid]
+        return tid, float(result.bt_margin[i]), int(result.games[i]), "rated"
+
+    def side(name):
+        """-> (tid or None, rating or None, gamesPlayed, status)
+
+        status is one of: rated, assumed-ohio, stand-in, ambiguous, unknown.
+        """
+        cands = by_name.get(name, [])
+        if len(cands) == 1:
+            return rated(cands[0])
+        if len(cands) > 1:
+            # A name can be shared by an Ohio school and a same-named school
+            # from elsewhere that appeared on this scoreboard -- Marietta is
+            # the real case. A fixture listed on an Ohio scoreboard against an
+            # Ohio-region opponent is the Ohio school; the namesake is here
+            # only because one of its games was posted.
+            #
+            # This picks between two already-separate entities. It does not
+            # merge them, and it only fires when exactly one is in Ohio;
+            # two Ohio schools sharing a name AND a city stay refused.
+            ohio = [t for t in cands if res.teams[t].in_ohio]
+            if len(ohio) == 1:
+                tid, r, g, _ = rated(ohio[0])
+                return tid, r, g, "assumed-ohio"
+            return None, None, 0, "ambiguous"
+        if fb_rating is None:
+            return None, None, 0, "unknown"
+        return None, fb_rating, 0, "stand-in"
+
+    out = []
+    for f in fixtures:
+        ht, hr, hg, hstat = side(f["home"])
+        at, ar, ag, astat = side(f["away"])
+        row = {
+            "week": f["week"],
+            "date": f["date"],
+            "time": f["time"],
+            "home": ht,
+            "homeName": f["home"],
+            "away": at,
+            "awayName": f["away"],
+            "neutral": f["neutral"],
+        }
+        if hr is None or ar is None:
+            # Said plainly rather than filled in with a plausible number.
+            bad = [s for s in (hstat, astat) if s in ("ambiguous", "unknown")]
+            row.update(predicted=False, reason=(
+                "opponent's name is shared by several schools"
+                if "ambiguous" in bad else "opponent has no rating yet"))
+            out.append(row)
+            continue
+
+        margin = hr - ar + (0.0 if f["neutral"] else result.hfa_margin)
+        # The less established of the two decides how flat the probability
+        # curve should be: a rating difference is only as trustworthy as the
+        # thinner of the two records behind it.
+        established = min(hg, ag)
+        p = win_probability(margin, established, cfg)
+        row.update(
+            predicted=True,
+            predictedHomeMargin=round(float(margin), 1),
+            homeWinProb=round(float(p), 3),
+            favoriteName=f["home"] if margin >= 0 else f["away"],
+            spread=round(abs(float(margin)), 1),
+            gamesBehind=established,
+            estimated=("stand-in" in (hstat, astat)),
+            estimatedNote=(fb_note if "stand-in" in (hstat, astat) else ""),
+            assumedOhio=("assumed-ohio" in (hstat, astat)),
+        )
+        out.append(row)
+    return out
+
+
+def compact_schedule(schedule, team_ids):
+    """Shrink the fixture list for transport.
+
+    A full season is roughly 3,500 fixtures. Written out in full that is over
+    a megabyte of JSON for a page that is often opened on a phone, and it is
+    all redundant: a team's name, division and record are already in `teams`,
+    so a fixture only needs to point at a row.
+
+    Keys are short but named, never positional -- a positional row breaks
+    silently the first time someone inserts a column.
+
+        w  week            h  home  (index into teams, or a name string
+        d  date               a  away   when the team could not be resolved)
+        t  kickoff time    n  neutral site
+        m  predicted margin, home perspective
+        p  home win probability
+        e  1 if either side used the stand-in rating
+        o  1 if a shared name was read as the Ohio school
+        x  reason the game could not be predicted
+    """
+    pos = {t: i for i, t in enumerate(team_ids)}
+    out = []
+    for g in schedule:
+        row = {"w": g["week"],
+               "h": pos.get(g["home"], g["homeName"]),
+               "a": pos.get(g["away"], g["awayName"])}
+        if g.get("date"):
+            row["d"] = g["date"]
+        if g.get("time"):
+            row["t"] = g["time"]
+        if g.get("neutral"):
+            row["n"] = 1
+        if g.get("predicted"):
+            row["m"] = g["predictedHomeMargin"]
+            row["p"] = g["homeWinProb"]
+            if g.get("estimated"):
+                row["e"] = 1
+            if g.get("assumedOhio"):
+                row["o"] = 1
+        else:
+            row["x"] = g.get("reason", "not predicted")
+        out.append(row)
+    return out
+
+
+def project_records(schedule, team_ids, result):
+    """Expected final record = games banked + the sum of win probabilities.
+
+    This is an expectation, not a most-likely record: a team with three
+    coin-flips left projects 1.5 wins, which is not a record anyone can
+    finish with. Phase 2's Monte Carlo gives the distribution; this gives its
+    mean, which is the honest one-number summary.
+    """
+    idx = {t: i for i, t in enumerate(team_ids)}
+    exp = {t: 0.0 for t in team_ids}
+    remaining = {t: 0 for t in team_ids}
+    for g in schedule:
+        if not g.get("predicted"):
+            continue
+        p = g["homeWinProb"]
+        for tid, pw in ((g["home"], p), (g["away"], 1.0 - p)):
+            if tid in exp:
+                exp[tid] += pw
+                remaining[tid] += 1
+    out = {}
+    for t in team_ids:
+        i = idx[t]
+        w, l = float(result.wins[i]), float(result.losses[i])
+        # Ties are excluded from both halves rather than folded into losses.
+        decided = w + l + remaining[t]
+        pw = round(w + exp[t], 1)
+        # Derived from the rounded wins, not rounded independently: otherwise
+        # "3.5-6.5" can add up to one more game than the team will play.
+        out[t] = {"remaining": remaining[t],
+                  "projWins": pw,
+                  "projLosses": round(decided - pw, 1)}
+    return out
+
+
 def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
-         prior_path=None, use_prior=True):
+         prior_path=None, use_prior=True, schedule_path=None):
     # Prefer real scraped data when it exists; fall back to the checked-in
     # Week 1 fixture so the pipeline is runnable without network access.
     if games_path is None:
@@ -175,6 +394,28 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
 
     idx = {t: i for i, t in enumerate(team_ids)}
 
+    # ---- the remaining schedule -------------------------------------------
+    # Loaded after the fit, never before. Nothing below this line may touch
+    # res.games or the rating itself.
+    if schedule_path is None:
+        cand = os.path.join(DATA, f"schedule_{season}.csv")
+        schedule_path = cand if os.path.exists(cand) else None
+    fixtures = load_schedule(schedule_path)
+
+    fallback = division_baseline(blob, "III", cfg)
+    if fixtures and fallback[0] is None:
+        # No prior to read a division ladder from -- use the middle of the
+        # teams we did rate, which is always available and means the same
+        # thing. Better a stated approximation than a silent hole.
+        rated = [float(result.bt_margin[idx[t]]) for t in team_ids
+                 if res.teams[t].in_ohio and result.games[idx[t]] > 0]
+        if rated:
+            fallback = (round(float(np.median(rated)), 2),
+                        "median of rated Ohio teams")
+
+    schedule = predict_schedule(fixtures, res, result, team_ids, cfg, fallback)
+    projections = project_records(schedule, team_ids, result)
+
     # Rank Ohio teams only, and only those that have actually played.
     #
     # A team with no result this season still gets a rating -- the prior and
@@ -201,6 +442,8 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
         for v, lst in buckets.items():
             for i, t in enumerate(lst):
                 target[t] = i + 1
+
+    pos_of = {t: i for i, t in enumerate(team_ids)}
 
     rows = []
     for t in team_ids:
@@ -231,6 +474,7 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
                 "games": int(result.games[i]),
                 "sos": round(float(result.sos[i]), 2),
                 "pd": int(result.point_diff[i]),
+                **projections.get(t, {}),
             }
         )
 
@@ -273,6 +517,29 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
         "conflicts": res.conflicts,
         "warnings": res.warnings,
         "teams": rows,
+        # Completed games, same compact shape. Together with `schedule` this
+        # is a team's whole season -- what happened, then what is left. The two
+        # lists shrink and grow past each other, so the payload stays about the
+        # same size all season.
+        #   w week · h home · a away · hs/as scores · n neutral
+        "results": [
+            {"w": g.get("week", 1), "h": pos_of[g["home"]], "a": pos_of[g["away"]],
+             "hs": g["home_score"], "as": g["away_score"],
+             **({"n": 1} if g.get("neutral") else {})}
+            for g in res.games
+        ],
+        "scheduleCols": "w=week d=date t=time h=home a=away n=neutral "
+                        "m=predictedHomeMargin p=homeWinProb e=usedStandIn "
+                        "o=assumedOhio x=whyNotPredicted; h/a are indexes into "
+                        "teams, or a name when unresolved",
+        "scheduleGameCount": len(schedule),
+        "schedulePredictedCount": sum(1 for g in schedule if g.get("predicted")),
+        "scheduleEstimatedCount": sum(1 for g in schedule if g.get("estimated")),
+        # How an unrateable opponent was stood in for, so the site can say so
+        # rather than presenting a guess as a measurement.
+        "fallbackRating": ({"value": fallback[0], "basis": fallback[1]}
+                           if fallback[0] is not None else None),
+        "schedule": compact_schedule(schedule, team_ids),
     }
 
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
@@ -332,6 +599,10 @@ if __name__ == "__main__":
     ap.add_argument("--roster")
     ap.add_argument("--out")
     ap.add_argument("--prior", help="path to prior.json; omit to auto-detect")
+    ap.add_argument("--schedule",
+                    help="path to schedule_{season}.csv; omit to auto-detect")
+    ap.add_argument("--no-schedule", action="store_true",
+                    help="ignore any remaining schedule (use for past seasons)")
     ap.add_argument("--no-prior", action="store_true",
                     help="ignore any prior (use when building a past season)")
     ap.add_argument("--no-site", action="store_true",
@@ -358,12 +629,19 @@ if __name__ == "__main__":
         generated_at=a.generated_at,
         prior_path=a.prior,
         use_prior=not a.no_prior,
+        schedule_path=(False if a.no_schedule else a.schedule),
     )
     print(f"games          : {payload['gameCount']}")
     print(f"teams          : {payload['teamCount']}  (Ohio: {payload['ohioTeamCount']})")
     print(f"converged      : {payload['converged']}")
     print(f"home field adv : {payload['hfa']['rating']:.2f} pts (headline model)")
     print(f"                 {payload['hfa']['massey']:.2f} pts (Massey)")
+    print(f"schedule       : {payload['scheduleGameCount']} fixtures, "
+          f"{payload['schedulePredictedCount']} predicted, "
+          f"{payload['scheduleEstimatedCount']} using a stand-in opponent")
+    if payload["fallbackRating"]:
+        print(f"stand-in rating: {payload['fallbackRating']['value']:+.2f} "
+              f"({payload['fallbackRating']['basis']})")
     print(f"conflicts      : {len(payload['conflicts'])}")
     for c in payload["conflicts"]:
         print(f"   - {c['name']}: {c['detail']}")

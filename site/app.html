@@ -479,6 +479,191 @@ tr[data-top="1"] .c-rank::before {
 }
 
 /* ---------------------------------------------------------------------------
+   Team detail.
+
+   Opened by clicking a school. Shows one team's whole season in week order:
+   what happened, then what is predicted. It is a single column at every width
+   -- the schedule is a list, and a list never needs to scroll sideways.
+   --------------------------------------------------------------------------- */
+
+.c-team .open {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+}
+.c-team .open:hover,
+.c-team .open:focus-visible { color: var(--accent); border-bottom-color: currentColor; }
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 24, 27, .55);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 16px;
+  overflow-y: auto;
+  z-index: 50;
+}
+.scrim[hidden] { display: none; }
+
+.sheet {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 760px;
+  padding: 22px 24px 26px;
+}
+
+.sheet-top { display: flex; align-items: flex-start; gap: 16px; }
+.sheet-top h2 {
+  font-family: Oswald, "Arial Narrow", sans-serif;
+  font-size: var(--step-2);
+  font-weight: 500;
+  line-height: 1.15;
+  margin: 0;
+  flex: 1 1 auto;
+}
+.sheet-sub { color: var(--ink-3); font-size: var(--step--1); margin: 5px 0 0; }
+.sheet-close {
+  flex: 0 0 auto;
+  font-size: 22px;
+  line-height: 1;
+  padding: 4px 9px;
+  background: none;
+  border: 1px solid var(--rule-strong);
+  border-radius: 4px;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.sheet-close:hover { color: var(--ink); border-color: var(--ink-3); }
+
+.sheet-figs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 18px 0 4px;
+}
+.sheet-figs div {
+  background: var(--surface-sunk);
+  border-radius: 4px;
+  padding: 9px 10px;
+}
+.sheet-figs b {
+  display: block;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+.sheet-figs span {
+  display: block;
+  font-size: 10px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-top: 2px;
+}
+
+.sheet-note {
+  margin: 16px 0 0;
+  padding: 10px 12px;
+  border-left: 3px solid var(--sev-low);
+  background: var(--surface-sunk);
+  font-size: var(--step--1);
+  color: var(--ink-2);
+  border-radius: 0 4px 4px 0;
+}
+
+.sheet h3 {
+  font-family: "Public Sans", sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 24px 0 0;
+}
+
+.gamelist { list-style: none; margin: 0; padding: 0; }
+.gamelist li {
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1fr) auto;
+  gap: 4px 12px;
+  align-items: baseline;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.gamelist li:last-child { border-bottom: 0; }
+.gm-wk {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: var(--step--1);
+  color: var(--ink-3);
+}
+.gm-opp { font-size: var(--step-0); line-height: 1.3; }
+.gm-opp .side { color: var(--ink-3); }
+.gm-right {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: var(--step-0);
+  text-align: right;
+  white-space: nowrap;
+}
+.gm-cap {
+  grid-column: 2 / -1;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11.5px;
+  line-height: 1.7;
+  color: var(--ink-3);
+  letter-spacing: -.01em;
+}
+.gm-cap .chip { white-space: nowrap; }
+.gm-cap .chip:not(:last-child)::after {
+  content: " ·";
+  padding-left: 5px;
+  color: var(--rule-strong);
+}
+.gm-cap .chip b {
+  font-family: "Public Sans", sans-serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  opacity: .75;
+  padding-right: 3px;
+}
+.gm-cap .chip.pos { color: var(--sev-high); }
+.gm-cap .chip.neg { color: var(--sev-none); }
+
+.wl {
+  display: inline-block;
+  width: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+}
+.wl.w { color: var(--sev-high); }
+.wl.l { color: var(--sev-none); }
+.wl.t { color: var(--ink-3); }
+
+@media (max-width: 620px) {
+  .scrim { padding: 0; }
+  .sheet {
+    max-width: none;
+    min-height: 100%;
+    border: 0;
+    border-radius: 0;
+    padding: 18px 16px 40px;
+  }
+  .sheet-figs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gamelist li { grid-template-columns: 2.2rem minmax(0, 1fr) auto; }
+}
+
+/* ---------------------------------------------------------------------------
    Narrow screens.
 
    Nine columns cannot be squeezed onto a phone; squeezing them is what
@@ -653,6 +838,11 @@ tr[data-top="1"] .c-rank::before {
     <div class="empty" id="empty" hidden>No schools match those filters.</div>
   </div>
 
+  <div class="scrim" id="scrim" hidden>
+    <div class="sheet" id="sheet" role="dialog" aria-modal="true"
+         aria-labelledby="sheet-name" tabindex="-1"></div>
+  </div>
+
   <details class="method">
     <summary>How these numbers are made</summary>
     <div class="method-body">
@@ -763,6 +953,217 @@ tr[data-top="1"] .c-rank::before {
     return out.join(" ");
   }
 
+  // ------------------------------------------------------------- team detail
+  //
+  // One team's whole season in week order: results first, then fixtures. Both
+  // lists in ratings.json point at teams by index, so this walks them once and
+  // buckets every game by the two teams involved.
+
+  var SEASON = null;   // team index -> array of games, week order
+
+  function seasonIndex() {
+    if (SEASON) return SEASON;
+    SEASON = {};
+    function push(i, g) {
+      if (typeof i !== "number") return;
+      (SEASON[i] || (SEASON[i] = [])).push(g);
+    }
+    (DATA.results || []).forEach(function (r) {
+      push(r.h, { played: true, row: r });
+      push(r.a, { played: true, row: r });
+    });
+    (DATA.schedule || []).forEach(function (s) {
+      push(s.h, { played: false, row: s });
+      push(s.a, { played: false, row: s });
+    });
+    Object.keys(SEASON).forEach(function (k) {
+      SEASON[k].sort(function (a, b) { return a.row.w - b.row.w; });
+    });
+    return SEASON;
+  }
+
+  function nameOf(ref) {
+    if (typeof ref === "number") {
+      return DATA.teams[ref] ? DATA.teams[ref].name : "Unknown";
+    }
+    return String(ref);   // a fixture whose opponent could not be resolved
+  }
+
+  function gameRow(me, entry) {
+    var g = entry.row;
+    var atHome = (g.h === me);
+    var opp = nameOf(atHome ? g.a : g.h);
+    var site = g.n ? "vs" : (atHome ? "vs" : "at");
+
+    var li = document.createElement("li");
+    var wk = document.createElement("div");
+    wk.className = "gm-wk";
+    wk.textContent = "Wk " + g.w;
+    li.appendChild(wk);
+
+    var who = document.createElement("div");
+    who.className = "gm-opp";
+    who.innerHTML = '<span class="side">' + site + "</span> " + esc(opp)
+      + (g.n ? ' <span class="side">(neutral)</span>' : "");
+    li.appendChild(who);
+
+    var right = document.createElement("div");
+    right.className = "gm-right";
+    var cap = [];
+
+    // How good the opponent is, in the same units as the headline rating.
+    // Without it a predicted margin is a number with nothing to judge it by.
+    var oppRef = atHome ? g.a : g.h;
+    if (typeof oppRef === "number" && DATA.teams[oppRef]) {
+      cap.push(chip("Opp", signed(DATA.teams[oppRef].rating)));
+    }
+
+    if (entry.played) {
+      var mine = atHome ? g.hs : g.as;
+      var theirs = atHome ? g.as : g.hs;
+      var mark = mine > theirs ? "W" : mine < theirs ? "L" : "T";
+      right.innerHTML = '<span class="wl ' + mark.toLowerCase() + '">' + mark
+        + "</span> " + mine + "&ndash;" + theirs;
+      cap.push(chip("Margin", signedInt(mine - theirs),
+                    mine > theirs ? "pos" : mine < theirs ? "neg" : ""));
+    } else if (g.m === undefined) {
+      right.innerHTML = '<span class="side">—</span>';
+      cap.push(chip("No prediction", esc(g.x || "unknown")));
+    } else {
+      var margin = atHome ? g.m : -g.m;
+      var p = atHome ? g.p : 1 - g.p;
+      right.textContent = signed1(margin);
+      right.className += margin > 0 ? " pos" : margin < 0 ? " neg" : "";
+      cap.push(chip("Win prob", pct(p), p >= 0.5 ? "pos" : "neg"));
+      if (g.d) cap.push(chip("", esc(g.d)));
+      if (g.e) {
+        cap.push(chip("Estimated", "opponent unrated"));
+      }
+      if (g.o) cap.push(chip("Note", "shared name read as the Ohio school"));
+    }
+
+    li.appendChild(right);
+    if (cap.length) {
+      var c = document.createElement("div");
+      c.className = "gm-cap";
+      c.innerHTML = cap.join(" ");
+      li.appendChild(c);
+    }
+    return li;
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (ch) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch];
+    });
+  }
+
+  function signedInt(n) { return (n > 0 ? "+" : "") + n; }
+  function signed1(n) {
+    var v = Number(n);
+    return (v > 0 ? "+" : "") + v.toFixed(1);
+  }
+
+  var lastFocus = null;
+
+  function openTeam(i) {
+    var t = DATA.teams[i];
+    if (!t) return;
+    var games = seasonIndex()[i] || [];
+    var played = games.filter(function (g) { return g.played; });
+    var ahead = games.filter(function (g) { return !g.played; });
+
+    var sheet = $("sheet");
+    sheet.innerHTML = "";
+
+    var top = document.createElement("div");
+    top.className = "sheet-top";
+    top.innerHTML =
+      '<div><h2 id="sheet-name">' + esc(t.name) + "</h2>"
+      + '<p class="sheet-sub">'
+      + (t.division ? "Division " + esc(t.division) + " &middot; Region " + t.region : "Out of state")
+      + (t.rank ? " &middot; " + ordinal(t.rank) + " statewide" : "")
+      + "</p></div>"
+      + '<button class="sheet-close" type="button" aria-label="Close">&times;</button>';
+    sheet.appendChild(top);
+
+    var figs = document.createElement("div");
+    figs.className = "sheet-figs";
+    var proj = (t.remaining > 0)
+      ? fmt(t.projWins, 1) + "&ndash;" + fmt(t.projLosses, 1)
+      : "&mdash;";
+    figs.innerHTML =
+      fig(signed(t.rating), "Alex Points")
+      + fig(t.w + "&ndash;" + t.l + (t.t ? "&ndash;" + t.t : ""), "Record")
+      + fig(String(t.remaining === undefined ? 0 : t.remaining), "Games left")
+      + fig(proj, "Projected");
+    sheet.appendChild(figs);
+
+    // The projection is only ever as good as the ratings behind it, and early
+    // in the season those are mostly last season's carry. Say so here rather
+    // than letting a confident-looking 8.3-1.7 speak for itself.
+    var lvl = (DATA.connectivity || {}).level;
+    var notes = [];
+    if (ahead.length && (lvl === "none" || lvl === "low")) {
+      notes.push("The season is too young for these to be forecasts. Ratings "
+        + "this early are mostly last season's carry-over, so read the "
+        + "projected record as a preseason estimate.");
+    }
+    if (ahead.some(function (g) { return g.row.e; })) {
+      notes.push("Some opponents have not played anyone yet and have no rating. "
+        + "Those games use a stand-in of "
+        + (DATA.fallbackRating ? "the " + esc(DATA.fallbackRating.basis) : "an average team")
+        + ", and are marked <em>Estimated</em>.");
+    }
+    notes.forEach(function (n) {
+      var p = document.createElement("p");
+      p.className = "sheet-note";
+      p.innerHTML = n;
+      sheet.appendChild(p);
+    });
+
+    // The right-hand number means something different in each list -- a score
+    // in one, a prediction in the other -- so each list says which.
+    [["Results", played],
+     ["Remaining — predicted margin", ahead]].forEach(function (pair) {
+      if (!pair[1].length) return;
+      var h = document.createElement("h3");
+      h.textContent = pair[0];
+      sheet.appendChild(h);
+      var ul = document.createElement("ul");
+      ul.className = "gamelist";
+      pair[1].forEach(function (g) { ul.appendChild(gameRow(i, g)); });
+      sheet.appendChild(ul);
+    });
+
+    if (!games.length) {
+      var none = document.createElement("p");
+      none.className = "sheet-sub";
+      none.style.marginTop = "20px";
+      none.textContent = "No games on record for this team yet.";
+      sheet.appendChild(none);
+    }
+
+    lastFocus = document.activeElement;
+    $("scrim").hidden = false;
+    sheet.querySelector(".sheet-close").addEventListener("click", closeTeam);
+    sheet.focus();
+  }
+
+  function fig(value, label) {
+    return "<div><b>" + value + "</b><span>" + label + "</span></div>";
+  }
+
+  function ordinal(n) {
+    var s = ["th", "st", "nd", "rd"], v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  }
+
+  function closeTeam() {
+    $("scrim").hidden = true;
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
   function activeCols() {
     return COLS.filter(function (c) { return c.always || state.compare; });
   }
@@ -852,7 +1253,15 @@ tr[data-top="1"] .c-rank::before {
         }
 
         if (c.key === "name") {
-          td.appendChild(document.createTextNode(t.name));
+          // A button, not a link: it opens a panel rather than going anywhere,
+          // and a button is what a keyboard and a screen reader expect here.
+          var open = document.createElement("button");
+          open.type = "button";
+          open.className = "open";
+          open.textContent = t.name;
+          open.setAttribute("aria-haspopup", "dialog");
+          open.addEventListener("click", function () { openTeam(t.__i); });
+          td.appendChild(open);
           if (!t.inOhio) {
             var o = document.createElement("span");
             o.className = "flag oos";
@@ -931,6 +1340,10 @@ tr[data-top="1"] .c-rank::before {
   function boot() {
     if (!DATA) { return; }
     var c = DATA.connectivity;
+
+    // The schedule and results lists refer to teams by position, so each row
+    // has to remember where it started -- sorting and filtering reorder them.
+    DATA.teams.forEach(function (t, i) { t.__i = i; });
 
     $("s-games").textContent = DATA.gameCount;
     $("s-teams").textContent = DATA.ohioTeamCount;
@@ -1029,6 +1442,14 @@ tr[data-top="1"] .c-rank::before {
       state.oos = !state.oos;
       e.currentTarget.setAttribute("aria-pressed", String(state.oos));
       render();
+    });
+
+    // Closing the panel: the backdrop, Escape, and the button inside it.
+    $("scrim").addEventListener("click", function (e) {
+      if (e.target === e.currentTarget) closeTeam();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !$("scrim").hidden) closeTeam();
     });
 
     render();
