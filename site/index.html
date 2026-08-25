@@ -484,6 +484,114 @@ tr[data-top="1"] .c-rank::before {
   .count { margin-left: 0; }
 }
 
+/* ---------------------------------------------------------------------------
+   Narrow screens.
+
+   Nine columns cannot be squeezed onto a phone; squeezing them is how you get
+   horizontal scrolling and a table nobody can read. So below this breakpoint
+   the table stops being a table and becomes a list of rows, each carrying the
+   three things a phone reader actually wants -- where the team ranks, who it
+   is, and its rating. The rest is one tap away.
+
+   The breakpoint is set from measurement, not taste: the nine-column table
+   needs roughly 990px before it starts overflowing, so every width below that
+   was going to scroll sideways no matter how it was styled. 900px covers all
+   phones and both iPad orientations; laptops keep the full table.
+
+   The desktop layout above is untouched.
+   --------------------------------------------------------------------------- */
+
+.only-narrow { display: none; }
+
+@media (max-width: 900px) {
+  .only-narrow { display: flex; }
+  .wrap { padding: 0 14px 72px; }
+
+  .controls { gap: 12px 14px; }
+  .field, .field input, .field select { min-width: 0; width: 100%; }
+  .controls > .field { flex: 1 1 100%; }
+  .toggles { width: 100%; }
+  .toggles .toggle { flex: 1 1 auto; }
+  #sortdir { flex: 0 0 auto; min-width: 44px; }
+
+  .board-scroll { overflow-x: visible; }
+  table, tbody, tr, td { display: block; width: auto; }
+  thead { display: none; }
+
+  tbody tr {
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 0 10px;
+    padding: 11px 2px;
+    border-bottom: 1px solid var(--rule);
+    cursor: pointer;
+  }
+  tbody tr:hover td { background: none; }
+
+  tbody td {
+    padding: 0;
+    border: 0;
+    white-space: normal;
+  }
+
+  /* the three that always show */
+  td[data-primary] { display: block; }
+  .c-rank   { grid-column: 1; grid-row: 1; width: auto; font-size: .9375rem; }
+  .c-team   { grid-column: 2; grid-row: 1; font-size: 1.0625rem; line-height: 1.25; }
+  .c-rating { grid-column: 3; grid-row: 1; width: auto; text-align: right;
+              font-size: 1.0625rem; }
+
+  tr[data-top="1"] .c-rank::before { display: none; }
+  tr[data-top="1"] .c-rank { color: var(--accent); }
+
+  /* everything else collapses until the row is tapped */
+  tbody td:not([data-primary]) { display: none; }
+
+  tbody tr.open td:not([data-primary]) {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    grid-column: 2 / -1;
+    width: auto;
+    padding: 4px 0 0;
+    font-size: var(--step--1);
+    text-align: left;
+  }
+  tbody tr.open td:not([data-primary])::before {
+    content: attr(data-label);
+    font-size: 10.5px;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--ink-3);
+    padding-right: 14px;
+  }
+  tbody tr.open {
+    background: var(--surface);
+    box-shadow: inset 3px 0 0 var(--accent-bright);
+    padding-left: 10px;
+    padding-bottom: 12px;
+  }
+
+  /* a hint that there is more underneath */
+  tbody tr .c-team::after {
+    content: "";
+    display: inline-block;
+    width: 0; height: 0;
+    margin-left: 7px;
+    vertical-align: 2px;
+    border-left: 3.5px solid transparent;
+    border-right: 3.5px solid transparent;
+    border-top: 4px solid var(--ink-3);
+    opacity: .5;
+  }
+  tbody tr.open .c-team::after { transform: rotate(180deg); opacity: .9; }
+
+  .method-body { padding-left: 0; }
+  .figbox { padding: 14px 10px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
@@ -535,6 +643,14 @@ tr[data-top="1"] .c-rank::before {
     <div class="field">
       <label for="reg">Region</label>
       <select id="reg"><option value="">All regions</option></select>
+    </div>
+    <div class="field only-narrow">
+      <label for="sortby">Sort by</label>
+      <div style="display:flex; gap:6px;">
+        <select id="sortby"></select>
+        <button class="toggle" id="sortdir" type="button"
+                title="Reverse the order" aria-label="Reverse sort direction">&#9660;</button>
+      </div>
     </div>
     <div class="toggles">
       <button class="toggle" id="t-compare" aria-pressed="false">Compare models</button>
@@ -660,6 +776,10 @@ tr[data-top="1"] .c-rank::before {
       b.addEventListener("click", function () {
         if (state.sort === c.key) { state.dir = -state.dir; }
         else { state.sort = c.key; state.dir = c.dir; }
+        var sel = $("sortby");
+        if (sel) sel.value = state.sort;
+        var sd = $("sortdir");
+        if (sd) sd.innerHTML = state.dir === -1 ? "\u25BC" : "\u25B2";
         render();
       });
       th.appendChild(b);
@@ -708,10 +828,19 @@ tr[data-top="1"] .c-rank::before {
     rows.forEach(function (t) {
       var tr = document.createElement("tr");
       if (t.rank && t.rank <= 10) tr.setAttribute("data-top", "1");
+      // On narrow screens the secondary columns are collapsed; tapping the row
+      // reveals them. Harmless on desktop, where nothing is hidden.
+      tr.addEventListener("click", function () {
+        tr.classList.toggle("open");
+      });
 
       cols.forEach(function (c) {
         var td = document.createElement("td");
         td.className = c.cls;
+        td.setAttribute("data-label", c.label);
+        if (c.key === "rank" || c.key === "name" || c.key === "rating") {
+          td.setAttribute("data-primary", "1");
+        }
 
         if (c.key === "name") {
           td.appendChild(document.createTextNode(t.name));
@@ -853,6 +982,26 @@ tr[data-top="1"] .c-rank::before {
       stamp += " · constants NOT fitted \u2014 using defaults";
     }
     $("foot-stamp").textContent = stamp;
+
+    var sb = $("sortby");
+    COLS.forEach(function (c) {
+      var o = document.createElement("option");
+      o.value = c.key;
+      o.textContent = c.label;
+      if (c.key === state.sort) o.selected = true;
+      sb.appendChild(o);
+    });
+    sb.addEventListener("change", function (e) {
+      var c = COLS.filter(function (x) { return x.key === e.target.value; })[0];
+      state.sort = e.target.value;
+      state.dir = c ? c.dir : -1;
+      render();
+    });
+    $("sortdir").addEventListener("click", function () {
+      state.dir = -state.dir;
+      $("sortdir").innerHTML = state.dir === -1 ? "\u25BC" : "\u25B2";
+      render();
+    });
 
     $("q").addEventListener("input", function (e) { state.q = e.target.value; render(); });
     $("div").addEventListener("change", function (e) { state.div = e.target.value; render(); });
