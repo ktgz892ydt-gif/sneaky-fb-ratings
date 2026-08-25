@@ -36,6 +36,14 @@ between two ratings is the expected neutral-field margin.
 Plain Bradley-Terry and plain Massey are still fitted and shown alongside, under
 "Compare models." Where they disagree is the interesting part.
 
+## The honest part
+
+Paired-comparison ratings only carry meaning between teams joined by a chain of
+games. The site computes the game graph's connected components every run and
+labels itself accordingly — in Week 1 it says, in large type, **"These are not
+rankings yet."** Expect the statewide board to become genuinely informative
+around Week 4–5, once league play has stitched the regions together.
+
 ## Same-name schools
 
 Ohio fields three schools named Northwest, three named Perry, three named
@@ -43,17 +51,37 @@ Crestview, two named Jackson, plus a long tail of North / South / East /
 Eastern / Southern. Keying on the bare name would silently merge distinct
 programs and corrupt every rating that touches them.
 
-The resolver matches names to schools in two passes:
+The source solves most of this for us, and the scraper preserves what it
+gives:
 
-1. **Record matching.** A team plays at most one game per week, so its running
-   W-L is a fingerprint against the roster pages.
-2. **Opponent geography.** Where records tie, it scores each candidate
-   assignment by how plausible its opponents are, using a region-vs-region
-   scheduling distribution learned from the games that already resolved
-   unambiguously.
+1. **City.** Both the scoreboard and the ranking pages write every team as
+   `School (City)`, so `Jackson (Massillon)` and `Jackson (Jackson)` are
+   simply different strings. This is the primary key and it resolves the
+   overwhelming majority of collisions outright.
+2. **School ID.** The ranking pages carry a stable numeric ID per school.
+   It survives division and region changes, so it is what matches a team to
+   its own record in a previous season.
+3. **Opponent geography.** Only for names that are still shared after the
+   above — two schools with the same name *and* city — the resolver scores
+   candidate assignments by how plausible each one's opponents are, using a
+   region-versus-region scheduling distribution learned from the games that
+   already resolved unambiguously.
 
-On Week 1 2026 this takes 20 ambiguous names down to 4. **Anything still
-unresolved is kept as separate entities and tagged `?` — never merged.**
+**Anything still unresolved is kept as separate entities and tagged `?` —
+never merged.**
+
+Duplication is counted **per week**, not per season. A team plays at most one
+game a week, so two appearances of "Perry" in the same week are two schools,
+while ten appearances across ten weeks are one school playing a season. An
+integrity check fails the build if any team ends up in two games in one week.
+
+## Teams with no result yet
+
+A team that has not played this season still receives a rating — the prior and
+the regularizer see to that — but it is **not ranked**. Ranking a team on a
+preseason estimate alone buries teams that earned their place on the field.
+Unplayed teams stay in the table, carry their prior-based rating, and are
+tagged `NO RESULT`.
 
 ## Layout
 
@@ -63,6 +91,9 @@ scripts/resolve.py   team identity resolution (the hard part)
 scripts/ratings.py   the three models
 scripts/build.py     orchestrate, emit ratings.json + both page variants
 scripts/check.py     verification; the workflow fails if this fails
+scripts/tune.py      fits the model constants against past seasons
+scripts/season_prior.py  turns a finished season into next season's prior
+tests/               unit tests for the fragile parts (pytest)
 data/                committed raw scores and roster — versioned, replayable
 site/                what GitHub Pages serves
 ```

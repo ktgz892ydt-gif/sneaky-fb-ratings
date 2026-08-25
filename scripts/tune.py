@@ -164,8 +164,10 @@ def evaluate(res, prev_ratings, cfg, carry, holdouts, division_weight=1.0):
         by_week[g["week"]].append(g)
 
     n = ll = correct = total = 0
+    ll_sq = 0.0
     abs_err = 0.0
     bins = defaultdict(lambda: [0, 0])
+    week_stats = defaultdict(lambda: {"n": 0, "ll": 0.0, "correct": 0, "total": 0})
 
     for w in holdouts:
         train = [g for g in res.games if g["week"] < w]
@@ -186,12 +188,21 @@ def evaluate(res, prev_ratings, cfg, carry, holdouts, division_weight=1.0):
             m = g["home_score"] - g["away_score"]
             y = 1.0 if m > 0 else (0.0 if m < 0 else 0.5)
 
-            ll += -(y * np.log(p) + (1 - y) * np.log(1 - p))
+            gll = -(y * np.log(p) + (1 - y) * np.log(1 - p))
+            ll += gll
+            ll_sq += gll * gll
             if m != 0:
                 correct += int((pred > 0) == (m > 0))
                 total += 1
             abs_err += abs(pred - m)
             n += 1
+            ws = week_stats[w]
+            ws["n"] += 1
+            ws["ll"] += gll
+            if m != 0:
+                ws["total"] += 1
+                ws["correct"] += int((pred > 0) == (m > 0))
+
             b = round(min(max(p, 0.5), 1.0), 1) if p >= 0.5 else round(1 - p, 1)
             fav_won = (p >= 0.5) == (y >= 0.5)
             bins[b][0] += int(fav_won)
@@ -199,9 +210,13 @@ def evaluate(res, prev_ratings, cfg, carry, holdouts, division_weight=1.0):
 
     if n == 0:
         return None
+    per_week = dict(week_stats)
     return {
         "n": n,
         "logloss": ll / n,
+        "ll_sum": ll,
+        "ll_sumsq": ll_sq,
+        "perWeek": per_week,
         # correct/total are returned raw so callers can aggregate across
         # seasons without reweighting a ratio whose denominator (non-tie
         # games) differs from n (all games).
@@ -250,20 +265,25 @@ def main():
         grid_scale, grid_pg, grid_carry = [7.0, 9.0, 12.0], [1.0, 2.0], [0.4, 0.6]
         grid_dw = [0.0, 1.0]
     else:
-        # Widened after a first pass put the optimum on the boundary for
-        # carry and division_weight -- an edge winner means the grid, not the
-        # data, chose the answer.
-        grid_scale = [4.5, 6.0, 7.0, 8.0, 10.0]
-        grid_pg = [0.25, 0.5, 0.75, 1.5, 3.0]
-        grid_carry = [0.45, 0.6, 0.7, 0.8, 0.9]
-        grid_dw = [0.0, 0.5, 1.0, 1.5, 2.0]
+        # Widened twice, each time because the optimum landed on a boundary.
+        grid_scale = [5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
+        grid_pg = [0.05, 0.1, 0.25, 0.5, 0.75, 1.5]
+        # carry stops at 1.0 deliberately. Above 1.0 the model would amplify
+        # last season's estimate rather than regress it -- claiming this year's
+        # team is *more* extreme than last year's measurement. A backtest can
+        # reward that (last season's ratings are themselves shrunk, so
+        # un-shrinking them fits better) but it is not a claim about football,
+        # and it compounds badly when a program actually collapses.
+        grid_carry = [0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+        grid_dw = [0.0, 0.5, 1.0, 1.5, 2.0, 2.5]
 
     prev_cache = {}
     results = []
     combos = list(itertools.product(grid_scale, grid_pg, grid_carry, grid_dw))
     for i, (scale, pg, carry, dw) in enumerate(combos, 1):
         cfg = RatingConfig(squash_scale=scale, prior_games=pg, division_weight=dw)
-        agg = {"n": 0, "ll": 0.0, "correct": 0, "total": 0, "mae": 0.0}
+        agg = {"n": 0, "ll": 0.0, "llsq": 0.0, "correct": 0, "total": 0,
+               "mae": 0.0, "perSeason": {}}
         for S in evals:
             ck = (S - 1, scale, pg)
             if ck not in prev_cache:
@@ -273,12 +293,16 @@ def main():
                 continue
             agg["n"] += m["n"]
             agg["ll"] += m["logloss"] * m["n"]
+            agg["llsq"] += m["ll_sumsq"]
+            agg["perSeason"][str(S)] = round(m["logloss"], 4)
             agg["correct"] += m["correct"]
             agg["total"] += m["total"]
             agg["mae"] += m["mae_margin"] * m["n"]
         if agg["n"] == 0:
             continue
         results.append({
+            "ll_sumsq": agg["llsq"],
+            "perSeason": agg["perSeason"],
             "squash_scale": scale, "prior_games": pg, "carry": carry,
             "division_weight": dw,
             "logloss": agg["ll"] / agg["n"],
@@ -293,7 +317,34 @@ def main():
               file=sys.stderr)
 
     results.sort(key=lambda r: r["logloss"])
-    best = results[0]
+    raw_best = results[0]
+
+    # A grid search on two evaluation seasons will happily chase noise to the
+    # edge of the grid. So: compute the standard error of the best score, then
+    # among every configuration statistically indistinguishable from it, take
+    # the most conservative one. This is the one-standard-error rule, and it is
+    # the difference between "the best number we saw" and "the best number we
+    # can defend".
+    var = max(raw_best["ll_sumsq"] / raw_best["n"] - (raw_best["logloss"] ** 2), 0.0)
+    se = (var / raw_best["n"]) ** 0.5 if raw_best["n"] else 0.0
+    threshold = raw_best["logloss"] + se
+
+    DEFAULTS = {"squash_scale": 9.0, "prior_games": 1.5, "carry": 0.5,
+                "division_weight": 1.0}
+
+    def conservatism(r):
+        """Distance from the documented defaults, scaled per parameter."""
+        return (abs(r["carry"] - DEFAULTS["carry"]) / 0.5
+                + abs(r["division_weight"] - DEFAULTS["division_weight"]) / 1.0
+                + abs(r["squash_scale"] - DEFAULTS["squash_scale"]) / 9.0
+                + abs(r["prior_games"] - DEFAULTS["prior_games"]) / 1.5)
+
+    within = [r for r in results if r["logloss"] <= threshold]
+    best = min(within, key=conservatism) if within else raw_best
+    best["selectedBy"] = ("one-standard-error rule" if best is not raw_best
+                          else "outright best")
+    best["seLogloss"] = round(se, 5)
+    best["candidatesWithinOneSE"] = len(within)
 
     # Calibration for the winner, so the report says whether the probabilities
     # mean anything, not just whether the ordering is good.
@@ -317,9 +368,54 @@ def main():
         print("  Widen those ranges and re-run before treating this as final.",
               file=sys.stderr)
 
+    # Stability report. If the constants that win on one season are beaten
+    # badly on another, the fit is chasing that season, not the sport.
+    stability = []
+    for S in evals:
+        per = [(r["perSeason"].get(str(S)), r) for r in results
+               if r.get("perSeason", {}).get(str(S)) is not None]
+        if not per:
+            continue
+        per.sort(key=lambda x: x[0])
+        w = per[0][1]
+        stability.append({
+            "season": S,
+            "bestHere": {k: w[k] for k in ("squash_scale", "prior_games",
+                                           "carry", "division_weight")},
+            "bestHereLogloss": per[0][0],
+            "chosenConfigLogloss": best.get("perSeason", {}).get(str(S)),
+        })
+
+    print("\n  per-season stability:", file=sys.stderr)
+    for st in stability:
+        b = st["bestHere"]
+        gap = ((st["chosenConfigLogloss"] or 0) - st["bestHereLogloss"])
+        print(f"    {st['season']}: best here carry={b['carry']} "
+              f"div={b['division_weight']} scale={b['squash_scale']} "
+              f"(logloss {st['bestHereLogloss']:.4f}); "
+              f"chosen config is {gap:+.4f} off that", file=sys.stderr)
+
+    if detail and detail.get("perWeek"):
+        print("\n  by holdout week (chosen config):", file=sys.stderr)
+        for w in sorted(detail["perWeek"], key=int):
+            ws = detail["perWeek"][w]
+            acc = ws["correct"] / ws["total"] if ws["total"] else float("nan")
+            print(f"    week {w:>2}: logloss {ws['ll']/ws['n']:.4f}  "
+                  f"accuracy {acc:.1%}  ({ws['n']} games)", file=sys.stderr)
+
     payload = {
         "tunedOn": evals,
         "atGridEdge": edges,
+        "stability": stability,
+        "perWeek": (detail or {}).get("perWeek"),
+        "selection": {
+            "rule": best.get("selectedBy"),
+            "standardError": best.get("seLogloss"),
+            "candidatesWithinOneSE": best.get("candidatesWithinOneSE"),
+            "outrightBest": {k: raw_best[k] for k in
+                             ("squash_scale", "prior_games", "carry",
+                              "division_weight", "logloss")},
+        },
         "holdoutWeeks": holdouts,
         "best": best,
         "calibration": detail["calibration"] if detail else None,
@@ -329,6 +425,14 @@ def main():
         json.dump(payload, fh, indent=1)
 
     print("\n" + "=" * 64, file=sys.stderr)
+    if best is not raw_best:
+        print(f"Outright best was scale={raw_best['squash_scale']} "
+              f"prior={raw_best['prior_games']} carry={raw_best['carry']} "
+              f"div={raw_best['division_weight']} "
+              f"(logloss {raw_best['logloss']:.4f}).", file=sys.stderr)
+        print(f"{len(within)} configurations sit within one standard error "
+              f"({se:.4f}) of it; taking the most conservative.", file=sys.stderr)
+        print("-" * 64, file=sys.stderr)
     print(f"BEST  squash_scale={best['squash_scale']}  "
           f"prior_games={best['prior_games']}  carry={best['carry']}  "
           f"division_weight={best['division_weight']}", file=sys.stderr)
