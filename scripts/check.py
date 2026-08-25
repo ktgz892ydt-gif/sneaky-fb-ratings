@@ -20,6 +20,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from ratings import RatingConfig, squash  # noqa: E402
+from tune import SCHEMA_VERSION as TUNED_SCHEMA_VERSION  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RATINGS = os.path.join(ROOT, "site", "ratings.json")
@@ -127,6 +128,26 @@ def main():
     warn(len(amb) < 40, f"{len(amb)} Ohio teams flagged ambiguous -- resolver is struggling")
     for t in amb:
         check(bool(t["note"]), f"{t['id']} is flagged ambiguous but carries no explanation")
+
+    # ---- the tuned metadata must have been produced by the current script
+    tpath = os.path.join(ROOT, "data", "tuned.json")
+    if os.path.exists(tpath):
+        try:
+            with open(tpath, encoding="utf-8") as fh:
+                tb = json.load(fh)
+        except (json.JSONDecodeError, OSError):
+            tb = None
+        if tb is not None:
+            ver = tb.get("schema", 1)
+            warn(ver >= TUNED_SCHEMA_VERSION,
+                 f"data/tuned.json was written by an older tune.py "
+                 f"(schema {ver}, current {TUNED_SCHEMA_VERSION}). Its field "
+                 f"names no longer match the script or the README -- re-run "
+                 f"the workflow with 'Re-fit the model constants' ticked.")
+            if ver >= 2:
+                check("outrightBestAtGridEdge" in tb and
+                      "selectedConfigAtGridEdge" in tb,
+                      "a schema 2 tuned.json must carry both edge fields")
 
     # ---- connectivity must be reported honestly
     c = d["connectivity"]

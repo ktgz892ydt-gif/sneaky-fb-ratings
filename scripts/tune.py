@@ -52,6 +52,11 @@ from resolve import load_games, load_roster, resolve  # noqa: E402
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
 
+# 1: original, single "atGridEdge" list
+# 2: edge warnings split into outrightBestAtGridEdge / selectedConfigAtGridEdge,
+#    since those two conditions mean opposite things
+SCHEMA_VERSION = 2
+
 
 # ---------------------------------------------------------------------------
 # Season loading
@@ -419,6 +424,10 @@ def main():
                   f"accuracy {acc:.1%}  ({ws['n']} games)", file=sys.stderr)
 
     payload = {
+        # Bumped whenever the shape of this file changes, so check.py can spot
+        # a tuned.json produced by an older script. The metadata drifting out
+        # of step with the docs is a small problem, but a silent one.
+        "schema": SCHEMA_VERSION,
         "tunedOn": evals,
         "outrightBestAtGridEdge": edges_outright,
         "selectedConfigAtGridEdge": edges_selected,

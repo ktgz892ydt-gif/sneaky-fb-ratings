@@ -324,6 +324,11 @@ if __name__ == "__main__":
 
     if a.no_site:
         globals()["emit_html"] = lambda payload: None
+        if not a.out:
+            print("note: --no-site without --out still rewrites "
+                  "site/ratings.json, and generatedAt refreshes each run. "
+                  "Pass --out, or --generated-at, to verify without a diff.",
+                  file=sys.stderr)
 
     payload, result, res = main(
         games_path=a.games,
