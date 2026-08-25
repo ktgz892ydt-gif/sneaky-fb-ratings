@@ -355,17 +355,32 @@ def main():
     detail = evaluate(loaded[S], prev_cache[ck], cfg, best["carry"], holdouts,
                       best["division_weight"])
 
-    # An optimum on the edge of the search means the grid constrained the
-    # answer. Say so rather than presenting it as settled.
-    edges = []
-    for key, grid in (("squash_scale", grid_scale), ("prior_games", grid_pg),
-                      ("carry", grid_carry), ("division_weight", grid_dw)):
-        if len(grid) > 1 and best[key] in (min(grid), max(grid)):
-            edges.append(f"{key}={best[key]} (grid {min(grid)}..{max(grid)})")
-    if edges:
-        print("\n  NOTE: the best point sits on the edge of the grid for: "
-              + "; ".join(edges), file=sys.stderr)
-        print("  Widen those ranges and re-run before treating this as final.",
+    # Two different edge conditions, with two different meanings:
+    #
+    #   outright best on an edge  -> the grid constrained the search. Widen it.
+    #   selected config on an edge -> the conservatism rule pushed it there on
+    #                                 purpose. Not a defect.
+    GRIDS = (("squash_scale", grid_scale), ("prior_games", grid_pg),
+             ("carry", grid_carry), ("division_weight", grid_dw))
+
+    def edges_of(cfg):
+        return [f"{k}={cfg[k]} (grid {min(g)}..{max(g)})"
+                for k, g in GRIDS if len(g) > 1 and cfg[k] in (min(g), max(g))]
+
+    edges_outright = edges_of(raw_best)
+    edges_selected = edges_of(best)
+
+    if edges_outright:
+        print("\n  WARNING: the OUTRIGHT BEST sits on the edge of the grid for: "
+              + "; ".join(edges_outright), file=sys.stderr)
+        print("  The grid, not the data, may have chosen that. Widen and re-run.",
+              file=sys.stderr)
+    if edges_selected and not edges_outright:
+        print("\n  NOTE: the SELECTED config sits on a grid edge for: "
+              + "; ".join(edges_selected), file=sys.stderr)
+        print("  This is expected -- the one-standard-error rule deliberately "
+              "picks the most conservative candidate, which tends toward a "
+              "boundary. The outright optimum is comfortably inside the grid.",
               file=sys.stderr)
 
     # Stability report. If the constants that win on one season are beaten
@@ -405,7 +420,15 @@ def main():
 
     payload = {
         "tunedOn": evals,
-        "atGridEdge": edges,
+        "outrightBestAtGridEdge": edges_outright,
+        "selectedConfigAtGridEdge": edges_selected,
+        "edgeInterpretation": (
+            "An edge on outrightBest means the search was constrained by the "
+            "grid and should be widened. An edge on selectedConfig is expected: "
+            "the one-standard-error rule picks the most conservative candidate "
+            "among those statistically tied with the best, which tends toward "
+            "a boundary."
+        ),
         "stability": stability,
         "perWeek": (detail or {}).get("perWeek"),
         "selection": {

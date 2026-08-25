@@ -119,16 +119,76 @@ is committed each run, so any past week's board can be replayed exactly.
 
 ## Configuration
 
-All knobs live in `RatingConfig` in `scripts/ratings.py`:
+There are two layers, and the difference matters.
 
-- `squash_scale` (9.0) — how fast margin saturates. The most consequential knob.
-- `margin_cap` (49.0) — hard clip before squashing.
-- `prior_games` (1.5) — shrinkage strength in pseudo-games. Fixed, not
-  scheduled: real games outgrow it on their own, so no per-week decay table.
+**Code defaults** live in `RatingConfig` in `scripts/ratings.py`. They are used
+only when no tuned file is present:
 
-To add prior seasons (recommended — it is the single biggest early-season
-improvement), scrape another year and pass both game files; the source has
-seasons back to 2000 at the same URL pattern.
+| | Default | Tuned? |
+|---|---|---|
+| `squash_scale` | 9.0 | yes |
+| `prior_games` | 1.5 | yes |
+| `carry` | 0.5 | yes |
+| `division_weight` | 1.0 | yes |
+| `margin_cap` | 49.0 | **no** — a fixed judgement value, protecting against typos and running-clock oddities rather than fitted to anything |
+
+**Published constants** come from `data/tuned.json` when it exists, and the
+board prefers them. As currently committed, fitted on 2024 and 2025:
+
+| | Published |
+|---|---|
+| `squash_scale` | 9.0 |
+| `prior_games` | 0.5 |
+| `carry` | 0.5 |
+| `division_weight` | 1.0 |
+| `margin_cap` | 49.0 (untuned) |
+
+Measured performance on 4,345 held-out games: **76.6% of games called
+correctly**, log loss 0.478, mean margin error 17.4 points. The site footer
+reports these, and says plainly when defaults are in use instead.
+
+### How those were chosen
+
+`scripts/tune.py` walks forward through past seasons — fit on weeks before a
+holdout week, predict that week, score it — and grid-searches the four tunable
+constants. Selection is by log loss, not accuracy, so confident wrong calls are
+punished.
+
+It then applies the **one-standard-error rule**: among every configuration
+statistically indistinguishable from the best, it takes the most conservative
+rather than the best-scoring. On the committed fit, 294 configurations sat
+within one standard error of the optimum, which is precisely why picking the
+single lowest number would have been fitting noise.
+
+Two consequences worth understanding:
+
+- `data/tuned.json` reports `selectedConfigAtGridEdge` separately from
+  `outrightBestAtGridEdge`. An edge on the *outright best* means the grid
+  constrained the search and should be widened. An edge on the *selected*
+  config is expected — conservatism pushes toward a boundary by design.
+- `carry` is capped at 1.0. Above that the model would amplify last season's
+  estimate rather than regress it, asserting this year's team is *more* extreme
+  than last year's measurement. Backtests reward it; football does not.
+
+To re-fit: **Actions → Update ratings → Run workflow**, ticking *Re-fit the
+model constants*. It is opt-in because it is slow and the answer moves little.
+
+### Reproducing a build
+
+`generatedAt` refreshes on every build, so `site/ratings.json` always shows a
+diff. To verify a build reproduces exactly, pin it:
+
+```bash
+python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/check.json
+```
+
+### More seasons
+
+Tuning currently uses two evaluation seasons (2024 and 2025, with 2023 as the
+prior source). More would stabilise the constants. Add years to the backfill
+loop in `.github/workflows/update.yml`; the source has seasons back to 2000 at
+the same URL pattern. Note that 2020 is a COVID-shortened season and is worth
+either excluding or reporting separately.
 
 ## Source and etiquette
 

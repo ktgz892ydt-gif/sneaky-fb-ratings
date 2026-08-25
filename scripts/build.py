@@ -315,6 +315,11 @@ if __name__ == "__main__":
                     help="ignore any prior (use when building a past season)")
     ap.add_argument("--no-site", action="store_true",
                     help="write ratings JSON only, do not rebuild the pages")
+    ap.add_argument("--generated-at",
+                    help="pin the generatedAt timestamp (e.g. "
+                         "2026-08-25T00:00:00+00:00). Use this to verify a "
+                         "build reproduces byte-for-byte; without it the "
+                         "timestamp refreshes and the diff is never empty.")
     a = ap.parse_args()
 
     if a.no_site:
@@ -324,6 +329,7 @@ if __name__ == "__main__":
         games_path=a.games,
         roster_path=a.roster,
         out_path=a.out,
+        generated_at=a.generated_at,
         prior_path=a.prior,
         use_prior=not a.no_prior,
     )
