@@ -199,11 +199,27 @@ Across 13,751 backtested games: **75.9% of games called correctly**, log loss
 | 80% | 78.7% | 2,582 |
 | 90% | 89.3% | 2,704 |
 
-Because the log is dated and append-only, any other forecaster whose numbers
-can legitimately be recorded can be scored beside this one on identical games.
-That is the only honest form of such a comparison: a retrospective claim would
-need the other model's week-by-week calls archived at the time, which is not
-something that can be reconstructed after the fact.
+### Against another model
+
+The board is scored head to head against
+[Drew Pasteur's Ohio Fantastic 50](https://www.fantastic50.net/), used with
+that site's permission and credited as it asks.
+
+Two rules make the comparison honest:
+
+- **Only games both models predicted are scored.** Each site publishes its own
+  accuracy over its own set of games — he picked 345 in week 1 of 2026 where
+  this scrape found 400 completed — so comparing headline figures would measure
+  the schedules, not the models.
+- **The difference is tested on the games they disagreed about**, by an exact
+  binomial test. Those are the only games carrying information about which
+  model is better, and over a few hundred games a couple of points of accuracy
+  is noise. The page says so in as many words rather than letting a reader draw
+  the flattering conclusion.
+
+A retrospective comparison is not possible and is not attempted: it would need
+the other model's week-by-week calls archived at the time. The record starts
+from the first week both were captured.
 
 ## Teams with no result yet
 

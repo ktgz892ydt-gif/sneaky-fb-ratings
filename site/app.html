@@ -564,6 +564,25 @@ tr[data-top="1"] .c-rank::before {
   letter-spacing: .05em; color: var(--ink-soft); margin-top: 2px; }
 .scorecard summary { cursor: pointer; font-size: 14px; color: var(--ink-soft);
   margin-top: 14px; }
+#h2h { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--rule); }
+#h2h h3 { font-family: var(--display); font-size: 16px; margin: 0 0 8px;
+  text-transform: uppercase; letter-spacing: .03em; }
+/* Fixed height so the two columns line up even when one name wraps. */
+#h2h h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--ink-soft); margin: 0 0 6px; min-height: 2.6em;
+  display: flex; align-items: flex-end; }
+.h2h-grid { margin: 4px 0 0; }
+.h2h-head, .h2h-row { display: grid; grid-template-columns: 1fr 4.6em 4.6em;
+  gap: 8px; align-items: baseline; }
+.h2h-head { padding-bottom: 4px; border-bottom: 1px solid var(--rule); }
+.h2h-head b { font-size: 11px; text-transform: uppercase; letter-spacing: .04em;
+  color: var(--ink-soft); text-align: right; font-weight: 600; line-height: 1.25; }
+.h2h-row { padding: 7px 0; border-bottom: 1px solid var(--rule); }
+.h2h-lab { font-size: 13px; color: var(--ink-soft); }
+.h2h-row b { font-family: var(--mono); font-size: 15px; text-align: right; }
+.h2h-win { color: var(--accent); }
+.h2h-verdict { margin-top: 10px !important; }
+
 .sc-cal { display: flex; flex-direction: column; gap: 4px; margin: 10px 0 0; }
 .cal-row { display: grid; grid-template-columns: 5.2em 1fr 2.8em 3.4em; gap: 8px;
   align-items: center; font-family: var(--mono); font-size: 12px; }
@@ -750,6 +769,25 @@ tr[data-top="1"] .c-rank::before {
   letter-spacing: .05em; color: var(--ink-soft); margin-top: 2px; }
 .scorecard summary { cursor: pointer; font-size: 14px; color: var(--ink-soft);
   margin-top: 14px; }
+#h2h { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--rule); }
+#h2h h3 { font-family: var(--display); font-size: 16px; margin: 0 0 8px;
+  text-transform: uppercase; letter-spacing: .03em; }
+/* Fixed height so the two columns line up even when one name wraps. */
+#h2h h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--ink-soft); margin: 0 0 6px; min-height: 2.6em;
+  display: flex; align-items: flex-end; }
+.h2h-grid { margin: 4px 0 0; }
+.h2h-head, .h2h-row { display: grid; grid-template-columns: 1fr 4.6em 4.6em;
+  gap: 8px; align-items: baseline; }
+.h2h-head { padding-bottom: 4px; border-bottom: 1px solid var(--rule); }
+.h2h-head b { font-size: 11px; text-transform: uppercase; letter-spacing: .04em;
+  color: var(--ink-soft); text-align: right; font-weight: 600; line-height: 1.25; }
+.h2h-row { padding: 7px 0; border-bottom: 1px solid var(--rule); }
+.h2h-lab { font-size: 13px; color: var(--ink-soft); }
+.h2h-row b { font-family: var(--mono); font-size: 15px; text-align: right; }
+.h2h-win { color: var(--accent); }
+.h2h-verdict { margin-top: 10px !important; }
+
 .sc-cal { display: flex; flex-direction: column; gap: 4px; margin: 10px 0 0; }
 .cal-row { display: grid; grid-template-columns: 5.2em 1fr 2.8em 3.4em; gap: 8px;
   align-items: center; font-family: var(--mono); font-size: 12px; }
@@ -950,6 +988,13 @@ tr[data-top="1"] .c-rank::before {
     <h2>How this board has actually done</h2>
     <p id="sc-intro"></p>
     <div class="sc-figs" id="sc-figs"></div>
+    <div id="h2h" hidden>
+      <h3>Against another model</h3>
+      <p id="h2h-intro"></p>
+      <div class="h2h-grid" id="h2h-grid"></div>
+      <p id="h2h-verdict" class="h2h-verdict"></p>
+      <p class="sc-note" id="h2h-credit"></p>
+    </div>
     <details id="sc-detail">
       <summary>Calibration &mdash; does 70% mean 70%?</summary>
       <div class="sc-cal" id="sc-cal"></div>
@@ -1717,6 +1762,75 @@ tr[data-top="1"] .c-rank::before {
       + "where a perfectly calibrated board would land.";
   }
 
+  // Head to head against another public forecaster.
+  //
+  // Two rules govern this block. Attribution is rendered from the same object
+  // as the figures, because the source grants reuse only "provided that they
+  // credit the source" -- the credit is the licence term, not decoration. And
+  // a gap is never called a win unless the test says so: over a few hundred
+  // games a couple of points of accuracy is noise, and the page says that
+  // plainly rather than letting a reader draw the flattering conclusion.
+  function renderHeadToHead() {
+    var h = DATA.headToHead;
+    if (!h || !h.sharedGames) return;
+    $("h2h").hidden = false;
+
+    $("h2h-intro").innerHTML =
+      "Both this board and <strong>" + esc(h.sourceName) + "</strong> published a "
+      + "pick for <strong>" + h.sharedGames.toLocaleString() + " of the same games</strong>. "
+      + "Only those are scored here: each site&rsquo;s own published accuracy covers "
+      + "its own set of games, and comparing those headline figures would measure "
+      + "the schedules rather than the models.";
+
+    // Laid out as rows, one metric per row, so the two models line up and the
+    // reader compares across. Column-per-model looked tidier until one of the
+    // names wrapped to two lines and the figures stopped aligning.
+    var METRICS = [
+      {key: "accuracy", text: "Called right", lower: false,
+       fmt: function (x) { return Math.round(x * 100) + "%"; }},
+      {key: "logloss", text: "Log loss", lower: true,
+       fmt: function (x) { return x.toFixed(3); }},
+      {key: "meanMarginError", text: "Margin error, pts", lower: true,
+       fmt: function (x) { return x.toFixed(1); }}
+    ];
+    $("h2h-grid").innerHTML =
+      '<div class="h2h-head"><span></span><b>This board</b><b>'
+      + esc(h.sourceName.replace(/^Drew Pasteur's /, "")) + "</b></div>"
+      + METRICS.map(function (m) {
+          var a = Number(h.ours[m.key]), b = Number(h.theirs[m.key]);
+          var oursBetter = m.lower ? a < b : a > b;
+          var same = a === b;
+          return '<div class="h2h-row"><span class="h2h-lab">' + m.text + "</span>"
+            + '<b class="' + (!same && oursBetter ? "h2h-win" : "") + '">' + m.fmt(a) + "</b>"
+            + '<b class="' + (!same && !oursBetter ? "h2h-win" : "") + '">' + m.fmt(b) + "</b>"
+            + "</div>";
+        }).join("");
+
+    var d = h.disagreements, disc = d.weWereRight + d.theyWereRight;
+    var lead = h.accuracyGap > 0 ? "this board" : "the other model";
+    var words = {
+      indistinguishable: "That is <strong>not a meaningful difference</strong>. "
+        + "The two models agreed on " + (d.bothRight + d.bothWrong).toLocaleString()
+        + " of these games and disagreed on only " + disc + "; a split of "
+        + d.weWereRight + "&ndash;" + d.theyWereRight + " there is what a coin "
+        + "would produce (p = " + h.accuracyPValue.toFixed(2) + ").",
+      leaning: "That <strong>leans toward " + lead + "</strong>, but it is not "
+        + "settled (p = " + h.accuracyPValue.toFixed(2) + "). Wait for more weeks.",
+      clear: "That is a <strong>real edge to " + lead + "</strong> (p = "
+        + h.accuracyPValue.toFixed(3) + "), not sampling noise."
+    };
+    $("h2h-verdict").innerHTML =
+      "On accuracy the gap is " + (h.accuracyGap >= 0 ? "+" : "")
+      + (h.accuracyGap * 100).toFixed(1) + " points. " + words[h.accuracyVerdict];
+
+    $("h2h-credit").innerHTML = "Predictions courtesy of <a href=\""
+      + esc(h.sourceUrl) + "\" rel=\"noopener\">" + esc(h.sourceName)
+      + "</a>, used with the site&rsquo;s permission and credited as it asks. "
+      + "Only games both models picked are compared, and the difference is "
+      + "tested on the games they disagreed about &mdash; the only ones that "
+      + "carry any information about which is better.";
+  }
+
   function boot() {
     if (!DATA) { return; }
     var c = DATA.connectivity;
@@ -1733,6 +1847,7 @@ tr[data-top="1"] .c-rank::before {
     $("sub").textContent = "Ohio varsity football · " + DATA.season + " · through Week " + wk;
 
     renderScorecard();
+    renderHeadToHead();
 
     var rel = $("rel");
     rel.setAttribute("data-level", c.level);

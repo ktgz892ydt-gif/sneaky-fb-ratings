@@ -23,7 +23,7 @@ nothing.
 
 **Current state: working and deployed.** Week 1 of 2026 is live. Three past
 seasons (2023–2025) are committed. Model constants are fitted, not guessed.
-189 unit tests pass in CI before anything touches the network.
+206 unit tests pass in CI before anything touches the network.
 
 ---
 
@@ -32,7 +32,7 @@ seasons (2023–2025) are committed. Model constants are fitted, not guessed.
 ```bash
 cd ~/Documents/GitHub/sneaky-fb-ratings
 git fetch && git status          # the bot commits here; the remote is often ahead
-python -m pytest tests/ -q       # expect 189 passed; pip install -r requirements.txt if not
+python -m pytest tests/ -q       # expect 206 passed; pip install -r requirements.txt if not
 python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/check.json --no-site --no-history
 ```
 
@@ -382,21 +382,54 @@ same week changes nothing and the deterministic-build check still passes. But
 **the reproducibility recipe should use `--no-history`** — a check should not
 write to an append-only log at all, even harmlessly.
 
-### Comparing against other models
+### Comparing against another model — built
 
-Alex asked about benchmarking against public Ohio models, Drew Pasteur's in
-particular. Two constraints that have not gone away:
+The comparison model is **Drew Pasteur's Ohio Fantastic 50**
+(fantastic50.net), which publishes a favourite, a predicted margin and a win
+probability per game: the same three quantities this board produces.
 
-- **A retrospective comparison is not possible.** It needs their week-by-week
-  calls archived at the time. Reconstructing them is guesswork.
-- **Scraping and republishing a third party's projections** is a different
-  proposition from joeeitel.com, where the etiquette is long established. That
-  needs its own decision.
+**Permission.** The site states: *"Media outlets (print, broadcast, or online)
+are welcome to use any content from this site, provided that they credit the
+source."* That is explicit permission conditional on attribution, so the credit
+is a licence term, not politeness — `check.py` fails the build if the payload
+carries his figures without `sourceName` and `sourceUrl`. His robots.txt asks
+for a 10-second crawl delay (six times joeeitel's); we make one request a week
+and honour it anyway.
 
-What now exists is the machinery: a dated, append-only log of what this board
-claimed before kickoff, scored the same way every week. Any other source whose
-numbers can legitimately be recorded can be scored beside it on identical games.
-That is the honest form of the comparison, and it accumulates from here.
+**Only the intersection is scored, and the test is paired.** Both sites publish
+their own accuracy and those numbers are NOT comparable: he predicted 345 games
+in week 1 of 2026 where this board's scrape found 400 completed. Comparing
+headline figures would measure the schedules, not the models. So only games
+both predicted are scored, and the difference is tested on the games they
+*disagreed* about — the only ones carrying information about which is better.
+
+**The test is an exact binomial (McNemar), not the normal approximation.** With
+a single disagreement the gap and its standard error are always exactly equal
+(1/n against sqrt(1)/n), so one lucky call would grade as evidence. It is not:
+the exact p-value there is 1.0. This bit me while writing the tests.
+
+**Matching his names.** He credits the same source for scores, so his school
+names are Joe Eitel's — but bare ("Deer Park"), sometimes city-prefixed
+("Dayton Stivers") and sometimes abbreviated ("Cuyahoga Val. Christian").
+Matching on names alone reaches 95% and leaves Ohio's duplicates (Perry,
+Jackson, Madison) genuinely ambiguous. So the match is on the **game**, not the
+team: a pair of names against the fixture list this board already holds for
+that week. That took coverage to **98.9% with zero ambiguous**. A pick matching
+more than one fixture is dropped, never guessed.
+
+**His convention is the opposite of the scoreboard's.** On his page the first
+team named is the FAVOURITE and "at" means the favourite is away; on the
+scoreboard the first team is always the visitor. Reading one as the other
+inverts the home side of every pick and still looks plausible. There is a test.
+
+**Fails soft, always.** `capture_rivals.py` is the only step depending on a
+site we do not control. An unreachable host, a moved page format or a week
+already recorded all exit 0 and skip. A board that refuses to publish because
+someone else's server is down would be a bad trade.
+
+**What is still not possible:** a retrospective comparison. That needs his
+week-by-week calls archived at the time, which are not published. The record
+starts from the first week both were captured and accumulates.
 
 ## Decisions already litigated (don't relitigate without new evidence)
 

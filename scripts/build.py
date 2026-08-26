@@ -20,6 +20,7 @@ from history import (append_if_new, build_snapshot,  # noqa: E402
                      load as load_history, score as score_history,
                      trends)
 from ratings import RatingConfig, rate, win_probability  # noqa: E402
+from rivals import head_to_head, load as load_rivals  # noqa: E402
 from resolve import load_games, load_roster, resolve, team_identity  # noqa: E402
 from simulate import (own_game_swings, scoreboard_watch,  # noqa: E402
                       simulate_season)
@@ -614,7 +615,7 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
     weeks_loaded = sorted({g["week"] for g in res.games})
     through_week = max(weeks_loaded) if weeks_loaded else 0
 
-    scorecard, trend = None, {}
+    scorecard, trend, headtohead = None, {}, None
     if hpath:
         snaps = load_history(hpath)
         results_by_season = {season: {
@@ -631,6 +632,12 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
                 (g.get("week", 1), o.teams[g["home"]].name, o.teams[g["away"]].name):
                     g["home_score"] - g["away_score"] for g in o.games}
         scorecard = score_history(snaps, results_by_season)
+        # Another public forecaster, scored on the games we both predicted.
+        # Only the intersection, and the difference tested paired -- see the
+        # module docstring in rivals.py for why headline figures cannot be
+        # compared directly.
+        rpath = os.path.join(DATA, "rivals.jsonl")
+        headtohead = head_to_head(load_rivals(rpath), snaps, results_by_season)
         trend = trends(snaps, season, [t["name"] for t in rows if t.get("inOhio")])
 
     payload = {
@@ -739,6 +746,11 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
         # the games; `backtest` weeks were replayed afterwards from committed
         # scores and are a weaker claim -- they are never pooled together.
         "scorecard": scorecard,
+        # Attribution is the term under which this data is used, not a
+        # courtesy: the source grants reuse "provided that they credit the
+        # source". sourceName/sourceUrl travel with the numbers so the page
+        # cannot render them uncredited.
+        "headToHead": headtohead,
         "trendCols": "w=throughWeek rating=Alex Points odds=playoff odds",
     }
     for r in rows:

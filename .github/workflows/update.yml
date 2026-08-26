@@ -100,6 +100,19 @@ jobs:
       - name: Fit ratings and build the site
         run: python scripts/build.py
 
+      # Record another forecaster's picks for the coming week, so the two can
+      # be scored on the same games once they are played. Runs AFTER the build
+      # because it matches his picks against our own fixture list, and BEFORE
+      # the games for the same reason our own capture does: a prediction
+      # recorded afterwards is not a prediction.
+      #
+      # `|| true` is deliberate. This is the only step that depends on a site
+      # we do not control, and a board that refuses to publish because someone
+      # else's server is down would be a bad trade. The script already fails
+      # soft; this is belt and braces.
+      - name: Record the comparison model's picks
+        run: python scripts/capture_rivals.py || true
+
       - name: Sanity check the output
         run: python scripts/check.py
 

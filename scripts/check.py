@@ -482,6 +482,46 @@ def main():
                   f"calibration bin {k}: actual {v['actual']} is not a fraction")
             check(v["n"] > 0, f"calibration bin {k} has no games")
 
+    # ---- the head-to-head comparison
+    #
+    # Two things must hold. Attribution cannot be separated from the numbers:
+    # the source grants reuse "provided that they credit the source", so a
+    # payload carrying his figures without his name is a licence problem, not a
+    # cosmetic one. And a difference must not be reported as evidence unless it
+    # actually is -- over a few hundred games a couple of points of accuracy is
+    # noise, and saying otherwise is the whole trap this feature could fall into.
+    h2h = d.get("headToHead")
+    if h2h:
+        check(bool(h2h.get("sourceName")) and bool(h2h.get("sourceUrl")),
+              "headToHead carries figures from another site with no attribution")
+        check(h2h["sharedGames"] > 0,
+              "headToHead reports a comparison over no shared games")
+        for who in ("ours", "theirs"):
+            v = h2h[who]
+            check(0.0 <= v["accuracy"] <= 1.0,
+                  f"headToHead.{who}.accuracy {v['accuracy']} is not a fraction")
+            check(v["logloss"] >= 0, f"headToHead.{who}.logloss is negative")
+        dis = h2h["disagreements"]
+        total = sum(dis.values())
+        check(total == h2h["sharedGames"],
+              f"disagreement counts sum to {total} but {h2h['sharedGames']} "
+              f"games were shared -- every game must fall in exactly one bucket")
+        # The gap must be the discordant pairs over the shared games.
+        implied = (dis["weWereRight"] - dis["theyWereRight"]) / h2h["sharedGames"]
+        check(abs(implied - h2h["accuracyGap"]) < 0.001,
+              f"accuracyGap {h2h['accuracyGap']} does not match the disagreement "
+              f"counts (implies {implied:.4f})")
+        for k in ("accuracyVerdict", "loglossVerdict"):
+            check(h2h[k] in ("indistinguishable", "leaning", "clear"),
+                  f"headToHead.{k} is {h2h[k]!r}")
+        check(0.0 <= h2h["accuracyPValue"] <= 1.0,
+              f"headToHead p-value {h2h['accuracyPValue']} out of range")
+        # A tiny sample can never be reported as a clear win.
+        if dis["weWereRight"] + dis["theyWereRight"] < 10:
+            check(h2h["accuracyVerdict"] != "clear",
+                  f"only {dis['weWereRight'] + dis['theyWereRight']} games were "
+                  f"disagreed about, which cannot support a 'clear' verdict")
+
     # Trend series must be internally consistent -- three parallel arrays that
     # disagree in length would silently plot a team's odds against the wrong week.
     for t in d["teams"]:
