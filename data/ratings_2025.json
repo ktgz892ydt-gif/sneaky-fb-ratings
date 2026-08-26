@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-08-26T13:19:52+00:00",
+ "generatedAt": "2026-08-26T13:46:51+00:00",
  "season": 2025,
  "weeksLoaded": [
   1,
@@ -2278,7 +2278,7 @@
    "divRank": null,
    "regRank": null,
    "rating": -0.0,
-   "btBinary": -0.0,
+   "btBinary": 0.0,
    "massey": -0.0,
    "harbin": 17.1,
    "w": 0,
@@ -4742,7 +4742,7 @@
    "divRank": null,
    "regRank": null,
    "rating": -0.0,
-   "btBinary": -0.0,
+   "btBinary": 0.0,
    "massey": -0.0,
    "harbin": 32.1667,
    "w": 0,
@@ -23838,7 +23838,7 @@
    "divRank": null,
    "regRank": null,
    "rating": -5.11,
-   "btBinary": 0.0,
+   "btBinary": -0.0,
    "massey": -13.14,
    "harbin": null,
    "w": 1,

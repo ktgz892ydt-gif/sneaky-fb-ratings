@@ -361,18 +361,18 @@ week,date,time,away,home,neutral,away_state,home_state
 2,2026-08-28,7pm,Williamstown (Williamstown),Ravenswood,0,WV,WV
 2,2026-08-28,7pm,Linsly (Wheeling),Girard (Girard),0,WV,
 2,2026-08-28,7pm,Dixie Heights (Edgewood),Badin (Hamilton),0,KY,
-2,2026-08-28,,East Carter,Rowan County,0,KY,KY
+2,2026-08-28,7:30pm,East Carter,Rowan County,0,KY,KY
 2,2026-08-28,7:30pm,Greenup County (Greenup),Russell (Russell),0,KY,KY
 2,2026-08-28,7:30pm,Holy Cross (Covington),Bracken County,0,KY,KY
-2,2026-08-28,,Johnson Central,Madison Central,0,KY,KY
-2,2026-08-28,,Lewis County (Vanceburg),Morgan County (West Liberty),0,KY,KY
+2,2026-08-28,7:30pm,Johnson Central,Madison Central,0,KY,KY
+2,2026-08-28,7:30pm,Lewis County (Vanceburg),Morgan County (West Liberty),0,KY,KY
 2,2026-08-28,7pm,Newport (Newport),Lloyd Memorial (Erlanger),0,KY,KY
-2,2026-08-28,,Newport Central Catholic,Paintsville (Paintsville),0,KY,KY
+2,2026-08-28,7:30pm,Newport Central Catholic,Paintsville (Paintsville),0,KY,KY
 2,2026-08-28,7:30pm,North Laurel,Corbin (Corbin),0,KY,KY
-2,2026-08-28,,Pleasure Ridge Park (Louisville),Raceland (Raceland),0,KY,KY
+2,2026-08-28,7:30pm,Pleasure Ridge Park (Louisville),Raceland (Raceland),0,KY,KY
 2,2026-08-28,8:45pm,Somerset (Somerset),South Laurel,0,KY,KY
-2,2026-08-28,,Tates Creek,Ashland Blazer (Ashland),0,KY,KY
-2,2026-08-28,,West Carter,Fairview (Ashland),0,KY,KY
+2,2026-08-28,7:30pm,Tates Creek,Ashland Blazer (Ashland),0,KY,KY
+2,2026-08-28,7:30pm,West Carter,Fairview (Ashland),0,KY,KY
 2,2026-08-28,7pm,Cooper (Union),Highlands (Fort Thomas),0,KY,KY
 2,2026-08-28,7pm,Blissfield,Erie Mason (Erie),0,MI,MI
 2,2026-08-28,7pm,Hudsonville Unity Christian,Dearborn Divine Child (Dearborn),0,MI,MI
@@ -398,7 +398,7 @@ week,date,time,away,home,neutral,away_state,home_state
 2,2026-08-28,7pm,Greenfield-Central,Lawrenceburg (Lawrenceburg),0,IN,IN
 2,2026-08-28,7:30pm,Cardinal Ritter (Indianapolis),Archbishop Alter (Kettering),0,IN,
 2,2026-08-28,7:30pm,Leo,Bishop Chatard (Indianapolis),0,IN,IN
-2,2026-08-28,,South Dearborn (Aurora),Switzerland County,0,IN,IN
+2,2026-08-28,7pm,South Dearborn (Aurora),Switzerland County,0,IN,IN
 2,2026-08-28,7pm,Southport (Indianapolis),Perry Meridian,0,IN,IN
 2,2026-08-28,8pm,Middle Tennessee Christian School (Murfreesboro),Grace Christian Academy (Franklin),0,TN,TN
 2,2026-08-28,7pm,Oakland (Murfreesboro),Centerville (Centerville),0,TN,
@@ -427,8 +427,8 @@ week,date,time,away,home,neutral,away_state,home_state
 2,2026-08-29,12pm,Rocky River (Rocky River),John Marshall (Cleveland),0,,
 2,2026-08-29,6pm,St John's (Delphos),Lima Central Catholic (Lima),0,,
 2,2026-08-29,3pm,Warrensville Heights (Warrensville Heights),John F Kennedy (Cleveland),0,,
-2,2026-08-29,,Phelps,Shelby Valley (Pikeville),0,KY,KY
-2,2026-08-29,,Prestonsburg,Pikeville (Pikeville),0,KY,KY
+2,2026-08-29,6pm,Phelps,Shelby Valley (Pikeville),0,KY,KY
+2,2026-08-29,8:30pm,Prestonsburg,Pikeville (Pikeville),0,KY,KY
 2,2026-08-29,3:30pm,Farrell (Farrell),Clairton (Clairton),1,PA,PA
 2,2026-08-29,6pm,DuBois,Erie (Erie),0,PA,PA
 2,2026-08-29,12:05pm,Hickory (Hermitage),Westinghouse (Pittsburgh),1,PA,PA
@@ -806,16 +806,17 @@ week,date,time,away,home,neutral,away_state,home_state
 3,2026-09-04,7pm,Spring Mills (Martinsburg),Wheeling Park (Wheeling),0,WV,WV
 3,2026-09-04,7pm,Linsly (Wheeling),Steubenville (Steubenville),0,WV,
 3,2026-09-04,7:30pm,Expression Prep Academy (Huntington),Greater Beckley Christian,0,WV,WV
-3,2026-09-04,,Belfry (Belfry),Johnson Central,0,KY,KY
+3,2026-09-04,7:30pm,Belfry (Belfry),Johnson Central,0,KY,KY
 3,2026-09-04,7:30pm,Boyd County (Ashland),East Carter,0,KY,KY
 3,2026-09-04,7:30pm,Bryan Station,Corbin (Corbin),0,KY,KY
 3,2026-09-04,7pm,Conner (Hebron),Lloyd Memorial (Erlanger),0,KY,KY
 3,2026-09-04,7:30pm,Dixie Heights (Edgewood),Beechwood (Fort Mitchell),0,KY,KY
-3,2026-09-04,,Fairview (Ashland),Berea,0,KY,KY
+3,2026-09-04,7:30pm,Fairview (Ashland),Berea,0,KY,KY
 3,2026-09-04,7pm,Highlands (Fort Thomas),Campbell County (Alexandria),0,KY,KY
-3,2026-09-04,,Lawrence County,Ashland Blazer (Ashland),0,KY,KY
-3,2026-09-04,,Nicholas County,Lewis County (Vanceburg),0,KY,KY
-3,2026-09-04,,Pikeville (Pikeville),Raceland (Raceland),0,KY,KY
+3,2026-09-04,7:30pm,Lawrence County,Ashland Blazer (Ashland),0,KY,KY
+3,2026-09-04,7pm,Newport Central Catholic,Boone County,0,KY,KY
+3,2026-09-04,7:30pm,Nicholas County,Lewis County (Vanceburg),0,KY,KY
+3,2026-09-04,8:30pm,Pikeville (Pikeville),Raceland (Raceland),0,KY,KY
 3,2026-09-04,7:30pm,Ryle (Union),Cooper (Union),0,KY,KY
 3,2026-09-04,7pm,Simon Kenton (Independence),Covington Catholic (Park Hills),0,KY,KY
 3,2026-09-04,7:30pm,Somerset (Somerset),Pulaski Southwestern,0,KY,KY
@@ -846,7 +847,7 @@ week,date,time,away,home,neutral,away_state,home_state
 3,2026-09-04,7pm,Cardinal Ritter (Indianapolis),Providence,0,IN,IN
 3,2026-09-04,7pm,Cathedral (Indianapolis),St Xavier (Cincinnati),0,IN,
 3,2026-09-04,7pm,Richmond (Richmond),Crispus Attucks (Indianapolis),0,IN,IN
-3,2026-09-04,,South Dearborn (Aurora),Batesville,0,IN,IN
+3,2026-09-04,7pm,South Dearborn (Aurora),Batesville,0,IN,IN
 3,2026-09-04,7:30pm,South Newton,Indiana School for the Deaf,0,IN,IN
 3,2026-09-04,7:30pm,Terre Haute North Vigo,Bloomington South (Bloomington),0,IN,IN
 3,2026-09-04,7pm,Wes-Del (Gaston),Blackhawk Christian (Fort Wayne),0,IN,IN
@@ -1251,20 +1252,21 @@ week,date,time,away,home,neutral,away_state,home_state
 4,2026-09-11,7pm,Oak Glen (New Cumberland),South Harrison (Lost Creek),0,WV,WV
 4,2026-09-11,7pm,Weir (Weirton),Indian Creek (Wintersville),0,WV,
 4,2026-09-11,7pm,Wheeling Park (Wheeling),Musselman,0,WV,WV
-4,2026-09-11,,Ashland Blazer (Ashland),East Jessamine,0,KY,KY
+4,2026-09-11,8pm,Ashland Blazer (Ashland),East Jessamine,0,KY,KY
 4,2026-09-11,7pm,Beechwood (Fort Mitchell),Simon Kenton (Independence),0,KY,KY
+4,2026-09-11,7:30pm,Belfry (Belfry),Russell County,0,KY,KY
 4,2026-09-11,7pm,Boyle County (Danville),Highlands (Fort Thomas),0,KY,KY
 4,2026-09-11,7pm,Conner (Hebron),Newport Central Catholic,0,KY,KY
 4,2026-09-11,7pm,Covington Catholic (Park Hills),Dixie Heights (Edgewood),0,KY,KY
-4,2026-09-11,,Greenup County (Greenup),East Carter,0,KY,KY
+4,2026-09-11,7:30pm,Greenup County (Greenup),East Carter,0,KY,KY
 4,2026-09-11,7:30pm,Holy Cross (Covington),Holmes (Covington),0,KY,KY
-4,2026-09-11,,Johnson Central,Pikeville (Pikeville),0,KY,KY
-4,2026-09-11,,Lewis County (Vanceburg),Berea,0,KY,KY
+4,2026-09-11,7:30pm,Johnson Central,Pikeville (Pikeville),0,KY,KY
+4,2026-09-11,7:30pm,Lewis County (Vanceburg),Berea,0,KY,KY
 4,2026-09-11,6:30pm,Lloyd Memorial (Erlanger),Aiken (Cincinnati),0,KY,
 4,2026-09-11,7:30pm,Mason County,Boyd County (Ashland),0,KY,KY
-4,2026-09-11,,Morgan County (West Liberty),Fairview (Ashland),0,KY,KY
+4,2026-09-11,7:30pm,Morgan County (West Liberty),Fairview (Ashland),0,KY,KY
 4,2026-09-11,7:30pm,Pulaski County,Corbin (Corbin),0,KY,KY
-4,2026-09-11,,Raceland (Raceland),Mercer County,0,KY,KY
+4,2026-09-11,7:30pm,Raceland (Raceland),Mercer County,0,KY,KY
 4,2026-09-11,7:30pm,Russell (Russell),Paintsville (Paintsville),0,KY,KY
 4,2026-09-11,7pm,Cooper (Union),Campbell County (Alexandria),0,KY,KY
 4,2026-09-11,7pm,Detroit Country Day,Dearborn Divine Child (Dearborn),0,MI,MI
@@ -1705,8 +1707,8 @@ week,date,time,away,home,neutral,away_state,home_state
 5,2026-09-18,,Winfield,Magoffin County,0,WV,KY
 5,2026-09-18,7:30pm,Expression Prep Academy (Huntington),Fairview (Ashland),0,WV,KY
 5,2026-09-18,7pm,Beechwood (Fort Mitchell),Covington Catholic (Park Hills),0,KY,KY
-5,2026-09-18,,Belfry (Belfry),Pikeville (Pikeville),0,KY,KY
-5,2026-09-18,,Boone County,Mason County,0,KY,KY
+5,2026-09-18,7:30pm,Belfry (Belfry),Pikeville (Pikeville),0,KY,KY
+5,2026-09-18,7:30pm,Boone County,Mason County,0,KY,KY
 5,2026-09-18,7pm,Campbell County (Alexandria),Lloyd Memorial (Erlanger),0,KY,KY
 5,2026-09-18,7pm,Conner (Hebron),Simon Kenton (Independence),0,KY,KY
 5,2026-09-18,7:30pm,Corbin (Corbin),Frederick Douglass (Lexington),0,KY,KY
@@ -1715,7 +1717,7 @@ week,date,time,away,home,neutral,away_state,home_state
 5,2026-09-18,7:30pm,Fleming County,Greenup County (Greenup),0,KY,KY
 5,2026-09-18,7:30pm,Green County,Somerset (Somerset),0,KY,KY
 5,2026-09-18,7pm,Highlands (Fort Thomas),Ryle (Union),0,KY,KY
-5,2026-09-18,,Johnson Central,Pulaski County,0,KY,KY
+5,2026-09-18,7:30pm,Johnson Central,Pulaski County,0,KY,KY
 5,2026-09-18,,Paris,Newport (Newport),0,KY,KY
 5,2026-09-18,7:30pm,Raceland (Raceland),Newport Central Catholic,0,KY,KY
 5,2026-09-18,7:30pm,Russell (Russell),Ashland Blazer (Ashland),0,KY,KY
@@ -1746,7 +1748,7 @@ week,date,time,away,home,neutral,away_state,home_state
 5,2026-09-18,7pm,Bloomington South (Bloomington),Greenfield-Central,0,IN,IN
 5,2026-09-18,7pm,Bishop Dwenger (Fort Wayne),Homestead,0,IN,IN
 5,2026-09-18,7pm,Blackhawk Christian (Fort Wayne),South Adams (Berne),0,IN,IN
-5,2026-09-18,,Greensburg,South Dearborn (Aurora),0,IN,IN
+5,2026-09-18,7pm,Greensburg,South Dearborn (Aurora),0,IN,IN
 5,2026-09-18,5:30pm,Indiana School for the Deaf,Morristown,0,IN,IN
 5,2026-09-18,7pm,Bishop Chatard (Indianapolis),Brebeuf Jesuit Preparatory,0,IN,IN
 5,2026-09-18,7pm,Cardinal Ritter (Indianapolis),Indianapolis Lutheran (Indianapolis),0,IN,IN
@@ -2146,17 +2148,17 @@ week,date,time,away,home,neutral,away_state,home_state
 6,2026-09-25,7pm,Wirt County (Elizabeth),Wahama (Mason),0,WV,WV
 6,2026-09-25,7pm,Linsly (Wheeling),Mogadore (Mogadore),0,WV,
 6,2026-09-25,7:30pm,Ashland Blazer (Ashland),Greenup County (Greenup),0,KY,KY
-6,2026-09-25,,Bath County,Lewis County (Vanceburg),0,KY,KY
+6,2026-09-25,7:30pm,Bath County,Lewis County (Vanceburg),0,KY,KY
 6,2026-09-25,7pm,Beechwood (Fort Mitchell),Owen County,0,KY,KY
 6,2026-09-25,7:30pm,Bryan Station,Simon Kenton (Independence),0,KY,KY
-6,2026-09-25,,Fairview (Ashland),Phelps,0,KY,KY
+6,2026-09-25,7:30pm,Fairview (Ashland),Phelps,0,KY,KY
 6,2026-09-25,7:30pm,Fleming County,Russell (Russell),0,KY,KY
 6,2026-09-25,7pm,Harrison County (Cynthiana),Highlands (Fort Thomas),0,KY,KY
 6,2026-09-25,,Holmes (Covington),Jackson County,0,KY,KY
 6,2026-09-25,7pm,Holy Cross (Covington),Eminence,0,KY,KY
 6,2026-09-25,7:30pm,Johnson Central,Boyd County (Ashland),0,KY,KY
-6,2026-09-25,,Pike County Central,Belfry (Belfry),0,KY,KY
-6,2026-09-25,,Pikeville (Pikeville),Powell County,0,KY,KY
+6,2026-09-25,7:30pm,Pike County Central,Belfry (Belfry),0,KY,KY
+6,2026-09-25,7:30pm,Pikeville (Pikeville),Powell County,0,KY,KY
 6,2026-09-25,7pm,Somerset (Somerset),Metcalfe County,0,KY,KY
 6,2026-09-25,4pm,Dearborn Divine Child (Dearborn),Ann Arbor Gabriel Richard (Ann Arbor),0,MI,MI
 6,2026-09-25,5pm,Detroit King (Detroit),Detroit Cass Tech (Detroit),0,MI,MI
@@ -2186,7 +2188,7 @@ week,date,time,away,home,neutral,away_state,home_state
 6,2026-09-25,7pm,Cardinal Ritter (Indianapolis),Heritage Christian,0,IN,IN
 6,2026-09-25,7pm,Cathedral (Indianapolis),Trotwood-Madison (Trotwood),0,IN,
 6,2026-09-25,7pm,Lawrenceburg (Lawrenceburg),Batesville,0,IN,IN
-6,2026-09-25,,Madison Consolidated,South Dearborn (Aurora),0,IN,IN
+6,2026-09-25,7pm,Madison Consolidated,South Dearborn (Aurora),0,IN,IN
 6,2026-09-25,7pm,Muncie Central,Richmond (Richmond),0,IN,IN
 6,2026-09-25,7pm,Guerin Catholic,Bishop Chatard (Indianapolis),0,IN,IN
 6,2026-09-25,7pm,Crispus Attucks (Indianapolis),Southport (Indianapolis),0,IN,IN
@@ -2243,7 +2245,8 @@ week,date,time,away,home,neutral,away_state,home_state
 7,2026-10-01,6pm,Steubenville (Steubenville),Ursuline (Youngstown),0,,
 7,2026-10-01,6pm,Woodward (Toledo),Waite (Toledo),0,,
 7,2026-10-01,7pm,Harvest Prep (Canal Winchester),Centennial (Columbus),0,,
-7,2026-10-01,,Shelby Valley (Pikeville),Pike County Central,0,KY,KY
+7,2026-10-01,7:30pm,Belfry (Belfry),East Ridge,0,KY,KY
+7,2026-10-01,7:30pm,Shelby Valley (Pikeville),Pike County Central,0,KY,KY
 7,2026-10-01,8pm,Oakland (Murfreesboro),Rockvale (Rockvale),0,TN,TN
 7,2026-10-01,7pm,Camden (Camden),Permian (Odessa),0,NJ,TX
 7,2026-10-02,7pm,Ada (Ada),Elmwood (Bloomdale),0,,
@@ -2594,23 +2597,22 @@ week,date,time,away,home,neutral,away_state,home_state
 7,2026-10-02,7pm,Wheeling Central Catholic (Wheeling),Windber,0,WV,PA
 7,2026-10-02,7pm,Williamstown (Williamstown),Marietta (Marietta),0,WV,
 7,2026-10-02,7pm,Linsly (Wheeling),University (Morgantown),0,WV,WV
-7,2026-10-02,,Ashland Blazer (Ashland),Rowan County,0,KY,KY
-7,2026-10-02,,Bath County,East Carter,0,KY,KY
-7,2026-10-02,,Belfry (Belfry),East Ridge,0,KY,KY
+7,2026-10-02,7:30pm,Ashland Blazer (Ashland),Rowan County,0,KY,KY
+7,2026-10-02,7:30pm,Bath County,East Carter,0,KY,KY
 7,2026-10-02,6pm,Berea,Foxfire (Zanesville),0,KY,
 7,2026-10-02,7:30pm,Boyd County (Ashland),Greenup County (Greenup),0,KY,KY
 7,2026-10-02,7pm,Campbell County (Alexandria),Newport Central Catholic,0,KY,KY
 7,2026-10-02,7:30pm,Clinton County (Albany),Somerset (Somerset),0,KY,KY
 7,2026-10-02,7:30pm,Corbin (Corbin),Johnson Central,0,KY,KY
 7,2026-10-02,7:30pm,Dixie Heights (Edgewood),Cooper (Union),0,KY,KY
-7,2026-10-02,,Fairview (Ashland),Nicholas County,0,KY,KY
-7,2026-10-02,,Hazard,Raceland (Raceland),0,KY,KY
+7,2026-10-02,7:30pm,Fairview (Ashland),Nicholas County,0,KY,KY
+7,2026-10-02,7:30pm,Hazard,Raceland (Raceland),0,KY,KY
 7,2026-10-02,7pm,Highlands (Fort Thomas),Covington Catholic (Park Hills),0,KY,KY
 7,2026-10-02,7pm,Holy Cross (Covington),Harlan County,0,KY,KY
-7,2026-10-02,,Lewis County (Vanceburg),Fleming County,0,KY,KY
+7,2026-10-02,7:30pm,Lewis County (Vanceburg),Fleming County,0,KY,KY
 7,2026-10-02,7:30pm,Lloyd Memorial (Erlanger),Bourbon County (Paris),0,KY,KY
 7,2026-10-02,,Paintsville (Paintsville),Paris,0,KY,KY
-7,2026-10-02,,Pulaski Southwestern,Pikeville (Pikeville),0,KY,KY
+7,2026-10-02,7:30pm,Pulaski Southwestern,Pikeville (Pikeville),0,KY,KY
 7,2026-10-02,7:30pm,Walton-Verona (Walton),Beechwood (Fort Mitchell),0,KY,KY
 7,2026-10-02,7pm,Battle Creek Lakeview,Portage Central (Portage),0,MI,MI
 7,2026-10-02,7pm,Burr Oak,Camden-Frontier (Camden),0,MI,MI
@@ -2646,7 +2648,7 @@ week,date,time,away,home,neutral,away_state,home_state
 7,2026-10-02,7pm,Marion,Richmond (Richmond),0,IN,IN
 7,2026-10-02,7pm,Monroe Central,Blackhawk Christian (Fort Wayne),0,IN,IN
 7,2026-10-02,7pm,Rushville Consolidated,Lawrenceburg (Lawrenceburg),0,IN,IN
-7,2026-10-02,,South Dearborn (Aurora),Franklin County (Brookville),0,IN,IN
+7,2026-10-02,7pm,South Dearborn (Aurora),Franklin County (Brookville),0,IN,IN
 7,2026-10-02,7:30pm,Baylor (Chattanooga),McCallie,1,TN,TN
 7,2026-10-02,7:30pm,Grace Baptist Academy,Tri-Cities Christian Academy (Kingsport),0,TN,TN
 7,2026-10-02,8pm,Montgomery Bell Academy,Christ Presbyterian Academy (Nashville),0,TN,TN
@@ -3036,13 +3038,14 @@ week,date,time,away,home,neutral,away_state,home_state
 8,2026-10-09,7pm,Bishop Brossart (Alexandria),Holy Cross (Covington),0,KY,KY
 8,2026-10-09,7:30pm,Boyd County (Ashland),Ashland Blazer (Ashland),0,KY,KY
 8,2026-10-09,7pm,Covington Catholic (Park Hills),Cathedral (Indianapolis),0,KY,IN
-8,2026-10-09,,East Carter,Fleming County,0,KY,KY
+8,2026-10-09,7:30pm,East Carter,Fleming County,0,KY,KY
 8,2026-10-09,,Jackson County,West Carter,0,KY,KY
+8,2026-10-09,7pm,Newport (Newport),Newport Central Catholic,0,KY,KY
 8,2026-10-09,,Phelps,Montcalm (Rock),0,KY,WV
 8,2026-10-09,,Pike County Central,East Ridge,0,KY,KY
-8,2026-10-09,,Raceland (Raceland),Fairview (Ashland),0,KY,KY
-8,2026-10-09,,Rowan County,Johnson Central,0,KY,KY
-8,2026-10-09,,Shelby Valley (Pikeville),Betsy Lane,0,KY,KY
+8,2026-10-09,7:30pm,Raceland (Raceland),Fairview (Ashland),0,KY,KY
+8,2026-10-09,7:30pm,Rowan County,Johnson Central,0,KY,KY
+8,2026-10-09,7:30pm,Shelby Valley (Pikeville),Betsy Lane,0,KY,KY
 8,2026-10-09,7:30pm,Simon Kenton (Independence),Great Crossing (Georgetown),0,KY,KY
 8,2026-10-09,7:30pm,Harlan County,Corbin (Corbin),0,KY,KY
 8,2026-10-09,7pm,Adrian Lenawee Christian (Adrian),Camden-Frontier (Camden),0,MI,MI
@@ -3072,7 +3075,7 @@ week,date,time,away,home,neutral,away_state,home_state
 8,2026-10-09,7:30pm,Hamilton Heights (Arcadia),Twin Lakes,0,IN,IN
 8,2026-10-09,7pm,Indianapolis Scecina Memorial (Indianapolis),Cardinal Ritter (Indianapolis),0,IN,IN
 8,2026-10-09,7pm,Richmond (Richmond),Anderson,0,IN,IN
-8,2026-10-09,,Rushville Consolidated,South Dearborn (Aurora),0,IN,IN
+8,2026-10-09,7pm,Rushville Consolidated,South Dearborn (Aurora),0,IN,IN
 8,2026-10-09,7pm,Southport (Indianapolis),Roger Bacon (St Bernard),0,IN,
 8,2026-10-09,7pm,Terre Haute South Vigo,Bishop Chatard (Indianapolis),0,IN,IN
 8,2026-10-09,8pm,Christ Presbyterian Academy (Nashville),Ensworth (Nashville),0,TN,TN
@@ -3464,22 +3467,23 @@ week,date,time,away,home,neutral,away_state,home_state
 9,2026-10-16,7pm,Wheeling Central Catholic (Wheeling),Barnesville (Barnesville),0,WV,
 9,2026-10-16,7:30pm,Expression Prep Academy (Huntington),Van (Van),0,WV,WV
 9,2026-10-16,7:30pm,Bath County,Russell (Russell),0,KY,KY
-9,2026-10-16,,Betsy Lane,Belfry (Belfry),0,KY,KY
+9,2026-10-16,7:30pm,Betsy Lane,Belfry (Belfry),0,KY,KY
 9,2026-10-16,7pm,Boone County,Dixie Heights (Edgewood),0,KY,KY
 9,2026-10-16,7:30pm,Corbin (Corbin),Whitley County,0,KY,KY
 9,2026-10-16,7:30pm,Covington Catholic (Park Hills),Harrison County (Cynthiana),0,KY,KY
 9,2026-10-16,7:30pm,Gallatin County,Beechwood (Fort Mitchell),0,KY,KY
 9,2026-10-16,7:30pm,Greenup County (Greenup),Johnson Central,0,KY,KY
 9,2026-10-16,7pm,Holy Cross (Covington),Trimble County,0,KY,KY
-9,2026-10-16,,Lewis County (Vanceburg),East Carter,0,KY,KY
+9,2026-10-16,7:30pm,Lewis County (Vanceburg),East Carter,0,KY,KY
 9,2026-10-16,7pm,Mason County,Highlands (Fort Thomas),0,KY,KY
+9,2026-10-16,7:30pm,Newport Central Catholic,Dayton (Dayton),0,KY,KY
 9,2026-10-16,,Pike County Central,Magoffin County,0,KY,KY
-9,2026-10-16,,Pikeville (Pikeville),Paintsville (Paintsville),0,KY,KY
-9,2026-10-16,,Raceland (Raceland),Paris,0,KY,KY
+9,2026-10-16,7:30pm,Pikeville (Pikeville),Paintsville (Paintsville),0,KY,KY
+9,2026-10-16,7:30pm,Raceland (Raceland),Paris,0,KY,KY
 9,2026-10-16,7:30pm,Rowan County,Boyd County (Ashland),0,KY,KY
 9,2026-10-16,7pm,Simon Kenton (Independence),Campbell County (Alexandria),0,KY,KY
 9,2026-10-16,7pm,Somerset (Somerset),Monroe County,0,KY,KY
-9,2026-10-16,,East Ridge,Shelby Valley (Pikeville),0,KY,KY
+9,2026-10-16,7:30pm,East Ridge,Shelby Valley (Pikeville),0,KY,KY
 9,2026-10-16,7pm,Adrian Lenawee Christian (Adrian),Concord (Concord),0,MI,MI
 9,2026-10-16,7pm,Camden-Frontier (Camden),North Adams-Jerome (North Adams),0,MI,MI
 9,2026-10-16,7pm,DeWitt (DeWitt),Grand Ledge,0,MI,MI
@@ -3507,7 +3511,7 @@ week,date,time,away,home,neutral,away_state,home_state
 9,2026-10-16,5:30pm,Indiana School for the Deaf,Waldron,0,IN,IN
 9,2026-10-16,7pm,Bishop Chatard (Indianapolis),Elder (Cincinnati),0,IN,
 9,2026-10-16,7pm,Kokomo,Richmond (Richmond),0,IN,IN
-9,2026-10-16,,Lawrenceburg (Lawrenceburg),South Dearborn (Aurora),0,IN,IN
+9,2026-10-16,7pm,Lawrenceburg (Lawrenceburg),South Dearborn (Aurora),0,IN,IN
 9,2026-10-16,7pm,Pendleton Heights,Southport (Indianapolis),0,IN,IN
 9,2026-10-16,7:30pm,Roncalli (Indianapolis),East Central (St Leon),0,IN,IN
 9,2026-10-16,7pm,West Lafayette,Hamilton Heights (Arcadia),0,IN,IN
@@ -3897,20 +3901,20 @@ week,date,time,away,home,neutral,away_state,home_state
 10,2026-10-23,7pm,Williamstown (Williamstown),Doddridge County,0,WV,WV
 10,2026-10-23,7pm,Linsly (Wheeling),Louisville (Louisville),0,WV,
 10,2026-10-23,7pm,Beechwood (Fort Mitchell),Bracken County,0,KY,KY
-10,2026-10-23,,Belfry (Belfry),Shelby Valley (Pikeville),0,KY,KY
+10,2026-10-23,7:30pm,Belfry (Belfry),Shelby Valley (Pikeville),0,KY,KY
 10,2026-10-23,7pm,Bellevue (Bellevue),Newport Central Catholic,0,KY,KY
 10,2026-10-23,7:30pm,Boyd County (Ashland),McCreary Central,0,KY,KY
 10,2026-10-23,7:30pm,Carroll County (Carrollton),Lloyd Memorial (Erlanger),0,KY,KY
 10,2026-10-23,7:30pm,Corbin (Corbin),Perry County Central,0,KY,KY
 10,2026-10-23,7:30pm,Greenup County (Greenup),Rowan County,0,KY,KY
-10,2026-10-23,,Hazard,Pikeville (Pikeville),0,KY,KY
+10,2026-10-23,7:30pm,Hazard,Pikeville (Pikeville),0,KY,KY
 10,2026-10-23,7:30pm,Highlands (Fort Thomas),Scott County (Georgetown),0,KY,KY
-10,2026-10-23,,Johnson Central,Ashland Blazer (Ashland),0,KY,KY
-10,2026-10-23,,Lewis County (Vanceburg),Holmes (Covington),0,KY,KY
+10,2026-10-23,7:30pm,Johnson Central,Ashland Blazer (Ashland),0,KY,KY
+10,2026-10-23,7:30pm,Lewis County (Vanceburg),Holmes (Covington),0,KY,KY
 10,2026-10-23,7pm,Ludlow (Ludlow),Holy Cross (Covington),0,KY,KY
 10,2026-10-23,7pm,Mason County,Covington Catholic (Park Hills),0,KY,KY
-10,2026-10-23,,Nicholas County,Raceland (Raceland),0,KY,KY
-10,2026-10-23,,Paris,Fairview (Ashland),0,KY,KY
+10,2026-10-23,7:30pm,Nicholas County,Raceland (Raceland),0,KY,KY
+10,2026-10-23,7:30pm,Paris,Fairview (Ashland),0,KY,KY
 10,2026-10-23,7:30pm,Russell (Russell),East Carter,0,KY,KY
 10,2026-10-23,,Ryle (Union),Simon Kenton (Independence),0,KY,KY
 10,2026-10-23,6:30pm,Somerset (Somerset),Christian County,0,KY,KY
@@ -3936,15 +3940,15 @@ week,date,time,away,home,neutral,away_state,home_state
 10,2026-10-23,7pm,Harbor Creek (Harborcreek),Cathedral Prep (Erie),0,PA,PA
 10,2026-10-23,7pm,Mercer,Farrell (Farrell),0,PA,PA
 10,2026-10-23,7pm,Kennedy Catholic (Hermitage),Plymouth (Plymouth),0,PA,
-10,2026-10-23,,IHSAA playoffs - round one,Bishop Dwenger (Fort Wayne),0,IN,IN
+10,2026-10-23,,IHSAA playoffs - round one,Hamilton Heights (Arcadia),0,IN,IN
+10,2026-10-23,,IHSAA playoffs - round one,Cardinal Ritter (Indianapolis),0,IN,IN
+10,2026-10-23,,IHSAA playoffs - round one,Blackhawk Christian (Fort Wayne),0,IN,IN
 10,2026-10-23,,IHSAA playoffs - round one,Bishop Chatard (Indianapolis),0,IN,IN
+10,2026-10-23,,IHSAA playoffs - round one,South Dearborn (Aurora),0,IN,IN
+10,2026-10-23,,IHSAA playoffs - round one,Bishop Dwenger (Fort Wayne),0,IN,IN
+10,2026-10-23,,IHSAA playoffs - round one,Richmond (Richmond),0,IN,IN
 10,2026-10-23,,IHSAA playoffs - round one,East Central (St Leon),0,IN,IN
 10,2026-10-23,,IHSAA playoffs - round one,Lawrenceburg (Lawrenceburg),0,IN,IN
-10,2026-10-23,,IHSAA playoffs - round one,Richmond (Richmond),0,IN,IN
-10,2026-10-23,,IHSAA playoffs - round one,Cardinal Ritter (Indianapolis),0,IN,IN
-10,2026-10-23,,IHSAA playoffs - round one,Hamilton Heights (Arcadia),0,IN,IN
-10,2026-10-23,,IHSAA playoffs - round one,South Dearborn (Aurora),0,IN,IN
-10,2026-10-23,,IHSAA playoffs - round one,Blackhawk Christian (Fort Wayne),0,IN,IN
 10,2026-10-23,,Knoxville Catholic,Christ Presbyterian Academy (Nashville),0,TN,TN
 10,2026-10-23,,Oakland (Murfreesboro),Stewarts Creek (Smyrna),0,TN,TN
 10,2026-10-23,7pm,The St James Academy (Springfield),St Xavier (Cincinnati),0,VA,
@@ -3997,18 +4001,19 @@ week,date,time,away,home,neutral,away_state,home_state
 11,2026-10-30,7pm,Moorefield,Weir (Weirton),0,WV,WV
 11,2026-10-30,7pm,Wahama (Mason),Gilmer County (Glenville),0,WV,WV
 11,2026-10-30,7pm,Wayne,Williamstown (Williamstown),0,WV,WV
-11,2026-10-30,,Ashland Blazer (Ashland),Lexington Catholic (Lexington),0,KY,KY
+11,2026-10-30,7:30pm,Ashland Blazer (Ashland),Lexington Catholic (Lexington),0,KY,KY
 11,2026-10-30,7pm,Beechwood (Fort Mitchell),Campbell County (Alexandria),0,KY,KY
 11,2026-10-30,7pm,Bellevue (Bellevue),Holy Cross (Covington),0,KY,KY
 11,2026-10-30,7:30pm,Boyd County (Ashland),Lawrence County,0,KY,KY
 11,2026-10-30,7:30pm,Breathitt County (Jackson),Russell (Russell),0,KY,KY
 11,2026-10-30,7:30pm,East Carter,Raceland (Raceland),0,KY,KY
-11,2026-10-30,,Fairview (Ashland),Lewis County (Vanceburg),0,KY,KY
+11,2026-10-30,7:30pm,Fairview (Ashland),Lewis County (Vanceburg),0,KY,KY
 11,2026-10-30,7:30pm,Hazard,Somerset (Somerset),0,KY,KY
+11,2026-10-30,7:30pm,Letcher County Central,Belfry (Belfry),0,KY,KY
 11,2026-10-30,7pm,Lloyd Memorial (Erlanger),Boone County,0,KY,KY
 11,2026-10-30,7:30pm,Montgomery County,Greenup County (Greenup),0,KY,KY
-11,2026-10-30,,Newport Central Catholic,Mason County,0,KY,KY
-11,2026-10-30,,Pikeville (Pikeville),Bracken County,0,KY,KY
+11,2026-10-30,7:30pm,Newport Central Catholic,Mason County,0,KY,KY
+11,2026-10-30,7:30pm,Pikeville (Pikeville),Bracken County,0,KY,KY
 11,2026-10-30,7pm,Ryle (Union),Dixie Heights (Edgewood),0,KY,KY
 11,2026-10-30,7:30pm,Simon Kenton (Independence),Cooper (Union),0,KY,KY
 11,2026-10-30,7:30pm,Great Crossing (Georgetown),Corbin (Corbin),0,KY,KY
