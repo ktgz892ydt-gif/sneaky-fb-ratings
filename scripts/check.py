@@ -303,6 +303,48 @@ def main():
               f"is more than the {MAX_SEASON} any team can play -- fixtures "
               f"from another school are landing on this one")
 
+    # ---- every OHSAA team must have a season to play
+    #
+    # The mirror of the too-long check above, and the one that would have
+    # caught a whole class of quiet scraper failures. Ohio plays a ten-game
+    # regular season; a team the parser cannot read simply has no games, and
+    # nothing else here notices -- the ratings table renders, the ranks are
+    # dense, the arithmetic all agrees. Two schools sat at zero games for a
+    # full season because their names ran one character past a length limit.
+    #
+    # Zero is a hard failure: there is no innocent reading of it.
+    sched_by_team = defaultdict(int)
+    for r in d.get("results") or []:
+        sched_by_team[r["h"]] += 1
+        sched_by_team[r["a"]] += 1
+    for g in sched:
+        for side in ("h", "a"):
+            if isinstance(g[side], int):
+                sched_by_team[g[side]] += 1
+
+    empty = [t["name"] for i, t in enumerate(d["teams"])
+             if t["inOhio"] and sched_by_team[i] == 0]
+    check(not empty,
+          f"{len(empty)} OHSAA team(s) have no game this season, played or "
+          f"scheduled -- the scraper is dropping them: {empty[:6]}")
+
+    # A short season is a warning, not a failure: a genuine bye or a fixture
+    # the source has not posted yet both look like this, and neither should
+    # stop the week's ratings publishing. A *rising* count is the signal.
+    #
+    # Measured on the 2026 board after the parser fixes: 672 of 699 Ohio teams
+    # hold a full ten, 25 hold nine (verified against the source pages as real
+    # byes), and two are genuinely thin -- East Technical at eight and
+    # Jefferson Township at four. So the honest baseline here is 2, and the
+    # threshold is set well above it rather than snugly, because byes move
+    # year to year. Before the fixes this number was 59.
+    short = [t["name"] for i, t in enumerate(d["teams"])
+             if t["inOhio"] and 0 < sched_by_team[i] < 9]
+    warn(len(short) <= 25,
+         f"{len(short)} OHSAA teams have fewer than 9 games this season -- "
+         f"if that number is climbing, the scoreboard format has moved "
+         f"(first few: {short[:5]})")
+
     # ---- connectivity must be reported honestly
     c = d["connectivity"]
     check(c["level"] in ("none", "low", "medium", "high"), "bad connectivity level")

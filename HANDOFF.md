@@ -23,7 +23,7 @@ nothing.
 
 **Current state: working and deployed.** Week 1 of 2026 is live. Three past
 seasons (2023–2025) are committed. Model constants are fitted, not guessed.
-138 unit tests pass in CI before anything touches the network.
+151 unit tests pass in CI before anything touches the network.
 
 ---
 
@@ -32,7 +32,7 @@ seasons (2023–2025) are committed. Model constants are fitted, not guessed.
 ```bash
 cd ~/Documents/GitHub/sneaky-fb-ratings
 git fetch && git status          # the bot commits here; the remote is often ahead
-python -m pytest tests/ -q       # expect 138 passed; pip install -r requirements.txt if not
+python -m pytest tests/ -q       # expect 151 passed; pip install -r requirements.txt if not
 python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/check.json --no-site
 ```
 
@@ -253,6 +253,41 @@ internally consistent arithmetic, just over a season that cannot happen.
 
 These cost real debugging time. Don't rediscover them.
 
+**0. A school's name can contain its own parentheses, and the LAST one is the
+city.** The site writes `School (City)`, but some schools carry a parenthetical
+in the name itself:
+
+```
+St Xavier (Louisville) (Louisville) [KY]     disambiguated -- Cincinnati has its own
+Landmark Eagles (club) (Cincinnati)          club sides are marked
+Valley (Wetzel) (Pine Grove) [WV]            county in the name
+Football North (via Clarkson SS) (Mississauga) [ON]
+```
+
+The pattern used to read one `(...)` and stop, so these matched nothing and the
+games vanished. Elder lost its week 5 fixture this way — and it was confusing
+precisely because Cincinnati's St Xavier parses fine while Louisville's does
+not. `SB_TEAM`'s stem may now consume earlier parentheticals; being non-greedy,
+it lands on the last one as the city. **That stem is bounded (`{0,60}`) and the
+bound is load-bearing** — unbounded it runs from every start position to the end
+of the page hunting a terminator, which took the probe from 0.02s to 6.3s.
+
+**0b. `_plausible_team`'s limits were below the real maximum.** 48 chars / 6
+words, set back when this scraper read bare names ("Antwerp") and never re-cut
+once the mailing city was appended. The longest legitimate OHSAA name is **50
+characters**, so the filter rejected real schools by construction — Cuyahoga
+Valley Christian Academy and Brecksville-Broadview Heights lost *every game of
+the season*, silently. Now 80/12, and `tests/test_schedule.py` asserts every
+name on the committed roster passes, so it cannot drift under the data again.
+
+**0c. `UNRECOGNISED` is meant to reach zero, and now does.** It sat at 160
+permanently, which made it useless as the alarm for the page format moving. Two
+kinds of record were being counted as failures when they are simply not games:
+`TBD () [TBD]` (opponent not yet settled) and `... at Foxfire (Zanesville)
+cancel` (called off). Both now parse and are dropped by name, counted
+separately in the scrape log. Overseas DoD schools tag a country rather than a
+state — `[Japan]`, `[South Korea]` — so the tag accepts more than two letters.
+
 **1. The scraped pages don't look like their rendered text.**
 `WebFetch` reassembles pages for readability and showed a tidy one-line-per-game
 view that does not exist in the HTML. The real scoreboard splits a single game
@@ -415,13 +450,14 @@ inflated. See what the paired rule selects before widening the grid below 0.5.
 reads `tuned.json` and self-corrects; the README does not. Check it after any
 re-fit — and after the re-fit above, it will be stale.
 
-**~28 fixtures sat in rare formats** the probe's sample cap didn't print. The
-per-week `UNRECOGNISED` count in the scrape log says whether they still matter.
-
-**`SB_TEAM` still skips a played game with an empty city.** Unchanged and still
-the right call — those are out-of-state-vs-out-of-state games that contribute
-nothing to Ohio ratings. Noted here only because the state-tag work sits next
-to it and it is easy to think it was covered.
+**Re-scrape 2023–2025 (medium value, ~130 requests).** The parser fixes above
+recover games the old patterns dropped, but only 2026 has been re-scraped. The
+past seasons on disk still have their gaps, and they are what `tune.py` fits on
+and what `prior.json` is derived from. The workflow's backfill step skips a
+season whose `games_{yr}.csv` already exists, so this needs the file deleted or
+a manual `scrape.py --season 2023` run. Worth pairing with the re-fit, and
+worth being deliberate about: that is roughly three times a normal weekly run
+against a one-person site.
 
 **Phase 3 before Phase 4 is questionable.** Regional playoff odds based on
 record alone will look wrong to anyone who follows Ohio football, because

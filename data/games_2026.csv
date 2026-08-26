@@ -95,6 +95,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 1,Crestline (Crestline),7,Buckeye Central (New Washington),35,0,,
 1,Crestview (Columbiana),14,Beaver Local (East Liverpool),35,0,,
 1,Crestwood (Mantua),8,Mogadore (Mogadore),31,0,,
+1,Cuyahoga Valley Christian Academy (Cuyahoga Falls),7,Brecksville-Broadview Heights (Broadview Heights),16,0,,
 1,Dalton (Dalton),12,Danville (Danville),48,0,,
 1,Defiance (Defiance),9,Napoleon (Napoleon),8,0,,
 1,Delta (Delta),47,Ayersville (Defiance),0,0,,
@@ -283,7 +284,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 1,Swanton (Swanton),13,North Central (Pioneer),12,0,,
 1,Sycamore (Cincinnati),6,Kings (Kings Mills),34,0,,
 1,Sylvania Southview (Sylvania),35,Sylvania Northview (Sylvania),13,0,,
-1,Symmes Valley (Willow Wood),55,Chesapeake (Chesapeake),14,0,,
+1,Symmes Valley (Willow Wood),55,Chesapeake (Chesapeake),13,0,,
 1,Talawanda (Oxford),33,Taylor (Cleves),6,0,,
 1,Tinora (Defiance),0,Liberty Center (Liberty Center),61,0,,
 1,Toronto (Toronto),33,Southern (Salineville),0,0,,
@@ -334,21 +335,39 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 1,Wynford (Bucyrus),34,Cardington-Lincoln (Cardington),20,0,,
 1,KIPP Columbus (Columbus),21,Beechcroft (Columbus),27,0,,
 1,Ashland Blazer (Ashland),28,Raceland (Raceland),21,0,KY,KY
+1,Berea,0,Jackson County,46,0,KY,KY
 1,Christian Academy-Louisville (Louisville),41,Pikeville (Pikeville),0,0,KY,KY
 1,Covington Catholic (Park Hills),50,Ryle (Union),6,0,KY,KY
+1,East Carter,12,Belfry (Belfry),57,0,KY,KY
+1,Fairview (Ashland),34,Bath County,13,0,KY,KY
+1,Greenup County (Greenup),49,Pike County Central,8,0,KY,KY
 1,Highlands (Fort Thomas),20,Frederick Douglass (Lexington),41,0,KY,KY
+1,Lewis County (Vanceburg),20,West Carter,18,0,KY,KY
+1,Lloyd Memorial (Erlanger),21,Newport Central Catholic,3,0,KY,KY
 1,Russell (Russell),34,Dawson-Bryant (Coal Grove),0,0,KY,
 1,Simon Kenton (Independence),42,Dixie Heights (Edgewood),13,0,KY,KY
 1,St Henry (Erlanger),7,Holy Cross (Covington),33,0,KY,KY
+1,St Xavier (Louisville),7,Owensboro (Owensboro),24,0,KY,KY
+1,Trinity (Louisville),59,Anderson (Cincinnati),13,0,KY,
+1,Harlan County,27,Clay County,20,1,KY,KY
 1,Kennedy Catholic (Hermitage),38,Sebring McKinley (Sebring),22,0,PA,
+1,Bloomington South (Bloomington),44,Bloomington North,6,0,IN,IN
+1,Franklin Community,35,Southport (Indianapolis),0,0,IN,IN
 1,Fremont (Fremont),46,Blackhawk Christian (Fort Wayne),7,0,IN,IN
+1,Hamilton Heights (Arcadia),19,Lapel,49,0,IN,IN
+1,Bishop Chatard (Indianapolis),35,Lafayette Jefferson,7,0,IN,IN
 1,Cardinal Ritter (Indianapolis),6,Danville Community (Danville),42,0,IN,IN
+1,Cathedral (Indianapolis),27,Ben Davis,33,0,IN,IN
 1,Lawrenceburg (Lawrenceburg),0,East Central (St Leon),21,0,IN,IN
+1,Richmond (Richmond),20,Connersville,50,0,IN,IN
 1,Roncalli (Indianapolis),14,Bishop Dwenger (Fort Wayne),15,0,IN,IN
 1,South Dearborn (Aurora),0,Little Miami (Morrow),28,0,IN,
+1,Indianapolis Crimson Knights (club),50,Cambridge City Lincoln,14,0,IN,IN
 1,Middle Tennessee Christian School (Murfreesboro),47,Ezell-Harding Christian Academy (Antioch),12,0,TN,TN
+1,Hewlett Sports Academy (Waldorf),14,Legacy Sports Agency,9,0,MD,PR
 1,MU Sports Academy (Delson),8,The Hun School (Princeton),55,0,QB,NJ
 1,Venice (Venice),42,Rabun Gap - Nacoochee (Rabun Gap),40,0,FL,GA
+1,IMG Academy (Bradenton),59,Lone Peak,3,0,FL,UT
 1,St John Bosco (Bellflower),28,Bishop Gorman (Las Vegas),38,0,CA,NV
 1,Tafuna (Tafuna),38,Mojave (North Las Vegas),0,0,AS,NV
 1,Aiken (Cincinnati),18,Clark Montessori (Cincinnati),12,0,,
@@ -370,6 +389,13 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 1,West Muskingum (Zanesville),51,Lakewood (Hebron),0,0,,
 1,Winton Woods (Cincinnati),13,Springfield (Springfield),14,0,,
 1,Xenia (Xenia),16,Beavercreek (Beavercreek),17,0,,
+1,Landmark Eagles (club) (Cincinnati),14,West Union (club) (West Union),0,0,,
+1,Peebles (club) (Peebles),14,North Adams (club) (Seaman),12,0,,
+1,Johnson Central,30,Letcher County Central,6,0,KY,KY
 1,Pleasure Ridge Park (Louisville),28,Shelby Valley (Pikeville),13,0,KY,KY
+1,Wayne County,7,Somerset (Somerset),42,0,KY,KY
+1,Washtenaw Saints (club),27,Noblesville Lions (club) (Noblesville),46,0,MI,IN
+1,Tri-State King's Crusaders (club) (Harlan),58,Kosciusko Thunder (club),12,0,IN,IN
 1,Oakland (Murfreesboro),56,Christ Presbyterian Academy (Nashville),7,0,TN,TN
+1,Orem,14,Skyridge (Lehi),21,0,UT,UT
 1,James B. Dudley (Greensboro),6,Cardinal Gibbons (Raleigh),45,0,NC,NC

@@ -1,4 +1,6 @@
 week,date,time,away,home,neutral,away_state,home_state
+1,2026-08-22,4:30pm,Columbus Crusaders (club) (Columbus),Grand Valley Patriots (club),0,,MI
+1,2026-08-22,1:30pm,North Oakland Bucks (club) (Auburn Hills),C4 Lions (club) (Middletown),0,MI,
 2,2026-08-27,6:30pm,Deer Park (Cincinnati),Shroder (Cincinnati),0,,
 2,2026-08-27,6pm,Dunbar (Dayton),Stivers (Dayton),0,,
 2,2026-08-27,6pm,Perkins (Sandusky),Scott (Toledo),0,,
@@ -46,6 +48,7 @@ week,date,time,away,home,neutral,away_state,home_state
 2,2026-08-28,7pm,Bowling Green (Bowling Green),Bryan (Bryan),0,,
 2,2026-08-28,7pm,Bowsher (Toledo),Genoa Area (Genoa),0,,
 2,2026-08-28,7pm,Bradford (Bradford),Twin Valley South (West Alexandria),0,,
+2,2026-08-28,7pm,Brecksville-Broadview Heights (Broadview Heights),North Royalton (North Royalton),0,,
 2,2026-08-28,7pm,Briggs (Columbus),Dublin Scioto (Dublin),0,,
 2,2026-08-28,7pm,Brookfield (Brookfield),Springfield (New Middletown),0,,
 2,2026-08-28,7pm,Brooklyn (Brooklyn),Willard (Willard),0,,
@@ -285,6 +288,7 @@ week,date,time,away,home,neutral,away_state,home_state
 2,2026-08-28,7pm,Shawnee (Springfield),Brookville (Brookville),0,,
 2,2026-08-28,7pm,Shelby (Shelby),Lexington (Lexington),0,,
 2,2026-08-28,7pm,Shenandoah (Sarahsville),Bridgeport (Bridgeport),0,,
+2,2026-08-28,7pm,Canton South (Canton),Cuyahoga Valley Christian Academy (Cuyahoga Falls),0,,
 2,2026-08-28,7pm,South (Columbus),Centennial (Columbus),0,,
 2,2026-08-28,7pm,South (Willoughby),Kent Roosevelt (Kent),0,,
 2,2026-08-28,7pm,Southeast (Ravenna),Grand Valley (Orwell),0,,
@@ -357,22 +361,26 @@ week,date,time,away,home,neutral,away_state,home_state
 2,2026-08-28,7pm,John Marshall (Glen Dale),Marietta (Marietta),0,WV,
 2,2026-08-28,7pm,Madonna (Weirton),East Hardy (Baker),0,WV,WV
 2,2026-08-28,7:30pm,Ritchie County (Ellenboro),Wahama (Mason),0,WV,WV
+2,2026-08-28,7pm,Tygarts Valley,Valley (Wetzel) (Pine Grove),0,WV,WV
 2,2026-08-28,7pm,Wheeling Park (Wheeling),Parkersburg South (Parkersburg),0,WV,WV
 2,2026-08-28,7pm,Williamstown (Williamstown),Ravenswood,0,WV,WV
 2,2026-08-28,7pm,Linsly (Wheeling),Girard (Girard),0,WV,
+2,2026-08-28,7:30pm,Bowling Green (Bowling Green),St Xavier (Louisville),0,KY,KY
+2,2026-08-28,8:30pm,Central (Louisville),Belfry (Belfry),0,KY,KY
 2,2026-08-28,7pm,Dixie Heights (Edgewood),Badin (Hamilton),0,KY,
-2,2026-08-28,,East Carter,Rowan County,0,KY,KY
+2,2026-08-28,7:30pm,East Carter,Rowan County,0,KY,KY
 2,2026-08-28,7:30pm,Greenup County (Greenup),Russell (Russell),0,KY,KY
 2,2026-08-28,7:30pm,Holy Cross (Covington),Bracken County,0,KY,KY
-2,2026-08-28,,Johnson Central,Madison Central,0,KY,KY
-2,2026-08-28,,Lewis County (Vanceburg),Morgan County (West Liberty),0,KY,KY
+2,2026-08-28,7:30pm,Johnson Central,Madison Central,0,KY,KY
+2,2026-08-28,7:30pm,Lewis County (Vanceburg),Morgan County (West Liberty),0,KY,KY
 2,2026-08-28,7pm,Newport (Newport),Lloyd Memorial (Erlanger),0,KY,KY
-2,2026-08-28,,Newport Central Catholic,Paintsville (Paintsville),0,KY,KY
+2,2026-08-28,7:30pm,Newport Central Catholic,Paintsville (Paintsville),0,KY,KY
 2,2026-08-28,7:30pm,North Laurel,Corbin (Corbin),0,KY,KY
-2,2026-08-28,,Pleasure Ridge Park (Louisville),Raceland (Raceland),0,KY,KY
+2,2026-08-28,7:30pm,Pleasure Ridge Park (Louisville),Raceland (Raceland),0,KY,KY
 2,2026-08-28,8:45pm,Somerset (Somerset),South Laurel,0,KY,KY
-2,2026-08-28,,Tates Creek,Ashland Blazer (Ashland),0,KY,KY
-2,2026-08-28,,West Carter,Fairview (Ashland),0,KY,KY
+2,2026-08-28,7:30pm,Tates Creek,Ashland Blazer (Ashland),0,KY,KY
+2,2026-08-28,7pm,Trinity (Louisville),Christian Brothers,0,KY,MO
+2,2026-08-28,7:30pm,West Carter,Fairview (Ashland),0,KY,KY
 2,2026-08-28,7pm,Cooper (Union),Highlands (Fort Thomas),0,KY,KY
 2,2026-08-28,7pm,Blissfield,Erie Mason (Erie),0,MI,MI
 2,2026-08-28,7pm,Hudsonville Unity Christian,Dearborn Divine Child (Dearborn),0,MI,MI
@@ -385,6 +393,7 @@ week,date,time,away,home,neutral,away_state,home_state
 2,2026-08-28,7pm,Southern Huntingdon County,Everett (Everett),0,PA,PA
 2,2026-08-28,7pm,Shaler,Butler (Butler),0,PA,PA
 2,2026-08-28,7pm,Pine-Richland (Gibsonia),Avon (Avon),0,PA,
+2,2026-08-28,5pm,Canevin Catholic,University Prep (USO co-op) (Pittsburgh),1,PA,PA
 2,2026-08-28,7pm,Taylor Allderdice (Pittsburgh),Fox Chapel,0,PA,PA
 2,2026-08-28,7pm,Brashear (Pittsburgh),McKeesport (McKeesport),0,PA,PA
 2,2026-08-28,7pm,Carrick (Pittsburgh),Carlynton,0,PA,PA
@@ -398,8 +407,9 @@ week,date,time,away,home,neutral,away_state,home_state
 2,2026-08-28,7pm,Greenfield-Central,Lawrenceburg (Lawrenceburg),0,IN,IN
 2,2026-08-28,7:30pm,Cardinal Ritter (Indianapolis),Archbishop Alter (Kettering),0,IN,
 2,2026-08-28,7:30pm,Leo,Bishop Chatard (Indianapolis),0,IN,IN
-2,2026-08-28,,South Dearborn (Aurora),Switzerland County,0,IN,IN
+2,2026-08-28,7pm,South Dearborn (Aurora),Switzerland County,0,IN,IN
 2,2026-08-28,7pm,Southport (Indianapolis),Perry Meridian,0,IN,IN
+2,2026-08-28,7pm,Indianapolis Crimson Knights (club),Phalen Academy,0,IN,IN
 2,2026-08-28,8pm,Middle Tennessee Christian School (Murfreesboro),Grace Christian Academy (Franklin),0,TN,TN
 2,2026-08-28,7pm,Oakland (Murfreesboro),Centerville (Centerville),0,TN,
 2,2026-08-28,7:30pm,Loudoun Sports Academy (Leesburg),Baylor (Chattanooga),0,VA,TN
@@ -409,6 +419,7 @@ week,date,time,away,home,neutral,away_state,home_state
 2,2026-08-28,7pm,Good Counsel (Wheaton),Bishop McDevitt (Philadelphia),0,MD,PA
 2,2026-08-28,7pm,St Mary's Ryken (Leonardtown),McCallie,0,MD,TN
 2,2026-08-28,7:30pm,Anacostia (Washington),Digital Pioneers Academy (Washington),0,DC,DC
+2,2026-08-28,6pm,Friendship Collegiate (Washington),Eagle Academy for Young Men II (Brooklyn),0,DC,NY
 2,2026-08-28,7pm,Gonzaga (Washington),Calvert Hall (Towson),0,DC,MD
 2,2026-08-28,8pm,Saint Joseph Regional (Montvale),Mt Carmel (Mt Carmel),0,NJ,IL
 2,2026-08-28,8pm,Bergen Catholic (Oradell),Central Catholic (Pittsburgh),1,NJ,PA
@@ -427,13 +438,19 @@ week,date,time,away,home,neutral,away_state,home_state
 2,2026-08-29,12pm,Rocky River (Rocky River),John Marshall (Cleveland),0,,
 2,2026-08-29,6pm,St John's (Delphos),Lima Central Catholic (Lima),0,,
 2,2026-08-29,3pm,Warrensville Heights (Warrensville Heights),John F Kennedy (Cleveland),0,,
-2,2026-08-29,,Phelps,Shelby Valley (Pikeville),0,KY,KY
-2,2026-08-29,,Prestonsburg,Pikeville (Pikeville),0,KY,KY
+2,2026-08-29,5pm,Peebles (club) (Peebles),Columbus Crusaders (club) (Columbus),0,,
+2,2026-08-29,6pm,Expression Prep Academy (Huntington),North Adams (club) (Seaman),0,WV,
+2,2026-08-29,6pm,Phelps,Shelby Valley (Pikeville),0,KY,KY
+2,2026-08-29,8:30pm,Prestonsburg,Pikeville (Pikeville),0,KY,KY
 2,2026-08-29,3:30pm,Farrell (Farrell),Clairton (Clairton),1,PA,PA
 2,2026-08-29,6pm,DuBois,Erie (Erie),0,PA,PA
 2,2026-08-29,12:05pm,Hickory (Hermitage),Westinghouse (Pittsburgh),1,PA,PA
 2,2026-08-29,,Kennedy Catholic (Hermitage),Coventry Christian (Pottstown),0,PA,PA
+2,2026-08-29,12pm,Imani Christian Academy (Pittsburgh),Football North (via Clarkson SS) (Mississauga),1,PA,ON
 2,2026-08-29,,South Newton,Greenwood Christian,0,IN,IN
+2,2026-08-29,4pm,Noblesville Lions (club) (Noblesville),Foxfire (Zanesville),0,IN,
+2,2026-08-29,7pm,Tri-State King's Crusaders (club) (Harlan),St Joseph Central Catholic (Fremont),0,IN,
+2,2026-08-29,,Kosciusko Thunder (club),Wabash,0,IN,IN
 2,2026-08-29,,The St James Academy (Springfield),Lehi,0,VA,UT
 2,2026-08-29,,Annapolis Area Christian (Annapolis),Hewlett Sports Academy (Waldorf),0,MD,MD
 2,2026-08-29,4pm,Our Lady of Mount Carmel (Essex),Lutheran East (Cleveland Heights),0,MD,
@@ -447,6 +464,8 @@ week,date,time,away,home,neutral,away_state,home_state
 2,2026-08-29,,Cornerstone Christian (San Antonio),IMG Academy (Bradenton),0,TX,FL
 2,2026-08-29,2pm,Bishop Gorman (Las Vegas),Christopher Columbus (Miami),0,NV,FL
 2,2026-08-29,7pm,Cardinal Gibbons (Raleigh),W. A. Hough (Cornelius),1,NC,NC
+2,2026-08-29,5am,Humphreys (Pyeongtaek),Kadena (Okinawa),0,SOUTH KOREA,JAPAN
+2,2026-08-30,10:45am,Landmark Eagles (club) (Cincinnati),HSAA Angels (club) (Dallas),1,,TX
 2,2026-08-30,1pm,Xaverian (Brooklyn),St John Catholic Prep (Buckeystown),0,NY,MD
 3,2026-09-03,7pm,Africentric Early College (Columbus),Northland (Columbus),0,,
 3,2026-09-03,6:30pm,Belmont (Dayton),South (Columbus),0,,
@@ -464,6 +483,7 @@ week,date,time,away,home,neutral,away_state,home_state
 3,2026-09-03,7pm,Sand Creek (Sand Creek),Carson City-Crystal,0,MI,MI
 3,2026-09-03,7pm,Bedford (Temperance),Ann Arbor Pioneer (Ann Arbor),0,MI,MI
 3,2026-09-03,7pm,Waldron (Waldron),Litchfield,0,MI,MI
+3,2026-09-03,7pm,Melvindale Academy for Business and Tech (Melvindale),Erie Mason (Erie),0,MI,MI
 3,2026-09-03,7pm,St Joseph's Collegiate (Buffalo),Cathedral Prep (Erie),0,NY,PA
 3,2026-09-03,6pm,Tottenville (Staten Island),Middletown (Middletown),0,NY,DE
 3,2026-09-03,7pm,Holy Names (Windsor),Caledonia (Caledonia),0,ON,MI
@@ -499,6 +519,7 @@ week,date,time,away,home,neutral,away_state,home_state
 3,2026-09-04,7pm,Boardman (Youngstown),Liberty (Youngstown),0,,
 3,2026-09-04,7pm,Bowling Green (Bowling Green),Clay (Oregon),0,,
 3,2026-09-04,7pm,Bowsher (Toledo),Bluffton (Bluffton),0,,
+3,2026-09-04,7pm,Brecksville-Broadview Heights (Broadview Heights),Berea-Midpark (Berea),0,,
 3,2026-09-04,7pm,Bridgeport (Bridgeport),Southern (Salineville),0,,
 3,2026-09-04,7pm,Brookfield (Brookfield),Toronto (Toronto),0,,
 3,2026-09-04,7pm,Brookville (Brookville),Northridge (Dayton),0,,
@@ -537,6 +558,7 @@ week,date,time,away,home,neutral,away_state,home_state
 3,2026-09-04,7pm,Crestwood (Mantua),Mineral Ridge (Mineral Ridge),0,,
 3,2026-09-04,7pm,Crooksville (Crooksville),Alexander (Albany),0,,
 3,2026-09-04,7pm,Cuyahoga Falls (Cuyahoga Falls),Southeast (Ravenna),0,,
+3,2026-09-04,7pm,Cuyahoga Valley Christian Academy (Cuyahoga Falls),Woodridge (Peninsula),0,,
 3,2026-09-04,7pm,Dalton (Dalton),Mogadore (Mogadore),0,,
 3,2026-09-04,7pm,Danville (Danville),Monroeville (Monroeville),0,,
 3,2026-09-04,7pm,Dayton Christian (Miamisburg),Troy Christian (Troy),0,,
@@ -655,6 +677,7 @@ week,date,time,away,home,neutral,away_state,home_state
 3,2026-09-04,7pm,Minford (Minford),Eastern (Beaver),0,,
 3,2026-09-04,7pm,Minster (Minster),New Bremen (New Bremen),0,,
 3,2026-09-04,7pm,Mississinawa Valley (Union City),Bradford (Bradford),0,,
+3,2026-09-04,7pm,Archbishop Moeller (Cincinnati),Trinity (Louisville),0,,KY
 3,2026-09-04,7pm,Montpelier (Montpelier),Edgerton (Edgerton),0,,
 3,2026-09-04,7pm,Napoleon (Napoleon),Anthony Wayne (Whitehouse),0,,
 3,2026-09-04,7pm,Nelsonville-York (Nelsonville),Dawson-Bryant (Coal Grove),0,,
@@ -795,9 +818,11 @@ week,date,time,away,home,neutral,away_state,home_state
 3,2026-09-04,7pm,Cincinnati College Prep (Cincinnati),Dunbar (Dayton),0,,
 3,2026-09-04,7pm,Gamble Montessori (Cincinnati),Norwood (Norwood),0,,
 3,2026-09-04,7pm,KIPP Columbus (Columbus),Northmont (Clayton),0,,
+3,2026-09-04,7pm,West Union (club) (West Union),Sciotoville Community (Portsmouth),0,,
 3,2026-09-04,7pm,Oak Glen (New Cumberland),River (Hannibal),0,WV,
 3,2026-09-04,7pm,Point Pleasant (Point Pleasant),Gallia Academy (Gallipolis),0,WV,
 3,2026-09-04,7pm,St Marys (St Marys),Webster County,0,WV,WV
+3,2026-09-04,7pm,Valley (Wetzel) (Pine Grove),Cameron (Cameron),0,WV,WV
 3,2026-09-04,7pm,Van (Van),Madonna (Weirton),0,WV,WV
 3,2026-09-04,7pm,Wahama (Mason),Midland Trail,0,WV,WV
 3,2026-09-04,7pm,Weir (Weirton),John Marshall (Glen Dale),0,WV,WV
@@ -806,19 +831,21 @@ week,date,time,away,home,neutral,away_state,home_state
 3,2026-09-04,7pm,Spring Mills (Martinsburg),Wheeling Park (Wheeling),0,WV,WV
 3,2026-09-04,7pm,Linsly (Wheeling),Steubenville (Steubenville),0,WV,
 3,2026-09-04,7:30pm,Expression Prep Academy (Huntington),Greater Beckley Christian,0,WV,WV
-3,2026-09-04,,Belfry (Belfry),Johnson Central,0,KY,KY
+3,2026-09-04,7:30pm,Belfry (Belfry),Johnson Central,0,KY,KY
 3,2026-09-04,7:30pm,Boyd County (Ashland),East Carter,0,KY,KY
 3,2026-09-04,7:30pm,Bryan Station,Corbin (Corbin),0,KY,KY
 3,2026-09-04,7pm,Conner (Hebron),Lloyd Memorial (Erlanger),0,KY,KY
 3,2026-09-04,7:30pm,Dixie Heights (Edgewood),Beechwood (Fort Mitchell),0,KY,KY
-3,2026-09-04,,Fairview (Ashland),Berea,0,KY,KY
+3,2026-09-04,7:30pm,Fairview (Ashland),Berea,0,KY,KY
 3,2026-09-04,7pm,Highlands (Fort Thomas),Campbell County (Alexandria),0,KY,KY
-3,2026-09-04,,Lawrence County,Ashland Blazer (Ashland),0,KY,KY
-3,2026-09-04,,Nicholas County,Lewis County (Vanceburg),0,KY,KY
-3,2026-09-04,,Pikeville (Pikeville),Raceland (Raceland),0,KY,KY
+3,2026-09-04,7:30pm,Lawrence County,Ashland Blazer (Ashland),0,KY,KY
+3,2026-09-04,7pm,Newport Central Catholic,Boone County,0,KY,KY
+3,2026-09-04,7:30pm,Nicholas County,Lewis County (Vanceburg),0,KY,KY
+3,2026-09-04,8:30pm,Pikeville (Pikeville),Raceland (Raceland),0,KY,KY
 3,2026-09-04,7:30pm,Ryle (Union),Cooper (Union),0,KY,KY
 3,2026-09-04,7pm,Simon Kenton (Independence),Covington Catholic (Park Hills),0,KY,KY
 3,2026-09-04,7:30pm,Somerset (Somerset),Pulaski Southwestern,0,KY,KY
+3,2026-09-04,7pm,St Xavier (Louisville),Male (Louisville),0,KY,KY
 3,2026-09-04,7:30pm,West Carter,Russell (Russell),0,KY,KY
 3,2026-09-04,7pm,Davison,Novi Detroit Catholic Central (Novi),0,MI,MI
 3,2026-09-04,7pm,Detroit King (Detroit),Orchard Lake St Mary (Orchard Lake),0,MI,MI
@@ -837,6 +864,7 @@ week,date,time,away,home,neutral,away_state,home_state
 3,2026-09-04,7pm,Perry Traditional Academy (Pittsburgh),Shady Side Academy,0,PA,PA
 3,2026-09-04,6pm,Meadville,Erie (Erie),0,PA,PA
 3,2026-09-04,7pm,Lakeview,Farrell (Farrell),0,PA,PA
+3,2026-09-04,7pm,University Prep (USO co-op) (Pittsburgh),Girard (Girard),0,PA,
 3,2026-09-04,7pm,Saint Joseph's Prep (Philadelphia),Brentwood Academy (Brentwood),0,PA,TN
 3,2026-09-04,7pm,East Central (St Leon),Elder (Cincinnati),0,IN,
 3,2026-09-04,7pm,Fort Wayne Wayne,Bishop Dwenger (Fort Wayne),0,IN,IN
@@ -846,10 +874,12 @@ week,date,time,away,home,neutral,away_state,home_state
 3,2026-09-04,7pm,Cardinal Ritter (Indianapolis),Providence,0,IN,IN
 3,2026-09-04,7pm,Cathedral (Indianapolis),St Xavier (Cincinnati),0,IN,
 3,2026-09-04,7pm,Richmond (Richmond),Crispus Attucks (Indianapolis),0,IN,IN
-3,2026-09-04,,South Dearborn (Aurora),Batesville,0,IN,IN
+3,2026-09-04,7pm,South Dearborn (Aurora),Batesville,0,IN,IN
 3,2026-09-04,7:30pm,South Newton,Indiana School for the Deaf,0,IN,IN
 3,2026-09-04,7:30pm,Terre Haute North Vigo,Bloomington South (Bloomington),0,IN,IN
 3,2026-09-04,7pm,Wes-Del (Gaston),Blackhawk Christian (Fort Wayne),0,IN,IN
+3,2026-09-04,7pm,Indianapolis Crimson Knights (club),Christel House - Manual (Indianapolis),0,IN,IN
+3,2026-09-04,8pm,Osceola Grace (club) (Elkhart),Noblesville Lions (club) (Noblesville),0,IN,IN
 3,2026-09-04,7pm,Baylor (Chattanooga),Rabun Gap - Nacoochee (Rabun Gap),0,TN,GA
 3,2026-09-04,7pm,Christ Presbyterian Academy (Nashville),Tupelo (Tupelo),0,TN,MS
 3,2026-09-04,7pm,Middle Tennessee Christian School (Murfreesboro),Rock Hill (Ironton),0,TN,
@@ -866,14 +896,19 @@ week,date,time,away,home,neutral,away_state,home_state
 3,2026-09-04,6pm,Long Island St Anthony's (South Huntington),Red Bank Catholic (Red Bank),0,NY,NJ
 3,2026-09-04,5pm,University Prep (Rochester),Bishop Timon - St Jude (Buffalo),0,NY,NY
 3,2026-09-04,7pm,Iona Prep (New Rochelle),Christian Brothers Academy - Syracuse (Syracuse),0,NY,NY
+3,2026-09-04,1pm,Eagle Academy for Young Men III (Jamaica),St John the Baptist (West Islip),0,NY,NY
+3,2026-09-04,7pm,Eagle Academy for Young Men II (Brooklyn),Archbishop Hoban (Akron),0,NY,
 3,2026-09-04,7pm,Bergen Catholic (Oradell),Good Counsel (Wheaton),0,NJ,MD
 3,2026-09-04,,Cornerstone Christian (San Antonio),Center (Center),0,TX,TX
 3,2026-09-04,,Legacy Sport Sciences (Spring),St Charles Catholic (LaPlace),0,TX,LA
 3,2026-09-04,8pm,De Smet Jesuit (St Louis),Cardinal Ritter (St Louis),0,MO,MO
+3,2026-09-04,7pm,Football North (via Clarkson SS) (Mississauga),Glenville (Cleveland),0,ON,
 3,2026-09-04,9pm,Bishop Gorman (Las Vegas),Lone Peak,0,NV,UT
 3,2026-09-04,7pm,Wekiva (Apopka),West Orange (Winter Garden),0,FL,FL
 3,2026-09-04,7pm,Cardinal Gibbons (Raleigh),Southern Durham (Durham),0,NC,NC
+3,2026-09-04,5am,"American School in Japan (Chōfu, Tokyo)",Humphreys (Pyeongtaek),0,JAPAN,SOUTH KOREA
 3,2026-09-04,,NFL Academy (Loughborough),Massillon Washington (Massillon),0,UK,
+3,2026-09-05,7pm,Adena (Frankfort),Landmark Eagles (club) (Cincinnati),0,,
 3,2026-09-05,7pm,Bishop Watterson (Columbus),Ursuline (Youngstown),0,,
 3,2026-09-05,12pm,Cleveland Central Catholic (Cleveland),John Marshall (Cleveland),0,,
 3,2026-09-05,7pm,Cleveland Heights (Cleveland Heights),GlenOak (Canton),1,,
@@ -887,6 +922,11 @@ week,date,time,away,home,neutral,away_state,home_state
 3,2026-09-05,7pm,Pymatuning Valley (Andover),Valley Christian School (Youngstown),0,,
 3,2026-09-05,6pm,St Joseph Central Catholic (Fremont),Chalker (Southington),0,,
 3,2026-09-05,1pm,Stryker (Stryker),Windham (Windham),0,,
+3,2026-09-05,5pm,Columbus Crusaders (club) (Columbus),Phalen Academy,0,,IN
+3,2026-09-05,5pm,C4 Lions (club) (Middletown),North Adams (club) (Seaman),0,,
+3,2026-09-05,3:30pm,Foxfire (Zanesville),Peebles (club) (Peebles),0,,
+3,2026-09-05,3pm,Morristown,Tri-State King's Crusaders (club) (Harlan),0,IN,IN
+3,2026-09-05,,Kosciusko Thunder (club),Greenwood Christian,0,IN,IN
 3,2026-09-05,4pm,Loudoun Sports Academy (Leesburg),The Hun School (Princeton),0,VA,NJ
 3,2026-09-05,8pm,Eleanor Roosevelt (Greenbelt),Digital Pioneers Academy (Washington),0,MD,DC
 3,2026-09-05,7pm,DeMatha Catholic (Hyattsville),Imhotep Charter (Philadelphia),0,MD,PA
@@ -946,6 +986,7 @@ week,date,time,away,home,neutral,away_state,home_state
 4,2026-09-11,7pm,Bishop Rosecrans (Zanesville),Grove City Christian (Grove City),0,,
 4,2026-09-11,7pm,Bloom-Carroll (Carroll),Liberty Union (Baltimore),0,,
 4,2026-09-11,7pm,Bradford (Bradford),Arcanum (Arcanum),0,,
+4,2026-09-11,7pm,Brecksville-Broadview Heights (Broadview Heights),Barberton (Barberton),0,,
 4,2026-09-11,7pm,Bridgeport (Bridgeport),Federal Hocking (Stewart),0,,
 4,2026-09-11,7pm,Brookfield (Brookfield),Champion (Warren),0,,
 4,2026-09-11,7pm,Brooklyn (Brooklyn),Cuyahoga Heights (Cuyahoga Heights),0,,
@@ -1245,26 +1286,28 @@ week,date,time,away,home,neutral,away_state,home_state
 4,2026-09-11,7pm,Zanesville (Zanesville),Garaway (Sugarcreek),0,,
 4,2026-09-11,7pm,Valley Christian School (Youngstown),John F Kennedy (Warren),0,,
 4,2026-09-11,7pm,Chapmanville,Point Pleasant (Point Pleasant),0,WV,WV
+4,2026-09-11,7pm,Clay-Battelle (Blacksville),Valley (Wetzel) (Pine Grove),0,WV,WV
 4,2026-09-11,7pm,John Marshall (Glen Dale),Bellaire (Bellaire),0,WV,
 4,2026-09-11,7pm,Madonna (Weirton),Southern Garrett (Oakland),0,WV,MD
 4,2026-09-11,7pm,Magnolia (New Martinsville),River (Hannibal),0,WV,
 4,2026-09-11,7pm,Oak Glen (New Cumberland),South Harrison (Lost Creek),0,WV,WV
 4,2026-09-11,7pm,Weir (Weirton),Indian Creek (Wintersville),0,WV,
 4,2026-09-11,7pm,Wheeling Park (Wheeling),Musselman,0,WV,WV
-4,2026-09-11,,Ashland Blazer (Ashland),East Jessamine,0,KY,KY
+4,2026-09-11,8pm,Ashland Blazer (Ashland),East Jessamine,0,KY,KY
 4,2026-09-11,7pm,Beechwood (Fort Mitchell),Simon Kenton (Independence),0,KY,KY
+4,2026-09-11,7:30pm,Belfry (Belfry),Russell County,0,KY,KY
 4,2026-09-11,7pm,Boyle County (Danville),Highlands (Fort Thomas),0,KY,KY
 4,2026-09-11,7pm,Conner (Hebron),Newport Central Catholic,0,KY,KY
 4,2026-09-11,7pm,Covington Catholic (Park Hills),Dixie Heights (Edgewood),0,KY,KY
-4,2026-09-11,,Greenup County (Greenup),East Carter,0,KY,KY
+4,2026-09-11,7:30pm,Greenup County (Greenup),East Carter,0,KY,KY
 4,2026-09-11,7:30pm,Holy Cross (Covington),Holmes (Covington),0,KY,KY
-4,2026-09-11,,Johnson Central,Pikeville (Pikeville),0,KY,KY
-4,2026-09-11,,Lewis County (Vanceburg),Berea,0,KY,KY
+4,2026-09-11,7:30pm,Johnson Central,Pikeville (Pikeville),0,KY,KY
+4,2026-09-11,7:30pm,Lewis County (Vanceburg),Berea,0,KY,KY
 4,2026-09-11,6:30pm,Lloyd Memorial (Erlanger),Aiken (Cincinnati),0,KY,
 4,2026-09-11,7:30pm,Mason County,Boyd County (Ashland),0,KY,KY
-4,2026-09-11,,Morgan County (West Liberty),Fairview (Ashland),0,KY,KY
+4,2026-09-11,7:30pm,Morgan County (West Liberty),Fairview (Ashland),0,KY,KY
 4,2026-09-11,7:30pm,Pulaski County,Corbin (Corbin),0,KY,KY
-4,2026-09-11,,Raceland (Raceland),Mercer County,0,KY,KY
+4,2026-09-11,7:30pm,Raceland (Raceland),Mercer County,0,KY,KY
 4,2026-09-11,7:30pm,Russell (Russell),Paintsville (Paintsville),0,KY,KY
 4,2026-09-11,7pm,Cooper (Union),Campbell County (Alexandria),0,KY,KY
 4,2026-09-11,7pm,Detroit Country Day,Dearborn Divine Child (Dearborn),0,MI,MI
@@ -1290,6 +1333,7 @@ week,date,time,away,home,neutral,away_state,home_state
 4,2026-09-11,6pm,Cathedral Prep (Erie),Erie (Erie),0,PA,PA
 4,2026-09-11,6pm,Simon Gratz,Friendship Collegiate (Washington),0,PA,DC
 4,2026-09-11,7pm,Roman Catholic (Philadelphia),DeMatha Catholic (Hyattsville),0,PA,MD
+4,2026-09-11,7pm,Carroll (Fort Wayne),Bishop Dwenger (Fort Wayne),0,IN,IN
 4,2026-09-11,7:30pm,Franklin County (Brookville),East Central (St Leon),0,IN,IN
 4,2026-09-11,7pm,Greensburg,Lawrenceburg (Lawrenceburg),0,IN,IN
 4,2026-09-11,7pm,Hamilton Heights (Arcadia),Tipton,0,IN,IN
@@ -1299,6 +1343,8 @@ week,date,time,away,home,neutral,away_state,home_state
 4,2026-09-11,7pm,South Dearborn (Aurora),Richmond (Richmond),0,IN,IN
 4,2026-09-11,7:30pm,Southport (Indianapolis),Terre Haute North Vigo,0,IN,IN
 4,2026-09-11,7pm,Phalen Academy,Blackhawk Christian (Fort Wayne),0,IN,IN
+4,2026-09-11,7pm,Noblesville Lions (club) (Noblesville),Purdue Poly - Englewood (Indianapolis),0,IN,IN
+4,2026-09-11,7:30pm,Baylor (Chattanooga),Trinity (Louisville),0,TN,KY
 4,2026-09-11,7pm,Christ Presbyterian Academy (Nashville),Archbishop Moeller (Cincinnati),0,TN,
 4,2026-09-11,8pm,Grace Baptist Academy,Middle Tennessee Christian School (Murfreesboro),0,TN,TN
 4,2026-09-11,8pm,Oakland (Murfreesboro),Pearl Cohn,0,TN,TN
@@ -1309,11 +1355,13 @@ week,date,time,away,home,neutral,away_state,home_state
 4,2026-09-11,4pm,Hewlett Sports Academy (Waldorf),The Hun School (Princeton),0,MD,NJ
 4,2026-09-11,6pm,Coolidge (Washington),Mergenthaler (Baltimore),1,DC,MD
 4,2026-09-11,6:30pm,Eastern (Washington),Gonzaga (Washington),0,DC,DC
+4,2026-09-11,7pm,Bell (CHEC) (Washington),Riverdale Baptist (Upper Marlboro),0,DC,MD
 4,2026-09-11,6pm,Digital Pioneers Academy (Washington),Roosevelt (Washington),0,DC,DC
 4,2026-09-11,7pm,Canisius (Buffalo),Massillon Washington (Massillon),0,NY,
 4,2026-09-11,7pm,St Francis (Hamburg),Christian Brothers Academy - Syracuse (Syracuse),0,NY,NY
 4,2026-09-11,,Liverpool,University Prep (Rochester),0,NY,NY
 4,2026-09-11,7pm,Health Sciences (Buffalo),Jamestown (Jamestown),0,NY,NY
+4,2026-09-11,6pm,Eagle Academy for Young Men II (Brooklyn),La Salle Academy (Providence),0,NY,RI
 4,2026-09-11,7pm,St Peter's Prep,Long Island St Anthony's (South Huntington),0,NJ,NY
 4,2026-09-11,7pm,Middletown (Middletown),Cardinal Hayes (Bronx),0,DE,NY
 4,2026-09-11,,Cornerstone Christian (San Antonio),Parish Episcopal (Dallas),0,TX,TX
@@ -1323,6 +1371,7 @@ week,date,time,away,home,neutral,away_state,home_state
 4,2026-09-11,7pm,St Thomas More (Hamilton),Grand Rapids Catholic Central,0,ON,MI
 4,2026-09-11,5pm,Huron Heights (Newmarket),Zeeland West (Zeeland),0,ON,MI
 4,2026-09-11,8pm,Milton (Milton),Battle Ground Academy (Franklin),0,GA,TN
+4,2026-09-12,2pm,Cuyahoga Valley Christian Academy (Cuyahoga Falls),Garfield (Akron),0,,
 4,2026-09-12,4pm,Danbury (Lakeside),Kennedy Catholic (Hermitage),0,,PA
 4,2026-09-12,6pm,Fort Loramie (Fort Loramie),Jefferson (Delphos),0,,
 4,2026-09-12,7pm,Gilmour Academy (Gates Mills),Lake Catholic (Mentor),0,,
@@ -1332,10 +1381,15 @@ week,date,time,away,home,neutral,away_state,home_state
 4,2026-09-12,5pm,St Mary Central Catholic (Sandusky),Stryker (Stryker),0,,
 4,2026-09-12,12pm,Warrensville Heights (Warrensville Heights),Cleveland Central Catholic (Cleveland),0,,
 4,2026-09-12,1pm,Clark Montessori (Cincinnati),Gamble Montessori (Cincinnati),0,,
+4,2026-09-12,1:30pm,Columbus Crusaders (club) (Columbus),Washtenaw Saints (club),0,,MI
+4,2026-09-12,2pm,Landmark Eagles (club) (Cincinnati),Osceola Grace (club) (Elkhart),0,,IN
+4,2026-09-12,7pm,West Union (club) (West Union),North Adams (club) (Seaman),0,,
+4,2026-09-12,6pm,Foxfire (Zanesville),C4 Lions (club) (Middletown),0,,
 4,2026-09-12,1pm,McDowell (Erie),Garfield Heights (Garfield Heights),0,PA,
 4,2026-09-12,1pm,Kiski Prep (Saltsburg),St James (Hagerstown),0,PA,MD
 4,2026-09-12,1pm,Saint Joseph's Prep (Philadelphia),Bergen Catholic (Oradell),0,PA,NJ
 4,2026-09-12,7pm,Malvern Prep (Malvern),Imhotep Charter (Philadelphia),0,PA,PA
+4,2026-09-12,,Union (Dugger),Greenwood Christian,0,IN,IN
 4,2026-09-12,12pm,St Joseph's Collegiate (Buffalo),John Carroll School (Bel Air),0,NY,MD
 4,2026-09-12,2pm,Lewis J Bennett (Buffalo),St John's College (Washington),0,NY,DC
 4,2026-09-12,7:30pm,Holy Cross (Flushing),St Francis Prep (Fresh Meadows),0,NY,NY
@@ -1366,6 +1420,7 @@ week,date,time,away,home,neutral,away_state,home_state
 5,2026-09-17,,Imani Christian Academy (Pittsburgh),McKeesport (McKeesport),0,PA,PA
 5,2026-09-17,,Siegel (Murfreesboro),Oakland (Murfreesboro),0,TN,TN
 5,2026-09-17,,Lake Travis (Austin),Cornerstone Christian (San Antonio),0,TX,TX
+5,2026-09-17,7pm,SouthLake/Davidson (co-op),Tri-Cities Christian Academy (Kingsport),0,NC,TN
 5,2026-09-18,7pm,Ada (Ada),Perry (Lima),0,,
 5,2026-09-18,7pm,Alexander (Albany),Wellston (Wellston),0,,
 5,2026-09-18,7pm,Alliance (Alliance),Minerva (Minerva),0,,
@@ -1395,6 +1450,7 @@ week,date,time,away,home,neutral,away_state,home_state
 5,2026-09-18,7pm,Black River (Sullivan),Columbia (Columbia Station),0,,
 5,2026-09-18,7pm,Bloom-Carroll (Carroll),Fairfield Union (Lancaster),0,,
 5,2026-09-18,7pm,Bluffton (Bluffton),Jefferson (Delphos),0,,
+5,2026-09-18,7pm,Boardman (Youngstown),Cuyahoga Valley Christian Academy (Cuyahoga Falls),0,,
 5,2026-09-18,7pm,Bowsher (Toledo),Northwood (Northwood),0,,
 5,2026-09-18,7pm,Brookside (Sheffield),Keystone (La Grange),0,,
 5,2026-09-18,7pm,Buckeye (Medina),Lakewood (Lakewood),0,,
@@ -1504,6 +1560,7 @@ week,date,time,away,home,neutral,away_state,home_state
 5,2026-09-18,7pm,Johnstown (Johnstown),Licking Valley (Newark),0,,
 5,2026-09-18,7pm,Jonathan Alder (Plain City),Shawnee (Springfield),0,,
 5,2026-09-18,7pm,Garfield (Akron),Padua Franciscan (Parma),0,,
+5,2026-09-18,7pm,Kenston (Chagrin Falls),Brecksville-Broadview Heights (Broadview Heights),0,,
 5,2026-09-18,7pm,Kenton (Kenton),Bath (Lima),0,,
 5,2026-09-18,7pm,Kenton Ridge (Springfield),Northwestern (Springfield),0,,
 5,2026-09-18,7pm,Kettering Fairmont (Kettering),Wayne (Huber Heights),0,,
@@ -1700,13 +1757,14 @@ week,date,time,away,home,neutral,away_state,home_state
 5,2026-09-18,7pm,Point Pleasant (Point Pleasant),Ripley (Ripley),0,WV,WV
 5,2026-09-18,7pm,Roane County (Spencer),Williamstown (Williamstown),0,WV,WV
 5,2026-09-18,7pm,Tucker County (Hambleton),Clay-Battelle (Blacksville),0,WV,WV
+5,2026-09-18,7pm,Valley (Wetzel) (Pine Grove),Frontier (New Matamoras),0,WV,
 5,2026-09-18,7pm,Wahama (Mason),Webster County,0,WV,WV
 5,2026-09-18,7pm,Wheeling Park (Wheeling),University (Morgantown),0,WV,WV
 5,2026-09-18,,Winfield,Magoffin County,0,WV,KY
 5,2026-09-18,7:30pm,Expression Prep Academy (Huntington),Fairview (Ashland),0,WV,KY
 5,2026-09-18,7pm,Beechwood (Fort Mitchell),Covington Catholic (Park Hills),0,KY,KY
-5,2026-09-18,,Belfry (Belfry),Pikeville (Pikeville),0,KY,KY
-5,2026-09-18,,Boone County,Mason County,0,KY,KY
+5,2026-09-18,7:30pm,Belfry (Belfry),Pikeville (Pikeville),0,KY,KY
+5,2026-09-18,7:30pm,Boone County,Mason County,0,KY,KY
 5,2026-09-18,7pm,Campbell County (Alexandria),Lloyd Memorial (Erlanger),0,KY,KY
 5,2026-09-18,7pm,Conner (Hebron),Simon Kenton (Independence),0,KY,KY
 5,2026-09-18,7:30pm,Corbin (Corbin),Frederick Douglass (Lexington),0,KY,KY
@@ -1715,10 +1773,12 @@ week,date,time,away,home,neutral,away_state,home_state
 5,2026-09-18,7:30pm,Fleming County,Greenup County (Greenup),0,KY,KY
 5,2026-09-18,7:30pm,Green County,Somerset (Somerset),0,KY,KY
 5,2026-09-18,7pm,Highlands (Fort Thomas),Ryle (Union),0,KY,KY
-5,2026-09-18,,Johnson Central,Pulaski County,0,KY,KY
+5,2026-09-18,7:30pm,Johnson Central,Pulaski County,0,KY,KY
+5,2026-09-18,7pm,Male (Louisville),Trinity (Louisville),0,KY,KY
 5,2026-09-18,,Paris,Newport (Newport),0,KY,KY
 5,2026-09-18,7:30pm,Raceland (Raceland),Newport Central Catholic,0,KY,KY
 5,2026-09-18,7:30pm,Russell (Russell),Ashland Blazer (Ashland),0,KY,KY
+5,2026-09-18,7pm,St Xavier (Louisville),Elder (Cincinnati),0,KY,
 5,2026-09-18,7:30pm,Cooper (Union),DuPont Manual,0,KY,KY
 5,2026-09-18,7pm,Ann Arbor Gabriel Richard (Ann Arbor),Lumen Christi (Jackson),0,MI,MI
 5,2026-09-18,7pm,Brother Rice (Bloomfield Hills),U of D Jesuit (Detroit),0,MI,MI
@@ -1734,19 +1794,21 @@ week,date,time,away,home,neutral,away_state,home_state
 5,2026-09-18,7pm,Southfield Christian,Adrian Lenawee Christian (Adrian),0,MI,MI
 5,2026-09-18,7pm,Waldron (Waldron),Morenci (Morenci),0,MI,MI
 5,2026-09-18,7pm,Warren De La Salle (Warren),Novi Detroit Catholic Central (Novi),0,MI,MI
+5,2026-09-18,,North Oakland Bucks (club) (Auburn Hills),Gibsonburg (Gibsonburg),0,MI,
 5,2026-09-18,7pm,Everett (Everett),Northern Bedford County,0,PA,PA
 5,2026-09-18,7pm,Butler (Butler),Austintown-Fitch (Austintown),0,PA,
 5,2026-09-18,7pm,Pine-Richland (Gibsonia),Mount Lebanon,0,PA,PA
 5,2026-09-18,7pm,Riverside (Ellwood City),Western Beaver (Industry),0,PA,PA
 5,2026-09-18,7pm,Springdale,Jeannette (Jeannette),0,PA,PA
 5,2026-09-18,7pm,Farrell (Farrell),Wilmington (New Wilmington),0,PA,PA
+5,2026-09-18,7:30pm,Taylor Allderdice (Pittsburgh),University Prep (USO co-op) (Pittsburgh),0,PA,PA
 5,2026-09-18,3:30pm,Carrick (Pittsburgh),Westinghouse (Pittsburgh),0,PA,PA
 5,2026-09-18,7pm,Cathedral Prep (Erie),Franklin,0,PA,PA
 5,2026-09-18,7:30pm,Batesville,East Central (St Leon),0,IN,IN
 5,2026-09-18,7pm,Bloomington South (Bloomington),Greenfield-Central,0,IN,IN
 5,2026-09-18,7pm,Bishop Dwenger (Fort Wayne),Homestead,0,IN,IN
 5,2026-09-18,7pm,Blackhawk Christian (Fort Wayne),South Adams (Berne),0,IN,IN
-5,2026-09-18,,Greensburg,South Dearborn (Aurora),0,IN,IN
+5,2026-09-18,7pm,Greensburg,South Dearborn (Aurora),0,IN,IN
 5,2026-09-18,5:30pm,Indiana School for the Deaf,Morristown,0,IN,IN
 5,2026-09-18,7pm,Bishop Chatard (Indianapolis),Brebeuf Jesuit Preparatory,0,IN,IN
 5,2026-09-18,7pm,Cardinal Ritter (Indianapolis),Indianapolis Lutheran (Indianapolis),0,IN,IN
@@ -1754,6 +1816,7 @@ week,date,time,away,home,neutral,away_state,home_state
 5,2026-09-18,7pm,Lawrenceburg (Lawrenceburg),Franklin County (Brookville),0,IN,IN
 5,2026-09-18,7pm,Richmond (Richmond),Lafayette Jefferson,0,IN,IN
 5,2026-09-18,7pm,Western,Hamilton Heights (Arcadia),0,IN,IN
+5,2026-09-18,7pm,Noblesville Lions (club) (Noblesville),Christel House - Manual (Indianapolis),0,IN,IN
 5,2026-09-18,7:30pm,Christ Presbyterian Academy (Nashville),Baylor (Chattanooga),0,TN,TN
 5,2026-09-18,8pm,Knoxville Catholic,Montgomery Bell Academy,0,TN,TN
 5,2026-09-18,7pm,Middle Tennessee Christian School (Murfreesboro),Concord Christian School (Knoxville),0,TN,TN
@@ -1766,6 +1829,7 @@ week,date,time,away,home,neutral,away_state,home_state
 5,2026-09-18,7pm,St Joseph's Collegiate (Buffalo),St Andrew's College (Aurora),0,NY,ON
 5,2026-09-18,,University Prep (Rochester),Rush-Henrietta (Henrietta),0,NY,NY
 5,2026-09-18,7:30pm,Health Sciences (Buffalo),Lancaster (Lancaster),0,NY,NY
+5,2026-09-18,6pm,Eagle Academy for Young Men II (Brooklyn),Abraham Lincoln (Brooklyn),0,NY,NY
 5,2026-09-18,6pm,Salem (Salem),Arthur P Schalick (Pittsgrove),0,NJ,NJ
 5,2026-09-18,7pm,Middletown (Middletown),Good Counsel (Wheaton),0,DE,MD
 5,2026-09-18,,Legacy Sport Sciences (Spring),Carthage (Carthage),0,TX,TX
@@ -1783,10 +1847,15 @@ week,date,time,away,home,neutral,away_state,home_state
 5,2026-09-19,12pm,Cincinnati Hills Christian Academy (Cincinnati),Aiken (Cincinnati),0,,
 5,2026-09-19,1pm,East (Akron),University School (Hunting Valley),0,,
 5,2026-09-19,4:30pm,Lakota (Kansas),Crestline (Crestline),0,,
+5,2026-09-19,7pm,Ponitz Tech (Dayton),Landmark Eagles (club) (Cincinnati),0,,
 5,2026-09-19,1pm,Pymatuning Valley (Andover),St John School (Ashtabula),0,,
 5,2026-09-19,7pm,Stryker (Stryker),St Joseph Central Catholic (Fremont),0,,
 5,2026-09-19,7pm,Troy Christian (Troy),Lehman Catholic (Sidney),0,,
+5,2026-09-19,2pm,Columbus Crusaders (club) (Columbus),Northern Virginia Homeschool,1,,VA
+5,2026-09-19,,C4 Lions (club) (Middletown),West Union (club) (West Union),0,,
 5,2026-09-19,7pm,Sand Creek (Sand Creek),Hilltop (West Unity),0,MI,
+5,2026-09-19,,Waldron,Kosciusko Thunder (club),0,IN,IN
+5,2026-09-19,,Indianapolis Crimson Knights (club),Grand Valley Patriots (club),0,IN,MI
 5,2026-09-19,1pm,Archbishop Spalding (Severn),Mount St Joseph (Baltimore),0,MD,MD
 5,2026-09-19,2pm,Bishop Timon - St Jude (Buffalo),St Francis (Hamburg),0,NY,NY
 5,2026-09-19,2pm,Canisius (Buffalo),Martinsburg (Martinsburg),0,NY,WV
@@ -1795,6 +1864,7 @@ week,date,time,away,home,neutral,away_state,home_state
 5,2026-09-19,2pm,The Hun School (Princeton),St Thomas More (Oakdale),0,NJ,CT
 5,2026-09-19,3pm,MU Sports Academy (Delson),The Lawrenceville School,0,QB,NJ
 5,2026-09-19,1pm,Hoboken (Hoboken),Dunbar (Washington),0,NJ,DC
+5,2026-09-19,5am,Humphreys (Pyeongtaek),Kubasaki (Okinawa),0,SOUTH KOREA,JAPAN
 6,2026-09-22,4pm,Chaminade College School (North York),Huron Heights (Newmarket),0,ON,ON
 6,2026-09-24,6pm,Bowsher (Toledo),Waite (Toledo),0,,
 6,2026-09-24,6pm,North College Hill (Cincinnati),Belmont (Dayton),0,,
@@ -1954,6 +2024,7 @@ week,date,time,away,home,neutral,away_state,home_state
 6,2026-09-25,7pm,Keystone (La Grange),Black River (Sullivan),0,,
 6,2026-09-25,7pm,Kirtland (Kirtland),Chagrin Falls (Chagrin Falls),0,,
 6,2026-09-25,7pm,Lake (Uniontown),Louisville (Louisville),0,,
+6,2026-09-25,7pm,Lake Catholic (Mentor),Cuyahoga Valley Christian Academy (Cuyahoga Falls),0,,
 6,2026-09-25,7pm,Lebanon (Lebanon),Kings (Kings Mills),0,,
 6,2026-09-25,7pm,Leetonia (Leetonia),Pymatuning Valley (Andover),0,,
 6,2026-09-25,7pm,Lehman Catholic (Sidney),Milton-Union (West Milton),0,,
@@ -1980,6 +2051,7 @@ week,date,time,away,home,neutral,away_state,home_state
 6,2026-09-25,7pm,Mariemont (Cincinnati),Wyoming (Cincinnati),0,,
 6,2026-09-25,7pm,Marion Local (Maria Stein),St Henry (St Henry),0,,
 6,2026-09-25,7pm,Marlington (Alliance),Howland (Warren),0,,
+6,2026-09-25,7pm,Mayfield (Mayfield),Brecksville-Broadview Heights (Broadview Heights),0,,
 6,2026-09-25,7pm,McComb (McComb),Arlington (Arlington),0,,
 6,2026-09-25,7pm,Sebring McKinley (Sebring),Windham (Windham),0,,
 6,2026-09-25,7pm,Archbishop McNicholas (Cincinnati),Archbishop Carroll (Dayton),0,,
@@ -2140,24 +2212,28 @@ week,date,time,away,home,neutral,away_state,home_state
 6,2026-09-25,7pm,Parkersburg South (Parkersburg),John Marshall (Glen Dale),0,WV,WV
 6,2026-09-25,7pm,Point Pleasant (Point Pleasant),Lincoln County (Hamlin),0,WV,WV
 6,2026-09-25,7pm,Tyler Consolidated,Weir (Weirton),0,WV,WV
+6,2026-09-25,7pm,Valley (Wetzel) (Pine Grove),Meadow Bridge,0,WV,WV
 6,2026-09-25,7pm,Wheeling Central Catholic (Wheeling),Monroe Central (Woodsfield),0,WV,
 6,2026-09-25,7:30pm,Wheeling Park (Wheeling),St Clairsville (St Clairsville),0,WV,
 6,2026-09-25,7pm,Williamstown (Williamstown),Chapmanville,0,WV,WV
 6,2026-09-25,7pm,Wirt County (Elizabeth),Wahama (Mason),0,WV,WV
 6,2026-09-25,7pm,Linsly (Wheeling),Mogadore (Mogadore),0,WV,
 6,2026-09-25,7:30pm,Ashland Blazer (Ashland),Greenup County (Greenup),0,KY,KY
-6,2026-09-25,,Bath County,Lewis County (Vanceburg),0,KY,KY
+6,2026-09-25,7:30pm,Bath County,Lewis County (Vanceburg),0,KY,KY
 6,2026-09-25,7pm,Beechwood (Fort Mitchell),Owen County,0,KY,KY
 6,2026-09-25,7:30pm,Bryan Station,Simon Kenton (Independence),0,KY,KY
-6,2026-09-25,,Fairview (Ashland),Phelps,0,KY,KY
+6,2026-09-25,7pm,Central (Louisville),Covington Catholic (Park Hills),0,KY,KY
+6,2026-09-25,7:30pm,Fairview (Ashland),Phelps,0,KY,KY
 6,2026-09-25,7:30pm,Fleming County,Russell (Russell),0,KY,KY
 6,2026-09-25,7pm,Harrison County (Cynthiana),Highlands (Fort Thomas),0,KY,KY
 6,2026-09-25,,Holmes (Covington),Jackson County,0,KY,KY
 6,2026-09-25,7pm,Holy Cross (Covington),Eminence,0,KY,KY
 6,2026-09-25,7:30pm,Johnson Central,Boyd County (Ashland),0,KY,KY
-6,2026-09-25,,Pike County Central,Belfry (Belfry),0,KY,KY
-6,2026-09-25,,Pikeville (Pikeville),Powell County,0,KY,KY
+6,2026-09-25,7:30pm,Pike County Central,Belfry (Belfry),0,KY,KY
+6,2026-09-25,7:30pm,Pikeville (Pikeville),Powell County,0,KY,KY
+6,2026-09-25,7pm,Scott (Covington),Dixie Heights (Edgewood),0,KY,KY
 6,2026-09-25,7pm,Somerset (Somerset),Metcalfe County,0,KY,KY
+6,2026-09-25,8pm,Trinity (Louisville),St Xavier (Louisville),0,KY,KY
 6,2026-09-25,4pm,Dearborn Divine Child (Dearborn),Ann Arbor Gabriel Richard (Ann Arbor),0,MI,MI
 6,2026-09-25,5pm,Detroit King (Detroit),Detroit Cass Tech (Detroit),0,MI,MI
 6,2026-09-25,7pm,Litchfield,Camden-Frontier (Camden),0,MI,MI
@@ -2177,6 +2253,7 @@ week,date,time,away,home,neutral,away_state,home_state
 6,2026-09-25,7pm,McDowell (Erie),Boardman (Youngstown),0,PA,
 6,2026-09-25,7pm,Cathedral Prep (Erie),Oil City (Oil City),0,PA,PA
 6,2026-09-25,7pm,Hickory (Hermitage),Butler (Butler),0,PA,PA
+6,2026-09-25,3:30pm,University Prep (USO co-op) (Pittsburgh),Brashear (Pittsburgh),0,PA,PA
 6,2026-09-25,7pm,Erie (Erie),Austintown-Fitch (Austintown),0,PA,
 6,2026-09-25,7pm,Columbus North,Bloomington South (Bloomington),0,IN,IN
 6,2026-09-25,7pm,East Central (St Leon),Harrison (Harrison),0,IN,
@@ -2186,8 +2263,9 @@ week,date,time,away,home,neutral,away_state,home_state
 6,2026-09-25,7pm,Cardinal Ritter (Indianapolis),Heritage Christian,0,IN,IN
 6,2026-09-25,7pm,Cathedral (Indianapolis),Trotwood-Madison (Trotwood),0,IN,
 6,2026-09-25,7pm,Lawrenceburg (Lawrenceburg),Batesville,0,IN,IN
-6,2026-09-25,,Madison Consolidated,South Dearborn (Aurora),0,IN,IN
+6,2026-09-25,7pm,Madison Consolidated,South Dearborn (Aurora),0,IN,IN
 6,2026-09-25,7pm,Muncie Central,Richmond (Richmond),0,IN,IN
+6,2026-09-25,7pm,Union (Dugger),Indiana School for the Deaf,0,IN,IN
 6,2026-09-25,7pm,Guerin Catholic,Bishop Chatard (Indianapolis),0,IN,IN
 6,2026-09-25,7pm,Crispus Attucks (Indianapolis),Southport (Indianapolis),0,IN,IN
 6,2026-09-25,8pm,Blackman (Murfreesboro),Oakland (Murfreesboro),0,TN,TN
@@ -2199,6 +2277,7 @@ week,date,time,away,home,neutral,away_state,home_state
 6,2026-09-25,7pm,Good Counsel (Wheaton),Malvern Prep (Malvern),0,MD,PA
 6,2026-09-25,7pm,DeMatha Catholic (Hyattsville),Riverdale Baptist (Upper Marlboro),0,MD,MD
 6,2026-09-25,,Our Lady of Mount Carmel (Essex),St Paul's School (Brooklandville),0,MD,MD
+6,2026-09-25,,St Frances Academy (Regional),Mt Zion Prep (Lanham),0,MD,MD
 6,2026-09-25,4pm,Gonzaga (Washington),Benedictine Military School (Savannah),0,DC,GA
 6,2026-09-25,6pm,KIPP DC College Prep (Washington),Friendship Collegiate (Washington),0,DC,DC
 6,2026-09-25,7pm,Digital Pioneers Academy (Washington),Paul VI (Chantilly),0,DC,VA
@@ -2209,6 +2288,7 @@ week,date,time,away,home,neutral,away_state,home_state
 6,2026-09-25,7pm,The Hun School (Princeton),Paramus Catholic (Paramus),0,NJ,NJ
 6,2026-09-25,,Legacy Sport Sciences (Spring),IMG Academy (Bradenton),0,TX,FL
 6,2026-09-25,7pm,Cardinal Ritter (St Louis),The St James Academy (Springfield),0,MO,VA
+6,2026-09-25,7pm,Football North (via Clarkson SS) (Mississauga),Massillon Washington (Massillon),0,ON,
 6,2026-09-25,7pm,MU Sports Academy (Delson),Southern Durham (Durham),0,QB,NC
 6,2026-09-25,10pm,Faith Lutheran (Las Vegas),Bishop Gorman (Las Vegas),0,NV,NV
 6,2026-09-25,7pm,West Orange (Winter Garden),Edgewater (Orlando),0,FL,FL
@@ -2227,8 +2307,13 @@ week,date,time,away,home,neutral,away_state,home_state
 6,2026-09-26,7pm,St Thomas Aquinas (Louisville),Catholic Central (Steubenville),0,,
 6,2026-09-26,1pm,Woodward (Cincinnati),Gamble Montessori (Cincinnati),0,,
 6,2026-09-26,7pm,Clark Montessori (Cincinnati),Manchester (Manchester),0,,
+6,2026-09-26,,Landmark Eagles (club) (Cincinnati),C4 Lions (club) (Middletown),0,,
+6,2026-09-26,5pm,Foxfire (Zanesville),North Adams (club) (Seaman),0,,
 6,2026-09-26,6pm,Kennedy Catholic (Hermitage),St Joseph Central Catholic (Fremont),0,PA,
+6,2026-09-26,3pm,Waldron,Tri-State King's Crusaders (club) (Harlan),0,IN,IN
 6,2026-09-26,,Greenwood Christian,Morristown,0,IN,IN
+6,2026-09-26,5pm,Noblesville Lions (club) (Noblesville),Columbus Crusaders (club) (Columbus),0,IN,
+6,2026-09-26,,Indianapolis Crimson Knights (club),Kingdom/Christian Life Academy Lions (club) (Hopedale),0,IN,IL
 6,2026-09-26,1pm,St John's College (Washington),St Edward (Lakewood),0,DC,
 6,2026-09-26,2pm,Canisius (Buffalo),St Joseph's Collegiate (Buffalo),0,NY,NY
 6,2026-09-26,7:30pm,Chaminade (Mineola),St Francis Prep (Fresh Meadows),0,NY,NY
@@ -2236,6 +2321,7 @@ week,date,time,away,home,neutral,away_state,home_state
 6,2026-09-26,12pm,Woodbridge College (Woodbridge),Huron Heights (Newmarket),0,ON,ON
 6,2026-09-26,7pm,Rabun Gap - Nacoochee (Rabun Gap),Ambassador Christian (Huntersville),0,GA,NC
 6,2026-09-26,12pm,Overbrook (Pine Hill),Salem (Salem),0,NJ,NJ
+6,2026-09-27,11am,Erasmus Hall Campus (Brooklyn),Eagle Academy for Young Men II (Brooklyn),0,NY,NY
 7,2026-10-01,7:30pm,Harrison Central (Cadiz),Indian Creek (Wintersville),0,,
 7,2026-10-01,6pm,Thurgood Marshall (Dayton),Ponitz Tech (Dayton),0,,
 7,2026-10-01,7pm,East (Columbus),Beechcroft (Columbus),0,,
@@ -2243,7 +2329,10 @@ week,date,time,away,home,neutral,away_state,home_state
 7,2026-10-01,6pm,Steubenville (Steubenville),Ursuline (Youngstown),0,,
 7,2026-10-01,6pm,Woodward (Toledo),Waite (Toledo),0,,
 7,2026-10-01,7pm,Harvest Prep (Canal Winchester),Centennial (Columbus),0,,
-7,2026-10-01,,Shelby Valley (Pikeville),Pike County Central,0,KY,KY
+7,2026-10-01,7:30pm,Belfry (Belfry),East Ridge,0,KY,KY
+7,2026-10-01,7:30pm,Shelby Valley (Pikeville),Pike County Central,0,KY,KY
+7,2026-10-01,7pm,Westinghouse (Pittsburgh),University Prep (USO co-op) (Pittsburgh),0,PA,PA
+7,2026-10-01,8pm,Clay County (Celina),Middle Tennessee Christian School (Murfreesboro),0,TN,TN
 7,2026-10-01,8pm,Oakland (Murfreesboro),Rockvale (Rockvale),0,TN,TN
 7,2026-10-01,7pm,Camden (Camden),Permian (Odessa),0,NJ,TX
 7,2026-10-02,7pm,Ada (Ada),Elmwood (Bloomdale),0,,
@@ -2310,6 +2399,7 @@ week,date,time,away,home,neutral,away_state,home_state
 7,2026-10-02,7pm,Columbus Academy (Gahanna),Franklin Heights (Columbus),0,,
 7,2026-10-02,7pm,Columbus Grove (Columbus Grove),Allen East (Harrod),0,,
 7,2026-10-02,7pm,Conotton Valley (Bowerston),Frontier (New Matamoras),0,,
+7,2026-10-02,7pm,Copley (Copley),Brecksville-Broadview Heights (Broadview Heights),0,,
 7,2026-10-02,7pm,Coshocton (Coshocton),Morgan (McConnelsville),0,,
 7,2026-10-02,7pm,Coventry (Coventry Twp),Canton Central Catholic (Canton),0,,
 7,2026-10-02,7pm,Crestline (Crestline),Toledo Christian (Toledo),0,,
@@ -2368,6 +2458,7 @@ week,date,time,away,home,neutral,away_state,home_state
 7,2026-10-02,7pm,Hilliard Darby (Hilliard),Dublin Jerome (Dublin),0,,
 7,2026-10-02,7pm,Hillsboro (Hillsboro),Jackson (Jackson),0,,
 7,2026-10-02,7pm,Holgate (Holgate),Plymouth (Plymouth),0,,
+7,2026-10-02,7pm,Holy Name (Parma Heights),Cuyahoga Valley Christian Academy (Cuyahoga Falls),0,,
 7,2026-10-02,7pm,Hoover (North Canton),Canton McKinley (Canton),0,,
 7,2026-10-02,7pm,Hopewell-Loudon (Bascom),Calvert (Tiffin),0,,
 7,2026-10-02,7pm,Howland (Warren),Alliance (Alliance),0,,
@@ -2506,6 +2597,7 @@ week,date,time,away,home,neutral,away_state,home_state
 7,2026-10-02,7pm,St Mary Central Catholic (Sandusky),Sebring McKinley (Sebring),0,,
 7,2026-10-02,7pm,St Thomas Aquinas (Louisville),Minerva (Minerva),0,,
 7,2026-10-02,7pm,St Vincent-St Mary (Akron),Walsh Jesuit (Cuyahoga Falls),0,,
+7,2026-10-02,7pm,St Xavier (Cincinnati),Trinity (Louisville),0,,KY
 7,2026-10-02,7pm,Sandusky (Sandusky),Perkins (Sandusky),0,,
 7,2026-10-02,6pm,Scott (Toledo),Bowsher (Toledo),0,,
 7,2026-10-02,7pm,Seneca East (Attica),Carey (Carey),0,,
@@ -2594,23 +2686,23 @@ week,date,time,away,home,neutral,away_state,home_state
 7,2026-10-02,7pm,Wheeling Central Catholic (Wheeling),Windber,0,WV,PA
 7,2026-10-02,7pm,Williamstown (Williamstown),Marietta (Marietta),0,WV,
 7,2026-10-02,7pm,Linsly (Wheeling),University (Morgantown),0,WV,WV
-7,2026-10-02,,Ashland Blazer (Ashland),Rowan County,0,KY,KY
-7,2026-10-02,,Bath County,East Carter,0,KY,KY
-7,2026-10-02,,Belfry (Belfry),East Ridge,0,KY,KY
+7,2026-10-02,7:30pm,Ashland Blazer (Ashland),Rowan County,0,KY,KY
+7,2026-10-02,7:30pm,Bath County,East Carter,0,KY,KY
 7,2026-10-02,6pm,Berea,Foxfire (Zanesville),0,KY,
 7,2026-10-02,7:30pm,Boyd County (Ashland),Greenup County (Greenup),0,KY,KY
+7,2026-10-02,7pm,Boyle County (Danville),St Xavier (Louisville),0,KY,KY
 7,2026-10-02,7pm,Campbell County (Alexandria),Newport Central Catholic,0,KY,KY
 7,2026-10-02,7:30pm,Clinton County (Albany),Somerset (Somerset),0,KY,KY
 7,2026-10-02,7:30pm,Corbin (Corbin),Johnson Central,0,KY,KY
 7,2026-10-02,7:30pm,Dixie Heights (Edgewood),Cooper (Union),0,KY,KY
-7,2026-10-02,,Fairview (Ashland),Nicholas County,0,KY,KY
-7,2026-10-02,,Hazard,Raceland (Raceland),0,KY,KY
+7,2026-10-02,7:30pm,Fairview (Ashland),Nicholas County,0,KY,KY
+7,2026-10-02,7:30pm,Hazard,Raceland (Raceland),0,KY,KY
 7,2026-10-02,7pm,Highlands (Fort Thomas),Covington Catholic (Park Hills),0,KY,KY
 7,2026-10-02,7pm,Holy Cross (Covington),Harlan County,0,KY,KY
-7,2026-10-02,,Lewis County (Vanceburg),Fleming County,0,KY,KY
+7,2026-10-02,7:30pm,Lewis County (Vanceburg),Fleming County,0,KY,KY
 7,2026-10-02,7:30pm,Lloyd Memorial (Erlanger),Bourbon County (Paris),0,KY,KY
 7,2026-10-02,,Paintsville (Paintsville),Paris,0,KY,KY
-7,2026-10-02,,Pulaski Southwestern,Pikeville (Pikeville),0,KY,KY
+7,2026-10-02,7:30pm,Pulaski Southwestern,Pikeville (Pikeville),0,KY,KY
 7,2026-10-02,7:30pm,Walton-Verona (Walton),Beechwood (Fort Mitchell),0,KY,KY
 7,2026-10-02,7pm,Battle Creek Lakeview,Portage Central (Portage),0,MI,MI
 7,2026-10-02,7pm,Burr Oak,Camden-Frontier (Camden),0,MI,MI
@@ -2646,10 +2738,12 @@ week,date,time,away,home,neutral,away_state,home_state
 7,2026-10-02,7pm,Marion,Richmond (Richmond),0,IN,IN
 7,2026-10-02,7pm,Monroe Central,Blackhawk Christian (Fort Wayne),0,IN,IN
 7,2026-10-02,7pm,Rushville Consolidated,Lawrenceburg (Lawrenceburg),0,IN,IN
-7,2026-10-02,,South Dearborn (Aurora),Franklin County (Brookville),0,IN,IN
+7,2026-10-02,7pm,South Dearborn (Aurora),Franklin County (Brookville),0,IN,IN
+7,2026-10-02,7pm,Southport (Indianapolis),Mt. Vernon (Fortville),0,IN,IN
 7,2026-10-02,7:30pm,Baylor (Chattanooga),McCallie,1,TN,TN
 7,2026-10-02,7:30pm,Grace Baptist Academy,Tri-Cities Christian Academy (Kingsport),0,TN,TN
 7,2026-10-02,8pm,Montgomery Bell Academy,Christ Presbyterian Academy (Nashville),0,TN,TN
+7,2026-10-02,,Beacon Hill (club),Football North (via Clarkson SS) (Mississauga),1,VA,ON
 7,2026-10-02,,Saint Frances Academy (Baltimore),Legacy Sport Sciences (Spring),0,MD,TX
 7,2026-10-02,,John Carroll School (Bel Air),Our Lady of Mount Carmel (Essex),0,MD,MD
 7,2026-10-02,7pm,St Mary's Ryken (Leonardtown),Good Counsel (Wheaton),0,MD,MD
@@ -2662,6 +2756,7 @@ week,date,time,away,home,neutral,away_state,home_state
 7,2026-10-02,8pm,Naperville Central (Naperville),Cardinal Ritter (St Louis),0,IL,MO
 7,2026-10-02,8pm,Rabun Gap - Nacoochee (Rabun Gap),Christian Brothers,0,GA,MO
 7,2026-10-02,7pm,Cardinal Gibbons (Raleigh),Felton Grove (Apex),0,NC,NC
+7,2026-10-02,5am,Humphreys (Pyeongtaek),Kinnick (Yokosuka),0,SOUTH KOREA,JAPAN
 7,2026-10-03,7pm,Belmont (Dayton),Manchester (Manchester),0,,
 7,2026-10-03,1pm,Central Catholic (Toledo),Novi Detroit Catholic Central (Novi),0,,MI
 7,2026-10-03,12pm,East (Akron),Ellet (Akron),0,,
@@ -2669,8 +2764,13 @@ week,date,time,away,home,neutral,away_state,home_state
 7,2026-10-03,12pm,North (Akron),Garfield (Akron),0,,
 7,2026-10-03,,South Gallia (Crown City),Sciotoville Community (Portsmouth),0,,
 7,2026-10-03,7pm,Southern (Salineville),Catholic Central (Steubenville),0,,
+7,2026-10-03,7pm,Columbus Crusaders (club) (Columbus),Landmark Eagles (club) (Cincinnati),0,,
+7,2026-10-03,6pm,North Adams (club) (Seaman),West Union (club) (West Union),0,,
+7,2026-10-03,5pm,C4 Lions (club) (Middletown),Noblesville Lions (club) (Noblesville),0,,IN
+7,2026-10-03,1pm,Expression Prep Academy (Huntington),Peebles (club) (Peebles),0,WV,
 7,2026-10-03,7pm,Kennedy Catholic (Hermitage),Stryker (Stryker),0,PA,
 7,2026-10-03,7pm,Bloomington South (Bloomington),Ironton (Ironton),0,IN,
+7,2026-10-03,7pm,Indiana School for the Deaf,Florida School for the Deaf (St. Augustine),0,IN,FL
 7,2026-10-03,,Greenwood Christian,Waldron,0,IN,IN
 7,2026-10-03,,The St James Academy (Springfield),IMG Academy (Bradenton),0,VA,FL
 7,2026-10-03,2pm,St Francis (Hamburg),Canisius (Buffalo),0,NY,NY
@@ -2680,6 +2780,7 @@ week,date,time,away,home,neutral,away_state,home_state
 7,2026-10-03,2pm,Huron Heights (Newmarket),Aquinas Institute (Rochester),0,ON,NY
 7,2026-10-03,3:30pm,Aces Elite Steam Academy,The Hun School (Princeton),0,AZ,NJ
 7,2026-10-03,12pm,Woodstown (Woodstown),Salem (Salem),0,NJ,NJ
+7,2026-10-04,11am,Eagle Academy for Young Men II (Brooklyn),Susan Wagner (Staten Island),0,NY,NY
 8,2026-10-07,6pm,Thurgood Marshall (Dayton),Belmont (Dayton),0,,
 8,2026-10-08,7pm,Bay (Bay Village),Valley Forge (Parma Heights),0,,
 8,2026-10-08,7pm,Buckeye (Medina),North Olmsted (North Olmsted),0,,
@@ -2703,6 +2804,7 @@ week,date,time,away,home,neutral,away_state,home_state
 8,2026-10-08,7pm,Bedford (Temperance),Ann Arbor Huron,0,MI,MI
 8,2026-10-08,7pm,Brashear (Pittsburgh),Westinghouse (Pittsburgh),0,PA,PA
 8,2026-10-08,,Legacy Sport Sciences (Spring),Regents (Austin),0,TX,TX
+8,2026-10-08,5am,Kadena (Okinawa),Humphreys (Pyeongtaek),0,JAPAN,SOUTH KOREA
 8,2026-10-09,7pm,Adena (Frankfort),Southeastern (Chillicothe),0,,
 8,2026-10-09,7pm,Africentric Early College (Columbus),South (Columbus),0,,
 8,2026-10-09,6:30pm,Aiken (Cincinnati),Withrow (Cincinnati),0,,
@@ -2735,6 +2837,7 @@ week,date,time,away,home,neutral,away_state,home_state
 8,2026-10-09,7pm,Black River (Sullivan),Brookside (Sheffield),0,,
 8,2026-10-09,7pm,Bluffton (Bluffton),Crestview (Convoy),0,,
 8,2026-10-09,7pm,Bowling Green (Bowling Green),Napoleon (Napoleon),0,,
+8,2026-10-09,7pm,Brecksville-Broadview Heights (Broadview Heights),Aurora (Aurora),0,,
 8,2026-10-09,7pm,Brookfield (Brookfield),Southeast (Ravenna),0,,
 8,2026-10-09,7pm,Brookville (Brookville),Eaton (Eaton),0,,
 8,2026-10-09,5pm,Brush (Lyndhurst),Shaw (East Cleveland),0,,
@@ -2774,6 +2877,7 @@ week,date,time,away,home,neutral,away_state,home_state
 8,2026-10-09,7pm,Crestview (Columbiana),Champion (Warren),0,,
 8,2026-10-09,7pm,Crestwood (Mantua),Fairview (Fairview Park),0,,
 8,2026-10-09,7pm,Crooksville (Crooksville),Coshocton (Coshocton),0,,
+8,2026-10-09,7pm,Cuyahoga Valley Christian Academy (Cuyahoga Falls),Notre Dame-Cathedral Latin (Chardon),0,,
 8,2026-10-09,7pm,Dalton (Dalton),Chippewa (Doylestown),0,,
 8,2026-10-09,7pm,Danbury (Lakeside),Plymouth (Plymouth),0,,
 8,2026-10-09,7pm,Danville (Danville),Cardington-Lincoln (Cardington),0,,
@@ -3032,17 +3136,20 @@ week,date,time,away,home,neutral,away_state,home_state
 8,2026-10-09,7pm,Richwood,Clay-Battelle (Blacksville),0,WV,WV
 8,2026-10-09,7pm,Wahama (Mason),Calhoun County,0,WV,WV
 8,2026-10-09,7pm,Wheeling Central Catholic (Wheeling),Nitro,0,WV,WV
+8,2026-10-09,7:30pm,Ballard,Trinity (Louisville),0,KY,KY
 8,2026-10-09,7pm,Beechwood (Fort Mitchell),St Henry (Erlanger),0,KY,KY
 8,2026-10-09,7pm,Bishop Brossart (Alexandria),Holy Cross (Covington),0,KY,KY
 8,2026-10-09,7:30pm,Boyd County (Ashland),Ashland Blazer (Ashland),0,KY,KY
 8,2026-10-09,7pm,Covington Catholic (Park Hills),Cathedral (Indianapolis),0,KY,IN
-8,2026-10-09,,East Carter,Fleming County,0,KY,KY
+8,2026-10-09,7pm,DuPont Manual,St Xavier (Louisville),0,KY,KY
+8,2026-10-09,7:30pm,East Carter,Fleming County,0,KY,KY
 8,2026-10-09,,Jackson County,West Carter,0,KY,KY
+8,2026-10-09,7pm,Newport (Newport),Newport Central Catholic,0,KY,KY
 8,2026-10-09,,Phelps,Montcalm (Rock),0,KY,WV
 8,2026-10-09,,Pike County Central,East Ridge,0,KY,KY
-8,2026-10-09,,Raceland (Raceland),Fairview (Ashland),0,KY,KY
-8,2026-10-09,,Rowan County,Johnson Central,0,KY,KY
-8,2026-10-09,,Shelby Valley (Pikeville),Betsy Lane,0,KY,KY
+8,2026-10-09,7:30pm,Raceland (Raceland),Fairview (Ashland),0,KY,KY
+8,2026-10-09,7:30pm,Rowan County,Johnson Central,0,KY,KY
+8,2026-10-09,7:30pm,Shelby Valley (Pikeville),Betsy Lane,0,KY,KY
 8,2026-10-09,7:30pm,Simon Kenton (Independence),Great Crossing (Georgetown),0,KY,KY
 8,2026-10-09,7:30pm,Harlan County,Corbin (Corbin),0,KY,KY
 8,2026-10-09,7pm,Adrian Lenawee Christian (Adrian),Camden-Frontier (Camden),0,MI,MI
@@ -3064,6 +3171,7 @@ week,date,time,away,home,neutral,away_state,home_state
 8,2026-10-09,7pm,Farrell (Farrell),Sharpsville (Sharpsville),0,PA,PA
 8,2026-10-09,3:30pm,Taylor Allderdice (Pittsburgh),Perry Traditional Academy (Pittsburgh),0,PA,PA
 8,2026-10-09,7pm,Cathedral Prep (Erie),General McLane (Edinboro),0,PA,PA
+8,2026-10-09,7:30pm,University Prep (USO co-op) (Pittsburgh),Carrick (Pittsburgh),0,PA,PA
 8,2026-10-09,7pm,Erie (Erie),St Francis (Hamburg),0,PA,NY
 8,2026-10-09,7:30pm,Brebeuf Jesuit Preparatory,Bloomington South (Bloomington),0,IN,IN
 8,2026-10-09,7:30pm,Columbus North,East Central (St Leon),0,IN,IN
@@ -3072,7 +3180,7 @@ week,date,time,away,home,neutral,away_state,home_state
 8,2026-10-09,7:30pm,Hamilton Heights (Arcadia),Twin Lakes,0,IN,IN
 8,2026-10-09,7pm,Indianapolis Scecina Memorial (Indianapolis),Cardinal Ritter (Indianapolis),0,IN,IN
 8,2026-10-09,7pm,Richmond (Richmond),Anderson,0,IN,IN
-8,2026-10-09,,Rushville Consolidated,South Dearborn (Aurora),0,IN,IN
+8,2026-10-09,7pm,Rushville Consolidated,South Dearborn (Aurora),0,IN,IN
 8,2026-10-09,7pm,Southport (Indianapolis),Roger Bacon (St Bernard),0,IN,
 8,2026-10-09,7pm,Terre Haute South Vigo,Bishop Chatard (Indianapolis),0,IN,IN
 8,2026-10-09,8pm,Christ Presbyterian Academy (Nashville),Ensworth (Nashville),0,TN,TN
@@ -3080,6 +3188,7 @@ week,date,time,away,home,neutral,away_state,home_state
 8,2026-10-09,,Saint Frances Academy (Baltimore),The St James Academy (Springfield),0,MD,VA
 8,2026-10-09,,Severn School (Severna Park),Our Lady of Mount Carmel (Essex),0,MD,MD
 8,2026-10-09,7pm,Good Counsel (Wheaton),DeMatha Catholic (Hyattsville),0,MD,MD
+8,2026-10-09,,Hewlett Sports Academy (Waldorf),Beacon Hill (club),0,MD,VA
 8,2026-10-09,,Friendship Collegiate (Washington),Mt Zion Prep (Lanham),0,DC,MD
 8,2026-10-09,6pm,Digital Pioneers Academy (Washington),KIPP DC College Prep (Washington),0,DC,DC
 8,2026-10-09,,University Prep (Rochester),Christian Brothers Academy - Syracuse (Syracuse),0,NY,NY
@@ -3088,6 +3197,8 @@ week,date,time,away,home,neutral,away_state,home_state
 8,2026-10-09,7pm,Health Sciences (Buffalo),Steubenville (Steubenville),0,NY,
 8,2026-10-09,6pm,Clayton (Clayton),Salem (Salem),0,NJ,NJ
 8,2026-10-09,7pm,Cornerstone Christian (San Antonio),Massillon Washington (Massillon),0,TX,
+8,2026-10-09,7pm,Football North (via Clarkson SS) (Mississauga),St Edward (Lakewood),0,ON,
+8,2026-10-09,10pm,Pinecrest Academy of Nevada Sloan Canyon (Henderson),Bishop Gorman (Las Vegas),0,NV,NV
 8,2026-10-09,7pm,West Orange (Winter Garden),Dr. Phillips (Orlando),0,FL,FL
 8,2026-10-09,,IMG Academy (Bradenton),New Palestine,0,FL,IN
 8,2026-10-09,7pm,Rabun Gap - Nacoochee (Rabun Gap),Charlotte Christian (Charlotte),0,GA,NC
@@ -3107,8 +3218,12 @@ week,date,time,away,home,neutral,away_state,home_state
 8,2026-10-10,7pm,United (Hanoverton),Valley Christian School (Youngstown),0,,
 8,2026-10-10,7pm,Wickliffe (Wickliffe),Fairport Harding (Fairport Harbor),0,,
 8,2026-10-10,6pm,Windham (Windham),Chalker (Southington),0,,
+8,2026-10-10,5pm,Landmark Eagles (club) (Cincinnati),Noblesville Lions (club) (Noblesville),0,,IN
+8,2026-10-10,7pm,North Adams (club) (Seaman),Peebles (club) (Peebles),0,,
+8,2026-10-10,5pm,C4 Lions (club) (Middletown),Columbus Crusaders (club) (Columbus),0,,
 8,2026-10-10,7pm,Kennedy Catholic (Hermitage),St Mary Central Catholic (Sandusky),0,PA,
 8,2026-10-10,,Wabash,Greenwood Christian,0,IN,IN
+8,2026-10-10,,Kosciusko Thunder (club),Tri-State King's Crusaders (club) (Harlan),0,IN,IN
 8,2026-10-10,2pm,Bishop McNamara (Forestville),Gonzaga (Washington),0,MD,DC
 8,2026-10-10,4pm,Long Island Lutheran (Brookville),Riverdale Baptist (Upper Marlboro),0,NY,MD
 8,2026-10-10,12pm,The Hun School (Princeton),Naval Academy Prep (Newport),0,NJ,RI
@@ -3152,6 +3267,7 @@ week,date,time,away,home,neutral,away_state,home_state
 9,2026-10-16,7pm,Bluffton (Bluffton),Fort Loramie (Fort Loramie),0,,
 9,2026-10-16,7pm,Boardman (Youngstown),Austintown-Fitch (Austintown),0,,
 9,2026-10-16,7pm,Bradford (Bradford),National Trail (New Paris),0,,
+9,2026-10-16,7pm,Brecksville-Broadview Heights (Broadview Heights),Twinsburg (Twinsburg),0,,
 9,2026-10-16,7pm,Briggs (Columbus),Marion-Franklin (Columbus),0,,
 9,2026-10-16,7pm,Brookfield (Brookfield),Newton Falls (Newton Falls),0,,
 9,2026-10-16,7pm,Brooklyn (Brooklyn),Wickliffe (Wickliffe),0,,
@@ -3265,6 +3381,7 @@ week,date,time,away,home,neutral,away_state,home_state
 9,2026-10-16,7pm,Jackson (Massillon),Canton McKinley (Canton),0,,
 9,2026-10-16,7pm,Jefferson (Delphos),Allen East (Harrod),0,,
 9,2026-10-16,7pm,Jefferson Area (Jefferson),Orange (Pepper Pike),0,,
+9,2026-10-16,7:30pm,Jefferson Township (Dayton),Landmark Eagles (club) (Cincinnati),0,,
 9,2026-10-16,7pm,John Glenn (New Concord),Philo (Duncan Falls),0,,
 9,2026-10-16,3:30pm,John Hay (Cleveland),John F Kennedy (Cleveland),0,,
 9,2026-10-16,7pm,Kenston (Chagrin Falls),Revere (Richfield),0,,
@@ -3352,6 +3469,7 @@ week,date,time,away,home,neutral,away_state,home_state
 9,2026-10-16,7pm,Olentangy Orange (Lewis Center),Hilliard Bradley (Hilliard),0,,
 9,2026-10-16,7pm,Otsego (Tontogany),Rossford (Rossford),0,,
 9,2026-10-16,7pm,Ottawa Hills (Toledo),Northwood (Northwood),0,,
+9,2026-10-16,7pm,Padua Franciscan (Parma),Cuyahoga Valley Christian Academy (Cuyahoga Falls),0,,
 9,2026-10-16,7pm,Paint Valley (Bainbridge),Unioto (Chillicothe),0,,
 9,2026-10-16,7pm,Patrick Henry (Hamler),Swanton (Swanton),0,,
 9,2026-10-16,7pm,Paulding (Paulding),Hicksville (Hicksville),0,,
@@ -3452,6 +3570,7 @@ week,date,time,away,home,neutral,away_state,home_state
 9,2026-10-16,7pm,Zanesville (Zanesville),Watkins Memorial (Pataskala),0,,
 9,2026-10-16,7pm,Valley Christian School (Youngstown),Southern (Salineville),0,,
 9,2026-10-16,7pm,Stivers (Dayton),Vanlue (Vanlue),0,,
+9,2026-10-16,7pm,Calhoun County,Valley (Wetzel) (Pine Grove),0,WV,WV
 9,2026-10-16,7pm,Clay-Battelle (Blacksville),Tygarts Valley,0,WV,WV
 9,2026-10-16,7pm,Jefferson,Wheeling Park (Wheeling),0,WV,WV
 9,2026-10-16,7pm,John Marshall (Glen Dale),Brooke (Wellsburg),0,WV,WV
@@ -3464,22 +3583,25 @@ week,date,time,away,home,neutral,away_state,home_state
 9,2026-10-16,7pm,Wheeling Central Catholic (Wheeling),Barnesville (Barnesville),0,WV,
 9,2026-10-16,7:30pm,Expression Prep Academy (Huntington),Van (Van),0,WV,WV
 9,2026-10-16,7:30pm,Bath County,Russell (Russell),0,KY,KY
-9,2026-10-16,,Betsy Lane,Belfry (Belfry),0,KY,KY
+9,2026-10-16,7:30pm,Betsy Lane,Belfry (Belfry),0,KY,KY
 9,2026-10-16,7pm,Boone County,Dixie Heights (Edgewood),0,KY,KY
 9,2026-10-16,7:30pm,Corbin (Corbin),Whitley County,0,KY,KY
 9,2026-10-16,7:30pm,Covington Catholic (Park Hills),Harrison County (Cynthiana),0,KY,KY
 9,2026-10-16,7:30pm,Gallatin County,Beechwood (Fort Mitchell),0,KY,KY
 9,2026-10-16,7:30pm,Greenup County (Greenup),Johnson Central,0,KY,KY
 9,2026-10-16,7pm,Holy Cross (Covington),Trimble County,0,KY,KY
-9,2026-10-16,,Lewis County (Vanceburg),East Carter,0,KY,KY
+9,2026-10-16,7:30pm,Lewis County (Vanceburg),East Carter,0,KY,KY
 9,2026-10-16,7pm,Mason County,Highlands (Fort Thomas),0,KY,KY
+9,2026-10-16,7:30pm,Newport Central Catholic,Dayton (Dayton),0,KY,KY
 9,2026-10-16,,Pike County Central,Magoffin County,0,KY,KY
-9,2026-10-16,,Pikeville (Pikeville),Paintsville (Paintsville),0,KY,KY
-9,2026-10-16,,Raceland (Raceland),Paris,0,KY,KY
+9,2026-10-16,7:30pm,Pikeville (Pikeville),Paintsville (Paintsville),0,KY,KY
+9,2026-10-16,7:30pm,Raceland (Raceland),Paris,0,KY,KY
 9,2026-10-16,7:30pm,Rowan County,Boyd County (Ashland),0,KY,KY
 9,2026-10-16,7pm,Simon Kenton (Independence),Campbell County (Alexandria),0,KY,KY
 9,2026-10-16,7pm,Somerset (Somerset),Monroe County,0,KY,KY
-9,2026-10-16,,East Ridge,Shelby Valley (Pikeville),0,KY,KY
+9,2026-10-16,7:30pm,St Xavier (Louisville),North Hardin (Radcliff),0,KY,KY
+9,2026-10-16,7:30pm,Trinity (Louisville),Eastern (Louisville),0,KY,KY
+9,2026-10-16,7:30pm,East Ridge,Shelby Valley (Pikeville),0,KY,KY
 9,2026-10-16,7pm,Adrian Lenawee Christian (Adrian),Concord (Concord),0,MI,MI
 9,2026-10-16,7pm,Camden-Frontier (Camden),North Adams-Jerome (North Adams),0,MI,MI
 9,2026-10-16,7pm,DeWitt (DeWitt),Grand Ledge,0,MI,MI
@@ -3495,6 +3617,7 @@ week,date,time,away,home,neutral,away_state,home_state
 9,2026-10-16,7pm,Tussey Mountain,Everett (Everett),0,PA,PA
 9,2026-10-16,7pm,Butler (Butler),Karns City,0,PA,PA
 9,2026-10-16,7pm,Freedom,Western Beaver (Industry),0,PA,PA
+9,2026-10-16,3:30pm,Perry Traditional Academy (Pittsburgh),University Prep (USO co-op) (Pittsburgh),0,PA,PA
 9,2026-10-16,7:30pm,Westinghouse (Pittsburgh),Taylor Allderdice (Pittsburgh),0,PA,PA
 9,2026-10-16,7pm,Warren,Cathedral Prep (Erie),0,PA,PA
 9,2026-10-16,7pm,Greenville,Farrell (Farrell),0,PA,PA
@@ -3507,7 +3630,7 @@ week,date,time,away,home,neutral,away_state,home_state
 9,2026-10-16,5:30pm,Indiana School for the Deaf,Waldron,0,IN,IN
 9,2026-10-16,7pm,Bishop Chatard (Indianapolis),Elder (Cincinnati),0,IN,
 9,2026-10-16,7pm,Kokomo,Richmond (Richmond),0,IN,IN
-9,2026-10-16,,Lawrenceburg (Lawrenceburg),South Dearborn (Aurora),0,IN,IN
+9,2026-10-16,7pm,Lawrenceburg (Lawrenceburg),South Dearborn (Aurora),0,IN,IN
 9,2026-10-16,7pm,Pendleton Heights,Southport (Indianapolis),0,IN,IN
 9,2026-10-16,7:30pm,Roncalli (Indianapolis),East Central (St Leon),0,IN,IN
 9,2026-10-16,7pm,West Lafayette,Hamilton Heights (Arcadia),0,IN,IN
@@ -3527,6 +3650,7 @@ week,date,time,away,home,neutral,away_state,home_state
 9,2026-10-16,7pm,St Andrew's College (Aurora),Bishop Timon - St Jude (Buffalo),0,ON,NY
 9,2026-10-16,7pm,Huron Heights (Newmarket),River Rouge (River Rouge),0,ON,MI
 9,2026-10-16,7pm,MU Sports Academy (Delson),The St James Academy (Springfield),0,QB,VA
+9,2026-10-16,10pm,Sports Leadership and Management Academy (Henderson),Bishop Gorman (Las Vegas),0,NV,NV
 9,2026-10-16,,First Academy (Orlando),Hewlett Sports Academy (Waldorf),0,FL,MD
 9,2026-10-16,7pm,South Lake (Groveland),West Orange (Winter Garden),0,FL,FL
 9,2026-10-16,7pm,Rabun Gap - Nacoochee (Rabun Gap),Christ School (Arden),0,GA,NC
@@ -3548,11 +3672,18 @@ week,date,time,away,home,neutral,away_state,home_state
 9,2026-10-17,1:30pm,Summit Country Day (Cincinnati),Miller (Corning),0,,
 9,2026-10-17,12pm,Union Local (Belmont),Bellaire (Bellaire),0,,
 9,2026-10-17,,Windham (Windham),Kennedy Catholic (Hermitage),0,,PA
+9,2026-10-17,10:30am,North Adams (club) (Seaman),Non-varsity opponent,0,,
+9,2026-10-17,6pm,Peebles (club) (Peebles),West Union (club) (West Union),0,,
 9,2026-10-17,4pm,Independence (Coal City),Linsly (Wheeling),0,WV,WV
 9,2026-10-17,1pm,Dearborn Divine Child (Dearborn),Warren De La Salle (Warren),0,MI,MI
+9,2026-10-17,3pm,Calumet Christian (Griffith),Columbus Crusaders (club) (Columbus),0,IN,
+9,2026-10-17,,Greenwood Christian,Tri-State King's Crusaders (club) (Harlan),0,IN,IN
+9,2026-10-17,,Kosciusko Thunder (club),Union (Dugger),0,IN,IN
 9,2026-10-17,2pm,Saint Frances Academy (Baltimore),The Hun School (Princeton),0,MD,NJ
 9,2026-10-17,2pm,Christian Brothers Academy - Syracuse (Syracuse),Canisius (Buffalo),0,NY,NY
 9,2026-10-17,2pm,University Prep (Rochester),St Joseph's Collegiate (Buffalo),0,NY,NY
+9,2026-10-17,2pm,Port Richmond (Staten Island),Eagle Academy for Young Men II (Brooklyn),0,NY,NY
+9,2026-10-17,3:30pm,Crossroads (Illinois) Crusaders (club) (Big Rock),Noblesville Lions (club) (Noblesville),0,IL,IN
 10,2026-10-21,6pm,Belmont (Dayton),Ponitz Tech (Dayton),0,,
 10,2026-10-22,6pm,Bowsher (Toledo),Rogers (Toledo),0,,
 10,2026-10-22,7pm,John F Kennedy (Cleveland),John F Kennedy (Warren),0,,
@@ -3634,6 +3765,7 @@ week,date,time,away,home,neutral,away_state,home_state
 10,2026-10-23,7pm,Crooksville (Crooksville),Morgan (McConnelsville),0,,
 10,2026-10-23,7pm,Cuyahoga Falls (Cuyahoga Falls),Woodridge (Peninsula),0,,
 10,2026-10-23,7pm,Cuyahoga Heights (Cuyahoga Heights),Fairport Harding (Fairport Harbor),0,,
+10,2026-10-23,7pm,Cuyahoga Valley Christian Academy (Cuyahoga Falls),Elyria Catholic (Elyria),0,,
 10,2026-10-23,7pm,Danville (Danville),East Knox (Howard),0,,
 10,2026-10-23,7pm,Lisbon David Anderson (Lisbon),Columbiana (Columbiana),0,,
 10,2026-10-23,7pm,Dayton Christian (Miamisburg),Thurgood Marshall (Dayton),0,,
@@ -3791,6 +3923,7 @@ week,date,time,away,home,neutral,away_state,home_state
 10,2026-10-23,7pm,Poland Seminary (Poland),Struthers (Struthers),0,,
 10,2026-10-23,7pm,Pymatuning Valley (Andover),Grand Valley (Orwell),0,,
 10,2026-10-23,7pm,Ravenna (Ravenna),Kent Roosevelt (Kent),0,,
+10,2026-10-23,7pm,Revere (Richfield),Brecksville-Broadview Heights (Broadview Heights),0,,
 10,2026-10-23,7pm,Reynoldsburg (Reynoldsburg),Pickerington Central (Pickerington),0,,
 10,2026-10-23,3:30pm,Rhodes (Cleveland),East Technical (Cleveland),0,,
 10,2026-10-23,7pm,Ridgewood (West Lafayette),Garaway (Sugarcreek),0,,
@@ -3893,27 +4026,30 @@ week,date,time,away,home,neutral,away_state,home_state
 10,2026-10-23,7pm,John Marshall (Glen Dale),Cabell Midland (Ona),0,WV,WV
 10,2026-10-23,7pm,Magnolia (New Martinsville),Mount View,0,WV,WV
 10,2026-10-23,7pm,St Marys (St Marys),Calhoun County,0,WV,WV
+10,2026-10-23,7pm,Valley (Wetzel) (Pine Grove),Wirt County (Elizabeth),0,WV,WV
 10,2026-10-23,7pm,Wheeling Park (Wheeling),Oak Hill,0,WV,WV
 10,2026-10-23,7pm,Williamstown (Williamstown),Doddridge County,0,WV,WV
 10,2026-10-23,7pm,Linsly (Wheeling),Louisville (Louisville),0,WV,
 10,2026-10-23,7pm,Beechwood (Fort Mitchell),Bracken County,0,KY,KY
-10,2026-10-23,,Belfry (Belfry),Shelby Valley (Pikeville),0,KY,KY
+10,2026-10-23,7:30pm,Belfry (Belfry),Shelby Valley (Pikeville),0,KY,KY
 10,2026-10-23,7pm,Bellevue (Bellevue),Newport Central Catholic,0,KY,KY
 10,2026-10-23,7:30pm,Boyd County (Ashland),McCreary Central,0,KY,KY
 10,2026-10-23,7:30pm,Carroll County (Carrollton),Lloyd Memorial (Erlanger),0,KY,KY
 10,2026-10-23,7:30pm,Corbin (Corbin),Perry County Central,0,KY,KY
 10,2026-10-23,7:30pm,Greenup County (Greenup),Rowan County,0,KY,KY
-10,2026-10-23,,Hazard,Pikeville (Pikeville),0,KY,KY
+10,2026-10-23,7:30pm,Hazard,Pikeville (Pikeville),0,KY,KY
 10,2026-10-23,7:30pm,Highlands (Fort Thomas),Scott County (Georgetown),0,KY,KY
-10,2026-10-23,,Johnson Central,Ashland Blazer (Ashland),0,KY,KY
-10,2026-10-23,,Lewis County (Vanceburg),Holmes (Covington),0,KY,KY
+10,2026-10-23,7:30pm,Johnson Central,Ashland Blazer (Ashland),0,KY,KY
+10,2026-10-23,7:30pm,Lewis County (Vanceburg),Holmes (Covington),0,KY,KY
 10,2026-10-23,7pm,Ludlow (Ludlow),Holy Cross (Covington),0,KY,KY
 10,2026-10-23,7pm,Mason County,Covington Catholic (Park Hills),0,KY,KY
-10,2026-10-23,,Nicholas County,Raceland (Raceland),0,KY,KY
-10,2026-10-23,,Paris,Fairview (Ashland),0,KY,KY
+10,2026-10-23,7:30pm,Nicholas County,Raceland (Raceland),0,KY,KY
+10,2026-10-23,7:30pm,Paris,Fairview (Ashland),0,KY,KY
+10,2026-10-23,7pm,Pleasure Ridge Park (Louisville),St Xavier (Louisville),0,KY,KY
 10,2026-10-23,7:30pm,Russell (Russell),East Carter,0,KY,KY
 10,2026-10-23,,Ryle (Union),Simon Kenton (Independence),0,KY,KY
 10,2026-10-23,6:30pm,Somerset (Somerset),Christian County,0,KY,KY
+10,2026-10-23,7:30pm,Trinity (Louisville),Oldham County,0,KY,KY
 10,2026-10-23,7pm,Adrian Lenawee Christian (Adrian),Mendon,0,MI,MI
 10,2026-10-23,7pm,Camden-Frontier (Camden),Britton-Deerfield (Britton),0,MI,MI
 10,2026-10-23,7pm,Detroit King (Detroit),Archbishop Moeller (Cincinnati),0,MI,
@@ -3936,15 +4072,15 @@ week,date,time,away,home,neutral,away_state,home_state
 10,2026-10-23,7pm,Harbor Creek (Harborcreek),Cathedral Prep (Erie),0,PA,PA
 10,2026-10-23,7pm,Mercer,Farrell (Farrell),0,PA,PA
 10,2026-10-23,7pm,Kennedy Catholic (Hermitage),Plymouth (Plymouth),0,PA,
-10,2026-10-23,,IHSAA playoffs - round one,Bishop Dwenger (Fort Wayne),0,IN,IN
+10,2026-10-23,,IHSAA playoffs - round one,Hamilton Heights (Arcadia),0,IN,IN
+10,2026-10-23,,IHSAA playoffs - round one,Cardinal Ritter (Indianapolis),0,IN,IN
+10,2026-10-23,,IHSAA playoffs - round one,Blackhawk Christian (Fort Wayne),0,IN,IN
 10,2026-10-23,,IHSAA playoffs - round one,Bishop Chatard (Indianapolis),0,IN,IN
+10,2026-10-23,,IHSAA playoffs - round one,South Dearborn (Aurora),0,IN,IN
+10,2026-10-23,,IHSAA playoffs - round one,Bishop Dwenger (Fort Wayne),0,IN,IN
+10,2026-10-23,,IHSAA playoffs - round one,Richmond (Richmond),0,IN,IN
 10,2026-10-23,,IHSAA playoffs - round one,East Central (St Leon),0,IN,IN
 10,2026-10-23,,IHSAA playoffs - round one,Lawrenceburg (Lawrenceburg),0,IN,IN
-10,2026-10-23,,IHSAA playoffs - round one,Richmond (Richmond),0,IN,IN
-10,2026-10-23,,IHSAA playoffs - round one,Cardinal Ritter (Indianapolis),0,IN,IN
-10,2026-10-23,,IHSAA playoffs - round one,Hamilton Heights (Arcadia),0,IN,IN
-10,2026-10-23,,IHSAA playoffs - round one,South Dearborn (Aurora),0,IN,IN
-10,2026-10-23,,IHSAA playoffs - round one,Blackhawk Christian (Fort Wayne),0,IN,IN
 10,2026-10-23,,Knoxville Catholic,Christ Presbyterian Academy (Nashville),0,TN,TN
 10,2026-10-23,,Oakland (Murfreesboro),Stewarts Creek (Smyrna),0,TN,TN
 10,2026-10-23,7pm,The St James Academy (Springfield),St Xavier (Cincinnati),0,VA,
@@ -3955,6 +4091,7 @@ week,date,time,away,home,neutral,away_state,home_state
 10,2026-10-23,6pm,Digital Pioneers Academy (Washington),Steubenville (Steubenville),0,DC,
 10,2026-10-23,6:30pm,St Mary's (Lancaster),Bishop Timon - St Jude (Buffalo),0,NY,NY
 10,2026-10-23,6pm,Canisius (Buffalo),Monroe (Rochester),0,NY,NY
+10,2026-10-23,6pm,Eagle Academy for Young Men II (Brooklyn),Canarsie Campus (Brooklyn),0,NY,NY
 10,2026-10-23,,St Thomas More (Oakdale),Hewlett Sports Academy (Waldorf),1,CT,MD
 10,2026-10-23,7:30pm,The Hun School (Princeton),Cornerstone Christian (San Antonio),0,NJ,TX
 10,2026-10-23,6pm,Salem (Salem),Pennsville Memorial (Pennsville),0,NJ,NJ
@@ -3962,9 +4099,11 @@ week,date,time,away,home,neutral,away_state,home_state
 10,2026-10-23,8pm,Cardinal Ritter (St Louis),Jackson,0,MO,MO
 10,2026-10-23,7pm,St Andrew's College (Aurora),St Francis (Hamburg),0,ON,NY
 10,2026-10-23,5pm,Huron Heights (Newmarket),Detroit Cass Tech (Detroit),0,ON,MI
+10,2026-10-23,7pm,Football North (via Clarkson SS) (Mississauga),St Ignatius (Cleveland),0,ON,
 10,2026-10-23,7pm,Olympia (Orlando),West Orange (Winter Garden),0,FL,FL
 10,2026-10-23,7pm,Cardinal Gibbons (Raleigh),Sanderson (Raleigh),0,NC,NC
 10,2026-10-23,,Aces Elite Steam Academy,Saint Frances Academy (Baltimore),0,AZ,MD
+10,2026-10-23,7pm,Cabarrus (Cannon/Concord co-op),Rabun Gap - Nacoochee (Rabun Gap),0,NC,GA
 10,2026-10-24,12pm,Buchtel (Akron),East (Akron),0,,
 10,2026-10-24,2pm,Canton McKinley (Canton),Massillon Washington (Massillon),0,,
 10,2026-10-24,2pm,Youngstown (Youngstown),Garfield Heights (Garfield Heights),0,,
@@ -3980,7 +4119,9 @@ week,date,time,away,home,neutral,away_state,home_state
 10,2026-10-24,7pm,Wellsville (Wellsville),Catholic Central (Steubenville),0,,
 10,2026-10-24,6pm,Windham (Windham),Danbury (Lakeside),0,,
 10,2026-10-24,3pm,Withrow (Cincinnati),Taft (Cincinnati),0,,
+10,2026-10-24,12pm,Non-varsity opponent,Peebles (club) (Peebles),0,,
 10,2026-10-24,1pm,Frankfort (Ridgeley),Wahama (Mason),0,WV,WV
+10,2026-10-24,6pm,Expression Prep Academy (Huntington),North Adams (club) (Seaman),0,WV,
 10,2026-10-24,1pm,Colon,North Adams-Jerome (North Adams),0,MI,MI
 10,2026-10-24,6pm,St Michael the Archangel (Fredericksburg),Friendship Collegiate (Washington),0,VA,DC
 10,2026-10-24,1pm,Loudoun Sports Academy (Leesburg),St Edward (Lakewood),0,VA,
@@ -3994,23 +4135,27 @@ week,date,time,away,home,neutral,away_state,home_state
 11,2026-10-30,7pm,East Hardy (Baker),Cameron (Cameron),0,WV,WV
 11,2026-10-30,7pm,Elkins,Brooke (Wellsburg),0,WV,WV
 11,2026-10-30,7:30pm,Greater Beckley Christian,Expression Prep Academy (Huntington),0,WV,WV
+11,2026-10-30,7:30pm,Liberty (Raleigh),St Marys (St Marys),0,WV,WV
 11,2026-10-30,7pm,Moorefield,Weir (Weirton),0,WV,WV
+11,2026-10-30,7pm,Valley (Wetzel) (Pine Grove),Magnolia (New Martinsville),0,WV,WV
 11,2026-10-30,7pm,Wahama (Mason),Gilmer County (Glenville),0,WV,WV
 11,2026-10-30,7pm,Wayne,Williamstown (Williamstown),0,WV,WV
-11,2026-10-30,,Ashland Blazer (Ashland),Lexington Catholic (Lexington),0,KY,KY
+11,2026-10-30,7:30pm,Ashland Blazer (Ashland),Lexington Catholic (Lexington),0,KY,KY
 11,2026-10-30,7pm,Beechwood (Fort Mitchell),Campbell County (Alexandria),0,KY,KY
 11,2026-10-30,7pm,Bellevue (Bellevue),Holy Cross (Covington),0,KY,KY
 11,2026-10-30,7:30pm,Boyd County (Ashland),Lawrence County,0,KY,KY
 11,2026-10-30,7:30pm,Breathitt County (Jackson),Russell (Russell),0,KY,KY
 11,2026-10-30,7:30pm,East Carter,Raceland (Raceland),0,KY,KY
-11,2026-10-30,,Fairview (Ashland),Lewis County (Vanceburg),0,KY,KY
+11,2026-10-30,7:30pm,Fairview (Ashland),Lewis County (Vanceburg),0,KY,KY
 11,2026-10-30,7:30pm,Hazard,Somerset (Somerset),0,KY,KY
+11,2026-10-30,7:30pm,Letcher County Central,Belfry (Belfry),0,KY,KY
 11,2026-10-30,7pm,Lloyd Memorial (Erlanger),Boone County,0,KY,KY
 11,2026-10-30,7:30pm,Montgomery County,Greenup County (Greenup),0,KY,KY
-11,2026-10-30,,Newport Central Catholic,Mason County,0,KY,KY
-11,2026-10-30,,Pikeville (Pikeville),Bracken County,0,KY,KY
+11,2026-10-30,7:30pm,Newport Central Catholic,Mason County,0,KY,KY
+11,2026-10-30,7:30pm,Pikeville (Pikeville),Bracken County,0,KY,KY
 11,2026-10-30,7pm,Ryle (Union),Dixie Heights (Edgewood),0,KY,KY
 11,2026-10-30,7:30pm,Simon Kenton (Independence),Cooper (Union),0,KY,KY
+11,2026-10-30,7:30pm,St Xavier (Louisville),Madison Central,0,KY,KY
 11,2026-10-30,7:30pm,Great Crossing (Georgetown),Corbin (Corbin),0,KY,KY
 11,2026-10-30,7pm,Everett (Everett),Curwensville,0,PA,PA
 11,2026-10-30,7pm,Pine-Richland (Gibsonia),Plum,0,PA,PA
@@ -4018,6 +4163,7 @@ week,date,time,away,home,neutral,away_state,home_state
 11,2026-10-30,7pm,Western Beaver (Industry),Neshannock,0,PA,PA
 11,2026-10-30,7pm,Meadville,Cathedral Prep (Erie),0,PA,PA
 11,2026-10-30,7pm,Erie (Erie),Farrell (Farrell),0,PA,PA
+11,2026-10-30,7pm,Central Clarion (co-op),Butler (Butler),0,PA,PA
 11,2026-10-30,,McCallie,Christ Presbyterian Academy (Nashville),0,TN,TN
 11,2026-10-30,,Oakland (Murfreesboro),Riverdale,0,TN,TN
 11,2026-10-30,6pm,Riverdale Baptist (Upper Marlboro),Friendship Collegiate (Washington),0,MD,DC
@@ -4027,16 +4173,19 @@ week,date,time,away,home,neutral,away_state,home_state
 11,2026-10-30,7pm,Canisius (Buffalo),Bishop Timon - St Jude (Buffalo),0,NY,NY
 11,2026-10-30,7pm,Salesianum (Wilmington),Middletown (Middletown),0,DE,DE
 11,2026-10-30,7pm,Huron Heights (Newmarket),Martinsburg (Martinsburg),0,ON,WV
+11,2026-10-30,,Football North (via Clarkson SS) (Mississauga),Saint Frances Academy (Baltimore),0,ON,MD
 11,2026-10-30,10pm,Mater Academy East (Las Vegas),Bishop Gorman (Las Vegas),0,NV,NV
 11,2026-10-30,7pm,West Orange (Winter Garden),Jones (Orlando),0,FL,FL
 11,2026-10-30,7pm,Cary (Cary),Cardinal Gibbons (Raleigh),0,NC,NC
 11,2026-10-30,,AZ Compass Prep (Chandler),Cornerstone Christian (San Antonio),0,AZ,TX
+11,2026-10-31,12pm,West Union (club) (West Union),Peebles (club) (Peebles),0,,
 11,2026-10-31,,Kiski Prep (Saltsburg),Linsly (Wheeling),0,PA,WV
 11,2026-10-31,,The St James Academy (Springfield),Loudoun Sports Academy (Leesburg),0,VA,VA
 11,2026-10-31,2pm,DeMatha Catholic (Hyattsville),Gonzaga (Washington),0,MD,DC
 11,2026-10-31,2pm,St John's College (Washington),Bishop McNamara (Forestville),0,DC,MD
 11,2026-10-31,7pm,St Joseph's Collegiate (Buffalo),St Francis (Hamburg),0,NY,NY
 11,2026-10-31,1pm,St Francis Prep (Fresh Meadows),Kellenberg Memorial (Uniondale),0,NY,NY
+11,2026-10-31,2pm,New Dorp (Staten Island),Eagle Academy for Young Men II (Brooklyn),0,NY,NY
 11,2026-10-31,7pm,The Hun School (Princeton),IMG Academy (Bradenton),0,NJ,FL
 11,2026-10-31,12pm,Pennington (Pennington),Long Island Lutheran (Brookville),0,NJ,NY
 12,2026-11-05,,Saint Frances Academy (Baltimore),St Thomas More (Oakdale),0,MD,CT
@@ -4046,6 +4195,7 @@ week,date,time,away,home,neutral,away_state,home_state
 12,2026-11-06,7pm,Hampshire,Oak Glen (New Cumberland),0,WV,WV
 12,2026-11-06,7pm,John Marshall (Glen Dale),Wheeling Park (Wheeling),0,WV,WV
 12,2026-11-06,7pm,Madonna (Weirton),Tucker County (Hambleton),0,WV,WV
+12,2026-11-06,7pm,Richwood,Valley (Wetzel) (Pine Grove),0,WV,WV
 12,2026-11-06,7pm,St Marys (St Marys),Wirt County (Elizabeth),0,WV,WV
 12,2026-11-06,7:30pm,Wahama (Mason),Man,0,WV,WV
 12,2026-11-06,7pm,Weir (Weirton),Brooke (Wellsburg),0,WV,WV
@@ -4056,13 +4206,16 @@ week,date,time,away,home,neutral,away_state,home_state
 12,2026-11-06,6:30pm,The Hun School (Princeton),U.S. Military Academy Prep (West Point),0,NJ,NY
 12,2026-11-06,7pm,Paul M. Hodgson Vo-Tech (Newark),Middletown (Middletown),0,DE,DE
 12,2026-11-06,,Legacy Sport Sciences (Spring),Catholic (Baton Rouge),0,TX,LA
+12,2026-11-06,,Football North (via Clarkson SS) (Mississauga),Hewlett Sports Academy (Waldorf),0,ON,MD
 12,2026-11-06,10pm,CIVICA Academy (North Las Vegas),Bishop Gorman (Las Vegas),0,NV,NV
 12,2026-11-07,,Linsly (Wheeling),Wyoming Seminary,0,WV,PA
 12,2026-11-07,7pm,Good Counsel (Wheaton),Bishop McNamara (Forestville),0,MD,MD
 12,2026-11-07,1pm,Concordia Prep (Towson),Long Island Lutheran (Brookville),0,MD,NY
 12,2026-11-07,1pm,Gonzaga (Washington),St John's College (Washington),0,DC,DC
+12,2026-11-07,11am,Tottenville (Staten Island),Eagle Academy for Young Men II (Brooklyn),0,NY,NY
 12,2026-11-07,3pm,Huron Heights (Newmarket),Mt Zion Prep (Lanham),0,ON,MD
 13,2026-11-13,7pm,Middletown (Middletown),Appoquinimink (Middletown),0,DE,DE
 13,2026-11-13,,Legacy Sport Sciences (Spring),Cornerstone Christian (San Antonio),0,TX,TX
 13,2026-11-13,,IMG Academy (Bradenton),Saint Frances Academy (Baltimore),0,FL,MD
+13,2026-11-14,12pm,Eagle Academy for Young Men II (Brooklyn),DeWitt Clinton (Bronx),0,NY,NY
 13,2026-11-14,12pm,Huron Heights (Newmarket),Long Island Lutheran (Brookville),0,ON,NY

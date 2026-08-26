@@ -64,7 +64,51 @@ NAME = r"[A-Za-z][A-Za-z0-9'&.\-/ ]*?(?:\([^)]*\))?"
 # state tag for non-Ohio opponents: "West Orange (Winter Garden) [FL]".
 # Requiring the parenthesised city makes this pattern precise enough to scan
 # the whole page at once.
-SB_TEAM = r"[A-Za-z][A-Za-z0-9'&.,\-/ ]*?\([^)]{1,40}\)(?:\s*\[[A-Za-z]{2}\])?"
+#
+# The school name may ITSELF contain a parenthetical, and the original pattern
+# could not match those at all -- it read one "(...)" and stopped:
+#
+#     St Xavier (Louisville) (Louisville) [KY]   disambiguated in the name
+#     Trinity (Louisville) (Louisville) [KY]     (Cincinnati has its own St X)
+#     Landmark Eagles (club) (Cincinnati)        club sides are marked
+#     Valley (Wetzel) (Pine Grove) [WV]          county in the name
+#     University Prep (USO co-op) (Pittsburgh) [PA]
+#     Football North (via Clarkson SS) (Mississauga) [ON]
+#
+# The rule that resolves it: the LAST parenthetical is always the mailing city,
+# and anything before it belongs to the school. Because the stem is non-greedy
+# the engine tries the shortest name first and extends only when the rest of
+# the record won't match, which lands on exactly that split. The two branches
+# are disjoint (a word character can never be "("), so there is one way to
+# consume each position and no backtracking blowup.
+#
+# The city may be EMPTY -- "Flint Beecher () [MI]". That used to be allowed for
+# fixtures but not for completed games, which silently skipped any played game
+# involving one. Both now use this single pattern.
+#
+# The bracketed tag is usually a two-letter state or province, but not always:
+# "TBD" marks an opponent the site has not settled, and the Department of
+# Defense schools abroad carry a country -- "Humphreys (Pyeongtaek) [South
+# Korea]", "American School in Japan (Chofu, Tokyo) [Japan]". Accepting only
+# two letters left those as UNRECOGNISED forever, which matters less for the
+# games (none of them will ever play an Ohio school) than for the alarm: that
+# count is how a change in the page format announces itself, and a number that
+# is never zero cannot announce anything.
+#
+# TBD parses here and is then discarded by name in the scrape loop, for the
+# same reason -- a placeholder is a real record, just not a real game.
+_TEAM_WORD = r"[A-Za-z0-9'&.,\-/ ]"
+_TEAM_INNER = r"\([^()]{1,30}\)"     # a parenthetical that is part of the NAME
+_TEAM_CITY = r"\([^()]{0,40}\)"      # the mailing city, always last, may be empty
+_TEAM_STATE = r"(?:\s*\[[A-Za-z][A-Za-z .'\-]{1,19}\])?"
+# The repetition is BOUNDED, and that bound is load-bearing rather than
+# cosmetic. The old stem could not cross a "(" so it always stopped within a
+# few characters; this one may consume whole parentheticals, which means an
+# unbounded version can run from any start position to the end of the page
+# hunting for a terminator that is not there. On a 450-record scoreboard that
+# is quadratic -- it took the probe from 0.02s to 6.3s. 60 repetitions is
+# comfortably past MAX_TEAM_CHARS and turns the scan back into linear work.
+SB_TEAM = rf"[A-Za-z](?:{_TEAM_WORD}|{_TEAM_INNER}){{0,60}}?{_TEAM_CITY}{_TEAM_STATE}"
 SB_TIME = r"(?:\d{1,2}(?::\d{2})?\s*[apAP]\.?[mM]\.?|\d{1,2}:\d{2}|[Nn]oon|TBA|TBD)"
 
 # A whole game, found anywhere in the page's flattened text. The ISO date is
@@ -89,15 +133,16 @@ SB_GAME_RE = re.compile(
 #   2026-08-27 7pm Weir (Weirton) [WV] *** at Oak Glen (New Cumberland) [WV] ***
 #   2026-08-28 Lewis County (Vanceburg) [KY] *** at Morgan County (West Liberty) [KY] ***
 #
-# Both scores are replaced by '***', the kickoff time is sometimes absent, and
-# out-of-state teams sometimes carry an EMPTY city: "Flint Beecher () [MI]".
-# That last one is why this pattern allows {0,40} inside the parentheses where
-# the completed-game pattern demands {1,40} -- see the note on SB_TEAM_EMPTY.
+# Both scores are replaced by '***' and the kickoff time is sometimes absent.
 #
 # No neutral-site marker ('vs.') appeared anywhere in the 466. 'vs.' is still
 # accepted here because completed games do use it, and a neutral fixture
 # appearing later must not be silently dropped.
-SB_TEAM_EMPTY = r"[A-Za-z][A-Za-z0-9'&.,\-/ ]*?\([^)]{0,40}\)(?:\s*\[[A-Za-z]{2}\])?"
+#
+# Fixtures and completed games share SB_TEAM now. They used to differ only in
+# whether an empty city was allowed, and the stricter half was a bug: a *played*
+# game involving "Bath County () [KY]" was skipped without trace.
+SB_TEAM_EMPTY = SB_TEAM
 SB_FUTURE_RE = re.compile(
     rf"(?P<date>\d{{4}}-\d{{2}}-\d{{2}})\s+(?:(?P<time>{SB_TIME})\s+)?"
     rf"(?P<away>{SB_TEAM_EMPTY})\s+\*\*\*\s+"
@@ -107,6 +152,38 @@ SB_FUTURE_RE = re.compile(
 )
 
 EMPTY_CITY_RE = re.compile(r"\s*\(\s*\)\s*$")
+
+# "St Xavier (Louisville) (Louisville)" -- the site appends the mailing city
+# even when the school name already ends with it. Collapsing the repeat keeps
+# the identity unique against Cincinnati's St Xavier while staying readable.
+# Deliberately narrow: it fires only when the last two parentheticals are
+# identical, so "Landmark Eagles (club) (Cincinnati)" is left alone.
+REPEATED_CITY_RE = re.compile(r"\(([^()]{1,40})\)\s*\(\1\)\s*$")
+
+# An opponent the site has not settled yet: "TBD () [TBD]". A real record, but
+# not a real game -- there is no team to rate or predict against. Dropped by
+# name and counted separately, so it neither invents a team called TBD nor
+# inflates the UNRECOGNISED count.
+PLACEHOLDER_RE = re.compile(r"^(?:TBA|TBD|OPEN|BYE)$", re.IGNORECASE)
+
+# A game called off. The site writes the outcome where the scores would go:
+#
+#   2026-08-20 6pm Expression Prep Academy (Huntington) [WV] at Foxfire (Zanesville) cancel
+#
+# It has no result to rate and is no longer a fixture to predict, so it is
+# recognised and dropped -- deliberately, and counted with the placeholders
+# rather than left to look like a parser failure.
+CALLED_OFF = r"(?:cancel(?:l?ed)?|ppd|postponed|forfeit(?:ed)?|no\s+contest)"
+SB_CALLED_OFF_RE = re.compile(
+    rf"(?P<date>\d{{4}}-\d{{2}}-\d{{2}})\s+(?:{SB_TIME}\s+)?"
+    rf"(?P<away>{SB_TEAM})\s+(?:\*\*\*\s+)?(?:at|vs\.?)\s+"
+    rf"(?P<home>{SB_TEAM})\s+(?:\*\*\*\s+)?{CALLED_OFF}",
+    re.IGNORECASE,
+)
+
+
+def _is_placeholder(name):
+    return bool(PLACEHOLDER_RE.match((name or "").strip()))
 
 # Same idea for the ranking pages. The "Current Average" always carries four
 # decimals, which terminates the free-text city+school run reliably.
@@ -118,7 +195,7 @@ RANK_FLAT_RE = re.compile(
     r"(?P<harbin>\d+\.\d{4})(?!\d)"
 )
 
-STATE_TAG_RE = re.compile(r"\s*\[([A-Za-z]{2})\]\s*$")
+STATE_TAG_RE = re.compile(r"\s*\[([A-Za-z][A-Za-z .'\-]{1,19})\]\s*$")
 
 
 def flat_text(html):
@@ -189,13 +266,35 @@ def _clean_name(s):
     return s
 
 
+# Bounds on a team name, not a guess at one.
+#
+# The old limits -- 48 characters, 6 words -- were set when this scraper read
+# BARE names off the scoreboard ("Antwerp"). Names carry the mailing city now,
+# which is far longer, and the limits were never re-cut. The result was a
+# filter that rejected real OHSAA schools by construction:
+#
+#     Cuyahoga Valley Christian Academy (Cuyahoga Falls)   50 chars
+#     Brecksville-Broadview Heights (Broadview Heights)    49 chars
+#
+# Both lost every game of the season, in silence. The longest legitimate name
+# on the 2026 roster is 50 characters, so a 48-character ceiling was below the
+# real maximum -- the bound was simply wrong, not merely tight.
+#
+# These are deliberately generous. They exist to reject page furniture, and the
+# junk-word check below is what actually does that work; length is a backstop.
+# tests/test_schedule.py asserts every name on the committed roster passes, so
+# this can never drift under the real data again.
+MAX_TEAM_CHARS = 80
+MAX_TEAM_WORDS = 12
+
+
 def _plausible_team(s):
     """Reject prose and navigation chrome that happens to sit near numbers."""
-    if not s or len(s) < 2 or len(s) > 48:
+    if not s or len(s) < 2 or len(s) > MAX_TEAM_CHARS:
         return False
     if not re.search(r"[A-Za-z]", s):
         return False
-    if len(s.split()) > 6:
+    if len(s.split()) > MAX_TEAM_WORDS:
         return False
     lowered = s.lower()
     junk = ("copyright", "rankings", "scoreboard", "click", "week ", "http",
@@ -470,7 +569,8 @@ def probe_unscored(flat, label, samples=12, window=200):
     """
     played_at = {m.start() for m in SB_GAME_RE.finditer(flat)}
     sched_at = {m.start() for m in SB_FUTURE_RE.finditer(flat)}
-    known = played_at | sched_at
+    off_at = {m.start() for m in SB_CALLED_OFF_RE.finditer(flat)}
+    known = played_at | sched_at | off_at
     dates = list(ISO_DATE_RE.finditer(flat))
     unmatched = [m for m in dates if m.start() not in known]
 
@@ -478,6 +578,7 @@ def probe_unscored(flat, label, samples=12, window=200):
     print(f"     date-anchored records on page : {len(dates)}", file=sys.stderr)
     print(f"     matched as completed games    : {len(played_at)}", file=sys.stderr)
     print(f"     matched as scheduled games    : {len(sched_at)}", file=sys.stderr)
+    print(f"     called off (not a game)       : {len(off_at)}", file=sys.stderr)
     print(f"     UNRECOGNISED                  : {len(unmatched)}", file=sys.stderr)
 
     for token in ("***", "TBA", "TBD", "vs.", " at ", "()"):
@@ -584,22 +685,53 @@ def _split_state(name):
 
 
 class WeekResult(NamedTuple):
-    games: list       # completed, with scores -- these drive the rating fit
-    scheduled: list   # fixtures with no result yet -- predictions only
-    residual: int     # date-anchored records neither pattern recognised
+    games: list        # completed, with scores -- these drive the rating fit
+    scheduled: list    # fixtures with no result yet -- predictions only
+    residual: int      # date-anchored records neither pattern recognised
+    placeholders: int  # records parsed, then dropped as "TBD" non-games
     flat: str
 
 
-def _sched_name(raw):
-    """'Flint Beecher () [MI]' -> ('Flint Beecher', 'MI').
+def _team_name(raw):
+    """Scoreboard text -> the (name, state) a team is known by.
 
-    Out-of-state schools sometimes have no mailing city on the scoreboard, and
-    the site still writes the empty parentheses. Left in place they would
-    become part of the team's identity, so a team would appear as both
-    'Flint Beecher ()' and 'Flint Beecher' depending on which page named it.
+        'Flint Beecher () [MI]'                    -> ('Flint Beecher', 'MI')
+        'St Xavier (Louisville) (Louisville) [KY]' -> ('St Xavier (Louisville)', 'KY')
+        'Landmark Eagles (club) (Cincinnati)'      -> unchanged, '' 
+
+    Two normalisations, both about identity rather than tidiness. An empty
+    mailing city is written as bare parentheses, and left in place a team would
+    appear as both 'Flint Beecher ()' and 'Flint Beecher' depending on which
+    page named it. A mailing city that merely repeats what the school name
+    already ends with is collapsed for the same reason.
+
+    Used for completed games and fixtures alike -- the two must agree exactly
+    or a team's results and its remaining schedule land on different entities.
     """
     name, state = _split_state(raw)
+    name = REPEATED_CITY_RE.sub(r"(\1)", name)
     return _clean_name(EMPTY_CITY_RE.sub("", name)), state
+
+
+_sched_name = _team_name   # the old name, kept for callers
+
+
+def _placeholder_count(flat):
+    """How many records parsed cleanly but named no real opponent.
+
+    Reported next to UNRECOGNISED and never folded into it: one means "the page
+    format moved and we are losing games", the other means "the site has not
+    announced this matchup yet". Conflating them was why UNRECOGNISED could
+    never reach zero, and an alarm that always rings is not an alarm.
+    """
+    n = sum(1 for _ in SB_CALLED_OFF_RE.finditer(flat))
+    for rx in (SB_GAME_RE, SB_FUTURE_RE):
+        for m in rx.finditer(flat):
+            a, _ = _team_name(m.group("away"))
+            h, _ = _team_name(m.group("home"))
+            if _is_placeholder(a) or _is_placeholder(h):
+                n += 1
+    return n
 
 
 def scrape_schedule(flat, week):
@@ -609,9 +741,18 @@ def scrape_schedule(flat, week):
     never reach the rating fit, and exist only to be predicted.
     """
     out, seen = [], set()
+    # A game the site has marked cancelled still carries '***' where its scores
+    # would be, so the fixture pattern matches it. It is not a fixture.
+    called_off = {m.start() for m in SB_CALLED_OFF_RE.finditer(flat)}
     for m in SB_FUTURE_RE.finditer(flat):
-        away, astate = _sched_name(m.group("away"))
-        home, hstate = _sched_name(m.group("home"))
+        if m.start() in called_off:
+            continue
+        away, astate = _team_name(m.group("away"))
+        home, hstate = _team_name(m.group("home"))
+        # A real record, but not a real game -- the site has not settled the
+        # opponent yet. Skipped by name rather than left to fail the pattern.
+        if _is_placeholder(away) or _is_placeholder(home):
+            continue
         if not (_plausible_team(away) and _plausible_team(home)):
             continue
         if away.lower() == home.lower():
@@ -642,8 +783,10 @@ def scrape_week(sess, season, week, use_cache=True, diagnose=False, probe=False)
 
     games, seen = [], set()
     for m in SB_GAME_RE.finditer(flat):
-        away, astate = _split_state(m.group("away"))
-        home, hstate = _split_state(m.group("home"))
+        away, astate = _team_name(m.group("away"))
+        home, hstate = _team_name(m.group("home"))
+        if _is_placeholder(away) or _is_placeholder(home):
+            continue
         if not (_plausible_team(away) and _plausible_team(home)):
             continue
         if away.lower() == home.lower():
@@ -669,17 +812,20 @@ def scrape_week(sess, season, week, use_cache=True, diagnose=False, probe=False)
         )
 
     scheduled = scrape_schedule(flat, week)
+    placeholders = _placeholder_count(flat)
 
     # Anything date-anchored that neither pattern claimed. Reported per week as
     # a single number so a format change shows up as a rising count in the log
     # rather than as games quietly going missing.
     known = ({m.start() for m in SB_GAME_RE.finditer(flat)}
-             | {m.start() for m in SB_FUTURE_RE.finditer(flat)})
+             | {m.start() for m in SB_FUTURE_RE.finditer(flat)}
+             | {m.start() for m in SB_CALLED_OFF_RE.finditer(flat)})
     residual = sum(1 for m in ISO_DATE_RE.finditer(flat) if m.start() not in known)
 
     if not games and not scheduled and diagnose:
         _diagnose(f"week {week} scoreboard", page_lines(html), flat=flat)
-    return WeekResult(games=games, scheduled=scheduled, residual=residual, flat=flat)
+    return WeekResult(games=games, scheduled=scheduled, residual=residual,
+                      placeholders=placeholders, flat=flat)
 
 
 def scrape_roster(sess, season, use_cache=True, known_pairs=frozenset()):
@@ -784,6 +930,8 @@ def main():
             break
 
         note = f"  week {wk:>2}: {len(r.games):>3} played, {len(r.scheduled):>3} scheduled"
+        if r.placeholders:
+            note += f"  ({r.placeholders} TBD)"
         if r.residual:
             note += f"  [{r.residual} UNRECOGNISED]"
         print(note, file=sys.stderr)

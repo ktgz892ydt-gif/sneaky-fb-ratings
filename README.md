@@ -105,6 +105,27 @@ is the check that catches fixtures from two different schools landing on one
 team, which is invisible to every other assertion — the projected record adds
 up perfectly well, just over a season that cannot happen.
 
+## Reading the source pages
+
+Every team is written `School (City)`, optionally tagged with a state or
+country for non-Ohio opponents. Three details cost real games before they were
+handled, and all three are pinned by tests built from verbatim page text:
+
+- **A school name may contain its own parentheses** — `St Xavier (Louisville)
+  (Louisville) [KY]`, `Landmark Eagles (club) (Cincinnati)`. The **last**
+  parenthetical is the mailing city; anything before it belongs to the school.
+- **Not every record is a game.** `TBD () [TBD]` is an opponent the site has
+  not settled; `... at Foxfire (Zanesville) cancel` was called off. Both are
+  recognised and discarded by name, and counted separately in the scrape log.
+- **`UNRECOGNISED` should be zero.** It is the alarm for the page format
+  moving, and it is worthless if it never reaches zero — so anything the source
+  legitimately publishes must parse, including the Department of Defense
+  schools abroad that tag a country rather than a state.
+
+`check.py` fails the build if any OHSAA team ends the run with no game at all,
+played or scheduled. That is what a silent parser regression looks like from
+the outside, and nothing else in the pipeline notices it.
+
 ## Teams with no result yet
 
 A team that has not played this season still receives a rating — the prior and
