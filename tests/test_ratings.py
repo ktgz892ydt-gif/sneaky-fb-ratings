@@ -9,6 +9,7 @@ import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts"))
 
 from ratings import (  # noqa: E402
+    expected_margin,
     RatingConfig, prob_scale, rate, squash, win_probability,
 )
 
@@ -248,3 +249,44 @@ def test_a_stand_in_probability_is_still_a_probability():
         p = win_probability(m, 0, CFG, stand_in=True)
         assert 0.0 < p < 1.0
     assert win_probability(0.0, 0, CFG, stand_in=True) == pytest.approx(0.5)
+
+
+# --------------------------------------------- rating difference -> margin
+
+def test_the_rating_scale_is_not_an_expected_margin_by_default():
+    """margin_scale defaults to 1.0, i.e. uncalibrated, so an old tuned.json
+    keeps the previous behaviour rather than silently changing every number."""
+    assert RatingConfig().margin_scale == 1.0
+    assert expected_margin(14.0, RatingConfig()) == 14.0
+
+
+def test_calibration_scales_the_margin():
+    cfg = RatingConfig(margin_scale=1.4708)
+    assert expected_margin(14.0, cfg) == pytest.approx(20.59, abs=0.01)
+    assert expected_margin(-14.0, cfg) == pytest.approx(-20.59, abs=0.01)
+
+
+def test_calibration_preserves_sign_and_order():
+    cfg = RatingConfig(margin_scale=1.4708)
+    assert expected_margin(0.0, cfg) == 0.0
+    vals = [expected_margin(m, cfg) for m in range(-30, 31, 5)]
+    assert all(b > a for a, b in zip(vals, vals[1:]))
+
+
+def test_the_margin_scale_must_not_touch_the_probability():
+    """The trap this separation exists to prevent.
+
+    prob_scale was fitted against the RAW rating difference and is calibrated
+    there. Feeding it the calibrated margin instead would shift every
+    probability, and both quantities are called "the margin", so the mistake
+    is easy and invisible.
+    """
+    raw = 14.0
+    plain = RatingConfig()
+    calibrated = RatingConfig(margin_scale=1.4708)
+    # Same raw input, same probability, whatever margin_scale says.
+    for g in (0, 1, 5, 10):
+        assert win_probability(raw, g, plain) == win_probability(raw, g, calibrated)
+    # And the calibrated margin is emphatically NOT the right input.
+    assert (win_probability(expected_margin(raw, calibrated), 5, calibrated)
+            != win_probability(raw, 5, calibrated))

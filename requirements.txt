@@ -1,5 +1,14 @@
-requests>=2.31
-beautifulsoup4>=4.12
-numpy>=1.26
-scipy>=1.11
-pytest>=8.0
+# Upper bounds are deliberate. This project commits its numerical output and
+# diffs it every week, so a change in numpy or scipy can move committed results
+# without any code changing -- the solver, the sparse products and the RNG all
+# live in those two.
+#
+# These are CAPS, not pins. A true lock file has to be generated in the CI
+# environment (Python 3.12), not from a developer box, and there is a step in
+# the workflow that records what CI actually resolved so a future numerical
+# diff can be traced to a dependency bump rather than guessed at.
+requests>=2.31,<3
+beautifulsoup4>=4.12,<5
+numpy>=1.26,<3
+scipy>=1.11,<2
+pytest>=8.0,<9

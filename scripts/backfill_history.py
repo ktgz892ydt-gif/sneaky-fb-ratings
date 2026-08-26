@@ -25,8 +25,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from harbin import LAST_REGULAR_WEEK  # noqa: E402
 from history import (KIND_BACKTEST, append_if_new,  # noqa: E402
                      build_snapshot)
-from ratings import RatingConfig, rate, win_probability  # noqa: E402
+from ratings import (RatingConfig, expected_margin, rate,  # noqa: E402
+                     win_probability)
 from resolve import load_games, load_roster, resolve  # noqa: E402
+from tune import full_season_ratings, prior_for  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
@@ -48,21 +50,45 @@ def config_from_tuned():
         division_weight=float(best.get("division_weight", cfg.division_weight)),
         prob_scale_a=float(ps.get("a", cfg.prob_scale_a)),
         prob_scale_b=float(ps.get("b", cfg.prob_scale_b)),
+        margin_scale=float(ps.get("marginScale") or cfg.margin_scale),
     ), {k: best.get(k) for k in ("squash_scale", "prior_games", "carry",
                                  "division_weight")}
 
 
-def replay(season, path, cfg, tuned_meta):
-    g = os.path.join(DATA, f"games_{season}.csv")
-    r = os.path.join(DATA, f"roster_{season}.csv")
+def _season(year):
+    g = os.path.join(DATA, f"games_{year}.csv")
+    r = os.path.join(DATA, f"roster_{year}.csv")
     if not (os.path.exists(g) and os.path.exists(r)):
+        return None
+    return resolve(load_roster(r), load_games(g))
+
+
+def replay(season, path, cfg, tuned_meta, carry):
+    res = _season(season)
+    if res is None:
         print(f"  {season}: no data on disk, skipping", file=sys.stderr)
         return 0
-    res = resolve(load_roster(r), load_games(g))
     ids = sorted(res.teams)
     by_week = defaultdict(list)
     for gm in res.games:
         by_week[gm.get("week", 1)].append(gm)
+
+    # The live build rates with a preseason prior carried from the previous
+    # season, and tune.py's walk-forward does the same. A replay that skips it
+    # is not measuring the model that ships -- and the gap is widest in exactly
+    # the early weeks a backtest covers, because that is when the prior does
+    # most of the work. Without this the published track record graded a
+    # prior-free model.
+    prev = _season(season - 1)
+    prior = None
+    if prev is not None:
+        prior_pts = prior_for(res, full_season_ratings(prev, cfg), carry,
+                              cfg.division_weight)
+        prior = {t: float(prior_pts[i]) for i, t in enumerate(ids)}
+        print(f"  {season}: prior carried from {season - 1}", file=sys.stderr)
+    else:
+        print(f"  {season}: no {season - 1} data, replaying without a prior "
+              f"(as the live build would if it had none)", file=sys.stderr)
 
     written = 0
     for through in range(1, LAST_REGULAR_WEEK):
@@ -71,7 +97,7 @@ def replay(season, path, cfg, tuned_meta):
         if len(train) < 50 or not test:
             continue
 
-        result = rate(ids, train, cfg)
+        result = rate(ids, train, cfg, priors=prior)
         idx = {t: i for i, t in enumerate(ids)}
         played = defaultdict(int)
         for gm in train:
@@ -100,7 +126,9 @@ def replay(season, path, cfg, tuned_meta):
                 "week": through + 1,
                 "homeName": res.teams[h].name,
                 "awayName": res.teams[a].name,
-                "predictedHomeMargin": round(float(margin), 1),
+                # Same split as the live build: the probability from the raw
+                # difference, the published margin calibrated.
+                "predictedHomeMargin": round(float(expected_margin(margin, cfg)), 1),
                 "homeWinProb": round(float(win_probability(margin, est, cfg)), 3),
             })
 
@@ -121,7 +149,8 @@ def main():
     cfg, tuned_meta = config_from_tuned()
     print(f"replaying with scale={cfg.squash_scale} prior={cfg.prior_games}",
           file=sys.stderr)
-    total = sum(replay(int(y), a.out, cfg, tuned_meta)
+    carry = float((tuned_meta or {}).get("carry") or 0.5)
+    total = sum(replay(int(y), a.out, cfg, tuned_meta, carry)
                 for y in a.seasons.split(","))
     print(f"-> {total} backtest weeks in {a.out}", file=sys.stderr)
 

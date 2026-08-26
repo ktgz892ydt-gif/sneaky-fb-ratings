@@ -30,10 +30,15 @@ point margin.
 | 56 pts | 0.998 wins |
 
 One model, one likelihood, no arbitrary blend weights. Margin still matters, but
-a 63-0 game is not worth nine times a 7-0 game. Ratings are expressed on a
-point-margin scale: the gap between two ratings is the model's neutral-field
-margin estimate. It is still a squashed-margin Bradley-Terry fit under the hood,
-not a raw expected-margin regression.
+a 63-0 game is not worth nine times a 7-0 game. Ratings are expressed on a point-margin
+scale, but a rating difference is not itself an expected margin: measured over
+13,756 walk-forward predictions the slope of actual on predicted is **1.49**,
+because the squash discounts blowouts when fitting and that discount survives
+the rescale. The board therefore publishes a **calibrated** margin — the rating
+difference times a fitted constant — which cuts mean margin error from 18.0 to
+16.6 points and removes the bias. The calibration is display-only; the win
+probability is computed from the raw difference, which is the scale it was
+calibrated against.
 
 Plain Bradley-Terry and plain Massey are still fitted and shown alongside, under
 "Compare models." Where they disagree is the interesting part.
@@ -192,8 +197,8 @@ Two kinds of record, reported separately and **never averaged**:
   of every side input present in a live weekly build. It is a weaker claim.
   `check.py` fails the build if the two are ever merged into one figure.
 
-Across 13,751 backtested games: **75.9% of games called correctly**, log loss
-0.4758, Brier 0.1588. Calibration is the part that matters —
+Across 13,751 backtested games: **77.3% of games called correctly**, log loss
+0.4551, Brier 0.1509. Calibration is the part that matters —
 
 | board said | favourite actually won | n |
 |---|---|---|

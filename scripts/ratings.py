@@ -94,6 +94,34 @@ class RatingConfig:
     prob_scale_a: float = 18.6235
     prob_scale_b: float = 98.7279
 
+    # --- turning a rating difference into an EXPECTED MARGIN ----------------
+    #
+    # A third job for a third number. squash_scale asks "how much of a win was
+    # this result", prob_scale asks "how likely is this team to win", and this
+    # asks "by how much".
+    #
+    # The rating scale is a fitting device: ratings come out of a logistic fit
+    # and are multiplied by squash_scale to be readable in points. That makes
+    # them point-LIKE, but it does not make a rating difference an expected
+    # margin, and measured it is not one. Regressing actual margin on predicted
+    # over 13,756 walk-forward predictions gives a slope of 1.49, not 1.0: a
+    # predicted 14-point win is really a 21-point win. The squash deliberately
+    # discounts blowouts when fitting, and that discount survives into the
+    # rescaled output.
+    #
+    # So the displayed margin is the rating difference times this constant.
+    # Measured by season progress the slope is flat -- 1.53, 1.42, 1.50, 1.53,
+    # 1.46 through weeks 1 to 9 -- so unlike prob_scale this is a single number
+    # and not a curve.
+    #
+    # It is display-only and must NOT enter the probability. prob_scale was
+    # fitted against the RAW difference and is well calibrated there (games
+    # called at 80% are won 78.7% of the time); rescaling the input would
+    # break that.
+    #
+    # 1.0 means uncalibrated, which is what an older tuned.json yields.
+    margin_scale: float = 1.0
+
     # Week 1 predictions come from the preseason prior, not from a fitted
     # rating, so the curve above does not describe them. Measured, the flat
     # squash_scale beats every fitted alternative there, so g=0 keeps it.
@@ -423,6 +451,16 @@ def prob_scale(games_played, cfg: RatingConfig, stand_in: bool = False) -> float
         return float(cfg.squash_scale)
     s = math.sqrt(max(cfg.prob_scale_a, 0.1) + max(cfg.prob_scale_b, 0.0) / g)
     return float(min(max(s, cfg.prob_scale_min), cfg.prob_scale_max))
+
+
+def expected_margin(raw_margin: float, cfg: RatingConfig) -> float:
+    """The rating difference, restated as the margin actually expected.
+
+    `raw_margin` is what predict_margin() returns -- the difference on the
+    rating scale, plus home field. Pass the same value to win_probability(),
+    NOT this one: see the note on margin_scale.
+    """
+    return float(raw_margin) * float(cfg.margin_scale)
 
 
 def win_probability(margin: float, games_played, cfg: RatingConfig,

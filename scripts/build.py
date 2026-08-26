@@ -19,7 +19,8 @@ from harbin import (FIRST_ROUND_BYES, LAST_REGULAR_WEEK,  # noqa: E402
 from history import (append_if_new, build_snapshot,  # noqa: E402
                      load as load_history, score as score_history,
                      trends)
-from ratings import RatingConfig, rate, win_probability  # noqa: E402
+from ratings import (RatingConfig, expected_margin, rate,  # noqa: E402
+                     win_probability)
 from rivals import head_to_head, load as load_rivals  # noqa: E402
 from resolve import load_games, load_roster, resolve, team_identity  # noqa: E402
 from simulate import (own_game_swings, scoreboard_watch,  # noqa: E402
@@ -220,13 +221,18 @@ def predict_schedule(fixtures, res, result, team_ids, cfg, fallback):
         # prob_scale(). Without this a stand-in reads as more confident than a
         # real team with one game behind it.
         stand_in = "stand-in" in (hstat, astat)
+        # The probability is computed from the RAW difference, which is the
+        # scale prob_scale was fitted against and is well calibrated on.
         p = win_probability(margin, established, cfg, stand_in=stand_in)
+        # The published margin is the calibrated one, because a rating
+        # difference measurably is not an expected margin -- see margin_scale.
+        shown = expected_margin(margin, cfg)
         row.update(
             predicted=True,
-            predictedHomeMargin=round(float(margin), 1),
+            predictedHomeMargin=round(float(shown), 1),
             homeWinProb=round(float(p), 3),
             favoriteName=f["home"] if margin >= 0 else f["away"],
-            spread=round(abs(float(margin)), 1),
+            spread=round(abs(float(shown)), 1),
             gamesBehind=established,
             estimated=stand_in,
             estimatedNote=(fb_note if stand_in else ""),
@@ -359,6 +365,7 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
             division_weight=float(best.get("division_weight", cfg.division_weight)),
             prob_scale_a=float(ps.get("a", cfg.prob_scale_a)),
             prob_scale_b=float(ps.get("b", cfg.prob_scale_b)),
+            margin_scale=float(ps.get("marginScale") or cfg.margin_scale),
         )
         tuned_meta = {k: best.get(k) for k in
                       ("squash_scale", "prior_games", "carry", "division_weight",
@@ -488,9 +495,20 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
     # so put the simulation object into the payload's "season" field, which
     # json.dump then refused. Loud, but only because a dataclass is not
     # serialisable; an int-like object would have shipped a wrong year.
-    sim_season = simulate_season(team_ids, res.teams, res.games, sim_rem, sim_p,
-                                 QUALIFIERS_PER_REGION)
-    sim = sim_season.summary
+    # A finished season has nothing to simulate. Running it anyway is not
+    # merely wasted work: it writes playoff odds, seed distributions and win
+    # distributions for all 700 teams into a file that exists ONLY to derive
+    # next season's prior, of which season_prior.py reads six fields. The
+    # workflow rebuilds last season on every run, so this shipped a
+    # 16,691-line diff and a 2.2 MB artifact the first time the simulator ran
+    # in CI.
+    if sim_rem:
+        sim_season = simulate_season(team_ids, res.teams, res.games, sim_rem, sim_p,
+        QUALIFIERS_PER_REGION)
+        sim = sim_season.summary
+    else:
+        sim_season, sim = None, {}
+        print("simulation     : nothing left to play; skipped", file=sys.stderr)
 
     # ---- what-ifs ---------------------------------------------------------
     # Read off the finished simulation by conditioning, never re-simulated:
@@ -501,8 +519,8 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
     # say nothing, for a third of the payload.
     can_qualify = [t for t in team_ids
                    if res.teams[t].in_ohio and res.teams[t].region is not None]
-    swings = own_game_swings(sim_season, can_qualify)
-    watches = scoreboard_watch(sim_season, res.teams)
+    swings = own_game_swings(sim_season, can_qualify) if sim_season else {}
+    watches = scoreboard_watch(sim_season, res.teams) if sim_season else {}
 
     def _row(k):
         return sim_rows[k]
@@ -660,6 +678,10 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
             #     standInScale whenever the fixture is flagged `e`
             #     p(home) = 1 / (1 + exp(-margin / scale))
             # gamesPlayed is w+l+t of the *less* established of the two teams.
+            # Display-only. predictedHomeMargin is already multiplied by this;
+            # a consumer recomputing a probability must use the RAW difference,
+            # i.e. divide it back out first.
+            "marginScale": cfg.margin_scale,
             "probScale": {
                 "a": round(cfg.prob_scale_a, 4),
                 "b": round(cfg.prob_scale_b, 4),

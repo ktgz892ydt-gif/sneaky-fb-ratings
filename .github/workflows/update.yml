@@ -46,6 +46,14 @@ jobs:
 
       - run: pip install -r requirements.txt
 
+      # What CI actually resolved. Committed results depend on numpy and scipy
+      # -- solver, sparse products, RNG -- so when a numerical diff appears with
+      # no code change, this is the first place to look.
+      - name: Record the resolved dependency versions
+        run: |
+          python -c "import sys; print('python', sys.version)"
+          pip freeze | tee data/requirements.lock
+
       # Unit tests run before anything touches the network. A broken resolver
       # or model should fail here, in seconds, not after 44 requests.
       - name: Unit tests
@@ -68,9 +76,24 @@ jobs:
       # Fits squash_scale, prior_games and carry by walk-forward prediction on
       # the historical seasons. Slow, and the answer barely moves between runs,
       # so it is opt-in rather than weekly.
+      # This step runs BEFORE the scrape, so it fits on the COMMITTED historical
+      # CSVs. If the parser has changed since those were written, the fit is
+      # against data the current scraper would no longer produce -- which is
+      # exactly what happened when the nested-parenthesis and empty-city fixes
+      # landed and recovered ~20% more games per season.
       - name: Re-fit model constants
         if: ${{ inputs.retune }}
-        run: python scripts/tune.py --seasons 2023,2024,2025 --holdouts 1,2,4,7,10
+        run: |
+          for Y in 2023 2024 2025; do
+            if [ "scripts/scrape.py" -nt "data/games_$Y.csv" ]; then
+              echo "::error::scripts/scrape.py is newer than data/games_$Y.csv."
+              echo "Re-fitting now would fit on history the current parser would"
+              echo "not produce. Re-scrape that season first:"
+              echo "    python scripts/scrape.py --season $Y"
+              exit 1
+            fi
+          done
+          python scripts/tune.py --seasons 2023,2024,2025 --holdouts 1,2,4,7,10
 
       - name: Build last season's ratings and derive the preseason prior
         run: |

@@ -234,6 +234,21 @@
    ],
    "meanLoglossFlat": 0.4685,
    "meanLoglossFitted": 0.4629
+  },
+  "marginScale": 1.4708,
+  "marginScaleFit": {
+   "n": 10512,
+   "slope": 1.4708,
+   "meanAbsErrorRaw": 17.99,
+   "meanAbsErrorCalibrated": 16.59,
+   "signedBiasRaw": 0.581,
+   "signedBiasCalibrated": -0.061,
+   "slopeByWeeksPlayed": {
+    "1-2": 1.613,
+    "3-5": 1.448,
+    "6-7": 1.475,
+    "8-10": 1.458
+   }
   }
  },
  "leaderboard": [

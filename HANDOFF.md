@@ -23,7 +23,7 @@ nothing.
 
 **Current state: working and deployed.** Week 1 of 2026 is live. Three past
 seasons (2023–2025) are committed. Model constants are fitted, not guessed.
-206 unit tests pass in CI before anything touches the network.
+212 unit tests pass in CI before anything touches the network.
 
 ---
 
@@ -32,7 +32,7 @@ seasons (2023–2025) are committed. Model constants are fitted, not guessed.
 ```bash
 cd ~/Documents/GitHub/sneaky-fb-ratings
 git fetch && git status          # the bot commits here; the remote is often ahead
-python -m pytest tests/ -q       # expect 206 passed; pip install -r requirements.txt if not
+python -m pytest tests/ -q       # expect 212 passed; pip install -r requirements.txt if not
 python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/check.json --no-site --no-history
 ```
 
@@ -64,8 +64,24 @@ Why not the obvious alternatives:
 Both are still fitted and shown under "Compare models." Where they disagree is
 informative.
 
-Ratings are in **points**: the difference between two ratings is the expected
-neutral-field margin.
+Ratings are on a **points scale**, but a rating difference is NOT an expected
+margin and it was wrong to say so. Measured over 13,756 walk-forward
+predictions, regressing actual margin on predicted gives a slope of **1.49**: a
+predicted 14-point win is really a 21-point win. The squash discounts blowouts
+when fitting, and that discount survives into the rescaled output.
+
+So the board publishes a **calibrated** margin: the rating difference times
+`margin_scale`, fitted at 1.4708. That cuts mean margin error from 18.0 to 16.6
+points and removes the bias (+0.60 to -0.14). The slope is flat across the
+season (1.53, 1.42, 1.50, 1.53, 1.46 through weeks 1-9), so it is one constant
+and not a curve.
+
+**The calibration is display-only and must never reach the probability.**
+`prob_scale` was fitted against the RAW difference and is well calibrated there.
+Both quantities are called "the margin", so feeding the calibrated one into the
+probability is an easy and invisible mistake -- `check.py` reproduces every
+published probability from `predictedHomeMargin / marginScale` and fails if it
+cannot. Injecting the mistake trips it on 3,030 fixtures.
 
 ### Measured performance
 
@@ -345,8 +361,15 @@ headline would look entirely reasonable.
 
 ### What it currently says
 
-13,751 backtested games: **75.9% called correctly**, log loss 0.4758, Brier
-0.1588, mean margin error 19.0 points. Calibration, which is the part that
+13,751 backtested games: **77.3% called correctly**, log loss 0.4551, Brier
+0.1509, mean margin error 16.7 points.
+
+**The backtest must carry the preseason prior.** It originally did not:
+`backfill_history.py` called `rate(ids, train, cfg)` while the live build calls
+`rate(..., priors=priors)` and `tune.py` fits with a prior. A replay without one
+is not measuring the model that ships, and the gap is widest in exactly the
+early weeks a backtest covers. Fixing it moved accuracy 75.9% -> 77.3% and log
+loss 0.4758 -> 0.4551 -- the bug was understating the board, not flattering it. Calibration, which is the part that
 matters:
 
 | board said | favourite actually won | n |

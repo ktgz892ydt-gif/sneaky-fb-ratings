@@ -199,6 +199,50 @@ def main():
                          f"than a flat scale ({cv['meanLoglossFitted']:.4f} vs "
                          f"{cv['meanLoglossFlat']:.4f}) -- do not ship it")
 
+    # ---- the two scales must not have been swapped
+    #
+    # predictedHomeMargin is the rating difference times marginScale, while the
+    # probability is computed from the difference BEFORE that multiplication.
+    # Dividing the scale back out of the published margin must therefore
+    # reproduce the published probability. If someone ever feeds the calibrated
+    # margin into the probability -- the obvious mistake, since both are
+    # "the margin" -- every probability shifts and nothing else looks wrong.
+    cfgb = d.get("config") or {}
+    mscale = cfgb.get("marginScale")
+    cps2 = cfgb.get("probScale") or {}
+    if mscale and cps2.get("a") is not None:
+        def _scale_for(g, standin):
+            if standin:
+                return cps2["max"]
+            if g < 1:
+                return cps2["flatScale"]
+            return min(max(math.sqrt(cps2["a"] + cps2["b"] / g),
+                           cps2["min"]), cps2["max"])
+
+        teams_by_pos = d["teams"]
+
+        def _games(v):
+            return teams_by_pos[v]["games"] if isinstance(v, int) else 0
+
+        mismatch, worst = 0, 0.0
+        for g in d.get("schedule") or []:
+            if "m" not in g:
+                continue
+            gb = min(_games(g["h"]), _games(g["a"]))
+            raw = g["m"] / mscale
+            p_expected = 1.0 / (1.0 + math.exp(-raw / _scale_for(gb, bool(g.get("e")))))
+            err = abs(p_expected - g["p"])
+            worst = max(worst, err)
+            if err > 0.01:
+                mismatch += 1
+        check(mismatch == 0,
+              f"{mismatch} fixtures where the published probability cannot be "
+              f"reproduced from the published margin divided by marginScale "
+              f"(worst {worst:.4f}) -- the calibrated margin has most likely "
+              f"been fed into the probability")
+        check(0.5 <= mscale <= 3.0,
+              f"marginScale {mscale} is outside any plausible range")
+
     # ---- the remaining schedule
     #
     # Predictions are a separate list from results on purpose. The failure that

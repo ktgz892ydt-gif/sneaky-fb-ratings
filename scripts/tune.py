@@ -317,7 +317,7 @@ def collect_predictions(res, prev_ratings, cfg, carry, holdouts, division_weight
                 (0.0 if g.get("neutral") else hfa)
             out.append((float(pred), 1.0 if m > 0 else 0.0,
                         float(min(played[g["home"]], played[g["away"]])),
-                        int(w)))
+                        int(w), float(m)))
     return out
 
 
@@ -365,7 +365,7 @@ def fit_prob_scale(samples, cfg):
     """
     from scipy.optimize import minimize as _minimize
 
-    arr = np.array([(p, y, g) for p, y, g, _ in samples], dtype=float)
+    arr = np.array([(p, y, g) for p, y, g, _, _ in samples], dtype=float)
     if len(arr) < 500:
         return None, None, {"skipped": f"only {len(arr)} usable games"}
 
@@ -389,7 +389,7 @@ def fit_prob_scale(samples, cfg):
     flat = np.full_like(all_g, cfg.squash_scale)
     fitted = np.where(all_g < 1.0, cfg.squash_scale, scales_for([a, b], all_g))
 
-    weeks = np.array([w for _, _, _, w in samples], dtype=float)
+    weeks = np.array([w for _, _, _, w, _ in samples], dtype=float)
     by_week = {}
     for w in sorted({int(x) for x in weeks}):
         m = weeks == w
@@ -412,6 +412,52 @@ def fit_prob_scale(samples, cfg):
     }
 
 
+def fit_margin_scale(samples):
+    """The constant that turns a rating difference into an expected margin.
+
+    Least squares through the origin: the intercept is pinned at zero because
+    home field is already inside the prediction, and a fitted intercept would
+    quietly add a league-wide bias to every game.
+
+    Measured slope by season progress is flat (1.53, 1.42, 1.50, 1.53, 1.46
+    through weeks 1-9), so one constant is the right shape -- unlike the
+    probability scale, which genuinely steepens as teams accumulate games.
+    """
+    if len(samples) < 500:
+        return None, {"skipped": f"only {len(samples)} games"}
+    pred = np.array([s[0] for s in samples], dtype=float)
+    act = np.array([s[4] for s in samples], dtype=float)
+    denom = float((pred ** 2).sum())
+    if denom <= 0:
+        return None, {"skipped": "no spread in predictions"}
+    scale = float((pred * act).sum() / denom)
+
+    def mae(k):
+        return float(np.abs(k * pred - act).mean())
+
+    def bias(k):
+        return float((act - k * pred).mean())
+
+    by_progress = {}
+    weeks = np.array([s[3] for s in samples], dtype=float)
+    for lo, hi in ((1, 3), (3, 6), (6, 8), (8, 11)):
+        m = (weeks >= lo) & (weeks < hi)
+        if m.sum() < 200:
+            continue
+        d = float((pred[m] ** 2).sum())
+        by_progress[f"{lo}-{hi - 1}"] = round(float((pred[m] * act[m]).sum() / d), 3) if d else None
+
+    return scale, {
+        "n": len(samples),
+        "slope": round(scale, 4),
+        "meanAbsErrorRaw": round(mae(1.0), 2),
+        "meanAbsErrorCalibrated": round(mae(scale), 2),
+        "signedBiasRaw": round(bias(1.0), 3),
+        "signedBiasCalibrated": round(bias(scale), 3),
+        "slopeByWeeksPlayed": by_progress,
+    }
+
+
 def crossvalidate_prob_scale(per_season, cfg):
     """Fit on one season, score on the other. In-sample gains prove nothing."""
     seasons = sorted(per_season)
@@ -423,7 +469,7 @@ def crossvalidate_prob_scale(per_season, cfg):
         a, b, _ = fit_prob_scale(train, cfg)
         if a is None:
             continue
-        arr = np.array([(p, y, g) for p, y, g, _ in per_season[held]], dtype=float)
+        arr = np.array([(p, y, g) for p, y, g, _, _ in per_season[held]], dtype=float)
         pred, y, g = arr[:, 0], arr[:, 1], arr[:, 2]
         curve = np.sqrt(max(a, 0.1) + max(b, 0.0) / np.maximum(g, 1e-9))
         fitted = np.where(g < 1.0, cfg.squash_scale,
@@ -458,6 +504,11 @@ def calibrate(loaded, evals, cfg, carry, weeks):
         print(f"    calibration skipped: {report.get('skipped')}", file=sys.stderr)
         return None
     cv = crossvalidate_prob_scale(per_season, cfg)
+    mscale, mreport = fit_margin_scale(pooled)
+    if mscale:
+        print(f"    margin scale {mscale:.4f}: mean |error| "
+              f"{mreport['meanAbsErrorRaw']:.2f} -> "
+              f"{mreport['meanAbsErrorCalibrated']:.2f} pts", file=sys.stderr)
     block = {
         "form": "scale(g) = sqrt(a + b / g), g = games played by the less "
                 "established of the two teams; g < 1 uses squash_scale",
@@ -467,6 +518,11 @@ def calibrate(loaded, evals, cfg, carry, weeks):
         "weeks": list(weeks),
         "fit": report,
         "crossValidated": cv,
+        # Display-only: turns a rating difference into the margin actually
+        # expected. Deliberately NOT applied before the probability, which is
+        # calibrated against the raw difference.
+        "marginScale": (round(mscale, 4) if mscale else None),
+        "marginScaleFit": mreport,
     }
     print(f"    fitted a={a:.4f} b={b:.4f}", file=sys.stderr)
     print(f"    in-sample log loss {report['loglossFlat']:.4f} -> "
