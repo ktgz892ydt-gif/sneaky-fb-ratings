@@ -313,3 +313,38 @@ def test_an_overseas_tag_is_read_as_a_place_not_a_failure():
     assert got[0]["away_state"] == "JAPAN"
     assert got[0]["home_state"] == "SOUTH KOREA"
     assert got[0]["home"] == "Humphreys (Pyeongtaek)"
+
+
+def test_a_cancelled_record_does_not_swallow_the_game_after_it():
+    """Verbatim from the 2023 week 2 page. A regression I shipped and caught.
+
+    A called-off record carries no scores, so the completed-game pattern has
+    nothing to stop on. Once the team stem was allowed to consume "(...)"
+    groups it ran straight through the cancellation and into the NEXT record,
+    matching 'Trimble (Glouster) at River (Hannibal) cancel 2023-08-25 7pm
+    Tri-Village (New Madison)' as a single team name and taking 48 as its
+    score. Tri-Village's game vanished. Four real Ohio games went this way.
+
+    The ISO date separates one record from the next, so the stem may not
+    contain one -- a team name cannot cross a record boundary.
+    """
+    flat = ("2023-08-25 7pm Trimble (Glouster) at River (Hannibal) cancel "
+            "2023-08-25 7pm Tri-Village (New Madison) 48 at Preble Shawnee (Camden) 14 "
+            "2023-08-25 7pm Triway (Wooster) 7 at Highland (Medina) 21")
+    got = [(m.group("away"), int(m.group("ascore")),
+            m.group("home"), int(m.group("hscore")))
+           for m in SB_GAME_RE.finditer(flat)]
+    assert got == [
+        ("Tri-Village (New Madison)", 48, "Preble Shawnee (Camden)", 14),
+        ("Triway (Wooster)", 7, "Highland (Medina)", 21),
+    ], got
+
+
+def test_a_team_name_never_spans_two_records():
+    """The general property, not just the one case above."""
+    flat = ("2023-10-06 7pm Solon (Solon) at Euclid (Euclid) cancel "
+            "2023-10-06 7pm Southeast (Ravenna) 6 at Mogadore (Mogadore) 47")
+    for m in SB_GAME_RE.finditer(flat):
+        for side in ("away", "home"):
+            assert "2023-" not in m.group(side), m.group(side)
+            assert " at " not in m.group(side), m.group(side)

@@ -20,7 +20,7 @@ on:
         type: boolean
         default: false
       retune:
-        description: "Re-fit the model constants against past seasons (slow)"
+        description: "Re-fit the model constants against past seasons (~2 min)"
         type: boolean
         default: false
 
@@ -75,7 +75,13 @@ jobs:
       - name: Build last season's ratings and derive the preseason prior
         run: |
           if [ -f data/games_2025.csv ]; then
-            python scripts/build.py --no-site --no-prior \
+            # --no-schedule because the season is over. The scraper writes a
+            # schedule_{yr}.csv for past seasons too -- a handful of games the
+            # site marked '***' and never scored -- and without this flag
+            # build.py would auto-detect it and hand last season's teams a
+            # "remaining" fixture. That flows into prior.json and out into
+            # this season's ratings.
+            python scripts/build.py --no-site --no-prior --no-schedule \
               --games data/games_2025.csv \
               --roster data/roster_2025.csv \
               --out data/ratings_2025.json

@@ -69,50 +69,65 @@ neutral-field margin.
 
 ### Measured performance
 
-Fitted on 2024 and 2025, evaluated walk-forward on 4,345 held-out games:
+Fitted on 2024 and 2025, evaluated walk-forward on 5,065 held-out games:
 
 | | |
 |---|---|
-| Accuracy | **76.6%** |
-| Log loss | 0.4776 |
-| Mean margin error | 17.4 pts |
+| Accuracy | **75.8%** |
+| Log loss | 0.4846 |
+| Mean margin error | 18.2 pts |
 
 Per holdout week — the model earns its keep as the schedule graph connects:
 
 | Week | Log loss | Accuracy |
 |---|---|---|
-| 1 | 0.584 | 71.6% |
-| 2 | 0.567 | 72.5% |
-| 4 | 0.506 | 71.9% |
-| 7 | 0.404 | 80.5% |
-| 10 | 0.359 | 83.7% |
+| 1 | 0.579 | 70.3% |
+| 2 | 0.567 | 71.8% |
+| 4 | 0.513 | 72.9% |
+| 7 | 0.414 | 80.2% |
+| 10 | 0.373 | 84.4% |
+
+**These are slightly worse than the previous 76.6% / 0.4776 / 17.4, and that is
+not a regression.** Those were measured on 4,345 games. The parser fixes
+recovered about a fifth more history, and the recovered games — out-of-state
+opponents written without a mailing city — are precisely the ones a statewide
+Ohio rating finds hardest to call. The test set is harder and more honest. The
+two sets of numbers are not comparable and the drop is not a trend.
 
 ### Published constants
 
 In `data/tuned.json`, read automatically by `build.py`:
 
 ```
-squash_scale     9.0
+squash_scale     8.0
 prior_games      0.5
-carry            0.5
+carry            0.6
 division_weight  1.0
 margin_cap      49.0   (NOT tuned — a fixed guard against typos/running clock)
-probScale a/b   18.62 / 98.73
+probScale a/b   19.68 / 82.72
 ```
 
-Selected by the **one-standard-error rule**: 294 configurations sat within one
-SE of the outright optimum, so the most conservative of those was taken rather
-than the single best score.
+Selected by the **one-standard-error rule**, now applied to *paired* per-game
+differences. The outright best was scale=9.0 prior=0.25 carry=0.6 div=1.0
+(logloss 0.4839); 20 configurations tied with it and the most conservative was
+taken. Neither the outright best nor the selected config sits on a grid edge.
 
-**That 294 was an artefact, and `tune.py` no longer produces it.** The SE used
-was the marginal one — the spread of per-game log loss for the winning config —
-but every config is scored on the same games in the same order, so the
-comparison is *paired*. Most of that spread is the game, not the config: a
-coin-flip upset scores badly under all of them alike. Differencing first removes
-the shared noise. On a smoke grid the paired rule ties 1 of 24 where the old
-one tied at least 6 of the top 10. `tied_with_best()` in `tune.py` is the
-function; `tests/test_tune.py` pins the behaviour. **This takes effect on the
-next re-fit and is expected to move the published constants.**
+**The old "294 configurations tied" figure was an artefact, and it is gone.**
+The SE used was the marginal one — the spread of per-game log loss for the
+winning config — but every config is scored on the same games in the same
+order, so the comparison is *paired*. Most of that spread is the game, not the
+config: a coin-flip upset scores badly under all of them alike. Differencing
+first removes the shared noise. Measured on the current fit:
+
+| | standard error | configurations "tied" |
+|---|---|---|
+| marginal (old) | 0.0068 | 294 of 1,296 |
+| **paired (now)** | **0.0010** | **20 of 1,296** |
+
+`tied_with_best()` in `tune.py` is the function; `tests/test_tune.py` pins the
+behaviour, including the case that separates the two rules — a config worse on
+*every single game* by 0.004 nats sits inside the marginal SE and outside the
+paired one.
 
 `carry` is capped at 1.0 by design — above that the model would *amplify* last
 season's estimate rather than regress it.
@@ -379,8 +394,26 @@ data back to the repo.
 **Manual run:** Actions → Update ratings → Run workflow.
 
 **The "Re-fit the model constants" checkbox:** leave it *unchecked* normally.
-Tick it only when (a) another season's data is added, (b) the model itself
-changes, or (c) `check.py` warns that `data/tuned.json` has a stale schema.
+Tick it when (a) another season's data is added or re-scraped, (b) the model
+itself changes, or (c) `check.py` warns that `data/tuned.json` has a stale
+schema.
+
+It is opt-in because the answer barely moves between runs, **not** because it
+is prohibitive — measured end to end on the current (larger) data, the full
+1,296-combination grid takes roughly 15 minutes. Most combinations run at about
+6 per second; the pauses come at each new `squash_scale` / `prior_games` pair,
+where `prev_cache` misses and the full-season prior has to be refitted.
+
+Cheap enough to run locally and inspect the result before pushing, which is how
+the current constants were produced:
+
+```bash
+python scripts/tune.py --seasons 2023,2024,2025 --holdouts 1,2,4,7,10
+```
+
+One ordering trap: in the workflow the re-fit step runs **before** the scrape,
+so it fits on the *committed* `games_{yr}.csv`. If the parser has changed,
+re-scrape the past seasons first or the fit is done on stale history.
 
 **Because the bot commits to the repo**, the remote is often ahead. Alex uses
 GitHub Desktop: **Fetch → Pull → then Push.** Doing this *before* making changes
@@ -426,7 +459,11 @@ Expect `0` at every width.
 
 ## Open items
 
-**Re-fit the constants — this is now the top item.** `data/tuned.json` is on
+**~~Re-fit the constants~~ — DONE.** Re-fitted on the re-scraped 2023–2025 with
+the paired selection rule; `data/tuned.json` is schema 4 and `check.py` runs
+clean with zero warnings. Superseded text follows for context only:
+
+**Re-fit the constants — was the top item.** `data/tuned.json` is on
 schema 1 while `tune.py` is at 4, and three things have changed under it since
 it was written: the out-of-state identity fix moves the 2023–2025 game graphs
 that tuning fits on, the selection rule now pairs its standard errors, and the
@@ -435,12 +472,14 @@ the old rule on the old data. **Actions → Update ratings → Run workflow**, t
 *Re-fit the model constants*. Expect the published constants to move, and check
 the README table after (it does not self-correct; the site footer does).
 
-**Backfill more seasons (medium value, and re-assess after the re-fit).** Source
-has data back to 2000. Add years to the backfill loop in
-`.github/workflows/update.yml`. Note 2020 is COVID-shortened — exclude it or
-report with and without. The old argument for this was that 294 configurations
-tied within one SE; that was the wrong SE, not too little data, so judge the
-need from what the paired rule reports.
+**Backfill more seasons (lower priority than it looked).** Source has data back
+to 2000. Add years to the backfill loop in `.github/workflows/update.yml`. Note
+2020 is COVID-shortened — exclude it or report with and without.
+
+The old argument for this was that 294 configurations tied within one SE. That
+was the wrong standard error, not too little data: with the paired rule the
+same grid ties 20. Judge any further backfill on whether the per-season
+stability report actually disagrees, not on the tie count.
 
 **`carry=0.5` sat at the grid minimum.** The conservatism rule pushed it down
 until it ran out of grid — but it was choosing among a pool the old rule had
@@ -450,14 +489,13 @@ inflated. See what the paired rule selects before widening the grid below 0.5.
 reads `tuned.json` and self-corrects; the README does not. Check it after any
 re-fit — and after the re-fit above, it will be stale.
 
-**Re-scrape 2023–2025 (medium value, ~130 requests).** The parser fixes above
-recover games the old patterns dropped, but only 2026 has been re-scraped. The
-past seasons on disk still have their gaps, and they are what `tune.py` fits on
-and what `prior.json` is derived from. The workflow's backfill step skips a
-season whose `games_{yr}.csv` already exists, so this needs the file deleted or
-a manual `scrape.py --season 2023` run. Worth pairing with the re-fit, and
-worth being deliberate about: that is roughly three times a normal weekly run
-against a one-person site.
+**~~Re-scrape 2023–2025~~ — DONE.** All three were re-scraped with the fixed
+parser and the constants re-fitted on the result. Recovered 811 games in 2023,
+1,074 in 2024 and 1,334 in 2025 — roughly a fifth more history — with zero
+games lost or altered, verified by set comparison against the previous files.
+Note for next time: the workflow's backfill step skips a season whose
+`games_{yr}.csv` already exists, so a future re-scrape needs the file deleted
+or a manual `scrape.py --season {yr}` run.
 
 **Phase 3 before Phase 4 is questionable.** Regional playoff odds based on
 record alone will look wrong to anyone who follows Ohio football, because

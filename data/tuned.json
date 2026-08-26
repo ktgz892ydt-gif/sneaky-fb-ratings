@@ -1,77 +1,80 @@
 {
+ "schema": 4,
  "tunedOn": [
   2024,
   2025
  ],
- "atGridEdge": [
-  "carry=0.5 (grid 0.5..1.0)"
- ],
+ "outrightBestAtGridEdge": [],
+ "selectedConfigAtGridEdge": [],
+ "edgeInterpretation": "An edge on outrightBest means the search was constrained by the grid and should be widened. An edge on selectedConfig is expected: the one-standard-error rule picks the most conservative candidate among those statistically tied with the best, which tends toward a boundary.",
  "stability": [
   {
    "season": 2024,
    "bestHere": {
-    "squash_scale": 9.0,
-    "prior_games": 0.25,
-    "carry": 0.6,
-    "division_weight": 1.0
+    "squash_scale": 10.0,
+    "prior_games": 0.1,
+    "carry": 0.5,
+    "division_weight": 0.5
    },
-   "bestHereLogloss": 0.4675,
-   "chosenConfigLogloss": 0.4722
+   "bestHereLogloss": 0.4791,
+   "chosenConfigLogloss": 0.4819
   },
   {
    "season": 2025,
    "bestHere": {
-    "squash_scale": 7.0,
-    "prior_games": 0.75,
-    "carry": 0.9,
-    "division_weight": 1.5
+    "squash_scale": 8.0,
+    "prior_games": 0.5,
+    "carry": 0.8,
+    "division_weight": 1.0
    },
-   "bestHereLogloss": 0.477,
-   "chosenConfigLogloss": 0.4835
+   "bestHereLogloss": 0.4855,
+   "chosenConfigLogloss": 0.4874
   }
  ],
  "perWeek": {
   "1": {
-   "n": 387,
-   "ll": 226.1628334286067,
-   "correct": 277,
-   "total": 387
-  },
-  "2": {
-   "n": 433,
-   "ll": 245.29333738644866,
-   "correct": 314,
-   "total": 433
-  },
-  "4": {
    "n": 431,
-   "ll": 218.20186499195526,
-   "correct": 310,
+   "ll": 249.3862856375398,
+   "correct": 303,
    "total": 431
   },
+  "2": {
+   "n": 510,
+   "ll": 289.1232358471061,
+   "correct": 366,
+   "total": 510
+  },
+  "4": {
+   "n": 506,
+   "ll": 259.7234579693208,
+   "correct": 369,
+   "total": 506
+  },
   "7": {
-   "n": 415,
-   "ll": 167.74392526414238,
-   "correct": 334,
-   "total": 415
+   "n": 485,
+   "ll": 200.8025252577088,
+   "correct": 389,
+   "total": 485
   },
   "10": {
-   "n": 416,
-   "ll": 149.2929445352807,
-   "correct": 348,
-   "total": 416
+   "n": 500,
+   "ll": 186.3812791963634,
+   "correct": 421,
+   "total": 499
   }
  },
  "selection": {
-  "rule": "one-standard-error rule",
-  "standardError": 0.00713,
-  "candidatesWithinOneSE": 294,
+  "rule": "one-standard-error rule (paired)",
+  "seMethod": "Paired: for each configuration, the per-game log-loss difference against the outright best over the same games in the same order; a configuration is tied when its mean penalty is within one standard error of that difference. The marginal SE reported below is the old, unpaired quantity, kept only so the two can be compared -- it is dominated by game noise common to every configuration and admits far too many.",
+  "standardErrorPaired": 0.00103,
+  "standardError": 0.0068,
+  "candidatesWithinOneSE": 20,
   "outrightBest": {
-   "squash_scale": 8.0,
-   "prior_games": 0.5,
-   "carry": 0.7,
+   "squash_scale": 9.0,
+   "prior_games": 0.25,
+   "carry": 0.6,
    "division_weight": 1.0,
-   "logloss": 0.47331618380104445
+   "logloss": 0.48389462131079913
   }
  },
  "holdoutWeeks": [
@@ -82,217 +85,56 @@
   10
  ],
  "best": {
-  "ll_sumsq": 1773.19951298992,
+  "ll_sumsq": 2218.0361773634445,
   "perSeason": {
-   "2024": 0.4722,
-   "2025": 0.4835
+   "2024": 0.4819,
+   "2025": 0.4874
   },
-  "squash_scale": 9.0,
+  "squash_scale": 8.0,
   "prior_games": 0.5,
-  "carry": 0.5,
+  "carry": 0.6,
   "division_weight": 1.0,
-  "logloss": 0.4776419272336861,
-  "accuracy": 0.7659378596087457,
-  "decided": 4345,
-  "mae_margin": 17.36577400451505,
-  "n": 4345,
-  "selectedBy": "one-standard-error rule",
-  "seLogloss": 0.00713,
-  "candidatesWithinOneSE": 294
+  "logloss": 0.48457705674132984,
+  "accuracy": 0.7578510764368951,
+  "decided": 5063,
+  "mae_margin": 18.2012463365377,
+  "n": 5065,
+  "selectedBy": "one-standard-error rule (paired)",
+  "seLogloss": 0.0068,
+  "sePaired": 0.00103,
+  "candidatesWithinOneSE": 20
  },
  "calibration": {
   "0.5": [
-   0.5432525951557093,
-   289
+   0.5942408376963351,
+   382
   ],
   "0.6": [
-   0.6081424936386769,
-   393
+   0.5938967136150235,
+   426
   ],
   "0.7": [
-   0.7232142857142857,
-   448
+   0.7352342158859471,
+   491
   ],
   "0.8": [
-   0.8509615384615384,
-   416
+   0.8197424892703863,
+   466
   ],
   "0.9": [
-   0.9278074866310161,
-   374
+   0.9237668161434978,
+   446
   ],
   "1.0": [
-   0.9938271604938271,
-   162
+   0.9864253393665159,
+   221
   ]
  },
- "leaderboard": [
-  {
-   "ll_sumsq": 1933.137133915253,
-   "perSeason": {
-    "2024": 0.4694,
-    "2025": 0.4776
-   },
-   "squash_scale": 8.0,
-   "prior_games": 0.5,
-   "carry": 0.7,
-   "division_weight": 1.0,
-   "logloss": 0.47331618380104445,
-   "accuracy": 0.7636363636363637,
-   "decided": 4345,
-   "mae_margin": 17.389598901920603,
-   "n": 4345
-  },
-  {
-   "ll_sumsq": 2041.3685913821628,
-   "perSeason": {
-    "2024": 0.4692,
-    "2025": 0.4782
-   },
-   "squash_scale": 7.0,
-   "prior_games": 0.5,
-   "carry": 0.7,
-   "division_weight": 1.0,
-   "logloss": 0.4735108175401776,
-   "accuracy": 0.7624856156501726,
-   "decided": 4345,
-   "mae_margin": 17.788457326311363,
-   "n": 4345
-  },
-  {
-   "ll_sumsq": 1986.4573671751396,
-   "perSeason": {
-    "2024": 0.4708,
-    "2025": 0.4772
-   },
-   "squash_scale": 8.0,
-   "prior_games": 0.5,
-   "carry": 0.8,
-   "division_weight": 1.0,
-   "logloss": 0.47385446386893754,
-   "accuracy": 0.7638665132336019,
-   "decided": 4345,
-   "mae_margin": 17.31043082284374,
-   "n": 4345
-  },
-  {
-   "ll_sumsq": 1883.7769271478073,
-   "perSeason": {
-    "2024": 0.4691,
-    "2025": 0.4794
-   },
-   "squash_scale": 8.0,
-   "prior_games": 0.5,
-   "carry": 0.6,
-   "division_weight": 1.0,
-   "logloss": 0.4740330262417448,
-   "accuracy": 0.7643268124280782,
-   "decided": 4345,
-   "mae_margin": 17.518806479740892,
-   "n": 4345
-  },
-  {
-   "ll_sumsq": 1842.1428546352267,
-   "perSeason": {
-    "2024": 0.4705,
-    "2025": 0.4783
-   },
-   "squash_scale": 9.0,
-   "prior_games": 0.5,
-   "carry": 0.7,
-   "division_weight": 1.0,
-   "logloss": 0.4742077005776614,
-   "accuracy": 0.7631760644418872,
-   "decided": 4345,
-   "mae_margin": 17.09241946177829,
-   "n": 4345
-  },
-  {
-   "ll_sumsq": 2109.5484812401814,
-   "perSeason": {
-    "2024": 0.4711,
-    "2025": 0.4777
-   },
-   "squash_scale": 7.0,
-   "prior_games": 0.5,
-   "carry": 0.8,
-   "division_weight": 1.0,
-   "logloss": 0.47423495298215995,
-   "accuracy": 0.762945914844649,
-   "decided": 4345,
-   "mae_margin": 17.683453024966255,
-   "n": 4345
-  },
-  {
-   "ll_sumsq": 1979.2288566226914,
-   "perSeason": {
-    "2024": 0.469,
-    "2025": 0.4799
-   },
-   "squash_scale": 7.0,
-   "prior_games": 0.5,
-   "carry": 0.6,
-   "division_weight": 1.0,
-   "logloss": 0.4742409984953759,
-   "accuracy": 0.7643268124280782,
-   "decided": 4345,
-   "mae_margin": 17.94482319606505,
-   "n": 4345
-  },
-  {
-   "ll_sumsq": 1968.545886201097,
-   "perSeason": {
-    "2024": 0.4703,
-    "2025": 0.4789
-   },
-   "squash_scale": 8.0,
-   "prior_games": 0.5,
-   "carry": 0.7,
-   "division_weight": 1.5,
-   "logloss": 0.47441727161758285,
-   "accuracy": 0.7608745684695052,
-   "decided": 4345,
-   "mae_margin": 17.363232802160546,
-   "n": 4345
-  },
-  {
-   "ll_sumsq": 2018.9214930686062,
-   "perSeason": {
-    "2024": 0.4675,
-    "2025": 0.4822
-   },
-   "squash_scale": 9.0,
-   "prior_games": 0.25,
-   "carry": 0.6,
-   "division_weight": 1.0,
-   "logloss": 0.4745325625083147,
-   "accuracy": 0.7611047180667434,
-   "decided": 4345,
-   "mae_margin": 16.66389179893713,
-   "n": 4345
-  },
-  {
-   "ll_sumsq": 2078.157747028807,
-   "perSeason": {
-    "2024": 0.4701,
-    "2025": 0.4794
-   },
-   "squash_scale": 7.0,
-   "prior_games": 0.5,
-   "carry": 0.7,
-   "division_weight": 1.5,
-   "logloss": 0.47457754800383184,
-   "accuracy": 0.7622554660529344,
-   "decided": 4345,
-   "mae_margin": 17.75810259533092,
-   "n": 4345
-  }
- ],
  "probScale": {
   "form": "scale(g) = sqrt(a + b / g), g = games played by the less established of the two teams; g < 1 uses squash_scale",
-  "a": 18.6235,
-  "b": 98.7279,
-  "flatScale": 9.0,
+  "a": 19.6807,
+  "b": 82.7213,
+  "flatScale": 8.0,
   "weeks": [
    1,
    2,
@@ -306,72 +148,72 @@
    10
   ],
   "fit": {
-   "n": 9005,
-   "loglossFlat": 0.461,
-   "loglossFitted": 0.4509,
+   "n": 10512,
+   "loglossFlat": 0.4685,
+   "loglossFitted": 0.4626,
    "converged": true,
    "impliedScale": {
-    "1": 10.83,
-    "2": 8.25,
-    "3": 7.18,
-    "4": 6.58,
-    "5": 6.19,
-    "6": 5.92,
-    "7": 5.72,
-    "8": 5.56,
-    "9": 5.44,
-    "10": 5.34
+    "1": 10.12,
+    "2": 7.81,
+    "3": 6.87,
+    "4": 6.35,
+    "5": 6.02,
+    "6": 5.79,
+    "7": 5.61,
+    "8": 5.48,
+    "9": 5.37,
+    "10": 5.29
    },
    "byWeek": {
     "1": {
-     "n": 767,
-     "flat": 0.5864,
-     "fitted": 0.5864
+     "n": 868,
+     "flat": 0.5934,
+     "fitted": 0.5934
     },
     "2": {
-     "n": 847,
-     "flat": 0.5689,
-     "fitted": 0.5739
+     "n": 1011,
+     "flat": 0.5784,
+     "fitted": 0.5827
     },
     "3": {
-     "n": 867,
-     "flat": 0.5542,
-     "fitted": 0.5512
+     "n": 1025,
+     "flat": 0.5821,
+     "fitted": 0.5791
     },
     "4": {
-     "n": 870,
-     "flat": 0.4879,
-     "fitted": 0.4877
+     "n": 1028,
+     "flat": 0.4956,
+     "fitted": 0.4972
     },
     "5": {
-     "n": 952,
-     "flat": 0.4676,
-     "fitted": 0.4576
+     "n": 1103,
+     "flat": 0.4716,
+     "fitted": 0.466
     },
     "6": {
-     "n": 939,
-     "flat": 0.4331,
-     "fitted": 0.4251
+     "n": 1112,
+     "flat": 0.4347,
+     "fitted": 0.432
     },
     "7": {
-     "n": 938,
-     "flat": 0.3962,
-     "fitted": 0.3814
+     "n": 1084,
+     "flat": 0.4068,
+     "fitted": 0.3988
     },
     "8": {
-     "n": 952,
-     "flat": 0.389,
-     "fitted": 0.3648
+     "n": 1108,
+     "flat": 0.3993,
+     "fitted": 0.3847
     },
     "9": {
-     "n": 950,
-     "flat": 0.3933,
-     "fitted": 0.373
+     "n": 1101,
+     "flat": 0.3901,
+     "fitted": 0.376
     },
     "10": {
-     "n": 923,
-     "flat": 0.3766,
-     "fitted": 0.3558
+     "n": 1072,
+     "flat": 0.3755,
+     "fitted": 0.3613
     }
    }
   },
@@ -379,19 +221,181 @@
    "folds": [
     {
      "heldOut": 2024,
-     "n": 4774,
-     "loglossFlat": 0.4634,
-     "loglossFitted": 0.4528
+     "n": 5545,
+     "loglossFlat": 0.4709,
+     "loglossFitted": 0.4644
     },
     {
      "heldOut": 2025,
-     "n": 4231,
-     "loglossFlat": 0.4584,
-     "loglossFitted": 0.4489
+     "n": 4967,
+     "loglossFlat": 0.4658,
+     "loglossFitted": 0.4613
     }
    ],
-   "meanLoglossFlat": 0.4611,
-   "meanLoglossFitted": 0.451
+   "meanLoglossFlat": 0.4685,
+   "meanLoglossFitted": 0.4629
   }
- }
+ },
+ "leaderboard": [
+  {
+   "ll_sumsq": 2372.652439661265,
+   "perSeason": {
+    "2024": 0.4796,
+    "2025": 0.4885
+   },
+   "squash_scale": 9.0,
+   "prior_games": 0.25,
+   "carry": 0.6,
+   "division_weight": 1.0,
+   "logloss": 0.48389462131079913,
+   "accuracy": 0.7556784515109619,
+   "decided": 5063,
+   "mae_margin": 17.309953691617963,
+   "n": 5065
+  },
+  {
+   "ll_sumsq": 2268.9137772334607,
+   "perSeason": {
+    "2024": 0.4824,
+    "2025": 0.4858
+   },
+   "squash_scale": 8.0,
+   "prior_games": 0.5,
+   "carry": 0.7,
+   "division_weight": 1.0,
+   "logloss": 0.48402716401547236,
+   "accuracy": 0.7558759628678648,
+   "decided": 5063,
+   "mae_margin": 18.089615001381432,
+   "n": 5065
+  },
+  {
+   "ll_sumsq": 2414.664366513812,
+   "perSeason": {
+    "2024": 0.4805,
+    "2025": 0.4879
+   },
+   "squash_scale": 9.0,
+   "prior_games": 0.25,
+   "carry": 0.7,
+   "division_weight": 1.0,
+   "logloss": 0.48407273204227447,
+   "accuracy": 0.756666008295477,
+   "decided": 5063,
+   "mae_margin": 17.25549175089123,
+   "n": 5065
+  },
+  {
+   "ll_sumsq": 2352.664907990843,
+   "perSeason": {
+    "2024": 0.4805,
+    "2025": 0.488
+   },
+   "squash_scale": 9.0,
+   "prior_games": 0.25,
+   "carry": 0.6,
+   "division_weight": 0.5,
+   "logloss": 0.48408782825888674,
+   "accuracy": 0.7554809401540589,
+   "decided": 5063,
+   "mae_margin": 17.35257042325333,
+   "n": 5065
+  },
+  {
+   "ll_sumsq": 2385.7353903806775,
+   "perSeason": {
+    "2024": 0.4825,
+    "2025": 0.486
+   },
+   "squash_scale": 7.0,
+   "prior_games": 0.5,
+   "carry": 0.7,
+   "division_weight": 1.0,
+   "logloss": 0.484184488893478,
+   "accuracy": 0.7548884060833498,
+   "decided": 5063,
+   "mae_margin": 18.479113786386208,
+   "n": 5065
+  },
+  {
+   "ll_sumsq": 2254.6629736349987,
+   "perSeason": {
+    "2024": 0.48,
+    "2025": 0.4888
+   },
+   "squash_scale": 10.0,
+   "prior_games": 0.25,
+   "carry": 0.6,
+   "division_weight": 1.0,
+   "logloss": 0.4842541877818516,
+   "accuracy": 0.7556784515109619,
+   "decided": 5063,
+   "mae_margin": 17.122754562414652,
+   "n": 5065
+  },
+  {
+   "ll_sumsq": 2288.9773679996083,
+   "perSeason": {
+    "2024": 0.4807,
+    "2025": 0.4882
+   },
+   "squash_scale": 10.0,
+   "prior_games": 0.25,
+   "carry": 0.7,
+   "division_weight": 1.0,
+   "logloss": 0.4843004003125441,
+   "accuracy": 0.756468496938574,
+   "decided": 5063,
+   "mae_margin": 17.07664196052547,
+   "n": 5065
+  },
+  {
+   "ll_sumsq": 2234.978617594333,
+   "perSeason": {
+    "2024": 0.4808,
+    "2025": 0.4882
+   },
+   "squash_scale": 10.0,
+   "prior_games": 0.25,
+   "carry": 0.6,
+   "division_weight": 0.5,
+   "logloss": 0.4843843118510538,
+   "accuracy": 0.7562709855816709,
+   "decided": 5063,
+   "mae_margin": 17.163211672573205,
+   "n": 5065
+  },
+  {
+   "ll_sumsq": 2396.510076100789,
+   "perSeason": {
+    "2024": 0.4816,
+    "2025": 0.4876
+   },
+   "squash_scale": 9.0,
+   "prior_games": 0.25,
+   "carry": 0.7,
+   "division_weight": 0.5,
+   "logloss": 0.48444725992494236,
+   "accuracy": 0.7548884060833498,
+   "decided": 5063,
+   "mae_margin": 17.303739622367384,
+   "n": 5065
+  },
+  {
+   "ll_sumsq": 2270.666898751226,
+   "perSeason": {
+    "2024": 0.4816,
+    "2025": 0.4878
+   },
+   "squash_scale": 10.0,
+   "prior_games": 0.25,
+   "carry": 0.7,
+   "division_weight": 0.5,
+   "logloss": 0.4845767245875498,
+   "accuracy": 0.7560734742247679,
+   "decided": 5063,
+   "mae_margin": 17.12304168589099,
+   "n": 5065
+  }
+ ]
 }

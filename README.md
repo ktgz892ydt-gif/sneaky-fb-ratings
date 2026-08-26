@@ -188,15 +188,23 @@ board prefers them. As currently committed, fitted on 2024 and 2025:
 
 | | Published |
 |---|---|
-| `squash_scale` | 9.0 |
+| `squash_scale` | 8.0 |
 | `prior_games` | 0.5 |
-| `carry` | 0.5 |
+| `carry` | 0.6 |
 | `division_weight` | 1.0 |
 | `margin_cap` | 49.0 (untuned) |
 
-Measured performance on 4,345 held-out games: **76.6% of games called
-correctly**, log loss 0.478, mean margin error 17.4 points. The site footer
+Measured performance on 5,065 held-out games: **75.8% of games called
+correctly**, log loss 0.485, mean margin error 18.2 points. The site footer
 reports these, and says plainly when defaults are in use instead.
+
+Those figures are slightly *worse* than the 76.6% / 0.478 / 17.4 this table
+carried before, and that is not a regression. The earlier numbers were measured
+on 4,345 games; the parser fixes recovered roughly a fifth more history, and
+the games that were being dropped — out-of-state opponents with no mailing city
+— are exactly the ones a statewide Ohio rating finds hardest to call. The new
+numbers describe a harder and more honest test set. They are not comparable
+with the old ones and should not be read as a trend.
 
 ### How those were chosen
 
@@ -213,13 +221,18 @@ The standard error is of the *difference*, not of the score. Every
 configuration is scored on the same games in the same order, so comparing two
 of them is a paired comparison — and most of the variance in per-game log loss
 is the game itself, since a coin-flip upset scores badly under every
-configuration alike. The committed fit used the marginal standard error of the
-winning score, which treats those as independent samples and admitted 294 of
-1,296 configurations as "tied". That was read as evidence the evaluation set
-was too small; it was the wrong standard error. Pairing removes the shared game
-noise and leaves only the part that distinguishes one configuration from
-another. **This takes effect on the next re-fit**, and is expected to change
-which constants get selected.
+configuration alike. The old rule used the marginal standard error of the
+winning score, which treats those as independent samples.
+
+Measured on the current fit, the difference is stark:
+
+| | standard error | configurations called "tied" |
+|---|---|---|
+| marginal (old) | 0.0068 | 294 of 1,296 |
+| **paired (now)** | **0.0010** | **20 of 1,296** |
+
+That was previously read as evidence the evaluation set was too small. It was
+not — it was the wrong standard error.
 
 Two consequences worth understanding:
 
@@ -235,7 +248,10 @@ Two consequences worth understanding:
   than last year's measurement. Backtests reward it; football does not.
 
 To re-fit: **Actions → Update ratings → Run workflow**, ticking *Re-fit the
-model constants*. It is opt-in because it is slow and the answer moves little.
+model constants*. It is opt-in because the answer moves little between runs,
+not because it is prohibitive: the full 1,296-combination grid takes roughly
+15 minutes on the current data. Tick it whenever the history changes, the model
+changes, or `check.py` warns that `data/tuned.json` is on a stale schema.
 
 ### Reproducing a build
 

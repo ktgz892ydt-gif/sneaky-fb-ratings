@@ -101,14 +101,33 @@ _TEAM_WORD = r"[A-Za-z0-9'&.,\-/ ]"
 _TEAM_INNER = r"\([^()]{1,30}\)"     # a parenthetical that is part of the NAME
 _TEAM_CITY = r"\([^()]{0,40}\)"      # the mailing city, always last, may be empty
 _TEAM_STATE = r"(?:\s*\[[A-Za-z][A-Za-z .'\-]{1,19}\])?"
-# The repetition is BOUNDED, and that bound is load-bearing rather than
-# cosmetic. The old stem could not cross a "(" so it always stopped within a
-# few characters; this one may consume whole parentheticals, which means an
-# unbounded version can run from any start position to the end of the page
-# hunting for a terminator that is not there. On a 450-record scoreboard that
-# is quadratic -- it took the probe from 0.02s to 6.3s. 60 repetitions is
-# comfortably past MAX_TEAM_CHARS and turns the scan back into linear work.
-SB_TEAM = rf"[A-Za-z](?:{_TEAM_WORD}|{_TEAM_INNER}){{0,60}}?{_TEAM_CITY}{_TEAM_STATE}"
+# Two guards on the stem, and both are load-bearing.
+#
+# The old stem could not cross a "(" so it always halted within a few
+# characters. This one may consume whole parentheticals, and that freedom is
+# dangerous in two different ways:
+#
+#   Cost.   Unbounded, it runs from every start position to the end of the page
+#           looking for a terminator that is not there -- quadratic on a 450
+#           record scoreboard, and it took the probe from 0.02s to 6.3s. Hence
+#           the {0,60} repetition cap.
+#
+#   Truth.  The cap alone is not enough, because one repetition can swallow a
+#           whole "(...)" group. A record with no scores -- a cancelled game --
+#           gives the pattern nothing to stop on, so it ran straight through
+#           into the NEXT record and ate a real game:
+#
+#             2023-08-25 7pm Trimble (Glouster) at River (Hannibal) cancel
+#             2023-08-25 7pm Tri-Village (New Madison) 48 at Preble Shawnee (Camden) 14
+#             ^ away matched all of this, ascore matched 48, and Tri-Village's
+#               game silently disappeared. Four real Ohio games went this way.
+#
+#           The ISO date is what separates one record from the next, so the
+#           stem is forbidden from containing one. A team name cannot cross a
+#           record boundary, whatever else it contains.
+_NOT_A_NEW_RECORD = r"(?!\d{4}-\d{2}-\d{2})"
+SB_TEAM = (rf"[A-Za-z](?:{_NOT_A_NEW_RECORD}(?:{_TEAM_WORD}|{_TEAM_INNER}))"
+           rf"{{0,60}}?{_TEAM_CITY}{_TEAM_STATE}")
 SB_TIME = r"(?:\d{1,2}(?::\d{2})?\s*[apAP]\.?[mM]\.?|\d{1,2}:\d{2}|[Nn]oon|TBA|TBD)"
 
 # A whole game, found anywhere in the page's flattened text. The ISO date is
@@ -164,7 +183,14 @@ REPEATED_CITY_RE = re.compile(r"\(([^()]{1,40})\)\s*\(\1\)\s*$")
 # not a real game -- there is no team to rate or predict against. Dropped by
 # name and counted separately, so it neither invents a team called TBD nor
 # inflates the UNRECOGNISED count.
-PLACEHOLDER_RE = re.compile(r"^(?:TBA|TBD|OPEN|BYE)$", re.IGNORECASE)
+# "Non-varsity opponent" is the site's way of recording that a varsity side
+# played someone who is not a varsity programme. It is a label, not a school,
+# and left alone it becomes ONE rated entity that a dozen unrelated teams have
+# results against -- which quietly distorts the strength of schedule of every
+# one of them. Dropped for the same reason as TBD: the record is real, the
+# opponent is not.
+PLACEHOLDER_RE = re.compile(
+    r"^(?:TBA|TBD|OPEN|BYE|Non[- ]varsity(?:\s+opponent)?)$", re.IGNORECASE)
 
 # A game called off. The site writes the outcome where the scores would go:
 #
@@ -782,7 +808,10 @@ def scrape_week(sess, season, week, use_cache=True, diagnose=False, probe=False)
         probe_unscored(flat, f"{season} week {week} scoreboard", samples=40)
 
     games, seen = [], set()
+    called_off = {m.start() for m in SB_CALLED_OFF_RE.finditer(flat)}
     for m in SB_GAME_RE.finditer(flat):
+        if m.start() in called_off:
+            continue
         away, astate = _team_name(m.group("away"))
         home, hstate = _team_name(m.group("home"))
         if _is_placeholder(away) or _is_placeholder(home):

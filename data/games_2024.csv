@@ -94,6 +94,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 1,Columbiana (Columbiana),38,Lowellville (Lowellville),51,0,,
 1,Crestline (Crestline),44,Buckeye Central (New Washington),27,0,,
 1,Crestwood (Mantua),20,Rootstown (Rootstown),2,0,,
+1,Cuyahoga Valley Christian Academy (Cuyahoga Falls),21,Streetsboro (Streetsboro),29,0,,
 1,Dalton (Dalton),34,Kirtland (Kirtland),55,0,,
 1,Dawson-Bryant (Coal Grove),14,Greenup County (Greenup),37,0,,KY
 1,Defiance (Defiance),34,Napoleon (Napoleon),35,0,,
@@ -287,6 +288,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 1,Symmes Valley (Willow Wood),28,Chesapeake (Chesapeake),37,0,,
 1,Taft (Cincinnati),43,Pleasure Ridge Park (Louisville),0,0,,KY
 1,Talawanda (Oxford),7,Taylor (Cleves),21,0,,
+1,Tallmadge (Tallmadge),13,Brecksville-Broadview Heights (Broadview Heights),7,0,,
 1,Teays Valley (Ashville),7,Grove City (Grove City),42,0,,
 1,Tinora (Defiance),0,Liberty Center (Liberty Center),38,0,,
 1,Toronto (Toronto),41,East Canton (East Canton),0,0,,
@@ -340,25 +342,67 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 1,KIPP Columbus (Columbus),13,McComb (McComb),20,0,,
 1,Ashland Blazer (Ashland),28,Raceland (Raceland),7,0,KY,KY
 1,Bishop Brossart (Alexandria),31,Walton-Verona (Walton),6,0,KY,KY
+1,Campbell County (Alexandria),63,Scott (Covington),27,0,KY,KY
 1,Covington Catholic (Park Hills),14,Ryle (Union),30,0,KY,KY
+1,DuPont Manual,20,Central (Louisville),13,0,KY,KY
+1,Fairview (Ashland),32,Bath County,22,0,KY,KY
 1,Holy Cross (Covington),0,Sayre (Lexington),49,0,KY,KY
 1,Ludlow (Ludlow),33,Lockland (Lockland),0,0,KY,
 1,Paintsville (Paintsville),46,Floyd Central (Eastern),6,0,KY,KY
+1,Pikeville (Pikeville),7,Corbin,22,0,KY,KY
+1,Russell (Russell),12,Mason County,21,0,KY,KY
+1,Shelby Valley (Pikeville),12,Letcher County Central,47,0,KY,KY
 1,Simon Kenton (Independence),50,Dixie Heights (Edgewood),35,0,KY,KY
 1,South Oldham (Crestwood),6,Anderson (Cincinnati),51,0,KY,
+1,St Xavier (Louisville),56,Floyd Central (Eastern),14,0,KY,KY
+1,Trinity (Louisville),28,Bryan Station,10,0,KY,KY
+1,Central Dauphin,0,Central York (York),47,0,PA,PA
+1,State College,49,Gateway (Monroeville),14,0,PA,PA
+1,Uniontown,20,Laurel Highlands (Uniontown),45,0,PA,PA
 1,Pine-Richland (Gibsonia),35,Hilliard Davidson (Hilliard),24,0,PA,
+1,Carlynton,33,Carrick (Pittsburgh),18,0,PA,PA
+1,Bentworth,48,Brownsville (Brownsville),0,0,PA,PA
+1,Taylor Allderdice (Pittsburgh),20,Fox Chapel,9,0,PA,PA
+1,McDowell (Erie),34,Woodland Hills,28,0,PA,PA
 1,Cathedral Prep (Erie),18,Erie (Erie),6,0,PA,PA
+1,Meadville,41,Fort LeBoeuf,27,0,PA,PA
 1,General McLane (Edinboro),47,New Castle (New Castle),49,0,PA,PA
 1,Oil City (Oil City),6,Harbor Creek (Harborcreek),13,0,PA,PA
+1,Grove City,21,North East (North East),0,0,PA,PA
+1,Slippery Rock,0,Fairview (Fairview),35,0,PA,PA
 1,Titusville (Titusville),22,Corry (Corry),28,0,PA,PA
 1,Sharon (Sharon),55,Mercyhurst Prep (Erie),6,0,PA,PA
+1,Girard (Girard),23,Sharpsville,32,0,PA,PA
+1,Seneca,35,Saegertown,7,0,PA,PA
+1,Greenville,7,Wilmington (New Wilmington),28,0,PA,PA
+1,Reynolds (Greenville),15,Eisenhower,0,0,PA,PA
+1,Union City,0,Maplewood (Guys Mills),21,0,PA,PA
+1,Lakeview,32,Northwestern (Albion),26,0,PA,PA
+1,Iroquois,40,Cochranton,6,0,PA,PA
+1,University Prep (USO co-op) (Pittsburgh),18,Hampton,22,0,PA,PA
+1,Conneaut Area (Linesville),61,Warren,0,0,PA,PA
+1,Churubusco,0,Columbia City,42,0,IN,IN
+1,Bishop Dwenger (Fort Wayne),13,Brownsburg,45,0,IN,IN
 1,Blackhawk Christian (Fort Wayne),6,Bluffton (Bluffton),39,0,IN,IN
+1,Fort Wayne Wayne,40,Crispus Attucks (Indianapolis),34,0,IN,IN
+1,Homestead,10,Carmel (Carmel),34,0,IN,IN
+1,Bishop Chatard (Indianapolis),58,Brebeuf Jesuit Preparatory,35,0,IN,IN
+1,Cathedral (Indianapolis),24,Ben Davis,6,0,IN,IN
+1,Lawrence North (Indianapolis),33,Lawrence Central,26,0,IN,IN
 1,Lawrenceburg (Lawrenceburg),3,East Central (St Leon),24,0,IN,IN
+1,Richmond (Richmond),20,Connersville,26,0,IN,IN
+1,Roncalli (Indianapolis),37,Southport,13,0,IN,IN
+1,Sullivan,48,North Knox,6,0,IN,IN
+1,Terre Haute North Vigo,20,Northview,34,0,IN,IN
+1,Westfield,34,Center Grove (Greenwood),28,0,IN,IN
+1,Yorktown,41,Anderson,2,0,IN,IN
 1,Purdue Poly - Englewood (Indianapolis),8,Indianapolis Shortridge (Indianapolis),26,0,IN,IN
 1,KIPP Memphis (Memphis),28,Innovation Academy (Springfield),21,0,TN,TN
 1,St Michael the Archangel (Fredericksburg),47,Life Christian Academy (Chester),0,0,VA,VA
 1,Archbishop Spalding (Severn),28,Archbishop Hoban (Akron),14,0,MD,
 1,Mt Zion Prep (Lanham),6,McDonogh School (Owings Mills),41,0,MD,MD
+1,Christ Prep Academy (Lenexa),27,Landmark Eagles (club) (Cincinnati),19,1,KS,
+1,Football North (via Clarkson SS) (Mississauga),20,Imhotep Charter (Philadelphia),38,1,ON,PA
 1,Kodiak (Kodiak),0,Houston (Houston),52,0,AK,AK
 1,Benedictine Military School (Savannah),28,Buford (Buford),29,0,GA,GA
 1,Bishop Ready (Columbus),51,Newark Catholic (Newark),19,0,,
@@ -374,12 +418,26 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 1,Southeast (Ravenna),13,Garfield (Akron),21,0,,
 1,Wellsville (Wellsville),6,Catholic Central (Steubenville),20,0,,
 1,Cincinnati College Prep (Cincinnati),46,Clark Montessori (Cincinnati),0,0,,
+1,Columbus Crusaders (club) (Columbus),48,Grand Valley Patriots (club),0,0,,MI
+1,Southern Buckeye (club) (Russellville),0,North Adams (club) (Seaman),69,0,,
+1,West Union (club) (West Union),6,C4 Lions (club) (Trenton),19,0,,
+1,Foxfire (Zanesville),0,Peebles (club) (Peebles),45,0,,
+1,Bellevue (Bellevue),12,Eminence,33,0,KY,KY
+1,Boyle County (Danville),35,Lexington Christian,13,1,KY,KY
+1,Clairton,30,Steel Valley,7,1,PA,PA
+1,Cornell,44,Brashear (Pittsburgh),0,0,PA,PA
+1,Westinghouse (Pittsburgh),26,Beaver,28,1,PA,PA
 1,Hickory (Hermitage),35,Farrell (Farrell),31,0,PA,PA
+1,Mercer,8,Franklin,7,0,PA,PA
+1,Cambridge Springs,67,Kennedy Catholic (Hermitage),0,0,PA,PA
+1,Riverdale Baptist (Upper Marlboro),56,Conwell-Egan,3,0,MD,PA
 1,Nikiski (Nikiski),46,Monroe Catholic (Fairbanks),24,0,AK,AK
 1,Seward (Seward),64,Valdez (Valdez),8,0,AK,AK
 1,Kenai-Central (Kenai),12,Barrow (Barrow),18,0,AK,AK
 1,Prince Avenue Christian (Bogart),21,Mallard Creek (Charlotte),31,1,GA,NC
+1,Rabun Gap - Nacoochee,14,Baylor (Chattanooga),21,0,GA,TN
 2,Big Walnut (Sunbury),56,Dunbar (Dayton),8,0,,
+2,Toledo Christian (Toledo),41,Adrian Lenawee Christian,7,0,,MI
 2,Thurgood Marshall (Dayton),0,Beechcroft (Columbus),40,0,,
 2,East (Columbus),22,Independence (Columbus),36,0,,
 2,Sciotoville Community (Portsmouth),0,Alexander (Albany),21,0,,
@@ -394,7 +452,28 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 2,Independence (Coal City),30,Herbert Hoover (Elkview),37,0,WV,WV
 2,Weir (Weirton),40,Oak Glen (New Cumberland),21,0,WV,WV
 2,Linsly (Wheeling),0,Westinghouse (Pittsburgh),52,0,WV,PA
+2,Birmingham Groves,35,U of D Jesuit (Detroit),14,0,MI,MI
+2,Blissfield,6,Ottawa Lake Whiteford (Ottawa Lake),35,0,MI,MI
+2,Climax-Scotts,24,NorthPointe Christian (Grand Rapids),32,0,MI,MI
+2,Dearborn Divine Child (Dearborn),14,Parma Western,36,0,MI,MI
+2,Detroit Cass Tech (Detroit),23,Rockford,30,0,MI,MI
+2,Hudsonville,17,Howell,20,0,MI,MI
+2,Litchfield,20,Concord,64,0,MI,MI
+2,Mendon,60,New Buffalo,0,0,MI,MI
+2,Michigan Center,21,Lumen Christi (Jackson),49,0,MI,MI
+2,Muskegon Mona Shores (Muskegon),28,Grand Blanc,26,0,MI,MI
+2,Pittsford,58,Britton-Deerfield (Britton),68,0,MI,MI
+2,Portage Northern,19,Orchard Lake St Mary (Orchard Lake),50,0,MI,MI
+2,Reading (Reading),14,White Pigeon,52,0,MI,MI
+2,Novi Detroit Catholic Central (Novi),56,Dearborn,12,0,MI,MI
+2,River Rouge (River Rouge),37,Westland John Glenn,8,0,MI,MI
+2,Riverview Gabriel Richard (Riverview),15,Montrose,10,0,MI,MI
+2,Warren De La Salle (Warren),21,Davison,3,0,MI,MI
+2,Waterford Our Lady,0,Petersburg Summerfield (Petersburg),22,0,MI,MI
 2,Flint New Standard Academy (Flint),6,Erie Mason (Erie),28,0,MI,MI
+2,Central York (York),10,Manheim Township,28,0,PA,PA
+2,Warren,6,Corry (Corry),42,0,PA,PA
+2,The Hun School,42,Mt Carmel (Chicago),38,0,NJ,IL
 2,Bergen Catholic (Oradell),14,IMG Academy (Bradenton),27,0,NJ,FL
 2,Holy Names (Windsor),7,Caledonia (Caledonia),48,0,ON,MI
 2,Bishop Moore (Orlando),42,Tottenville (Staten Island),21,0,FL,NY
@@ -428,6 +507,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 2,Boardman (Youngstown),13,Lake (Uniontown),34,0,,
 2,Bowsher (Toledo),8,Genoa Area (Genoa),38,0,,
 2,Bradford (Bradford),12,Ansonia (Ansonia),60,0,,
+2,Brecksville-Broadview Heights (Broadview Heights),14,Maple Heights (Maple Heights),30,0,,
 2,Bridgeport (Bridgeport),0,Monroe Central (Woodsfield),48,0,,
 2,Brookfield (Brookfield),13,Springfield (New Middletown),35,0,,
 2,Brooklyn (Brooklyn),42,Oberlin (Oberlin),26,0,,
@@ -467,6 +547,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 2,Coventry (Akron),6,Rittman (Rittman),28,0,,
 2,Covington (Covington),14,Dayton Christian (Miamisburg),7,0,,
 2,Crooksville (Crooksville),27,Southern (Racine),20,0,,
+2,Danbury (Lakeside),28,Waldron,48,0,,MI
 2,Danville (Danville),24,Utica (Utica),14,0,,
 2,Defiance (Defiance),9,Wapakoneta (Wapakoneta),34,0,,
 2,Dixie (New Lebanon),6,Mississinawa Valley (Union City),20,0,,
@@ -517,6 +598,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 2,Hillsboro (Hillsboro),32,Goshen (Goshen),7,0,,
 2,Hillsdale (Jeromesville),26,Lucas (Lucas),8,0,,
 2,Hilltop (West Unity),14,Edgerton (Edgerton),69,0,,
+2,Holgate (Holgate),48,Camden-Frontier,22,0,,MI
 2,Holy Name (Parma Heights),14,Niles McKinley (Niles),0,0,,
 2,Hoover (North Canton),18,Hudson (Hudson),7,0,,
 2,Hopewell-Loudon (Bascom),36,Pleasant (Marion),15,0,,
@@ -540,6 +622,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 2,Kings (Kings Mills),5,Winton Woods (Cincinnati),19,0,,
 2,River Valley (Bidwell),7,South Gallia (Crown City),42,0,,
 2,LaBrae (Leavittsburg),26,Campbell Memorial (Campbell),25,0,,
+2,Lake Catholic (Mentor),33,Cuyahoga Valley Christian Academy (Cuyahoga Falls),7,0,,
 2,Lakewood (Hebron),12,Maysville (Zanesville),35,0,,
 2,Lakewood (Lakewood),12,Clearview (Lorain),40,0,,
 2,Lakota (Kansas),35,Arcadia (Arcadia),0,0,,
@@ -720,35 +803,85 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 2,Wynford (Bucyrus),12,East Knox (Howard),25,0,,
 2,Wyoming (Cincinnati),23,Monroe (Monroe),6,0,,
 2,Zane Trace (Chillicothe),7,Waverly (Waverly),28,0,,
+2,Southern Buckeye (club) (Russellville),0,Peebles (club) (Peebles),68,0,,
 2,Brooke (Wellsburg),0,Beaver Local (East Liverpool),35,0,WV,
+2,Buckhannon-Upshur,0,Bridgeport (Bridgeport),77,0,WV,WV
 2,Cameron (Cameron),22,Edison (Richmond),30,0,WV,
+2,Doddridge County,41,St Marys (St Marys),0,0,WV,WV
+2,Greenbrier West (Charmco),21,Pendleton County,27,0,WV,WV
 2,Hundred (Hundred),6,Clay-Battelle (Blacksville),44,0,WV,WV
+2,Jefferson,0,Spring Mills (Martinsburg),50,0,WV,WV
 2,John Marshall (Glen Dale),0,Marietta (Marietta),10,0,WV,
+2,Moorefield,7,Frankfort (Ridgeley),28,0,WV,WV
 2,Morgantown (Morgantown),24,Parkersburg (Parkersburg),13,0,WV,WV
+2,Ravenswood,7,Williamstown (Williamstown),47,0,WV,WV
+2,Ritchie County (Ellenboro),7,Tyler Consolidated,55,0,WV,WV
+2,Shady Spring,12,Roane County (Spencer),36,0,WV,WV
 2,Spring Valley (Huntington),55,South Point (South Point),20,0,WV,
+2,Tygarts Valley,33,Valley (Wetzel) (Pine Grove),46,0,WV,WV
 2,Wahama (Mason),45,East Hardy (Baker),14,0,WV,WV
+2,Wayne,21,Tolsia,7,0,WV,WV
+2,Wheeling Central Catholic (Wheeling),28,James Monroe,6,0,WV,WV
 2,Wheeling Park (Wheeling),35,Parkersburg South (Parkersburg),14,0,WV,WV
 2,Wirt County (Elizabeth),16,Eastern (Reedsville),47,0,WV,
 2,Trinity Christian (Morgantown),0,Federal Hocking (Stewart),8,0,WV,
+2,Ashland Blazer (Ashland),42,West Jessamine,6,0,KY,KY
 2,Bishop Brossart (Alexandria),48,North College Hill (Cincinnati),26,0,KY,
+2,Boyd County (Ashland),31,Bell County,36,0,KY,KY
 2,Campbell County (Alexandria),20,Beechwood (Fort Mitchell),42,0,KY,KY
+2,Central (Louisville),7,St Xavier (Louisville),37,0,KY,KY
 2,Dayton (Dayton),26,Pendleton County (Falmouth),27,0,KY,KY
 2,Greenup County (Greenup),38,Russell (Russell),9,0,KY,KY
 2,Highlands (Fort Thomas),32,Covington Catholic (Park Hills),22,0,KY,KY
+2,Nelson County,14,South Oldham (Crestwood),45,0,KY,KY
+2,Paris,63,Paintsville (Paintsville),30,0,KY,KY
+2,Pleasure Ridge Park (Louisville),12,Bullitt East,48,0,KY,KY
 2,Ryle (Union),46,Conner (Hebron),8,0,KY,KY
+2,Shelby Valley (Pikeville),34,Lawrence County,49,0,KY,KY
+2,Trimble County,16,Bellevue (Bellevue),48,0,KY,KY
+2,Trinity (Louisville),23,Frederick Douglass (Lexington),13,0,KY,KY
+2,Brother Rice (Bloomfield Hills),0,Roseville,35,0,MI,MI
+2,Plymouth Canton,31,Bedford (Temperance),28,0,MI,MI
 2,Grand Rapids West Catholic (Grand Rapids),13,Elder (Cincinnati),20,0,MI,
 2,Grandville (Grandville),51,Pickerington North (Pickerington),53,0,MI,
+2,North Adams-Jerome,46,Stryker (Stryker),48,0,MI,
+2,LakeVille Memorial (Otisville),34,Burton Bendle,18,0,MI,MI
 2,Zeeland West (Zeeland),28,Muskegon (Muskegon),13,0,MI,MI
+2,Altoona (Altoona),0,State College,57,0,PA,PA
+2,Hollidaysburg,42,Taylor Allderdice (Pittsburgh),0,0,PA,PA
 2,Central Catholic (Pittsburgh),17,Pine-Richland (Gibsonia),22,0,PA,PA
+2,McKeesport (McKeesport),7,Peters Township,42,0,PA,PA
+2,Farrell (Farrell),28,Fort LeBoeuf,29,0,PA,PA
+2,Brashear (Pittsburgh),0,Butler,42,0,PA,PA
 2,Carrick (Pittsburgh),6,Albert Gallatin (Uniontown),42,0,PA,PA
+2,Perry Traditional Academy (Pittsburgh),6,Uniontown,34,0,PA,PA
 2,Port Allegany (Port Allegany),73,Smethport (Smethport),6,0,PA,PA
 2,Cathedral Prep (Erie),33,Sharon (Sharon),7,0,PA,PA
+2,Meadville,48,Connellsville,41,0,PA,PA
 2,Harbor Creek (Harborcreek),19,General McLane (Edinboro),47,0,PA,PA
+2,North East (North East),19,Seneca,32,0,PA,PA
 2,Mercyhurst Prep (Erie),13,Oil City (Oil City),29,0,PA,PA
 2,Maplewood (Guys Mills),12,Reynolds (Greenville),35,0,PA,PA
+2,Fairview (Fairview),6,Grove City,13,0,PA,PA
 2,Wilmington (New Wilmington),7,Hubbard (Hubbard),39,0,PA,
+2,Saegertown,13,Eisenhower,14,0,PA,PA
+2,Cambridge Springs,32,Northwestern (Albion),0,0,PA,PA
+2,Lakeview,12,Mercer,0,0,PA,PA
+2,Iroquois,21,Conneaut Area (Linesville),33,0,PA,PA
+2,Sharpsville,13,Greenville,25,0,PA,PA
+2,Cochranton,21,Union City,7,0,PA,PA
+2,University Prep (USO co-op) (Pittsburgh),14,Hickory (Hermitage),40,0,PA,PA
 2,Erie (Erie),56,Shaw (East Cleveland),6,0,PA,
+2,Carroll (Fort Wayne),14,Center Grove (Greenwood),28,0,IN,IN
+2,Columbia City,42,Plymouth,13,0,IN,IN
 2,East Central (St Leon),28,Harrison (Harrison),35,0,IN,
+2,Blackhawk Christian (Fort Wayne),14,Taylor,20,0,IN,IN
+2,Hanover Central,7,Bishop Chatard (Indianapolis),28,0,IN,IN
+2,Lawrence North (Indianapolis),34,Fort Wayne North Side,13,0,IN,IN
+2,Monrovia,20,Linton-Stockton (Linton),22,0,IN,IN
+2,South Vermillion,34,Sullivan,25,0,IN,IN
+2,Purdue Poly - Englewood (Indianapolis),0,Danville Community,27,0,IN,IN
+2,Nashville Christian School,69,Innovation Academy (Springfield),0,0,TN,TN
 2,Virginia Academy (Ashburn),53,Life Christian Academy (Chester),6,0,VA,VA
 2,Ballou (Washington),0,Martinsburg (Martinsburg),66,0,DC,WV
 2,Gonzaga (Washington),14,Springfield (Springfield),6,0,DC,
@@ -777,11 +910,21 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 2,Waynesfield-Goshen (Waynesfield),49,Crestline (Crestline),12,0,,
 2,Western Reserve (Berlin Center),13,Trinity (Garfield Heights),0,0,,
 2,Valley Christian School (Youngstown),54,St Thomas Aquinas (Louisville),6,0,,
+2,West Union (club) (West Union),24,North Adams (club) (Seaman),22,0,,
 2,Paden City (Paden City),38,Foxfire (Zanesville),24,0,WV,
+2,Bryan Station,8,Boyle County (Danville),48,0,KY,KY
 2,Holy Cross (Covington),8,Dohn Community (Cincinnati),6,0,KY,
+2,Johnson Central,37,Pikeville (Pikeville),15,0,KY,KY
+2,Franklin,7,Slippery Rock,38,0,PA,PA
 2,Titusville (Titusville),40,Girard (Girard),0,0,PA,PA
 2,Saint Joseph's Prep (Philadelphia),21,St Edward (Lakewood),35,0,PA,
+2,Brownsburg,30,Cathedral (Indianapolis),14,0,IN,IN
+2,Carmel (Carmel),13,Westfield,17,0,IN,IN
+2,Muncie Central,14,Yorktown,30,0,IN,IN
+2,Northview,44,Greencastle,7,0,IN,IN
+2,Northern Virginia Homeschool,50,Columbus Crusaders (club) (Columbus),42,1,VA,
 2,DeMatha Catholic (Hyattsville),10,Archbishop Spalding (Severn),26,0,MD,MD
+2,Maryland School for the Deaf,42,Chalker (Southington),22,0,MD,
 2,Mt Zion Prep (Lanham),0,Riverdale Baptist (Upper Marlboro),48,0,MD,MD
 2,Chaminade (Mineola),31,Long Island St Anthony's (South Huntington),28,0,NY,NY
 2,St Francis Prep (Fresh Meadows),21,St John the Baptist (West Islip),20,0,NY,NY
@@ -793,6 +936,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 2,King School (Stamford),33,St Dominic (Oyster Bay),7,0,CT,NY
 2,Seward (Seward),86,Monroe Catholic (Fairbanks),14,0,AK,AK
 2,Valdez (Valdez),14,Nikiski (Nikiski),54,0,AK,AK
+2,Soldotna (Soldotna),35,Teton,7,0,AK,ID
 3,Belmont (Dayton),18,South (Columbus),17,0,,
 3,Garfield Heights (Garfield Heights),0,Valley Forge (Parma Heights),25,0,,
 3,Miami East (Casstown),21,Northwestern (Springfield),20,0,,
@@ -802,6 +946,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 3,Roger Bacon (St Bernard),14,Hughes (Cincinnati),20,0,,
 3,Scott (Toledo),0,East (Columbus),32,0,,
 3,Southern (Salineville),24,Edison (Richmond),42,0,,
+3,U of D Jesuit (Detroit),7,Lansing Everett,23,0,MI,MI
 3,Taylor Allderdice (Pittsburgh),33,Perry Traditional Academy (Pittsburgh),0,0,PA,PA
 3,Oil City (Oil City),14,General McLane (Edinboro),35,0,PA,PA
 3,Conneaut Area (Linesville),6,Hickory (Hermitage),63,0,PA,PA
@@ -867,6 +1012,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 3,Coventry (Akron),0,Chippewa (Doylestown),12,0,,
 3,Crestview (Ashland),0,Keystone (La Grange),34,0,,
 3,Crestwood (Mantua),0,Cuyahoga Heights (Cuyahoga Heights),35,0,,
+3,Cuyahoga Valley Christian Academy (Cuyahoga Falls),28,Woodridge (Peninsula),0,0,,
 3,Dalton (Dalton),34,Mogadore (Mogadore),0,0,,
 3,Danville (Danville),8,Hopewell-Loudon (Bascom),12,0,,
 3,Dayton Christian (Miamisburg),15,Miami Valley Christian Academy (Cincinnati),3,0,,
@@ -937,6 +1083,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 3,Kings (Kings Mills),28,Loveland (Loveland),20,0,,
 3,Kirtland (Kirtland),22,Perry (Perry),21,0,,
 3,Lake (Millbury),14,Delta (Delta),31,0,,
+3,Lake (Uniontown),24,Brecksville-Broadview Heights (Broadview Heights),0,0,,
 3,Lakeview (Cortland),19,Liberty (Youngstown),6,0,,
 3,Lakota East (Liberty Township),27,Hamilton (Hamilton),24,0,,
 3,Lakota West (West Chester),6,Princeton (Cincinnati),14,0,,
@@ -1118,43 +1265,100 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 3,Zane Trace (Chillicothe),8,North Union (Richwood),14,0,,
 3,KIPP Columbus (Columbus),2,Archbishop McNicholas (Cincinnati),31,0,,
 3,Dohn Community (Cincinnati),6,Struthers (Struthers),40,0,,
+3,West Union (club) (West Union),0,Fayetteville (Fayetteville),21,0,,
+3,Peebles (club) (Peebles),18,Columbus Crusaders (club) (Columbus),58,0,,
 3,Bridgeport (Bridgeport),49,Morgantown (Morgantown),0,0,WV,WV
+3,Frankfort (Ridgeley),56,Hampshire,21,0,WV,WV
 3,George Washington (Charleston),14,John Marshall (Glen Dale),6,0,WV,WV
 3,Hundred (Hundred),0,Cameron (Cameron),35,0,WV,WV
 3,Huntington (Huntington),15,Martinsburg (Martinsburg),47,0,WV,WV
 3,Independence (Coal City),20,Brooke (Wellsburg),0,0,WV,WV
 3,Madonna (Weirton),28,Clay-Battelle (Blacksville),8,0,WV,WV
 3,Oak Glen (New Cumberland),0,St Marys (St Marys),28,0,WV,WV
+3,Paden City (Paden City),0,Tolsia,25,0,WV,WV
+3,Parkersburg (Parkersburg),37,South Charleston,0,0,WV,WV
 3,Roane County (Spencer),42,Lincoln County (Hamlin),12,0,WV,WV
 3,Spring Valley (Huntington),48,Hurricane (Hurricane),63,0,WV,WV
+3,Summers County,0,Greenbrier West (Charmco),27,0,WV,WV
+3,Valley (Wetzel) (Pine Grove),33,Hancock (Hancock),0,0,WV,MD
+3,Wahama (Mason),48,Doddridge County,24,0,WV,WV
+3,Williamstown (Williamstown),49,Tyler Consolidated,0,0,WV,WV
+3,Winfield,15,Herbert Hoover (Elkview),29,0,WV,WV
 3,Spring Mills (Martinsburg),27,Wheeling Park (Wheeling),0,0,WV,WV
+3,Trinity Christian (Morgantown),0,Berkeley Springs,38,0,WV,WV
 3,Linsly (Wheeling),0,Ashland (Ashland),35,0,WV,
+3,Ballard,26,Pleasure Ridge Park (Louisville),0,0,KY,KY
+3,Betsy Lane,32,Fairview (Ashland),0,0,KY,KY
+3,Central (Louisville),41,Butler (Louisville),0,0,KY,KY
 3,Dixie Heights (Edgewood),20,Beechwood (Fort Mitchell),41,0,KY,KY
+3,Grant County,20,Holy Cross (Covington),3,0,KY,KY
 3,Highlands (Fort Thomas),34,Campbell County (Alexandria),0,0,KY,KY
 3,Ludlow (Ludlow),0,Sayre (Lexington),42,0,KY,KY
+3,Paintsville (Paintsville),20,Prestonsburg,21,0,KY,KY
 3,Pendleton County (Falmouth),6,Bellevue (Bellevue),36,0,KY,KY
+3,Pikeville (Pikeville),26,Lexington Christian,40,0,KY,KY
+3,Pineville,0,Bishop Brossart (Alexandria),49,0,KY,KY
 3,Ryle (Union),14,Cooper (Union),21,0,KY,KY
 3,Shelby Valley (Pikeville),28,Martin County (Inez),40,0,KY,KY
+3,Spencer County,17,South Oldham (Crestwood),30,0,KY,KY
+3,St Xavier (Louisville),34,Male (Louisville),35,0,KY,KY
+3,Adrian Lenawee Christian,23,Bellevue,20,0,MI,MI
 3,Brother Rice (Bloomfield Hills),28,St Francis de Sales (Toledo),49,0,MI,
+3,Camden-Frontier,58,Tekonsha,0,0,MI,MI
+3,Concord,1,Athens,0,0,MI,MI
+3,Davison,41,Grandville (Grandville),37,0,MI,MI
 3,Dearborn Divine Child (Dearborn),42,Bloomfield Hills (Bloomfield Hills),0,0,MI,MI
 3,Detroit Cass Tech (Detroit),20,Canton McKinley (Canton),3,0,MI,
+3,East Lansing,12,Hudsonville,14,0,MI,MI
+3,Erie Mason (Erie),0,Dundee,53,0,MI,MI
+3,Grand Rapids West Catholic (Grand Rapids),63,Coopersville,28,0,MI,MI
+3,Howell,49,Plymouth Canton,14,0,MI,MI
 3,Lumen Christi (Jackson),24,Pontiac Notre Dame (Pontiac),28,0,MI,MI
+3,Muskegon (Muskegon),21,Rockford,28,0,MI,MI
 3,Muskegon Mona Shores (Muskegon),21,River Rouge (River Rouge),6,0,MI,MI
+3,LakeVille Memorial (Otisville),0,Chesaning,50,0,MI,MI
+3,Ottawa Lake Whiteford (Ottawa Lake),6,Ida,21,0,MI,MI
+3,Petersburg Summerfield (Petersburg),27,Decatur,30,0,MI,MI
+3,Reading (Reading),30,Quincy,12,0,MI,MI
+3,Riverview Gabriel Richard (Riverview),27,Muskegon Catholic Central,0,0,MI,MI
 3,Bedford (Temperance),48,Ann Arbor Skyline (Ann Arbor),3,0,MI,MI
+3,Waldron,30,Litchfield,18,0,MI,MI
 3,Warren De La Salle (Warren),35,Detroit King (Detroit),13,0,MI,MI
+3,Britton-Deerfield (Britton),14,Mendon,66,0,MI,MI
 3,NorthPointe Christian (Grand Rapids),0,Toledo Christian (Toledo),21,0,MI,
+3,Central York (York),31,Delaware Valley,20,0,PA,PA
+3,Northern Bedford County,19,Wilmington (New Wilmington),21,0,PA,PA
+3,Butler,35,Meadville,11,0,PA,PA
+3,McKeesport (McKeesport),31,Thomas Jefferson,34,0,PA,PA
+3,Uniontown,34,Carrick (Pittsburgh),0,0,PA,PA
 3,Brashear (Pittsburgh),0,Westinghouse (Pittsburgh),59,0,PA,PA
 3,McDowell (Erie),14,Mentor (Mentor),50,0,PA,
+3,Fort LeBoeuf,19,Corry (Corry),13,0,PA,PA
+3,Grove City,7,Titusville (Titusville),22,0,PA,PA
 3,North East (North East),10,Harbor Creek (Harborcreek),49,0,PA,PA
+3,Slippery Rock,0,Sharon (Sharon),42,0,PA,PA
+3,Seneca,40,Union City,0,0,PA,PA
+3,Reynolds (Greenville),32,Mercer,31,0,PA,PA
 3,Fairview (Fairview),31,Girard (Girard),20,0,PA,PA
+3,Eisenhower,7,Iroquois,0,0,PA,PA
+3,Lakeview,29,Saegertown,31,0,PA,PA
+3,Cochranton,16,Maplewood (Guys Mills),27,0,PA,PA
+3,Bellmont,0,Columbia City,61,0,IN,IN
 3,Carmel (Carmel),44,Centerville (Centerville),23,0,IN,
+3,Center Grove (Greenwood),24,Trinity (Louisville),10,0,IN,KY
 3,East Central (St Leon),13,Archbishop Moeller (Cincinnati),42,0,IN,
+3,Bishop Dwenger (Fort Wayne),14,Fort Wayne North Side,6,0,IN,IN
 3,Bishop Chatard (Indianapolis),9,Roncalli (Indianapolis),3,0,IN,IN
 3,Cathedral (Indianapolis),31,St Xavier (Cincinnati),35,0,IN,
 3,Lawrence North (Indianapolis),45,Wayne (Huber Heights),21,0,IN,
+3,Linton-Stockton (Linton),26,Western,7,0,IN,IN
+3,Milan,7,Lawrenceburg (Lawrenceburg),41,0,IN,IN
+3,New Palestine,41,Yorktown,13,0,IN,IN
 3,Richmond (Richmond),8,London (London),58,0,IN,
+3,Sullivan,0,Northview,35,0,IN,IN
 3,Tindley (Indianapolis),6,Crispus Attucks (Indianapolis),42,0,IN,IN
 3,Purdue Poly - Englewood (Indianapolis),14,Indianapolis Arsenal Technical (Indianapolis),47,0,IN,IN
+3,Innovation Academy (Springfield),6,Grace Baptist Academy,41,0,TN,TN
 3,Bishop Timon - St Jude (Buffalo),0,Aquinas Institute (Rochester),36,0,NY,NY
 3,St Francis (Hamburg),23,Benedictine (Cleveland),17,0,NY,
 3,Monsignor Farrell (Staten Island),21,Rye (Rye),31,0,NY,NY
@@ -1169,6 +1373,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 3,Legacy Sport Sciences (Spring),34,Port Arthur Memorial (Port Arthur),41,0,TX,TX
 3,Fort Bend Christian Academy (Sugar Land),3,Cornerstone Christian (San Antonio),28,0,TX,TX
 3,Westdale (Hamilton),20,St Mary (Hamilton),17,0,ON,ON
+3,St Thomas More (Hamilton),7,Grand Rapids Catholic Central,34,0,ON,MI
 3,Huron Heights (Newmarket),45,Brantford Collegiate Institute (Brantford),7,0,ON,ON
 3,Bishop Tonnos (Ancaster),13,Bellaire (Bellaire),16,0,ON,
 3,Bill Crothers SS (Unionville),24,St Francis Xavier (Milton),12,0,ON,ON
@@ -1193,6 +1398,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 3,Marietta (Marietta),21,Athens (The Plains),42,0,,
 3,Meigs (Pomeroy),34,Dawson-Bryant (Coal Grove),39,0,,
 3,Miami Trace (Washington Court House),41,Logan Elm (Circleville),20,0,,
+3,New Miami (Hamilton),32,C4 Lions (club) (Trenton),21,0,,
 3,Northwest (McDermott),43,Huntington (Chillicothe),6,0,,
 3,Oak Hill (Oak Hill),38,Rock Hill (Ironton),41,0,,
 3,Portsmouth (Portsmouth),26,Greenup County (Greenup),37,0,,KY
@@ -1207,12 +1413,22 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 3,Cabell Midland (Ona),7,Ironton (Ironton),63,1,WV,
 3,Point Pleasant (Point Pleasant),33,Gallia Academy (Gallipolis),28,0,WV,
 3,Wirt County (Elizabeth),48,Magnolia (New Martinsville),24,0,WV,WV
+3,Boyd County (Ashland),36,East Carter,14,0,KY,KY
 3,Boyle County (Danville),38,St Edward (Lakewood),21,0,KY,
+3,North Adams-Jerome,0,Battle Creek St Philip,44,0,MI,MI
+3,Washtenaw Saints (club),0,Landmark Eagles (club) (Cincinnati),40,0,MI,
+3,State College,6,Harrisburg,7,0,PA,PA
+3,Franklin,40,Warren,18,0,PA,PA
 3,Mercyhurst Prep (Erie),28,Northwestern (Albion),7,0,PA,PA
+3,Greenville,17,Cambridge Springs,0,0,PA,PA
+3,Sharpsville,1,Kennedy Catholic (Hermitage),0,0,PA,PA
 3,Erie (Erie),0,Lake Catholic (Mentor),37,0,PA,
+3,Life Christian Academy (Chester),6,Football North (via Clarkson SS) (Mississauga),36,1,VA,ON
+3,Canisius (Buffalo),39,Scranton Preparatory,25,0,NY,PA
 3,Long Island St Anthony's (South Huntington),34,University Prep (Rochester),8,0,NY,NY
 3,St John the Baptist (West Islip),40,Holy Trinity - Long Island (Hicksville),15,0,NY,NY
 3,Xavier (New York),7,Moore Catholic (Staten Island),36,0,NY,NY
+3,Chaminade (Mineola),27,John Jay (East Fishkill),0,0,NY,NY
 3,Iona Prep (New Rochelle),44,Springfield Central (Springfield),20,0,NY,MA
 3,Capital Prep-Harlem (New York),0,Mt St Michael Academy (Bronx),43,0,NY,NY
 3,Cardinal Hayes (Bronx),36,Catholic Memorial (West Roxbury),29,0,NY,MA
@@ -1221,6 +1437,8 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 3,Xaverian (Brooklyn),27,St Francis Prep (Fresh Meadows),26,0,NY,NY
 3,St Dominic (Oyster Bay),7,Riverdale Country School (Bronx),36,0,NY,NY
 3,St Joseph by-the-Sea (Staten Island),19,St Peter's (Staten Island),22,0,NY,NY
+3,Yonkers (co-op) (Yonkers),27,Cardinal Spellman (Bronx),6,0,NY,NY
+3,Eagle Academy for Young Men III (Jamaica),6,Holy Cross (Flushing),12,0,NY,NY
 3,St Andrew's College (Aurora),10,St Joseph's Collegiate (Buffalo),8,0,ON,NY
 3,Superior Heights (Sault Ste. Marie),8,White Pines (Sault Ste. Marie),1,0,ON,ON
 3,Korah (Sault Ste. Marie),26,St Mary's College (Sault Ste. Marie),9,0,ON,ON
@@ -1232,6 +1450,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 4,Preble Shawnee (Camden),48,Twin Valley South (West Alexandria),7,0,,
 4,Start (Toledo),36,Scott (Toledo),14,0,,
 4,Westinghouse (Pittsburgh),68,Perry Traditional Academy (Pittsburgh),0,0,PA,PA
+4,North East (North East),23,Fort LeBoeuf,28,0,PA,PA
 4,Erie (Erie),24,McDowell (Erie),28,0,PA,PA
 4,Mt Zion Prep (Lanham),0,IMG Academy (Bradenton),57,0,MD,FL
 4,Bishop Reding (Milton),9,St Francis Xavier (Milton),34,0,ON,ON
@@ -1266,6 +1485,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 4,Black River (Sullivan),13,Wellington (Wellington),7,0,,
 4,Bowling Green (Bowling Green),34,Springfield (Holland),7,0,,
 4,Bradford (Bradford),7,National Trail (New Paris),47,0,,
+4,Brecksville-Broadview Heights (Broadview Heights),21,North Royalton (North Royalton),55,0,,
 4,Briggs (Columbus),34,Marion-Franklin (Columbus),24,0,,
 4,Brookfield (Brookfield),45,Champion (Warren),13,0,,
 4,Brooklyn (Brooklyn),0,Fairview (Fairview Park),35,0,,
@@ -1306,6 +1526,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 4,Crestview (Convoy),21,Fort Loramie (Fort Loramie),28,0,,
 4,Crooksville (Crooksville),20,Meadowbrook (Byesville),40,0,,
 4,Cuyahoga Heights (Cuyahoga Heights),21,Chagrin Falls (Chagrin Falls),14,0,,
+4,Cuyahoga Valley Christian Academy (Cuyahoga Falls),47,Tuslaw (Massillon),7,0,,
 4,Dawson-Bryant (Coal Grove),44,Chesapeake (Chesapeake),14,0,,
 4,Dayton Christian (Miamisburg),41,New Miami (Hamilton),7,0,,
 4,Defiance (Defiance),41,Van Wert (Van Wert),14,0,,
@@ -1561,33 +1782,99 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 4,Cincinnati College Prep (Cincinnati),50,Cincinnati Country Day (Cincinnati),42,0,,
 4,Gamble Montessori (Cincinnati),8,Belmont (Dayton),42,0,,
 4,Cabell Midland (Ona),13,George Washington (Charleston),21,0,WV,WV
+4,Calhoun County,0,Wirt County (Elizabeth),50,0,WV,WV
 4,Cameron (Cameron),46,St Marys (St Marys),21,0,WV,WV
+4,East Fairmont,0,Bridgeport (Bridgeport),50,0,WV,WV
+4,Herbert Hoover (Elkview),13,Nitro,7,0,WV,WV
 4,Hurricane (Hurricane),49,Parkersburg (Parkersburg),14,0,WV,WV
 4,Magnolia (New Martinsville),20,River (Hannibal),48,0,WV,
+4,Roane County (Spencer),47,Clay County,46,0,WV,WV
+4,Wahama (Mason),62,Ravenswood,19,0,WV,WV
 4,Weir (Weirton),7,Indian Creek (Wintersville),52,0,WV,
+4,Wheeling Park (Wheeling),48,Musselman,13,0,WV,WV
 4,Williamstown (Williamstown),36,Wheeling Central Catholic (Wheeling),25,0,WV,WV
+4,Washington,19,Brooke (Wellsburg),14,0,WV,WV
 4,Linsly (Wheeling),13,St Francis DeSales (Columbus),49,0,WV,
+4,Bardstown,13,Ashland Blazer (Ashland),50,0,KY,KY
 4,Boyle County (Danville),56,Scott County (Georgetown),26,0,KY,KY
+4,Butler (Louisville),6,Pleasure Ridge Park (Louisville),24,0,KY,KY
+4,Central (Louisville),6,La Salle (Cincinnati),7,0,KY,
 4,Covington Catholic (Park Hills),47,Dixie Heights (Edgewood),28,0,KY,KY
 4,Dayton (Dayton),8,Ludlow (Ludlow),61,0,KY,KY
+4,Greenup County (Greenup),55,East Carter,20,0,KY,KY
 4,Highlands (Fort Thomas),28,Ryle (Union),34,0,KY,KY
+4,Mason County,0,Boyd County (Ashland),3,0,KY,KY
 4,Morgan County (West Liberty),50,Fairview (Ashland),60,0,KY,KY
+4,Nicholas County,12,Bishop Brossart (Alexandria),38,0,KY,KY
 4,Paintsville (Paintsville),32,Martin County (Inez),34,1,KY,KY
+4,Phelps,36,Bland,0,0,KY,VA
 4,Pikeville (Pikeville),16,Raceland (Raceland),13,0,KY,KY
+4,Russell (Russell),38,Magoffin County,0,0,KY,KY
+4,Trinity (Louisville),35,Carmel (Carmel),23,0,KY,IN
+4,North Oldham,14,South Oldham (Crestwood),23,0,KY,KY
 4,Cooper (Union),42,Campbell County (Alexandria),0,0,KY,KY
 4,Brother Rice (Bloomfield Hills),0,Central Catholic (Toledo),37,0,MI,
+4,Bridgman,38,NorthPointe Christian (Grand Rapids),46,0,MI,MI
+4,Burr Oak,56,North Adams-Jerome,12,0,MI,MI
+4,Climax-Scotts,56,Adrian Lenawee Christian,35,0,MI,MI
+4,Colon,7,Britton-Deerfield (Britton),40,0,MI,MI
+4,Dearborn Divine Child (Dearborn),26,Milford,12,0,MI,MI
+4,Detroit Mumford,0,Detroit Cass Tech (Detroit),71,0,MI,MI
+4,Detroit Renaissance,0,Detroit King (Detroit),49,0,MI,MI
+4,Dexter,59,Bedford (Temperance),13,0,MI,MI
+4,Ovid-Elsie,52,LakeVille Memorial (Otisville),0,0,MI,MI
+4,Grand Rapids South Christian,41,Grand Rapids West Catholic (Grand Rapids),38,0,MI,MI
+4,Grandville (Grandville),20,Rockford,37,0,MI,MI
 4,Harper Woods (Harper Woods),12,Novi Detroit Catholic Central (Novi),45,0,MI,MI
+4,Howell,34,Plymouth Salem,13,0,MI,MI
+4,Jenison,6,Hudsonville,38,0,MI,MI
+4,Mendon,84,Concord,20,0,MI,MI
+4,Muskegon Mona Shores (Muskegon),49,Flint Hamady,12,0,MI,MI
+4,Ottawa Lake Whiteford (Ottawa Lake),44,Buchanan,16,0,MI,MI
 4,River Rouge (River Rouge),12,St John's Jesuit (Toledo),6,0,MI,
+4,Union City,35,Reading (Reading),8,0,MI,MI
+4,Waldron,30,Camden-Frontier,6,0,MI,MI
 4,Warren De La Salle (Warren),38,Orchard Lake St Mary (Orchard Lake),28,0,MI,MI
+4,Whitmore Lake,30,Petersburg Summerfield (Petersburg),46,0,MI,MI
+4,Central York (York),40,Spring Grove,0,0,PA,PA
+4,State College,30,Cumberland Valley,14,0,PA,PA
+4,North Hills,24,Pine-Richland (Gibsonia),29,0,PA,PA
 4,Albert Gallatin (Uniontown),21,Northern Garrett (Accident),31,0,PA,MD
+4,Belle Vernon Area,7,McKeesport (McKeesport),28,0,PA,PA
 4,Brownsville (Brownsville),0,Bellaire (Bellaire),41,0,PA,
+4,Taylor Allderdice (Pittsburgh),21,Uniontown,15,0,PA,PA
 4,Carrick (Pittsburgh),36,Brashear (Pittsburgh),2,0,PA,PA
+4,Smethport (Smethport),7,Cameron County,29,0,PA,PA
+4,Meadville,42,Oil City (Oil City),6,0,PA,PA
+4,Warren,7,Cathedral Prep (Erie),52,0,PA,PA
+4,Franklin,0,General McLane (Edinboro),62,0,PA,PA
 4,Corry (Corry),52,Girard (Girard),18,0,PA,PA
 4,Sharon (Sharon),20,Hickory (Hermitage),14,0,PA,PA
+4,Seneca,21,Mercyhurst Prep (Erie),35,0,PA,PA
+4,Greenville,62,Cochranton,0,0,PA,PA
+4,Maplewood (Guys Mills),13,Lakeview,28,0,PA,PA
+4,Reynolds (Greenville),12,Sharpsville,34,0,PA,PA
 4,Fairview (Fairview),23,Harbor Creek (Harborcreek),14,0,PA,PA
+4,Eisenhower,14,Northwestern (Albion),32,0,PA,PA
+4,Mercer,0,Farrell (Farrell),58,0,PA,PA
+4,Union City,0,Iroquois,40,0,PA,PA
+4,Saegertown,3,Cambridge Springs,36,0,PA,PA
+4,University Prep (USO co-op) (Pittsburgh),8,Steubenville (Steubenville),38,0,PA,
 4,Conneaut Area (Linesville),19,Titusville (Titusville),46,0,PA,PA
+4,Carroll (Fort Wayne),31,Bishop Dwenger (Fort Wayne),3,0,IN,IN
+4,Center Grove (Greenwood),42,Ben Davis,19,0,IN,IN
+4,Delta,14,Yorktown,28,0,IN,IN
 4,Franklin County (Brookville),13,East Central (St Leon),49,0,IN,IN
+4,Greensburg,3,Lawrenceburg (Lawrenceburg),70,0,IN,IN
+4,Harrison (West Lafayette),51,Richmond (Richmond),14,0,IN,IN
+4,Huntington North (Huntington),21,Columbia City,37,0,IN,IN
 4,Cathedral (Indianapolis),31,Bishop Chatard (Indianapolis),7,0,IN,IN
+4,North Central (Indianapolis),10,Lawrence North (Indianapolis),62,0,IN,IN
+4,Northview,49,West Vigo,7,0,IN,IN
+4,Roncalli (Indianapolis),0,Columbus North,14,0,IN,IN
+4,Sullivan,20,Linton-Stockton (Linton),42,0,IN,IN
+4,Noblesville Lions (club) (Noblesville),0,Purdue Poly - Englewood (Indianapolis),26,0,IN,IN
+4,Memphis Academy of Science and Engineering (Memphis),56,Innovation Academy (Springfield),0,0,TN,TN
 4,South Hagerstown (Hagerstown),0,Spring Mills (Martinsburg),51,0,MD,WV
 4,Loyola / Blakefield (Towson),7,Gonzaga (Washington),41,0,MD,DC
 4,McDonogh School (Owings Mills),0,Archbishop Spalding (Severn),45,0,MD,MD
@@ -1598,10 +1885,12 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 4,Long Island St Anthony's (South Huntington),14,Don Bosco Prep (Ramsey),49,0,NY,NJ
 4,University Prep (Rochester),2,Aquinas Institute (Rochester),21,0,NY,NY
 4,Christ the King Regional (Middle Village),0,St Joseph by-the-Sea (Staten Island),43,0,NY,NY
+4,St Peter's (Staten Island),16,Elmira,8,0,NY,NY
 4,Nazareth Regional (Brooklyn),6,St Dominic (Oyster Bay),38,0,NY,NY
 4,Abraham Lincoln (Brooklyn),30,Canarsie Campus (Brooklyn),24,0,NY,NY
 4,Delbarton School (Morristown),28,Monsignor Farrell (Staten Island),0,0,NJ,NY
 4,DePaul Catholic (Wayne),36,Cardinal Hayes (Bronx),20,0,NJ,NY
+4,Passaic Valley,13,Wayne Valley (Wayne),20,0,NJ,NJ
 4,Nazareth Academy (LaGrange Park),33,Mt Carmel (Chicago),56,0,IL,IL
 4,Marion (Marion),37,Mt Vernon (Mt Vernon),34,0,IL,IL
 4,Cornerstone Christian (San Antonio),33,Parish Episcopal (Dallas),69,0,TX,TX
@@ -1646,7 +1935,15 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 4,Ridgedale (Morral),6,Riverview Gabriel Richard (Riverview),38,0,,MI
 4,Shaw (East Cleveland),34,Crestline (Crestline),28,0,,
 4,Strongsville (Strongsville),17,Benedictine (Cleveland),21,0,,
+4,Columbus Crusaders (club) (Columbus),18,Dohn Community (Cincinnati),8,0,,
+4,Peebles (club) (Peebles),40,Southern Buckeye (club) (Russellville),0,0,,
+4,Foxfire (Zanesville),30,North Adams (club) (Seaman),62,0,,
+4,Jefferson,45,Spring Valley (Huntington),31,0,WV,WV
+4,Pendleton County (Falmouth),21,Gallatin County,6,1,KY,KY
+4,Slippery Rock,7,Grove City,42,0,PA,PA
 4,Wilmington (New Wilmington),58,Kennedy Catholic (Hermitage),0,0,PA,PA
+4,Phalen Academy,8,C4 Lions (club) (Trenton),6,0,IN,
+4,Osceola Grace (club) (Elkhart),31,Blackhawk Christian (Fort Wayne),22,0,IN,IN
 4,Life Christian Academy (Chester),16,Blue Ridge (St George),53,0,VA,VA
 4,St Mary's Ryken (Leonardtown),14,Bishop McNamara (Forestville),9,0,MD,MD
 4,St Francis (Hamburg),19,Ironton (Ironton),56,0,NY,
@@ -1655,14 +1952,18 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 4,Cardinal Spellman (Bronx),0,Mt St Michael Academy (Bronx),49,0,NY,NY
 4,Saint Joseph Regional (Montvale),0,Archbishop Stepinac (White Plains),43,0,NJ,NY
 4,Bergen Catholic (Oradell),31,Iona Prep (New Rochelle),10,0,NJ,NY
+4,St Peter's Prep,38,Moore Catholic (Staten Island),6,0,NJ,NY
 4,Pope John XXIII (Sparta),48,Kellenberg Memorial (Uniondale),14,0,NJ,NY
 4,Seton Hall Prep (West Orange),10,Chaminade (Mineola),3,0,NJ,NY
 4,Morris Catholic (Denville),0,St Francis Prep (Fresh Meadows),34,0,NJ,NY
 4,St Andrew's College (Aurora),21,Bishop Timon - St Jude (Buffalo),13,0,ON,NY
+4,Football North (via Clarkson SS) (Mississauga),41,Virginia Academy (Ashburn),13,0,ON,VA
 4,Valdez (Valdez),20,Monroe Catholic (Fairbanks),28,0,AK,AK
 4,Mallard Creek (Charlotte),21,Archbishop Moeller (Cincinnati),14,1,NC,
 4,Immaculata (Somerville),42,Holy Trinity - Long Island (Hicksville),20,0,NJ,NY
 4,Southern (Santa Rita),2,Simon Sanchez (Yigo),0,0,GU,GU
+4,Clay-Battelle (Blacksville),7,Valley (Wetzel) (Pine Grove),33,0,WV,WV
+4,Ridgway,16,Redbank Valley,52,0,PA,PA
 4,Chaminade College School (North York),0,Huron Heights (Newmarket),35,0,ON,ON
 5,Philip Pocock (Mississauga),14,Cardinal Ambrozic (Brampton),18,0,ON,ON
 5,Brampton Centennial (Brampton),30,Humberview (Caledon),22,0,ON,ON
@@ -1687,6 +1988,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 5,Taylor Allderdice (Pittsburgh),42,Brashear (Pittsburgh),0,0,PA,PA
 5,Canisius (Buffalo),24,Cathedral Prep (Erie),36,0,NY,PA
 5,Assumption Catholic (Burlington),43,Christ the King (Georgetown),0,0,ON,ON
+5,Ursuline College (The Pines) (Chatham),58,Chatham-Kent,1,0,ON,ON
 5,Upper Canada College (Toronto),22,St Oscar Romero (Toronto),2,0,ON,ON
 5,Saltfleet (Stoney Creek),12,Ancaster (Ancaster),10,0,ON,ON
 5,Glendale (Hamilton),6,Waterdown (Waterdown),35,0,ON,ON
@@ -1982,6 +2284,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 5,Shelby (Shelby),35,Galion (Galion),6,0,,
 5,Sheridan (Thornville),23,John Glenn (New Concord),17,0,,
 5,Solon (Solon),19,Stow-Munroe Falls (Stow),21,0,,
+5,Canton South (Canton),10,Cuyahoga Valley Christian Academy (Cuyahoga Falls),21,0,,
 5,South (Columbus),0,Walnut Ridge (Columbus),46,0,,
 5,South Central (Greenwich),0,Monroeville (Monroeville),41,0,,
 5,Southeastern Local (South Charleston),0,West Jefferson (West Jefferson),21,0,,
@@ -2021,6 +2324,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 5,Vermilion (Vermilion),20,Sandusky (Sandusky),36,0,,
 5,Versailles (Versailles),37,Parkway (Rockford),12,0,,
 5,Vinton County (McArthur),7,Athens (The Plains),35,0,,
+5,Wadsworth (Wadsworth),56,Brecksville-Broadview Heights (Broadview Heights),14,0,,
 5,Walnut Hills (Cincinnati),0,Winton Woods (Cincinnati),49,0,,
 5,Massillon Washington (Massillon),31,St Edward (Lakewood),21,0,,
 5,Washington (Washington Court House),7,Monroe (Monroe),24,0,,
@@ -2050,38 +2354,107 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 5,Xenia (Xenia),25,Butler (Vandalia),17,0,,
 5,Zanesville (Zanesville),0,Northridge (Johnstown),7,0,,
 5,Gamble Montessori (Cincinnati),0,Cincinnati Hills Christian Academy (Cincinnati),68,0,,
+5,Landmark Eagles (club) (Cincinnati),13,Bexley (Columbus),34,0,,
+5,Foxfire (Zanesville),14,West Union (club) (West Union),36,0,,
 5,Bridgeport (Bridgeport),54,Linsly (Wheeling),8,0,WV,WV
+5,Greenbrier West (Charmco),37,Pocahontas County,0,0,WV,WV
+5,Hedgesville,0,Martinsburg (Martinsburg),66,0,WV,WV
+5,John Marshall (Glen Dale),36,Washington,40,0,WV,WV
 5,Magnolia (New Martinsville),16,Cameron (Cameron),52,0,WV,WV
+5,Musselman,0,Spring Mills (Martinsburg),62,0,WV,WV
 5,Parkersburg (Parkersburg),17,Parkersburg South (Parkersburg),26,0,WV,WV
 5,Point Pleasant (Point Pleasant),21,Ripley (Ripley),28,0,WV,WV
 5,Ritchie County (Ellenboro),6,Williamstown (Williamstown),58,0,WV,WV
+5,Roane County (Spencer),49,Lewis County,0,0,WV,WV
 5,Spring Valley (Huntington),49,Cabell Midland (Ona),19,0,WV,WV
+5,Valley (Wetzel) (Pine Grove),47,Frontier (New Matamoras),34,0,WV,
+5,Wahama (Mason),61,Calhoun County,13,0,WV,WV
+5,Webster County,8,Madonna (Weirton),26,0,WV,WV
 5,Weir (Weirton),0,Frankfort (Ridgeley),51,0,WV,WV
+5,Wheeling Central Catholic (Wheeling),43,Midland Trail,6,0,WV,WV
 5,Wheeling Park (Wheeling),35,University (Morgantown),22,0,WV,WV
 5,Belfry (Belfry),35,Pikeville (Pikeville),21,0,KY,KY
 5,Bishop Brossart (Alexandria),16,Lloyd Memorial (Erlanger),44,0,KY,KY
+5,Bullitt East,14,Central (Louisville),28,0,KY,KY
+5,Campbell County (Alexandria),29,Newport Central Catholic,28,1,KY,KY
+5,Holy Cross (Covington),12,Middlesboro,14,0,KY,KY
+5,Male (Louisville),21,Trinity (Louisville),24,0,KY,KY
+5,Montgomery County,35,Greenup County (Greenup),63,0,KY,KY
 5,Newport (Newport),32,Ludlow (Ludlow),30,0,KY,KY
 5,Paintsville (Paintsville),0,Warren (Vincent),56,0,KY,
+5,Pendleton County (Falmouth),19,Nicholas County,70,0,KY,KY
+5,Pleasure Ridge Park (Louisville),14,North Hardin (Radcliff),38,0,KY,KY
 5,Russell (Russell),7,Ashland Blazer (Ashland),48,0,KY,KY
 5,Ryle (Union),28,Christian Academy-Louisville (Louisville),24,0,KY,KY
+5,Shelby Valley (Pikeville),14,Perry County Central,34,0,KY,KY
+5,South Oldham (Crestwood),23,Oldham County,21,0,KY,KY
+5,St Xavier (Louisville),15,Elder (Cincinnati),17,0,KY,
+5,Taylor County,0,Boyle County (Danville),48,0,KY,KY
+5,Adrian Lenawee Christian,26,St Joseph Our Lady of the Lake Catholic (fomerly Lake Michigan Catholic),38,0,MI,MI
 5,Ann Arbor Pioneer (Ann Arbor),14,Bedford (Temperance),49,0,MI,MI
+5,Athens,0,Mendon,54,0,MI,MI
+5,Detroit Country Day,6,Dearborn Divine Child (Dearborn),23,0,MI,MI
+5,Byron Center,12,Muskegon Mona Shores (Muskegon),14,0,MI,MI
+5,Camden-Frontier,8,Morenci,58,0,MI,MI
+5,Concord,8,Britton-Deerfield (Britton),54,0,MI,MI
 5,Detroit King (Detroit),18,Detroit Cass Tech (Detroit),12,0,MI,MI
 5,Erie Mason (Erie),0,Ottawa Hills (Toledo),59,0,MI,
+5,Grand Rapids Forest Hills Northern,28,Muskegon (Muskegon),47,0,MI,MI
+5,Grandville (Grandville),46,Jenison,35,0,MI,MI
 5,Lumen Christi (Jackson),42,U of D Jesuit (Detroit),13,0,MI,MI
+5,LakeVille Memorial (Otisville),0,Montrose,48,0,MI,MI
 5,Ottawa Lake Whiteford (Ottawa Lake),20,Edon (Edon),50,0,MI,
 5,Petersburg Summerfield (Petersburg),34,Hilltop (West Unity),12,0,MI,
+5,Reading (Reading),12,Bronson,34,0,MI,MI
 5,Novi Detroit Catholic Central (Novi),27,Orchard Lake St Mary (Orchard Lake),22,0,MI,MI
 5,River Rouge (River Rouge),7,Brother Rice (Bloomfield Hills),14,0,MI,MI
+5,Rockford,21,Hudsonville,28,0,MI,MI
+5,Spring Lake,25,Grand Rapids West Catholic (Grand Rapids),28,0,MI,MI
+5,Waldron,58,North Adams-Jerome,14,0,MI,MI
+5,Plymouth (Plymouth),17,Howell,48,0,MI,MI
+5,NorthPointe Christian (Grand Rapids),44,Wyoming Lee,6,0,MI,MI
+5,South Western,0,Central York (York),44,0,PA,PA
+5,Bucktail,20,Smethport (Smethport),46,0,PA,PA
+5,State College,29,Chambersburg,7,0,PA,PA
+5,Albert Gallatin (Uniontown),36,Uniontown,21,0,PA,PA
+5,Upper Saint Clair,31,McKeesport (McKeesport),14,0,PA,PA
+5,Pine-Richland (Gibsonia),43,Plum,7,0,PA,PA
+5,Westinghouse (Pittsburgh),28,Butler,17,0,PA,PA
+5,McDowell (Erie),49,Meadville,21,0,PA,PA
+5,Warren,0,Titusville (Titusville),56,0,PA,PA
 5,General McLane (Edinboro),33,Corry (Corry),19,0,PA,PA
 5,Harbor Creek (Harborcreek),20,Mercyhurst Prep (Erie),26,0,PA,PA
 5,Oil City (Oil City),28,Fairview (Fairview),14,0,PA,PA
+5,Fort LeBoeuf,21,Grove City,17,0,PA,PA
 5,Northwestern (Albion),26,Conneaut Area (Linesville),21,0,PA,PA
+5,Girard (Girard),14,Seneca,20,0,PA,PA
+5,Greenville,49,Mercer,13,0,PA,PA
+5,Saegertown,21,Union City,14,0,PA,PA
+5,Cambridge Springs,36,Iroquois,20,0,PA,PA
+5,Lakeview,26,Reynolds (Greenville),36,0,PA,PA
 5,Kennedy Catholic (Hermitage),12,Maplewood (Guys Mills),55,0,PA,PA
+5,Sharpsville,35,Slippery Rock,7,0,PA,PA
+5,Cochranton,0,Eisenhower,27,0,PA,PA
+5,University Prep (USO co-op) (Pittsburgh),52,Perry Traditional Academy (Pittsburgh),6,0,PA,PA
 5,Saint Joseph's Prep (Philadelphia),21,Good Counsel (Wheaton),19,0,PA,MD
+5,Batesville,13,East Central (St Leon),24,0,IN,IN
+5,Brebeuf Jesuit Preparatory,28,Carmel (Carmel),27,0,IN,IN
+5,Cascade,42,Sullivan,6,0,IN,IN
+5,Columbia City,60,DeKalb,14,0,IN,IN
+5,Columbus North,14,Bishop Chatard (Indianapolis),21,0,IN,IN
+5,Bishop Dwenger (Fort Wayne),14,Homestead,17,0,IN,IN
+5,Blackhawk Christian (Fort Wayne),13,South Adams,70,0,IN,IN
 5,Indianapolis Arsenal Technical (Indianapolis),0,Lawrence North (Indianapolis),35,0,IN,IN
 5,Lawrenceburg (Lawrenceburg),35,Franklin County (Brookville),27,0,IN,IN
+5,Linton-Stockton (Linton),20,Boonville,21,0,IN,IN
+5,Marion,71,Richmond (Richmond),44,0,IN,IN
+5,North Central (Indianapolis),13,Cathedral (Indianapolis),53,0,IN,IN
+5,Northview,38,Owen Valley,0,0,IN,IN
+5,Yorktown,13,New Castle Chrysler,27,0,IN,IN
+5,Guerin Catholic,23,Roncalli (Indianapolis),38,0,IN,IN
 5,Crispus Attucks (Indianapolis),64,Purdue Poly - Englewood (Indianapolis),20,0,IN,IN
 5,Bradley Central (Cleveland),55,Innovation Academy (Springfield),7,0,TN,TN
+5,Life Christian Academy (Chester),19,Catholic (formerly Bishop Sullivan) (Virginia Beach),6,0,VA,VA
 5,Northern Garrett (Accident),49,Hancock (Hancock),6,0,MD,MD
 5,Archbishop Spalding (Severn),35,Calvert Hall (Towson),0,0,MD,MD
 5,Bishop McNamara (Forestville),6,Riverdale Baptist (Upper Marlboro),28,0,MD,MD
@@ -2093,6 +2466,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 5,Kellenberg Memorial (Uniondale),28,Fordham Prep (Bronx),14,0,NY,NY
 5,St Peter's (Staten Island),21,Xaverian (Brooklyn),7,0,NY,NY
 5,Long Island Lutheran (Brookville),40,Port Chester (Port Chester),7,0,NY,NY
+5,Le Roy / Caledonia-Mumford (co-op) (Le Roy),22,Bishop Timon - St Jude (Buffalo),35,0,NY,NY
 5,Canarsie Campus (Brooklyn),6,Erasmus Hall Campus (Brooklyn),39,0,NY,NY
 5,Paramus Catholic (Paramus),7,Wayne Valley (Wayne),41,0,NJ,NJ
 5,St Ignatius (Chicago),24,Mt Carmel (Chicago),45,0,IL,IL
@@ -2166,9 +2540,12 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 5,St Joseph Central Catholic (Fremont),6,Chalker (Southington),40,0,,
 5,St Mary Central Catholic (Sandusky),54,Stryker (Stryker),22,0,,
 5,Shroder (Cincinnati),38,Clark Montessori (Cincinnati),8,0,,
+5,Peebles (club) (Peebles),8,C4 Lions (club) (Trenton),27,0,,
 5,Montcalm (Rock),37,Paden City (Paden City),8,0,WV,WV
 5,Farrell (Farrell),7,Sharon (Sharon),14,0,PA,PA
 5,Hickory (Hermitage),27,Erie (Erie),25,0,PA,PA
+5,North East (North East),38,Franklin,7,0,PA,PA
+5,Mt Zion Prep (Lanham),0,Football North (via Clarkson SS) (Mississauga),50,1,MD,ON
 5,Aquinas Institute (Rochester),20,Fairport (Fairport),21,0,NY,NY
 5,Holy Trinity - Long Island (Hicksville),7,St Francis Prep (Fresh Meadows),12,0,NY,NY
 5,Chaminade (Mineola),24,St John the Baptist (West Islip),14,0,NY,NY
@@ -2208,7 +2585,9 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 6,Marion-Franklin (Columbus),14,Walnut Ridge (Columbus),20,0,,
 6,Stebbins (Riverside),48,West Carrollton (West Carrollton),20,0,,
 6,Western Hills (Cincinnati),6,Hughes (Cincinnati),40,0,,
+6,Central Hardin,0,Central (Louisville),54,0,KY,KY
 6,Westinghouse (Pittsburgh),50,Taylor Allderdice (Pittsburgh),6,0,PA,PA
+6,Slippery Rock,10,Harbor Creek (Harborcreek),35,0,PA,PA
 6,St Peter (Orléans),20,St Joseph (Nepean),34,0,ON,ON
 6,Waterdown (Waterdown),40,Dundas Valley (Dundas),7,0,ON,ON
 6,Westdale (Hamilton),38,Saltfleet (Stoney Creek),0,0,ON,ON
@@ -2267,6 +2646,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 6,Badin (Hamilton),35,Bishop Fenwick (Franklin),7,0,,
 6,Barnesville (Barnesville),56,Shadyside (Shadyside),0,0,,
 6,Beachwood (Beachwood),7,Brooklyn (Brooklyn),22,0,,
+6,Beallsville (Beallsville),0,Valley (Wetzel) (Pine Grove),47,0,,WV
 6,Bellbrook (Bellbrook),13,Edgewood (Trenton),0,0,,
 6,Bellefontaine (Bellefontaine),6,London (London),51,0,,
 6,Berea-Midpark (Berea),7,Midview (Grafton),16,0,,
@@ -2279,6 +2659,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 6,Black River (Sullivan),0,Keystone (La Grange),14,0,,
 6,Bloom-Carroll (Carroll),35,Fairfield Union (Lancaster),0,0,,
 6,Bowling Green (Bowling Green),22,Clay (Oregon),24,0,,
+6,Brecksville-Broadview Heights (Broadview Heights),33,Stow-Munroe Falls (Stow),13,0,,
 6,Brookfield (Brookfield),7,Crestview (Columbiana),57,0,,
 6,Brookside (Sheffield),0,Firelands (Oberlin),28,0,,
 6,Brookville (Brookville),28,Carlisle (Carlisle),8,0,,
@@ -2317,6 +2698,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 6,Crestview (Convoy),36,Jefferson (Delphos),0,0,,
 6,Crestwood (Mantua),0,Chagrin Falls (Chagrin Falls),28,0,,
 6,Cuyahoga Falls (Cuyahoga Falls),7,Aurora (Aurora),68,0,,
+6,Cuyahoga Valley Christian Academy (Cuyahoga Falls),37,Triway (Wooster),7,0,,
 6,Danbury (Lakeside),14,St Mary Central Catholic (Sandusky),43,0,,
 6,Lisbon David Anderson (Lisbon),0,United (Hanoverton),42,0,,
 6,Deer Park (Cincinnati),27,Finneytown (Cincinnati),11,0,,
@@ -2541,29 +2923,81 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 6,Valley Christian School (Youngstown),46,Wellsville (Wellsville),14,0,,
 6,Cincinnati College Prep (Cincinnati),42,Holy Cross (Covington),0,0,,KY
 6,Dohn Community (Cincinnati),6,Purcell Marian (Cincinnati),46,0,,
+6,Braxton County,8,Roane County (Spencer),43,0,WV,WV
 6,Brooke (Wellsburg),33,Lincoln County (Hamlin),14,0,WV,WV
 6,Cabell Midland (Ona),7,Hurricane (Hurricane),48,0,WV,WV
+6,Cameron (Cameron),13,Tyler Consolidated,6,0,WV,WV
 6,George Washington (Charleston),18,Spring Valley (Huntington),28,0,WV,WV
 6,Magnolia (New Martinsville),0,Monroe Central (Woodsfield),46,0,WV,
+6,Man,12,Greenbrier West (Charmco),19,0,WV,WV
+6,Martinsburg (Martinsburg),42,Jefferson,12,0,WV,WV
 6,Parkersburg (Parkersburg),31,Capital (Charleston),19,0,WV,WV
 6,Parkersburg South (Parkersburg),41,John Marshall (Glen Dale),12,0,WV,WV
+6,Poca,0,Williamstown (Williamstown),48,0,WV,WV
+6,Robert C Byrd,0,Bridgeport (Bridgeport),58,0,WV,WV
+6,Sissonville,19,Herbert Hoover (Elkview),63,0,WV,WV
+6,Tygarts Valley,13,Clay-Battelle (Blacksville),12,0,WV,WV
 6,Wirt County (Elizabeth),22,Wahama (Mason),68,0,WV,WV
 6,Spring Mills (Martinsburg),64,North Hagerstown (Hagerstown),0,0,WV,MD
 6,Ashland Blazer (Ashland),51,Greenup County (Greenup),12,0,KY,KY
+6,Boyle County (Danville),51,Lexington Catholic,7,0,KY,KY
+6,Concord,32,Morenci,16,0,MI,MI
 6,Detroit Cass Tech (Detroit),40,Detroit East English (Detroit),6,0,MI,MI
+6,Detroit Henry Ford,0,Detroit King (Detroit),39,0,MI,MI
+6,Detroit Loyola,8,Riverview Gabriel Richard (Riverview),29,0,MI,MI
 6,U of D Jesuit (Detroit),21,St Francis de Sales (Toledo),28,0,MI,
+6,Grand Haven,13,Grandville (Grandville),56,0,MI,MI
+6,Grand Rapids West Catholic (Grand Rapids),35,Grand Rapids Christian,13,0,MI,MI
+6,Howell,27,Northville,12,0,MI,MI
+6,Hudsonville,35,East Kentwood,6,0,MI,MI
 6,Lumen Christi (Jackson),35,Dearborn Divine Child (Dearborn),0,0,MI,MI
+6,Litchfield,8,Camden-Frontier,6,0,MI,MI
+6,Mendon,66,Colon,0,0,MI,MI
 6,Muskegon Mona Shores (Muskegon),42,Muskegon (Muskegon),27,0,MI,MI
+6,Orchard Lake St Mary (Orchard Lake),64,Waterford Kettering,0,0,MI,MI
+6,LakeVille Memorial (Otisville),0,Durand,55,0,MI,MI
 6,Petersburg Summerfield (Petersburg),20,Ottawa Lake Whiteford (Ottawa Lake),14,0,MI,MI
+6,Pittsford,52,North Adams-Jerome,14,0,MI,MI
+6,Stockbridge,13,Reading (Reading),20,0,MI,MI
+6,Bedford (Temperance),24,Ypsilanti Lincoln,21,0,MI,MI
+6,Waldron,34,Burr Oak,60,0,MI,MI
+6,Britton-Deerfield (Britton),48,Adrian Lenawee Christian,26,0,MI,MI
 6,Dearborn Advanced Technology Academy (Dearborn),56,Erie Mason (Erie),24,0,MI,MI
+6,NorthPointe Christian (Grand Rapids),8,Gobles,38,0,MI,MI
+6,Central Dauphin,7,State College,24,0,PA,PA
+6,Central York (York),28,Dallastown,27,0,PA,PA
+6,McKeesport (McKeesport),54,Hampton,7,0,PA,PA
+6,Fox Chapel,0,Pine-Richland (Gibsonia),71,0,PA,PA
+6,Uniontown,49,Brownsville (Brownsville),28,0,PA,PA
+6,Brashear (Pittsburgh),0,University Prep (USO co-op) (Pittsburgh),70,0,PA,PA
+6,Carrick (Pittsburgh),6,Windber,49,0,PA,PA
 6,Perry Traditional Academy (Pittsburgh),12,Wheeling Central Catholic (Wheeling),41,0,PA,WV
+6,Smethport (Smethport),28,Coudersport,46,0,PA,PA
+6,General McLane (Edinboro),28,Fort LeBoeuf,6,0,PA,PA
 6,Corry (Corry),28,Mercyhurst Prep (Erie),21,0,PA,PA
+6,Grove City,21,Oil City (Oil City),35,0,PA,PA
 6,Hickory (Hermitage),49,Niles McKinley (Niles),0,0,PA,
 6,Titusville (Titusville),47,North East (North East),14,0,PA,PA
+6,Northwestern (Albion),0,Greenville,42,0,PA,PA
+6,Girard (Girard),21,Warren,7,0,PA,PA
+6,Seneca,9,Fairview (Fairview),13,0,PA,PA
 6,Maplewood (Guys Mills),0,Conneaut Area (Linesville),41,0,PA,PA
+6,Reynolds (Greenville),0,Cambridge Springs,34,0,PA,PA
 6,Wilmington (New Wilmington),0,Farrell (Farrell),38,0,PA,PA
+6,Mercer,7,Saegertown,14,0,PA,PA
+6,Union City,7,Eisenhower,34,0,PA,PA
+6,Sharpsville,34,Lakeview,15,0,PA,PA
+6,Erie (Erie),74,Franklin,0,0,PA,PA
+6,Father Judge,13,Saint Joseph's Prep (Philadelphia),42,0,PA,PA
 6,Malvern Prep (Malvern),13,Gonzaga (Washington),7,0,PA,DC
 6,East Central (St Leon),45,South Dearborn (Aurora),0,0,IN,IN
+6,Blackhawk Christian (Fort Wayne),20,Park Tudor,39,0,IN,IN
+6,Fort Wayne Northrop,19,Bishop Dwenger (Fort Wayne),36,0,IN,IN
+6,Lawrenceburg (Lawrenceburg),24,Batesville,0,0,IN,IN
+6,New Haven,0,Columbia City,70,0,IN,IN
+6,Richmond (Richmond),0,Lafayette Jefferson,70,0,IN,IN
+6,Roncalli (Indianapolis),37,Brebeuf Jesuit Preparatory,18,0,IN,IN
+6,Shelbyville,0,Yorktown,33,0,IN,IN
 6,Northern Garrett (Accident),14,Frankfort (Ridgeley),45,0,MD,WV
 6,Hancock (Hancock),49,Hundred (Hundred),20,0,MD,WV
 6,Gilman School (Baltimore),0,Archbishop Spalding (Severn),51,0,MD,MD
@@ -2584,6 +3018,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 6,Mayfield (Brampton),7,Clarkson (Mississauga),32,0,ON,ON
 6,Robert F. Hall (Caledon East),45,St Marcellinus (Mississauga),3,0,ON,ON
 6,Brampton Centennial (Brampton),30,Philip Pocock (Mississauga),20,0,ON,ON
+6,Chatham-Kent,13,St Patrick's (Sarnia),28,0,ON,ON
 6,Iroquois Ridge (Oakville),0,Nelson (Burlington),44,0,ON,ON
 6,Bishop Macdonell (Guelph),35,John F. Ross CVI (Guelph),8,0,ON,ON
 6,Our Lady of Lourdes (Guelph),0,Centennial CVI (Guelph),48,0,ON,ON
@@ -2597,11 +3032,13 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 6,Holy Trinity (Simcoe),18,Pauline Johnson (Brantford),20,0,ON,ON
 6,Richview CI (Etobicoke),13,Michael Power - St Joseph (Etobicoke),17,0,ON,ON
 6,Burlington Central (Burlington),0,Aldershot (Burlington),28,0,ON,ON
+6,Football North (via Clarkson SS) (Mississauga),28,Ironton (Ironton),27,0,ON,
 6,Stamford Collegiate (Niagara Falls),0,Governor Simcoe (St Catharines),45,0,ON,ON
 6,St Anne Catholic (Belle River),0,W.F. Herman (Windsor),34,0,ON,ON
 6,White Pines (Sault Ste. Marie),20,Superior Heights (Sault Ste. Marie),49,0,ON,ON
 6,St Francis Xavier (Gloucester),49,Sacred Heart (Stittsville),7,0,ON,ON
 6,Brooklin (Brooklin),6,Upper Canada College (Toronto),10,0,ON,ON
+6,Northern CI (Sarnia),17,Ursuline College (The Pines) (Chatham),10,0,ON,ON
 6,Bayside (Belleville),26,Trenton (Trenton),8,0,ON,ON
 6,l'Essor (Tecumseh),57,Vincent Massey (Windsor),0,0,ON,ON
 6,Tecumseh Vista Academy (Tecumseh),16,F. J. Brennan Catholic (Windsor),7,0,ON,ON
@@ -2668,10 +3105,37 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 6,Wickliffe (Wickliffe),0,Trinity (Garfield Heights),16,0,,
 6,Withrow (Cincinnati),19,Taft (Cincinnati),14,0,,
 6,Woodward (Cincinnati),6,Aiken (Cincinnati),32,0,,
+6,Berkeley Springs,27,Oak Glen (New Cumberland),12,0,WV,WV
 6,Madonna (Weirton),0,Catholic Central (Steubenville),48,0,WV,
+6,Anderson County,13,South Oldham (Crestwood),53,0,KY,KY
+6,Bath County,42,Lewis County (Vanceburg),12,0,KY,KY
+6,Bracken County,53,Walton-Verona (Walton),8,0,KY,KY
+6,Dixie Heights (Edgewood),44,Boone County,12,0,KY,KY
+6,East Carter,20,West Carter,0,0,KY,KY
+6,Elizabethtown,49,Shelby Valley (Pikeville),44,0,KY,KY
+6,Fleming County,0,Russell (Russell),36,0,KY,KY
+6,Gallatin County,0,Beechwood (Fort Mitchell),61,0,KY,KY
+6,Johnson Central,42,Boyd County (Ashland),14,0,KY,KY
+6,Leslie County,26,Paintsville (Paintsville),20,0,KY,KY
+6,Magoffin County,0,Belfry (Belfry),41,0,KY,KY
+6,Marion County,42,Dayton (Dayton),0,0,KY,KY
+6,Pikeville (Pikeville),28,George Rogers Clark,7,0,KY,KY
+6,Scott (Covington),0,Conner (Hebron),56,0,KY,KY
+6,Trinity (Louisville),10,St Xavier (Louisville),16,0,KY,KY
 6,Cooper (Union),24,Highlands (Fort Thomas),21,0,KY,KY
 6,River Rouge (River Rouge),21,Mentor (Mentor),47,0,MI,
 6,Cathedral Prep (Erie),21,St Francis (Hamburg),35,0,PA,NY
+6,Sharon (Sharon),41,Meadville,21,0,PA,PA
+6,Iroquois,50,Kennedy Catholic (Hermitage),0,0,PA,PA
+6,Carmel (Carmel),48,North Central (Indianapolis),14,0,IN,IN
+6,Lawrence Central,18,Center Grove (Greenwood),27,0,IN,IN
+6,Lawrence North (Indianapolis),58,Ben Davis,28,0,IN,IN
+6,Linton-Stockton (Linton),46,Greencastle,14,0,IN,IN
+6,Owen Valley,0,Sullivan,56,0,IN,IN
+6,Terre Haute South Vigo,28,Northview,31,0,IN,IN
+6,Guerin Catholic,13,Bishop Chatard (Indianapolis),48,0,IN,IN
+6,Noblesville Lions (club) (Noblesville),14,Columbus Crusaders (club) (Columbus),38,0,IN,
+6,Innovation Academy (Springfield),8,South Pittsburg,63,0,TN,TN
 6,Canisius (Buffalo),24,St Joseph's Collegiate (Buffalo),17,0,NY,NY
 6,Holy Trinity - Long Island (Hicksville),0,Chaminade (Mineola),45,0,NY,NY
 6,St John the Baptist (West Islip),7,Iona Prep (New Rochelle),37,0,NY,NY
@@ -2679,8 +3143,10 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 6,John F Kennedy Catholic (Somers),6,St Dominic (Oyster Bay),19,0,NY,NY
 6,St Peter's (Staten Island),7,Kellenberg Memorial (Uniondale),14,0,NY,NY
 6,Xaverian (Brooklyn),34,Cardinal Spellman (Bronx),6,0,NY,NY
+6,Springfield Gardens Educational Campus (Springfield Gardens),0,Long Island Lutheran (Brookville),40,0,NY,NY
 6,Penfield (Penfield),17,Aquinas Institute (Rochester),28,0,NY,NY
 6,Moore Catholic (Staten Island),28,St Francis Prep (Fresh Meadows),8,0,NY,NY
+6,The Hun School,51,Mt Zion Prep (Lanham),6,0,NJ,MD
 6,Don Bosco Prep (Ramsey),20,Bergen Catholic (Oradell),24,0,NJ,NJ
 6,Trinity College (Port Hope),0,St Andrew's College (Aurora),39,0,ON,ON
 6,Brantford Collegiate Institute (Brantford),19,Paris District (Paris),14,0,ON,ON
@@ -2692,11 +3158,17 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 6,Simon Sanchez (Yigo),0,Okkodo (Dededo),7,0,GU,GU
 6,Southern (Santa Rita),26,John F. Kennedy (Tamuning),0,0,GU,GU
 6,New Miami (Hamilton),6,Clark Montessori (Cincinnati),44,0,,
+6,Butler (Louisville),14,Southern (Louisville),7,1,KY,KY
 6,Male (Louisville),42,Pleasure Ridge Park (Louisville),21,0,KY,KY
+6,Oldham County,26,Atherton,19,1,KY,KY
+6,North Oldham,10,Henry County,0,0,KY,KY
 6,Warren De La Salle (Warren),14,Novi Detroit Catholic Central (Novi),31,0,MI,MI
 6,Bellevue (Bellevue),46,Gamble Montessori (Cincinnati),0,0,KY,
 6,Ludlow (Ludlow),58,Pendleton County (Falmouth),12,0,KY,KY
+6,Powell County,59,Fairview (Ashland),18,0,KY,KY
+6,Trimble County,12,Iroquois,18,0,KY,KY
 6,Purdue Poly - Englewood (Indianapolis),18,Tindley (Indianapolis),24,0,IN,IN
+6,Phalen Academy,12,Crispus Attucks (Indianapolis),48,1,IN,IN
 7,Leaside (East York),26,Lawrence Park CI (Toronto),17,0,ON,ON
 7,Patrick Fogarty (Orillia),6,St Theresa's (Midland),23,0,ON,ON
 7,Huron Heights (Kitchener),0,Cameron Heights CI (Kitchener),28,0,ON,ON
@@ -2736,6 +3208,8 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 7,Tri-County North (Lewisburg),8,Preble Shawnee (Camden),55,0,,
 7,Walnut Ridge (Columbus),32,West (Columbus),0,0,,
 7,Woodward (Toledo),12,Scott (Toledo),36,0,,
+7,Union City,0,Mercyhurst Prep (Erie),47,0,PA,PA
+7,Saegertown,23,Maplewood (Guys Mills),0,0,PA,PA
 7,Colonel By (Gloucester),9,Holy Trinity (Kanata),22,0,ON,ON
 7,Lorne Park (Mississauga),21,David Suzuki (Brampton),28,0,ON,ON
 7,Holy Names (Windsor),24,St Thomas of Villanova (LaSalle),13,0,ON,ON
@@ -2858,6 +3332,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 7,Euclid (Euclid),0,Brunswick (Brunswick),37,0,,
 7,Fairfield Union (Lancaster),49,Liberty Union (Baltimore),21,0,,
 7,Fairland (Proctorville),22,Portsmouth (Portsmouth),21,0,,
+7,Fairless (Brewster),7,Cuyahoga Valley Christian Academy (Cuyahoga Falls),38,0,,
 7,Fairport Harding (Fairport Harbor),0,Pymatuning Valley (Andover),38,0,,
 7,Fairview (Sherwood),42,Antwerp (Antwerp),14,0,,
 7,Field (Mogadore),42,Coventry (Akron),6,0,,
@@ -2891,6 +3366,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 7,Hoover (North Canton),21,Canton McKinley (Canton),28,0,,
 7,Howland (Warren),6,Youngstown East (Youngstown),20,0,,
 7,Hubbard (Hubbard),31,Beaver Local (East Liverpool),39,0,,
+7,Hudson (Hudson),35,Brecksville-Broadview Heights (Broadview Heights),0,0,,
 7,Indian Hill (Cincinnati),35,Reading (Reading),7,0,,
 7,Indian Valley (Gnadenhutten),40,Garaway (Sugarcreek),35,0,,
 7,Ironton (Ironton),48,Pikeville (Pikeville),33,0,,KY
@@ -3013,6 +3489,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 7,St Henry (St Henry),48,Parkway (Rockford),13,0,,
 7,St John's Jesuit (Toledo),21,Central Catholic (Toledo),56,0,,
 7,St Vincent-St Mary (Akron),7,Ursuline (Youngstown),37,0,,
+7,St Xavier (Cincinnati),3,Trinity (Louisville),7,0,,KY
 7,Shadyside (Shadyside),20,River (Hannibal),0,0,,
 7,Shaw (East Cleveland),6,Maple Heights (Maple Heights),60,0,,
 7,Shawnee (Springfield),7,Graham Local (St Paris),27,0,,
@@ -3092,39 +3569,101 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 7,Xenia (Xenia),21,Troy (Troy),18,0,,
 7,Zane Trace (Chillicothe),35,Westfall (Williamsport),0,0,,
 7,Clark Montessori (Cincinnati),14,Cincinnati Country Day (Cincinnati),44,0,,
+7,West Union (club) (West Union),0,Peebles (club) (Peebles),42,0,,
 7,Brooke (Wellsburg),0,Bridgeport (Bridgeport),54,0,WV,WV
 7,Cameron (Cameron),66,Madonna (Weirton),16,0,WV,WV
 7,Frankfort (Ridgeley),49,Mountain Ridge (Frostburg),12,0,WV,MD
+7,Herbert Hoover (Elkview),41,Chapmanville,7,0,WV,WV
 7,Hundred (Hundred),13,Southern Garrett (Oakland),40,0,WV,MD
 7,Huntington (Huntington),52,Cabell Midland (Ona),7,0,WV,WV
+7,Magnolia (New Martinsville),0,Tyler Consolidated,42,0,WV,WV
 7,Morgantown (Morgantown),7,Wheeling Park (Wheeling),14,0,WV,WV
+7,Musselman,1,Martinsburg (Martinsburg),0,0,WV,WV
 7,Paden City (Paden City),0,Van (Van),14,0,WV,WV
+7,Point Pleasant (Point Pleasant),48,Robert C Byrd,35,0,WV,WV
+7,Roane County (Spencer),45,Poca,19,0,WV,WV
+7,Webster County,7,Wirt County (Elizabeth),43,0,WV,WV
 7,Weir (Weirton),12,Keyser (Keyser),55,0,WV,WV
 7,Williamstown (Williamstown),30,Marietta (Marietta),22,0,WV,
+7,Spring Mills (Martinsburg),43,Washington,0,0,WV,WV
 7,Linsly (Wheeling),14,Steubenville (Steubenville),48,0,WV,
+7,Ashland Blazer (Ashland),55,Rowan County,7,0,KY,KY
 7,Bellevue (Bellevue),0,Ludlow (Ludlow),43,0,KY,KY
 7,Boyd County (Ashland),37,Greenup County (Greenup),42,0,KY,KY
 7,Dixie Heights (Edgewood),0,Highlands (Fort Thomas),49,0,KY,KY
+7,Elizabethtown,3,Central (Louisville),61,0,KY,KY
+7,Fairview (Ashland),30,Nicholas County,58,0,KY,KY
 7,Holy Cross (Covington),38,Morgan County (West Liberty),8,0,KY,KY
+7,Paris,14,Bishop Brossart (Alexandria),21,0,KY,KY
+7,Ryle (Union),24,St Xavier (Louisville),31,0,KY,KY
+7,West Carter,3,Russell (Russell),31,0,KY,KY
+7,Woodford County,27,South Oldham (Crestwood),32,0,KY,KY
+7,East Ridge,26,Paintsville (Paintsville),34,0,KY,KY
+7,Bangor,8,NorthPointe Christian (Grand Rapids),39,0,MI,MI
+7,Bellevue,42,Mendon,66,0,MI,MI
+7,Detroit Country Day,0,Orchard Lake St Mary (Orchard Lake),48,0,MI,MI
+7,Burr Oak,36,Camden-Frontier,32,0,MI,MI
 7,Dearborn Divine Child (Dearborn),33,U of D Jesuit (Detroit),17,0,MI,MI
+7,Detroit Cass Tech (Detroit),56,Detroit Renaissance,0,0,MI,MI
+7,Detroit Southeastern,0,Detroit King (Detroit),63,0,MI,MI
 7,Erie Mason (Erie),8,Ottawa Lake Whiteford (Ottawa Lake),65,0,MI,MI
+7,Grand Haven,14,Hudsonville,59,0,MI,MI
+7,Grand Rapids Forest Hills Northern,7,Muskegon Mona Shores (Muskegon),33,0,MI,MI
+7,Grandville (Grandville),33,East Kentwood,25,0,MI,MI
+7,Hartland,30,Howell,44,0,MI,MI
+7,Morenci,30,Adrian Lenawee Christian,46,0,MI,MI
+7,Muskegon (Muskegon),62,Grand Rapids Union,0,0,MI,MI
+7,New Lothrop,41,LakeVille Memorial (Otisville),7,0,MI,MI
+7,North Adams-Jerome,22,Litchfield,26,0,MI,MI
 7,Petersburg Summerfield (Petersburg),48,North Central (Pioneer),7,0,MI,
+7,Pittsford,50,Concord,12,0,MI,MI
 7,Novi Detroit Catholic Central (Novi),37,Brother Rice (Bloomfield Hills),14,0,MI,MI
+7,Riverview Gabriel Richard (Riverview),48,Grosse Pointe Woods University Liggett,28,0,MI,MI
+7,Springport,28,Reading (Reading),24,0,MI,MI
+7,Tekonsha,0,Waldron,1,0,MI,MI
+7,Bedford (Temperance),3,Saline,48,0,MI,MI
+7,Wayland Union,0,Grand Rapids West Catholic (Grand Rapids),38,0,MI,MI
+7,Cedar Cliff,0,State College,38,0,PA,PA
+7,Central York (York),62,Northeastern,13,0,PA,PA
+7,Penn Hills,21,Pine-Richland (Gibsonia),31,0,PA,PA
+7,West Mifflin,20,McKeesport (McKeesport),40,0,PA,PA
 7,Carrick (Pittsburgh),44,Brownsville (Brownsville),0,0,PA,PA
 7,Perry Traditional Academy (Pittsburgh),28,Brashear (Pittsburgh),6,0,PA,PA
+7,Bradford,27,Smethport (Smethport),12,0,PA,PA
 7,McDowell (Erie),44,Cathedral Prep (Erie),21,0,PA,PA
+7,Warren,6,General McLane (Edinboro),48,0,PA,PA
+7,Franklin,6,Meadville,62,0,PA,PA
 7,Corry (Corry),48,North East (North East),0,0,PA,PA
 7,Hickory (Hermitage),56,Titusville (Titusville),21,0,PA,PA
+7,Sharon (Sharon),35,Grove City,0,0,PA,PA
 7,Girard (Girard),12,Harbor Creek (Harborcreek),31,0,PA,PA
+7,Fairview (Fairview),10,Fort LeBoeuf,0,0,PA,PA
+7,Eisenhower,14,Seneca,27,0,PA,PA
+7,Mercer,6,Sharpsville,35,0,PA,PA
+7,Cambridge Springs,54,Cochranton,0,0,PA,PA
+7,Lakeview,0,Greenville,36,0,PA,PA
+7,Iroquois,20,Northwestern (Albion),12,0,PA,PA
+7,Conneaut Area (Linesville),13,Slippery Rock,16,0,PA,PA
+7,Ben Davis,58,Carmel (Carmel),30,0,IN,IN
 7,Center Grove (Greenwood),45,Cathedral (Indianapolis),49,0,IN,IN
+7,Columbia City,14,East Noble,35,0,IN,IN
+7,East Central (St Leon),62,Connersville,6,0,IN,IN
+7,Edgewood,0,Sullivan,54,0,IN,IN
 7,Bishop Luers (Fort Wayne),0,Bishop Dwenger (Fort Wayne),8,0,IN,IN
+7,Bishop Chatard (Indianapolis),39,Andrean,14,0,IN,IN
+7,Kokomo,57,Richmond (Richmond),29,0,IN,IN
 7,Lawrence North (Indianapolis),33,Warren Central (Indianapolis),7,0,IN,IN
+7,North Knox,0,Linton-Stockton (Linton),48,0,IN,IN
+7,Northview,14,Cascade,41,0,IN,IN
+7,Rushville Consolidated,6,Lawrenceburg (Lawrenceburg),38,0,IN,IN
+7,Yorktown,21,Greenfield-Central,7,0,IN,IN
 7,Indianapolis Washington (Indianapolis),8,Purdue Poly - Englewood (Indianapolis),14,0,IN,IN
 7,Indianapolis Shortridge (Indianapolis),0,Crispus Attucks (Indianapolis),50,0,IN,IN
 7,Innovation Academy (Springfield),0,Brentwood Academy (Brentwood),52,0,TN,TN
 7,Life Christian Academy (Chester),0,DeMatha Catholic (Hyattsville),35,0,VA,MD
 7,Hancock (Hancock),13,Clay-Battelle (Blacksville),41,0,MD,WV
 7,Archbishop Spalding (Severn),54,St Mary's (Annapolis),0,0,MD,MD
+7,Mt Zion Prep (Lanham),14,St Frances Academy (Regional),44,0,MD,MD
 7,Gonzaga (Washington),23,Benedictine Prep (Richmond),16,0,DC,VA
 7,Ron Brown (Washington),20,Wheeling Central Catholic (Wheeling),55,0,DC,WV
 7,McQuaid Jesuit (Rochester),23,Aquinas Institute (Rochester),9,0,NY,NY
@@ -3138,6 +3677,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 7,Mt Carmel (Chicago),13,Brother Rice (Chicago),16,0,IL,IL
 7,Mt Vernon (Mt Vernon),0,Cahokia (Cahokia),28,0,IL,IL
 7,St Peter (Orléans),37,St Mother Teresa (Nepean),0,0,ON,ON
+7,Ursuline College (The Pines) (Chatham),17,St Patrick's (Sarnia),17,0,ON,ON
 7,Nelson (Burlington),44,Dr Frank J Hayden (Burlington),0,0,ON,ON
 7,Notre Dame (Burlington),34,St Ignatius of Loyola (Oakville),7,0,ON,ON
 7,Pauline Johnson (Brantford),28,McKinnon Park (Caledonia),31,0,ON,ON
@@ -3156,16 +3696,19 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 7,Holy Trinity (Simcoe),6,Simcoe CS (Simcoe),18,0,ON,ON
 7,St Roch Catholic SS (Brampton),48,St Marcellinus (Mississauga),0,0,ON,ON
 7,St Paul (Niagara Falls),21,Blessed Trinity (Grimsby),22,0,ON,ON
+7,Football North (via Clarkson SS) (Mississauga),6,Massillon Washington (Massillon),45,0,ON,
 7,St Joseph's Catholic (Windsor),48,Vincent Massey (Windsor),0,0,ON,ON
 7,St Peter's (Barrie),14,St Theresa's (Midland),32,0,ON,ON
 7,Korah (Sault Ste. Marie),51,White Pines (Sault Ste. Marie),0,0,ON,ON
 7,Banting Memorial (Alliston),0,Barrie North (Barrie),48,0,ON,ON
 7,Bear Creek (Barrie),9,Maple Ridge (Barrie),6,0,ON,ON
 7,Westgate (Thunder Bay),24,St Ignatius (Thunder Bay),17,0,ON,ON
+7,Northern CI (Sarnia),44,Chatham-Kent,3,0,ON,ON
 7,Bayside (Belleville),28,Eastside (Belleville),14,0,ON,ON
 7,Riverside (Windsor),55,F. J. Brennan Catholic (Windsor),0,0,ON,ON
 7,Hammarskjold (Thunder Bay),14,St Patrick (Thunder Bay),17,0,ON,ON
 7,Saugeen (Port Elgin),23,St Mary's (Owen Sound),37,0,ON,ON
+7,Mississauga Huskies u18 (club) (Mississauga),18,Trinity College (Port Hope),20,0,ON,ON
 7,Bishop Allen (Etobicoke),22,Senator O'Connor (Toronto),6,0,ON,ON
 7,Woodbridge College (Woodbridge),0,Villanova College (King City),19,0,ON,ON
 7,Waterford (Waterford),15,Delhi (Delhi),33,0,ON,ON
@@ -3176,6 +3719,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 7,Benedictine Military School (Savannah),35,Warner Robins (Warner Robins),21,0,GA,GA
 7,Mallard Creek (Charlotte),49,North Mecklenberg (Huntersville),7,0,NC,NC
 7,Okkodo (Dededo),0,John F. Kennedy (Tamuning),29,0,GU,GU
+7,"Charlotte Amalie (Charlotte Amalie, St Thomas)",0,"Ivanna Eudora Kean (Red Hook, St Thomas)",22,0,VI,VI
 7,Bluffton (Bluffton),42,Crestview (Convoy),0,0,,
 7,Chalker (Southington),64,Stryker (Stryker),26,0,,
 7,Chippewa (Doylestown),7,Norwayne (Creston),49,0,,
@@ -3193,7 +3737,11 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 7,Windham (Windham),32,St John School (Ashtabula),26,0,,
 7,Withrow (Cincinnati),39,Woodward (Cincinnati),0,0,,
 7,Cincinnati College Prep (Cincinnati),20,Woodmore (Elmore),24,0,,
+7,Columbus Crusaders (club) (Columbus),18,Landmark Eagles (club) (Cincinnati),19,0,,
+7,C4 Lions (club) (Trenton),6,Noblesville Lions (club) (Noblesville),7,0,,IN
 7,Oak Glen (New Cumberland),7,Catholic Central (Steubenville),35,0,WV,
+7,Delaware Valley,40,Long Island Lutheran (Brookville),32,0,PA,NY
+7,Taylor Allderdice (Pittsburgh),0,University Prep (USO co-op) (Pittsburgh),14,0,PA,PA
 7,Wilmington (New Wilmington),56,Reynolds (Greenville),9,0,PA,PA
 7,Erie (Erie),14,Oil City (Oil City),7,0,PA,PA
 7,Saint Joseph's Prep (Philadelphia),34,La Salle College (Wyndmoor),35,0,PA,PA
@@ -3213,6 +3761,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 7,Monroe Catholic (Fairbanks),14,Nikiski (Nikiski),54,0,AK,AK
 7,Simon Sanchez (Yigo),0,George Washington (Mangilao),35,0,GU,GU
 7,Southern (Santa Rita),35,Guam High (Agana Heights),6,0,GU,GU
+7,"St Croix Central (Kingshill, St Croix)",8,"St Croix Educational Complex (Kingshill, St Croix)",6,0,VI,VI
 7,St Francis Prep (Fresh Meadows),34,Holy Cross (Flushing),7,0,NY,NY
 7,Ancaster (Ancaster),7,Westdale (Hamilton),21,0,ON,ON
 7,MacNab (Hamilton),0,Waterdown (Waterdown),21,0,ON,ON
@@ -3249,6 +3798,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 8,St Mary's (Kitchener),9,Resurrection (Kitchener),27,0,ON,ON
 8,Laurel Heights (Waterloo),27,Grand River CI (Kitchener),7,0,ON,ON
 8,Saugeen (Port Elgin),30,Owen Sound District (Owen Sound),14,0,ON,ON
+8,Mississauga Huskies u18 (club) (Mississauga),7,St Andrew's College (Aurora),30,0,ON,ON
 8,Central Tech (Toronto),13,York Memorial CI (York),24,0,ON,ON
 8,Ernestown (Odessa),0,Frontenac (Kingston),35,0,ON,ON
 8,Kingston (Kingston),13,Bayridge (Kingston),9,0,ON,ON
@@ -3258,6 +3808,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 8,Bay (Bay Village),10,North Olmsted (North Olmsted),14,0,,
 8,Beachwood (Beachwood),6,Cuyahoga Heights (Cuyahoga Heights),39,0,,
 8,Boardman (Youngstown),35,Howland (Warren),7,0,,
+8,Brecksville-Broadview Heights (Broadview Heights),28,Solon (Solon),19,0,,
 8,Buckeye (Medina),59,Normandy (Parma),13,0,,
 8,Carlisle (Carlisle),21,Oakwood (Dayton),13,0,,
 8,Chagrin Falls (Chagrin Falls),0,Kirtland (Kirtland),49,0,,
@@ -3283,14 +3834,25 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 8,Start (Toledo),42,Bowsher (Toledo),14,0,,
 8,Westlake (Westlake),19,Rocky River (Rocky River),28,0,,
 8,Whitehall-Yearling (Whitehall),40,Bexley (Columbus),21,0,,
+8,Wayne,0,Herbert Hoover (Elkview),49,0,WV,WV
 8,Pendleton County (Falmouth),20,Lloyd Memorial (Erlanger),50,0,KY,KY
+8,Trimble County,0,Ludlow (Ludlow),54,0,KY,KY
+8,U of D Jesuit (Detroit),9,Detroit Country Day,16,0,MI,MI
+8,Detroit Western,0,Detroit Cass Tech (Detroit),40,0,MI,MI
+8,Bedford (Temperance),31,Ann Arbor Huron,20,0,MI,MI
+8,Taylor Allderdice (Pittsburgh),0,Butler,7,0,PA,PA
 8,Perry Traditional Academy (Pittsburgh),12,Carrick (Pittsburgh),16,0,PA,PA
+8,Meadville,27,General McLane (Edinboro),35,0,PA,PA
+8,Lakeview,55,Cochranton,14,0,PA,PA
 8,Aquinas Institute (Rochester),35,Pittsford Mendon/Sutherland (Pittsford),7,0,NY,NY
+8,Ramapo,45,Wayne Valley (Wayne),29,0,NJ,NJ
+8,Washington School for the Deaf,19,McKenzie (Finn Rock),51,0,WA,OR
 8,St Matthew (Orléans),19,St Peter (Orléans),20,0,ON,ON
 8,St Mark (Manotick),24,Holy Trinity (Kanata),6,0,ON,ON
 8,Westdale (Hamilton),42,Waterdown (Waterdown),28,0,ON,ON
 8,Mayfield (Brampton),7,Philip Pocock (Mississauga),6,0,ON,ON
 8,Holy Names (Windsor),14,W.F. Herman (Windsor),0,0,ON,ON
+8,Chatham-Kent,0,Ursuline College (The Pines) (Chatham),7,0,ON,ON
 8,Nelson (Burlington),42,Craig Kielburger (Milton),3,0,ON,ON
 8,Churchill (Hamilton),0,Ancaster (Ancaster),71,0,ON,ON
 8,Glendale (Hamilton),7,Saltfleet (Stoney Creek),21,0,ON,ON
@@ -3403,6 +3965,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 8,Crestwood (Mantua),14,Berkshire (Burton),23,0,,
 8,Crooksville (Crooksville),29,Coshocton (Coshocton),45,0,,
 8,Cuyahoga Falls (Cuyahoga Falls),7,Tallmadge (Tallmadge),48,0,,
+8,Cuyahoga Valley Christian Academy (Cuyahoga Falls),55,Northwest (Canal Fulton),21,0,,
 8,Dawson-Bryant (Coal Grove),43,South Point (South Point),0,0,,
 8,Deer Park (Cincinnati),16,Reading (Reading),21,0,,
 8,Defiance (Defiance),0,Bath (Lima),28,0,,
@@ -3647,8 +4210,13 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 8,Valley Christian School (Youngstown),14,Southern (Salineville),31,0,,
 8,Gamble Montessori (Cincinnati),6,Dayton Christian (Miamisburg),56,0,,
 8,KIPP Columbus (Columbus),6,St Francis DeSales (Columbus),39,0,,
+8,Peebles (club) (Peebles),62,West Union (club) (West Union),8,0,,
 8,Bridgeport (Bridgeport),56,Parkersburg South (Parkersburg),21,0,WV,WV
 8,Brooke (Wellsburg),0,Frankfort (Ridgeley),42,0,WV,WV
+8,Cabell Midland (Ona),49,Musselman,35,0,WV,WV
+8,Clay-Battelle (Blacksville),34,Meadow Bridge,28,0,WV,WV
+8,East Fairmont,36,Weir (Weirton),23,0,WV,WV
+8,Greenbrier West (Charmco),6,James Monroe,32,0,WV,WV
 8,Hundred (Hundred),59,Paden City (Paden City),22,0,WV,WV
 8,Huntington (Huntington),40,Spring Valley (Huntington),21,0,WV,WV
 8,Keyser (Keyser),21,John Marshall (Glen Dale),42,0,WV,WV
@@ -3657,28 +4225,78 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 8,Parkersburg (Parkersburg),23,George Washington (Charleston),30,0,WV,WV
 8,Ritchie County (Ellenboro),7,Wahama (Mason),54,0,WV,WV
 8,St Marys (St Marys),7,Williamstown (Williamstown),55,0,WV,WV
+8,Tyler Consolidated,55,Oak Glen (New Cumberland),7,0,WV,WV
+8,Valley (Wetzel) (Pine Grove),0,Cameron (Cameron),46,0,WV,WV
 8,Wheeling Park (Wheeling),14,Fairmont Senior (Fairmont),34,0,WV,WV
+8,Wirt County (Elizabeth),67,Pocahontas County,12,0,WV,WV
+8,Ballard,0,Trinity (Louisville),20,0,KY,KY
 8,Bishop Brossart (Alexandria),35,Holy Cross (Covington),0,0,KY,KY
 8,Boyd County (Ashland),21,Ashland Blazer (Ashland),49,0,KY,KY
 8,Campbell County (Alexandria),14,Ryle (Union),42,0,KY,KY
 8,Conner (Hebron),35,Dixie Heights (Edgewood),31,0,KY,KY
 8,Dayton (Dayton),0,Bellevue (Bellevue),42,0,KY,KY
+8,DuPont Manual,29,St Xavier (Louisville),22,0,KY,KY
+8,Meade County,35,Pleasure Ridge Park (Louisville),17,0,KY,KY
+8,Paintsville (Paintsville),0,Hazard,41,0,KY,KY
 8,Raceland (Raceland),56,Fairview (Ashland),6,0,KY,KY
 8,Russell (Russell),45,Lewis County (Vanceburg),0,0,KY,KY
+8,Russell County,6,Boyle County (Danville),55,0,KY,KY
+8,Shelby Valley (Pikeville),14,Pike County Central,12,0,KY,KY
 8,South Oldham (Crestwood),7,Scott County (Georgetown),28,0,KY,KY
+8,Battle Creek St Philip,20,Mendon,62,0,MI,MI
 8,Brother Rice (Bloomfield Hills),21,Warren De La Salle (Warren),42,0,MI,MI
+8,Camden-Frontier,14,Pittsford,42,0,MI,MI
 8,Detroit King (Detroit),40,Detroit East English (Detroit),14,0,MI,MI
 8,Erie Mason (Erie),0,Petersburg Summerfield (Petersburg),62,0,MI,MI
+8,Grand Rapids Union,0,Muskegon Mona Shores (Muskegon),48,0,MI,MI
 8,Grand Rapids West Catholic (Grand Rapids),24,Forest Hills Eastern (Ada),23,0,MI,MI
+8,Grandville (Grandville),16,Hudsonville,35,0,MI,MI
+8,Howell,35,Novi,21,0,MI,MI
+8,Macomb Lutheran North,30,Riverview Gabriel Richard (Riverview),22,0,MI,MI
+8,Morenci,14,Britton-Deerfield (Britton),62,0,MI,MI
+8,Mt Morris,28,LakeVille Memorial (Otisville),20,0,MI,MI
+8,Muskegon Reeths-Puffer,7,Muskegon (Muskegon),47,0,MI,MI
+8,North Adams-Jerome,50,Tekonsha,26,0,MI,MI
 8,Orchard Lake St Mary (Orchard Lake),6,Central Catholic (Toledo),7,0,MI,
+8,Ottawa Lake Whiteford (Ottawa Lake),12,Clarkston Everest Collegiate,24,0,MI,MI
 8,Novi Detroit Catholic Central (Novi),37,St John's Jesuit (Toledo),3,0,MI,
+8,Traverse City St Francis,7,Lumen Christi (Jackson),35,0,MI,MI
+8,Vermontville Maple Valley,26,Reading (Reading),53,0,MI,MI
+8,NorthPointe Christian (Grand Rapids),56,New Buffalo,30,0,MI,MI
+8,Red Lion,16,Central York (York),63,0,PA,PA
+8,Meyersdale,42,Brownsville (Brownsville),8,0,PA,PA
+8,State College,55,Central Dauphin East,17,0,PA,PA
+8,McKeesport (McKeesport),28,Mars,7,0,PA,PA
+8,Greater Latrobe,0,Pine-Richland (Gibsonia),42,0,PA,PA
+8,Uniontown,6,Northern Garrett (Accident),58,0,PA,MD
+8,Brashear (Pittsburgh),7,Redbank Valley,42,0,PA,PA
+8,Smethport (Smethport),34,Otto-Eldred,48,0,PA,PA
+8,Fort LeBoeuf,20,Harbor Creek (Harborcreek),16,0,PA,PA
 8,Corry (Corry),40,Fairview (Fairview),7,0,PA,PA
+8,Grove City,6,Hickory (Hermitage),69,0,PA,PA
 8,North East (North East),27,Girard (Girard),34,0,PA,PA
+8,Titusville (Titusville),42,Slippery Rock,0,0,PA,PA
 8,Sharon (Sharon),63,Conneaut Area (Linesville),7,0,PA,PA
+8,Mercyhurst Prep (Erie),42,Iroquois,6,0,PA,PA
+8,Greenville,35,Saegertown,13,0,PA,PA
+8,Maplewood (Guys Mills),20,Cambridge Springs,44,0,PA,PA
+8,Eisenhower,34,Franklin,40,0,PA,PA
+8,Mercer,8,Wilmington (New Wilmington),49,0,PA,PA
+8,Sharpsville,21,Farrell (Farrell),40,0,PA,PA
+8,University Prep (USO co-op) (Pittsburgh),6,Westinghouse (Pittsburgh),43,0,PA,PA
 8,Saint Joseph's Prep (Philadelphia),35,Cardinal O'Hara (Springfield),14,0,PA,PA
 8,Carmel (Carmel),3,Warren Central (Indianapolis),32,0,IN,IN
 8,Center Grove (Greenwood),21,Lawrence North (Indianapolis),34,0,IN,IN
+8,Connersville,0,Lawrenceburg (Lawrenceburg),51,0,IN,IN
+8,East Central (St Leon),49,Greensburg,0,0,IN,IN
+8,Bishop Dwenger (Fort Wayne),6,Fort Wayne Snider,17,0,IN,IN
+8,Leo,18,Columbia City,21,0,IN,IN
+8,Northview,41,Edgewood,7,0,IN,IN
+8,Richmond (Richmond),53,Anderson,38,0,IN,IN
 8,Roncalli (Indianapolis),6,Cathedral (Indianapolis),35,0,IN,IN
+8,Sullivan,14,Indian Creek,21,0,IN,IN
+8,Yorktown,20,Pendleton Heights,47,0,IN,IN
+8,Eastern Greene,9,Linton-Stockton (Linton),67,0,IN,IN
 8,Crispus Attucks (Indianapolis),52,Indianapolis Washington (Indianapolis),0,0,IN,IN
 8,Innovation Academy (Springfield),7,Westbrook Christian (Rainbow City),48,0,TN,AL
 8,Bishop McNamara (Forestville),20,Cornerstone Christian (San Antonio),10,0,MD,TX
@@ -3726,7 +4344,14 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 8,Windham (Windham),48,Vanlue (Vanlue),0,0,,
 8,Withrow (Cincinnati),21,Aiken (Cincinnati),12,0,,
 8,Clark Montessori (Cincinnati),6,St Bernard-Elmwood Place (St Bernard),43,0,,
+8,Landmark Eagles (club) (Cincinnati),20,Noblesville Lions (club) (Noblesville),14,0,,IN
+8,C4 Lions (club) (Trenton),22,Columbus Crusaders (club) (Columbus),53,0,,
+8,Concord,32,Holgate (Holgate),60,0,MI,
+8,Oil City (Oil City),62,Warren,0,0,PA,PA
+8,Northwestern (Albion),8,Seneca,42,0,PA,PA
 8,Reynolds (Greenville),43,Kennedy Catholic (Hermitage),8,0,PA,PA
+8,Union City,12,Sheffield,41,0,PA,PA
+8,Greenwood Christian,38,Blackhawk Christian (Fort Wayne),7,0,IN,IN
 8,DeMatha Catholic (Hyattsville),28,Gonzaga (Washington),14,0,MD,DC
 8,Holy Cross (Flushing),12,St John the Baptist (West Islip),49,0,NY,NY
 8,St Francis Prep (Fresh Meadows),42,Christ the King Regional (Middle Village),12,0,NY,NY
@@ -3734,6 +4359,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 8,John F Kennedy Catholic (Somers),0,Cardinal Spellman (Bronx),24,0,NY,NY
 8,Mt St Michael Academy (Bronx),32,Holy Trinity - Long Island (Hicksville),47,0,NY,NY
 8,Paramus Catholic (Paramus),0,Bergen Catholic (Oradell),34,0,NJ,NJ
+8,Football North (via Clarkson SS) (Mississauga),12,St Edward (Lakewood),22,0,ON,
 8,Homer (Homer),6,Barrow (Barrow),0,0,AK,AK
 8,Juneau-Douglas (Juneau),13,West Anchorage (Anchorage),20,0,AK,AK
 8,Kenai-Central (Kenai),27,Redington (Wasilla),20,0,AK,AK
@@ -3741,6 +4367,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 8,Service (Anchorage),0,Bettye Davis East Anchorage (Anchorage),30,0,AK,AK
 8,South Anchorage (Anchorage),27,Bartlett (Anchorage),42,0,AK,AK
 8,Tiyan (Barrigada),6,Okkodo (Dededo),0,0,GU,GU
+8,Adrian Lenawee Christian,63,Waldron,16,0,MI,MI
 9,St Joan of Arc (Barrie),1,St Joseph's (Barrie),21,0,ON,ON
 9,Owen Sound District (Owen Sound),10,St Mary's (Owen Sound),14,0,ON,ON
 9,Leaside (East York),38,Birchmount Park CI (Scarborough),7,0,ON,ON
@@ -3763,7 +4390,10 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 9,Linden McKinley (Columbus),57,Mifflin (Columbus),0,0,,
 9,North (Akron),0,Firestone (Akron),34,0,,
 9,Walnut Ridge (Columbus),34,Briggs (Columbus),8,0,,
+9,Landmark Eagles (club) (Cincinnati),20,C4 Lions (club) (Trenton),13,0,,
 9,John Marshall (Glen Dale),6,Brooke (Wellsburg),33,0,WV,WV
+9,Shelby Valley (Pikeville),24,Betsy Lane,19,0,KY,KY
+9,Taylor Allderdice (Pittsburgh),14,University Prep (USO co-op) (Pittsburgh),6,1,PA,PA
 9,Friendship Collegiate (Washington),19,Mt Zion Prep (Lanham),6,0,DC,MD
 9,St Joseph's Collegiate (Buffalo),31,McKinley (Buffalo),0,0,NY,NY
 9,Mayfield (Brampton),34,Brampton Centennial (Brampton),22,0,ON,ON
@@ -3851,6 +4481,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 9,Celina (Celina),28,Defiance (Defiance),6,0,,
 9,Centerville (Centerville),28,Springboro (Springboro),10,0,,
 9,Central Catholic (Toledo),28,St Francis de Sales (Toledo),7,0,,
+9,Twinsburg (Twinsburg),20,Brecksville-Broadview Heights (Broadview Heights),28,0,,
 9,Champion (Warren),7,Liberty (Youngstown),34,0,,
 9,Chardon (Chardon),42,North (Eastlake),7,0,,
 9,Chesapeake (Chesapeake),49,Rock Hill (Ironton),60,0,,
@@ -4020,6 +4651,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 9,Olentangy Berlin (Delaware),48,Marysville (Marysville),13,0,,
 9,Ontario (Ontario),36,Shelby (Shelby),50,0,,
 9,Orange (Pepper Pike),35,Lutheran West (Rocky River),28,0,,
+9,Orrville (Orrville),14,Cuyahoga Valley Christian Academy (Cuyahoga Falls),41,0,,
 9,Olentangy Orange (Lewis Center),35,Hilliard Bradley (Hilliard),10,0,,
 9,Ottawa-Glandorf (Ottawa),21,Shawnee (Lima),14,0,,
 9,Ottawa Hills (Toledo),48,Montpelier (Montpelier),7,0,,
@@ -4052,6 +4684,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 9,St Henry (St Henry),21,New Bremen (New Bremen),14,0,,
 9,St Ignatius (Cleveland),19,St Xavier (Cincinnati),31,0,,
 9,St John's (Delphos),40,Parkway (Rockford),21,0,,
+9,St Mary Central Catholic (Sandusky),35,Morenci,22,0,,MI
 9,St Paul (Norwalk),34,South Central (Greenwich),20,0,,
 9,St Vincent-St Mary (Akron),13,Villa Angela-St Joseph (Cleveland),37,0,,
 9,Salem (Salem),45,Marlington (Alliance),0,0,,
@@ -4131,43 +4764,107 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 9,Xenia (Xenia),48,Greenville (Greenville),6,0,,
 9,KIPP Columbus (Columbus),18,Bishop Hartley (Columbus),41,0,,
 9,Dohn Community (Cincinnati),0,University School (Hunting Valley),34,0,,
+9,Calhoun County,21,Valley (Wetzel) (Pine Grove),63,0,WV,WV
 9,Cameron (Cameron),47,Clay-Battelle (Blacksville),0,0,WV,WV
+9,Greenbrier West (Charmco),32,Petersburg,47,0,WV,WV
 9,Herbert Hoover (Elkview),56,Ripley (Ripley),28,0,WV,WV
+9,Logan,6,Roane County (Spencer),55,0,WV,WV
 9,Madonna (Weirton),42,Federal Hocking (Stewart),0,0,WV,
+9,Martinsburg (Martinsburg),51,Washington,7,0,WV,WV
 9,Parkersburg (Parkersburg),21,Cabell Midland (Ona),48,0,WV,WV
 9,Point Pleasant (Point Pleasant),3,Marietta (Marietta),24,0,WV,
+9,Preston,7,Bridgeport (Bridgeport),57,0,WV,WV
 9,St Marys (St Marys),41,Magnolia (New Martinsville),8,0,WV,WV
 9,South Harrison (Lost Creek),14,Wahama (Mason),50,0,WV,WV
 9,Spring Valley (Huntington),52,Capital (Charleston),26,0,WV,WV
 9,University (Morgantown),6,Spring Mills (Martinsburg),34,0,WV,WV
 9,Linsly (Wheeling),25,Dover (Dover),34,0,WV,
+9,Bath County,8,Russell (Russell),42,0,KY,KY
+9,Boyle County (Danville),41,Lincoln County,0,0,KY,KY
+9,Christian Academy-Louisville (Louisville),28,Central (Louisville),48,0,KY,KY
+9,Dixie Heights (Edgewood),48,Scott (Covington),14,0,KY,KY
+9,Greenup County (Greenup),42,Johnson Central,67,0,KY,KY
+9,Holy Cross (Covington),34,Trimble County,0,0,KY,KY
 9,Ludlow (Ludlow),46,Bishop Brossart (Alexandria),35,0,KY,KY
 9,Newport (Newport),39,Bellevue (Bellevue),12,0,KY,KY
+9,North Bullitt,7,South Oldham (Crestwood),39,0,KY,KY
 9,Pendleton County (Falmouth),20,Bourbon County (Paris),50,0,KY,KY
 9,Pikeville (Pikeville),41,Paintsville (Paintsville),0,0,KY,KY
+9,Pleasure Ridge Park (Louisville),14,DuPont Manual,40,0,KY,KY
+9,Rowan County,13,Boyd County (Ashland),49,0,KY,KY
 9,Simon Kenton (Independence),48,Campbell County (Alexandria),29,0,KY,KY
+9,St Xavier (Louisville),45,Meade County,21,0,KY,KY
+9,Trinity (Louisville),49,Eastern (Louisville),0,0,KY,KY
 9,Great Crossing (Georgetown),8,Ryle (Union),36,0,KY,KY
+9,Adrian Lenawee Christian,42,Concord,0,0,MI,MI
+9,Birch Run,75,LakeVille Memorial (Otisville),12,0,MI,MI
+9,Bloomfield Hills Cranbrook Kingswood,14,Riverview Gabriel Richard (Riverview),40,0,MI,MI
+9,Brighton,14,Howell,36,0,MI,MI
+9,Camden-Frontier,48,North Adams-Jerome,14,0,MI,MI
 9,Detroit King (Detroit),14,Detroit Cass Tech (Detroit),30,1,MI,MI
+9,U of D Jesuit (Detroit),21,Saginaw Heritage,42,0,MI,MI
+9,Gaylord,20,Lumen Christi (Jackson),37,0,MI,MI
+9,Grandville Calvin Christian,0,NorthPointe Christian (Grand Rapids),38,0,MI,MI
+9,Hamilton,14,Grand Rapids West Catholic (Grand Rapids),54,0,MI,MI
+9,Holland West Ottawa,3,Grandville (Grandville),38,0,MI,MI
+9,Hudsonville,35,Caledonia (Caledonia),13,0,MI,MI
+9,Mendon,44,Climax-Scotts,46,0,MI,MI
+9,Monroe,0,Bedford (Temperance),33,0,MI,MI
+9,Muskegon (Muskegon),14,Byron Center,17,0,MI,MI
+9,Muskegon Mona Shores (Muskegon),40,Muskegon Reeths-Puffer,0,0,MI,MI
 9,Orchard Lake St Mary (Orchard Lake),51,Brother Rice (Bloomfield Hills),10,0,MI,MI
+9,Ottawa Lake Whiteford (Ottawa Lake),30,White Pigeon,16,0,MI,MI
 9,Petersburg Summerfield (Petersburg),70,Vanlue (Vanlue),0,0,MI,
+9,Pittsford,46,Waldron,14,0,MI,MI
+9,Reading (Reading),36,Sand Creek,18,0,MI,MI
+9,Novi Detroit Catholic Central (Novi),55,Grand Ledge,0,0,MI,MI
 9,Warren De La Salle (Warren),49,St John's Jesuit (Toledo),14,0,MI,
+9,Lutheran Westland,21,Erie Mason (Erie),20,0,MI,MI
 9,Redford Westfield Prep (Redford Charter Twp),6,Dearborn Divine Child (Dearborn),43,0,MI,MI
+9,Carlisle,0,State College,60,0,PA,PA
+9,Butler,20,Wheeling Park (Wheeling),47,0,PA,WV
+9,Connellsville,27,Uniontown,6,0,PA,PA
+9,Indiana,0,McKeesport (McKeesport),54,0,PA,PA
 9,Pine-Richland (Gibsonia),21,North Allegheny (Wexford),28,0,PA,PA
 9,Brownsville (Brownsville),6,Albert Gallatin (Uniontown),48,0,PA,PA
 9,Farrell (Farrell),54,Reynolds (Greenville),7,0,PA,PA
 9,Carrick (Pittsburgh),12,Wheeling Central Catholic (Wheeling),49,0,PA,WV
 9,Perry Traditional Academy (Pittsburgh),0,Westinghouse (Pittsburgh),68,1,PA,PA
+9,Cameron County,46,Smethport (Smethport),18,0,PA,PA
 9,McDowell (Erie),21,Steubenville (Steubenville),44,0,PA,
+9,Warren,7,Meadville,56,0,PA,PA
 9,General McLane (Edinboro),32,Cathedral Prep (Erie),39,0,PA,PA
 9,Harbor Creek (Harborcreek),7,Corry (Corry),28,0,PA,PA
+9,Oil City (Oil City),48,Franklin,6,0,PA,PA
+9,Grove City,7,Conneaut Area (Linesville),40,0,PA,PA
+9,Hickory (Hermitage),56,Slippery Rock,0,0,PA,PA
 9,Titusville (Titusville),22,Sharon (Sharon),63,0,PA,PA
+9,Girard (Girard),18,Fort LeBoeuf,52,0,PA,PA
+9,Mercyhurst Prep (Erie),48,Eisenhower,21,0,PA,PA
+9,Cambridge Springs,22,Lakeview,12,0,PA,PA
+9,Iroquois,0,Seneca,33,0,PA,PA
+9,Kennedy Catholic (Hermitage),0,Mercer,1,0,PA,PA
+9,Sharpsville,17,Wilmington (New Wilmington),34,0,PA,PA
+9,Cochranton,0,Saegertown,55,0,PA,PA
+9,Columbia City,49,Norwell,7,0,IN,IN
+9,Fort Wayne Concordia Lutheran,7,Bishop Dwenger (Fort Wayne),41,0,IN,IN
+9,Fremont,56,Blackhawk Christian (Fort Wayne),0,0,IN,IN
+9,Indian Creek,7,Northview,48,0,IN,IN
 9,Bishop Chatard (Indianapolis),0,Elder (Cincinnati),14,0,IN,
 9,Cathedral (Indianapolis),28,Warren Central (Indianapolis),34,0,IN,IN
+9,Lawrence Central,17,Carmel (Carmel),14,0,IN,IN
+9,Lawrence North (Indianapolis),24,Pike,14,0,IN,IN
 9,Lawrenceburg (Lawrenceburg),17,South Dearborn (Aurora),14,0,IN,IN
+9,Linton-Stockton (Linton),44,Phalen Academy,18,0,IN,IN
+9,Mt. Vernon (Fortville),27,Yorktown,28,0,IN,IN
+9,Richmond (Richmond),14,Muncie Central,55,0,IN,IN
 9,Roncalli (Indianapolis),17,East Central (St Leon),7,0,IN,IN
+9,West Vigo,12,Sullivan,7,0,IN,IN
+9,Southside Crimson Knights (club),6,Crispus Attucks (Indianapolis),64,0,IN,IN
 9,Saint Frances Academy (Baltimore),48,Center Grove (Greenwood),10,0,MD,IN
 9,Good Counsel (Wheaton),7,DeMatha Catholic (Hyattsville),35,0,MD,MD
 9,Riverdale Baptist (Upper Marlboro),44,Southern Durham (Durham),6,0,MD,NC
+9,St Frances Academy (Regional),6,Football North (via Clarkson SS) (Mississauga),35,0,MD,ON
 9,St John the Baptist (West Islip),13,Long Island St Anthony's (South Huntington),34,0,NY,NY
 9,Kellenberg Memorial (Uniondale),7,Iona Prep (New Rochelle),42,0,NY,NY
 9,Rush-Henrietta (Henrietta),24,Aquinas Institute (Rochester),50,0,NY,NY
@@ -4179,6 +4876,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 9,Mt Carmel (Chicago),35,Fenwick (Oak Park),10,0,IL,IL
 9,Legacy Sport Sciences (Spring),34,St Charles Catholic (LaPlace),28,0,TX,LA
 9,Sacred Heart (Stittsville),0,St Matthew (Orléans),38,0,ON,ON
+9,Ursuline College (The Pines) (Chatham),13,Northern CI (Sarnia),34,0,ON,ON
 9,Philip Pocock (Mississauga),0,Clarkson (Mississauga),20,0,ON,ON
 9,Iroquois Ridge (Oakville),7,Garth Webb (Oakville),1,0,ON,ON
 9,St John's College (Brantford),1,St Andrew's College (Aurora),14,0,ON,ON
@@ -4213,6 +4911,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 9,Western Tech (Toronto),28,Etobicoke CI (Etobicoke),10,0,ON,ON
 9,Frontenac (Kingston),36,Regiopolis-Notre Dame (Kingston),16,0,ON,ON
 9,Westgate (Thunder Bay),35,St Ignatius (Thunder Bay),21,0,ON,ON
+9,St Patrick's (Sarnia),7,Chatham-Kent,0,0,ON,ON
 9,Crestwood (Cavan Monaghan),0,Holy Cross (Peterborough),35,0,ON,ON
 9,Bayside (Belleville),14,Centennial (Belleville),13,0,ON,ON
 9,Cardinal Ambrozic (Brampton),7,Humberview (Caledon),14,0,ON,ON
@@ -4245,8 +4944,15 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 9,St Edward (Lakewood),30,Archbishop Moeller (Cincinnati),35,0,,
 9,Union Local (Belmont),50,Bellaire (Bellaire),18,0,,
 9,United (Hanoverton),45,Valley Christian School (Youngstown),14,0,,
+9,Columbus Crusaders (club) (Columbus),58,Calumet Christian (Griffith),6,0,,IN
+9,Peebles (club) (Peebles),52,North Adams (club) (Seaman),16,0,,
 9,Frankfort (Ridgeley),27,Williamstown (Williamstown),7,0,WV,WV
+9,Man,34,Hundred (Hundred),0,0,WV,WV
+9,Fairview (Ashland),59,Phelps,28,1,KY,KY
+9,Britton-Deerfield (Britton),80,Burr Oak,20,0,MI,MI
 9,North East (North East),7,Fairview (Fairview),24,0,PA,PA
+9,Northwestern (Albion),28,Union City,6,0,PA,PA
+9,Maplewood (Guys Mills),20,Greenville,50,0,PA,PA
 9,Erie (Erie),6,Canisius (Buffalo),31,0,PA,NY
 9,Roman Catholic (Philadelphia),20,Saint Joseph's Prep (Philadelphia),48,0,PA,PA
 9,Life Christian Academy (Chester),0,Benedictine Prep (Richmond),62,0,VA,VA
@@ -4304,10 +5010,12 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 10,Spencerville (Spencerville),54,Jefferson (Delphos),7,0,,
 10,Springfield (Springfield),48,Northmont (Clayton),7,0,,
 10,Woodward (Toledo),6,Waite (Toledo),26,0,,
+10,Bellevue (Bellevue),6,Newport Central Catholic,54,0,KY,KY
 10,Grand Rapids West Catholic (Grand Rapids),20,Zeeland West (Zeeland),34,0,MI,MI
 10,Assumption Catholic (Burlington),42,St Ignatius of Loyola (Oakville),7,0,ON,ON
 10,Trinity College (Port Hope),7,Upper Canada College (Toronto),28,0,ON,ON
 10,Brampton Centennial (Brampton),21,Fletcher's Meadow (Brampton),14,0,ON,ON
+10,Chatham-Kent,0,Northern CI (Sarnia),7,0,ON,ON
 10,Ancaster (Ancaster),29,Saltfleet (Stoney Creek),36,0,ON,ON
 10,Sherwood (Hamilton),7,Westmount (Hamilton),42,0,ON,ON
 10,Glendale (Hamilton),3,Westdale (Hamilton),41,0,ON,ON
@@ -4369,6 +5077,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 10,Bloom-Carroll (Carroll),41,Circleville (Circleville),7,0,,
 10,Boardman (Youngstown),42,Canfield (Canfield),17,0,,
 10,Bradford (Bradford),0,Arcanum (Arcanum),30,0,,
+10,Brecksville-Broadview Heights (Broadview Heights),13,Nordonia (Macedonia),49,0,,
 10,Bridgeport (Bridgeport),7,Cameron (Cameron),62,0,,WV
 10,Briggs (Columbus),42,West (Columbus),8,0,,
 10,Brunswick (Brunswick),9,Strongsville (Strongsville),19,0,,
@@ -4504,6 +5213,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 10,Madeira (Cincinnati),20,Deer Park (Cincinnati),14,0,,
 10,Madison (Madison),43,Conneaut (Conneaut),6,0,,
 10,Madison-Plains (London),27,Catholic Central (Springfield),7,0,,
+10,Manchester (New Franklin),6,Cuyahoga Valley Christian Academy (Cuyahoga Falls),17,0,,
 10,Manchester (Manchester),24,Miller (Corning),57,0,,
 10,Mansfield Senior (Mansfield),6,Madison Comprehensive (Mansfield),16,0,,
 10,Mapleton (Ashland),14,Crestview (Ashland),40,0,,
@@ -4615,6 +5325,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 10,Springfield (Holland),12,Whitmer (Toledo),48,0,,
 10,Stow-Munroe Falls (Stow),45,Twinsburg (Twinsburg),28,0,,
 10,Streetsboro (Streetsboro),63,Cloverleaf (Seville),15,0,,
+10,Stryker (Stryker),12,Waldron,47,0,,MI
 10,Summit Country Day (Cincinnati),8,Cincinnati Hills Christian Academy (Cincinnati),40,0,,
 10,Sycamore (Cincinnati),3,Hamilton (Hamilton),50,0,,
 10,Sylvania Southview (Sylvania),12,Napoleon (Napoleon),33,0,,
@@ -4671,35 +5382,88 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 10,Zane Trace (Chillicothe),16,Paint Valley (Bainbridge),12,0,,
 10,Clark Montessori (Cincinnati),20,Lockland (Lockland),7,0,,
 10,Brooke (Wellsburg),3,Sharon (Sharon),35,0,WV,PA
+10,Cabell Midland (Ona),52,South Charleston,0,0,WV,WV
 10,Clay-Battelle (Blacksville),49,Beallsville (Beallsville),6,0,WV,
+10,Elkins,7,Herbert Hoover (Elkview),56,0,WV,WV
+10,Frankfort (Ridgeley),52,Berkeley Springs,7,0,WV,WV
 10,Gilmer County (Glenville),20,Wirt County (Elizabeth),62,0,WV,WV
 10,Madonna (Weirton),14,Conotton Valley (Bowerston),47,0,WV,
+10,Magnolia (New Martinsville),30,Ravenswood,14,0,WV,WV
 10,Martinsburg (Martinsburg),17,Spring Mills (Martinsburg),12,0,WV,WV
 10,Oak Glen (New Cumberland),0,East Liverpool (East Liverpool),52,0,WV,
+10,Saint Albans,12,Parkersburg (Parkersburg),27,0,WV,WV
 10,Sherman (Seth),12,Greenbrier West (Charmco),47,0,WV,WV
 10,Spring Valley (Huntington),33,Woodrow Wilson (Beckley),17,0,WV,WV
+10,Wahama (Mason),63,Webster County,7,0,WV,WV
 10,Wheeling Central Catholic (Wheeling),29,Toronto (Toronto),27,0,WV,
 10,Wheeling Park (Wheeling),49,Talawanda (Oxford),36,0,WV,
 10,Mingo Central (Matewan),8,Roane County (Spencer),42,0,WV,WV
+10,Boyle County (Danville),55,Wayne County,0,0,KY,KY
 10,Campbell County (Alexandria),25,Great Crossing (Georgetown),60,0,KY,KY
+10,Central (Louisville),78,LaRue County,0,0,KY,KY
+10,Greenup County (Greenup),53,Rowan County,18,0,KY,KY
+10,Hazard,6,Pikeville (Pikeville),24,0,KY,KY
+10,Johnson Central,36,Ashland Blazer (Ashland),41,0,KY,KY
+10,Lawrence County,20,Boyd County (Ashland),42,0,KY,KY
+10,Lexington Catholic,57,Pendleton County (Falmouth),0,0,KY,KY
 10,Ludlow (Ludlow),33,Holy Cross (Covington),6,0,KY,KY
+10,Paris,50,Fairview (Ashland),0,0,KY,KY
+10,Pleasure Ridge Park (Louisville),6,St Xavier (Louisville),42,0,KY,KY
+10,Russell (Russell),23,East Carter,14,0,KY,KY
 10,Ryle (Union),37,Simon Kenton (Independence),0,0,KY,KY
 10,South Oldham (Crestwood),41,Collins (Shelbyville),42,0,KY,KY
+10,Trimble County,0,Bishop Brossart (Alexandria),65,0,KY,KY
+10,Trinity (Louisville),42,Oldham County,0,0,KY,KY
+10,East Ridge,14,Shelby Valley (Pikeville),40,0,KY,KY
 10,Cooper (Union),63,Dixie Heights (Edgewood),21,0,KY,KY
+10,Adrian Lenawee Christian,30,Mendon,87,0,MI,MI
+10,Belleville,29,Howell,30,0,MI,MI
+10,Brother Rice (Bloomfield Hills),6,Sterling Heights Stevenson,30,0,MI,MI
 10,Caledonia (Caledonia),20,Grandville (Grandville),49,0,MI,MI
+10,Center Line,0,River Rouge (River Rouge),35,0,MI,MI
+10,Colon,48,North Adams-Jerome,14,0,MI,MI
+10,Concord,0,Bellevue,38,0,MI,MI
+10,Dearborn Divine Child (Dearborn),42,Detroit Southeastern,8,0,MI,MI
 10,Detroit Cass Tech (Detroit),40,Medina (Medina),0,0,MI,
+10,Hudsonville,46,Holland West Ottawa,8,0,MI,MI
+10,Martin,22,NorthPointe Christian (Grand Rapids),20,0,MI,MI
+10,Orchard Lake St Mary (Orchard Lake),55,Warren Fitzgerald,13,0,MI,MI
 10,LakeVille Memorial (Otisville),0,Northwood (Northwood),48,0,MI,
 10,Ottawa Lake Whiteford (Ottawa Lake),22,Lucas (Lucas),6,0,MI,
+10,Owosso,56,Erie Mason (Erie),6,0,MI,MI
+10,Sand Creek,6,Petersburg Summerfield (Petersburg),58,0,MI,MI
 10,Bedford (Temperance),0,St Francis de Sales (Toledo),30,0,MI,
+10,Warren De La Salle (Warren),31,Clinton Township Chippewa Valley,21,0,MI,MI
+10,Britton-Deerfield (Britton),50,Camden-Frontier,0,0,MI,MI
+10,William Penn,0,Central York (York),41,0,PA,PA
+10,Bishop McDevitt (Harrisburg),55,State College,58,0,PA,PA
+10,Shaler,3,Pine-Richland (Gibsonia),44,0,PA,PA
+10,McKeesport (McKeesport),46,Knoch,14,0,PA,PA
 10,Albert Gallatin (Uniontown),48,Weir (Weirton),20,0,PA,WV
 10,Farrell (Farrell),0,Cathedral Prep (Erie),7,0,PA,PA
+10,Smethport (Smethport),7,Brockway,60,0,PA,PA
+10,Meadville,7,Erie (Erie),44,0,PA,PA
+10,Harbor Creek (Harborcreek),56,Iroquois,14,0,PA,PA
+10,Franklin,12,Lakeview,44,0,PA,PA
 10,Corry (Corry),26,Oil City (Oil City),21,0,PA,PA
+10,North East (North East),29,Warren,14,0,PA,PA
+10,Slippery Rock,20,Mercer,0,0,PA,PA
+10,Seneca,41,Maplewood (Guys Mills),22,0,PA,PA
+10,Eisenhower,6,Greenville,27,0,PA,PA
+10,Saegertown,21,Northwestern (Albion),8,0,PA,PA
 10,Bonner-Prendergast (Drexel Hill),14,Saint Joseph's Prep (Philadelphia),49,0,PA,PA
 10,Conneaut Area (Linesville),35,Girard (Girard),0,0,PA,PA
+10,Columbia City,0,Bishop Dwenger (Fort Wayne),38,0,IN,IN
+10,Blackhawk Christian (Fort Wayne),14,North Miami,54,0,IN,IN
 10,Bishop Chatard (Indianapolis),42,Crispus Attucks (Indianapolis),0,0,IN,IN
+10,Northview,17,Roncalli (Indianapolis),33,0,IN,IN
 10,South Dearborn (Aurora),8,Lawrenceburg (Lawrenceburg),34,0,IN,IN
+10,Sullivan,7,Linton-Stockton (Linton),30,0,IN,IN
+10,Yorktown,46,Richmond (Richmond),6,0,IN,IN
 10,Life Christian Academy (Chester),0,St Xavier (Cincinnati),62,0,VA,
+10,Southern Garrett (Oakland),8,Uniontown,27,0,MD,PA
 10,Loyola / Blakefield (Towson),3,Archbishop Spalding (Severn),56,0,MD,MD
+10,Riverdale Baptist (Upper Marlboro),55,Hayfield,30,0,MD,VA
 10,St Francis (Hamburg),35,McDowell (Erie),33,0,NY,PA
 10,Aquinas Institute (Rochester),31,Hilton (Hilton),14,0,NY,NY
 10,Long Island St Anthony's (South Huntington),34,Kellenberg Memorial (Uniondale),20,0,NY,NY
@@ -4709,6 +5473,8 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 10,St Dominic (Oyster Bay),39,St Luke (New Canaan),0,0,NY,CT
 10,Moore Catholic (Staten Island),13,Monsignor Farrell (Staten Island),28,0,NY,NY
 10,Don Bosco Prep (Ramsey),42,Paramus Catholic (Paramus),0,0,NJ,NJ
+10,Wayne Valley (Wayne),24,Ridgewood,13,0,NJ,NJ
+10,East St Louis Senior (East St Louis),13,IMG Academy (Bradenton),14,0,IL,FL
 10,Mt Vernon (Mt Vernon),32,Alton Senior (Alton),33,0,IL,IL
 10,Loyola Academy (Wilmette),31,Mt Carmel (Chicago),7,0,IL,IL
 10,Lorne Park (Mississauga),10,Robert F. Hall (Caledon East),15,0,ON,ON
@@ -4729,11 +5495,13 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 10,Bill Crothers SS (Unionville),14,St Andrew's College (Aurora),21,0,ON,ON
 10,Father Henry Carr (Etobicoke),14,Bishop Allen (Etobicoke),15,0,ON,ON
 10,St Thomas Aquinas (Oakville),22,Bishop Reding (Milton),15,0,ON,ON
+10,Football North (via Clarkson SS) (Mississauga),27,St Ignatius (Cleveland),26,0,ON,
 10,F. J. Brennan Catholic (Windsor),12,Cardinal Carter Catholic (Leamington),44,0,ON,ON
 10,David Suzuki (Brampton),20,St Roch Catholic SS (Brampton),33,0,ON,ON
 10,St Mary's College (Sault Ste. Marie),13,Korah (Sault Ste. Marie),42,0,ON,ON
 10,Western Tech (Toronto),35,Etobicoke CI (Etobicoke),8,0,ON,ON
 10,Westgate (Thunder Bay),25,Hammarskjold (Thunder Bay),14,0,ON,ON
+10,St Patrick's (Sarnia),10,Ursuline College (The Pines) (Chatham),0,0,ON,ON
 10,Centennial (Belleville),42,Trenton (Trenton),0,0,ON,ON
 10,Belle River (Belle River),15,Essex (Essex),8,0,ON,ON
 10,Vincent Massey (Windsor),12,Tecumseh Vista Academy (Tecumseh),30,0,ON,ON
@@ -4757,10 +5525,14 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 10,Holgate (Holgate),8,Chalker (Southington),68,0,,
 10,Shaker Heights (Shaker Heights),35,Cleveland Heights (Cleveland Heights),54,0,,
 10,Southern (Racine),7,Eastern (Reedsville),49,0,,
+10,North Adams (club) (Seaman),1,West Union (club) (West Union),0,0,,
 10,Parkersburg South (Parkersburg),35,Linsly (Wheeling),28,0,WV,WV
 10,Detroit King (Detroit),7,Novi Detroit Catholic Central (Novi),23,1,MI,MI
+10,Kalamazoo Hackett,21,Lumen Christi (Jackson),39,1,MI,MI
 10,Taylor Allderdice (Pittsburgh),12,Westinghouse (Pittsburgh),40,1,PA,PA
 10,Carrick (Pittsburgh),18,Catholic Central (Steubenville),26,0,PA,
+10,Punxsutawney,34,Sharpsville,45,0,PA,PA
+10,Noblesville Lions (club) (Noblesville),3,Columbus Crusaders (club) (Columbus),33,0,IN,
 10,Virginia Academy (Ashburn),28,Mt Zion Prep (Lanham),34,0,VA,MD
 10,Bishop McNamara (Forestville),0,Gonzaga (Washington),27,0,MD,DC
 10,DeMatha Catholic (Hyattsville),31,St John's College (Washington),15,0,MD,DC
@@ -4815,6 +5587,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 11,Fletcher's Meadow (Brampton),6,Clarkson (Mississauga),16,0,ON,ON
 11,Waterloo-Oxford District SS (Baden),11,Bluevale CI (Waterloo),14,1,ON,ON
 11,Owen Sound District (Owen Sound),7,St Mary's (Owen Sound),10,0,ON,ON
+11,Mississauga Huskies u18 (club) (Mississauga),20,Brampton Centennial (Brampton),6,0,ON,ON
 11,Holy Cross (Kingston),35,Kingston (Kingston),7,0,ON,ON
 11,Africentric Early College (Columbus),26,West Muskingum (Zanesville),34,0,,
 11,Aiken (Cincinnati),20,Mount Healthy (Cincinnati),26,0,,
@@ -5020,6 +5793,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 11,Troy (Troy),7,Harrison (Harrison),43,0,,
 11,Twin Valley South (West Alexandria),8,Ansonia (Ansonia),46,0,,
 11,Union Local (Belmont),23,Nelsonville-York (Nelsonville),13,0,,
+11,University School (Hunting Valley),14,Cuyahoga Valley Christian Academy (Cuyahoga Falls),45,0,,
 11,Upper Sandusky (Upper Sandusky),10,Perkins (Sandusky),49,0,,
 11,Urbana (Urbana),6,Taylor (Cleves),43,0,,
 11,Utica (Utica),6,Liberty Center (Liberty Center),58,0,,
@@ -5043,24 +5817,72 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 11,Zane Trace (Chillicothe),7,Fairland (Proctorville),31,0,,
 11,Bridgeport (Bridgeport),56,Fairmont Senior (Fairmont),28,0,WV,WV
 11,Capital (Charleston),19,Cabell Midland (Ona),40,0,WV,WV
+11,Frankfort (Ridgeley),48,Grafton,6,0,WV,WV
 11,Gilmer County (Glenville),0,Wahama (Mason),63,0,WV,WV
+11,Greenbrier West (Charmco),8,Midland Trail,49,0,WV,WV
+11,Herbert Hoover (Elkview),45,Hedgesville,0,0,WV,WV
 11,Huntington (Huntington),37,Parkersburg (Parkersburg),12,0,WV,WV
 11,John Marshall (Glen Dale),34,Point Pleasant (Point Pleasant),21,0,WV,WV
 11,Oak Glen (New Cumberland),14,Madonna (Weirton),21,0,WV,WV
 11,Parkersburg South (Parkersburg),0,Spring Mills (Martinsburg),37,0,WV,WV
+11,Roane County (Spencer),14,North Marion,6,0,WV,WV
+11,South Charleston,7,Spring Valley (Huntington),61,0,WV,WV
+11,Valley (Wetzel) (Pine Grove),32,Magnolia (New Martinsville),46,0,WV,WV
 11,Weir (Weirton),14,Brooke (Wellsburg),27,0,WV,WV
+11,Williamstown (Williamstown),35,Doddridge County,13,0,WV,WV
 11,Wirt County (Elizabeth),22,Sherman (Seth),24,0,WV,WV
 11,Ashland Blazer (Ashland),58,Simon Kenton (Independence),28,0,KY,KY
 11,Bishop Brossart (Alexandria),49,Pendleton County (Falmouth),0,0,KY,KY
+11,Bowling Green (Bowling Green),26,St Xavier (Louisville),9,0,KY,KY
 11,Covington Catholic (Park Hills),42,Campbell County (Alexandria),28,0,KY,KY
 11,Dixie Heights (Edgewood),27,Ryle (Union),44,0,KY,KY
+11,Greenup County (Greenup),51,Fleming County,42,0,KY,KY
 11,Holy Cross (Covington),0,Newport (Newport),37,0,KY,KY
+11,Jackson County,6,Bellevue (Bellevue),40,0,KY,KY
+11,Paris,52,Ludlow (Ludlow),12,0,KY,KY
+11,Pike County Central,6,Paintsville (Paintsville),28,0,KY,KY
 11,Pikeville (Pikeville),47,Boyd County (Ashland),35,0,KY,KY
+11,Pleasure Ridge Park (Louisville),35,Hopkinsville,28,0,KY,KY
 11,Frederick Douglass (Lexington),17,Boyle County (Danville),38,0,KY,KY
 11,Floyd Central (Eastern),34,Shelby Valley (Pikeville),52,0,KY,KY
+11,Adrian Lenawee Christian,15,Britton-Deerfield (Britton),58,0,MI,MI
+11,Allen Park Cabrini,0,Riverview Gabriel Richard (Riverview),48,0,MI,MI
+11,Dearborn Divine Child (Dearborn),42,Madison Heights Lamphere,6,0,MI,MI
+11,Dearborn Heights Robichaud,8,Lumen Christi (Jackson),42,0,MI,MI
+11,Grandville (Grandville),24,Rockford,14,0,MI,MI
+11,Kalamazoo Central,12,Howell,35,0,MI,MI
+11,East Kentwood,23,Hudsonville,25,0,MI,MI
+11,Livonia Stevenson,0,Novi Detroit Catholic Central (Novi),33,0,MI,MI
+11,Manchester,20,Petersburg Summerfield (Petersburg),17,0,MI,MI
+11,Mendon,58,Climax-Scotts,50,0,MI,MI
+11,Muskegon Oakridge,14,Grand Rapids West Catholic (Grand Rapids),32,0,MI,MI
+11,Orchard Lake St Mary (Orchard Lake),42,North Farmington,7,0,MI,MI
+11,Ottawa Lake Whiteford (Ottawa Lake),32,Clinton,38,0,MI,MI
+11,River Rouge (River Rouge),13,Southgate Anderson,7,0,MI,MI
+11,Sand Creek,0,Reading (Reading),36,0,MI,MI
+11,Sterling Heights Stevenson,0,Detroit Cass Tech (Detroit),41,0,MI,MI
+11,Bedford (Temperance),21,Gibraltar Carlson,42,0,MI,MI
+11,Traverse City West,0,Muskegon Mona Shores (Muskegon),28,0,MI,MI
+11,Warren De La Salle (Warren),49,Port Huron Northern,0,0,MI,MI
+11,Warren Fitzgerald,0,Detroit King (Detroit),41,0,MI,MI
+11,Belle Vernon Area,11,McKeesport (McKeesport),34,0,PA,PA
+11,Taylor Allderdice (Pittsburgh),8,Hollidaysburg,41,0,PA,PA
+11,DuBois,45,Cathedral Prep (Erie),42,0,PA,PA
+11,Fort LeBoeuf,6,Corry (Corry),9,1,PA,PA
+11,Hickory (Hermitage),1,Slippery Rock,0,0,PA,PA
 11,Fairview (Fairview),0,Titusville (Titusville),33,1,PA,PA
 11,Erie (Erie),14,McDowell (Erie),28,1,PA,PA
 11,Conneaut Area (Linesville),6,Sharon (Sharon),65,1,PA,PA
+11,Carmel (Carmel),28,Zionsville,29,0,IN,IN
+11,Center Grove (Greenwood),72,Jeffersonville,7,0,IN,IN
+11,East Central (St Leon),35,Seymour,0,0,IN,IN
+11,Bishop Dwenger (Fort Wayne),25,Fort Wayne Wayne,6,0,IN,IN
+11,Greensburg,6,Lawrenceburg (Lawrenceburg),59,0,IN,IN
+11,Lawrence North (Indianapolis),40,Lawrence Central,9,0,IN,IN
+11,Mooresville,15,Bishop Chatard (Indianapolis),42,0,IN,IN
+11,North Central (Indianapolis),0,Cathedral (Indianapolis),36,0,IN,IN
+11,Roncalli (Indianapolis),55,Brebeuf Jesuit Preparatory,27,0,IN,IN
+11,South Vermillion,6,Linton-Stockton (Linton),38,0,IN,IN
 11,Saint Frances Academy (Baltimore),30,IMG Academy (Bradenton),3,0,MD,FL
 11,Bishop McNamara (Forestville),0,DeMatha Catholic (Hyattsville),37,0,MD,MD
 11,Gonzaga (Washington),0,Good Counsel (Wheaton),21,0,DC,MD
@@ -5069,12 +5891,14 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 11,Iona Prep (New Rochelle),35,Monsignor Farrell (Staten Island),15,0,NY,NY
 11,Christ the King Regional (Middle Village),16,St Dominic (Oyster Bay),22,0,NY,NY
 11,Penfield (Penfield),0,Aquinas Institute (Rochester),35,0,NY,NY
+11,Don Bosco Prep (Ramsey),42,St Peter's Prep,7,0,NJ,NJ
 11,Chatham (Chatham),24,Wayne Valley (Wayne),7,0,NJ,NJ
 11,Mt Carmel (Chicago),56,Harlem (Machesney Park),14,0,IL,IL
 11,Cornerstone Christian (San Antonio),35,St Francis Episcopal (Houston),0,0,TX,TX
 11,St Matthew (Orléans),35,St Peter (Orléans),0,0,ON,ON
 11,Ashbury College (Ottawa),40,St Mother Teresa (Nepean),29,0,ON,ON
 11,Assumption Catholic (Burlington),23,Notre Dame (Burlington),6,0,ON,ON
+11,Ursuline College (The Pines) (Chatham),31,St Patrick's (Sarnia),21,0,ON,ON
 11,Humberview (Caledon),12,Philip Pocock (Mississauga),21,0,ON,ON
 11,Bishop Macdonell (Guelph),3,Centennial CVI (Guelph),45,0,ON,ON
 11,M. M. Robinson (Burlington),0,Garth Webb (Oakville),23,0,ON,ON
@@ -5104,11 +5928,26 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 11,Thorold (Thorold),7,Governor Simcoe (St Catharines),38,0,ON,ON
 11,Timber Creek (Orlando),27,Poinciana (Kissimmee),20,0,FL,FL
 11,Julius L. Chambers / Vance (Charlotte),19,Mallard Creek (Charlotte),44,0,NC,NC
+11,Crazy Horse,0,Lower Brule,66,0,SD,SD
+11,Little Wound,20,Winnebago (Winnebago),34,0,SD,NE
+11,White River,36,Omaha Nation (Macy),0,0,SD,NE
 11,Danbury (Lakeside),18,Chalker (Southington),58,0,,
 11,Holgate (Holgate),0,St Mary Central Catholic (Sandusky),40,0,,
 11,River (Hannibal),22,Catholic Central (Steubenville),28,0,,
+11,Columbus Crusaders (club) (Columbus),38,Landmark Eagles (club) (Cincinnati),52,0,,
+11,Peebles (club) (Peebles),52,North Adams (club) (Seaman),6,0,,
+11,Central (Louisville),42,W.E.B. DuBois Academy (Louisville),6,0,KY,KY
+11,Oil City (Oil City),20,Meadville,27,1,PA,PA
+11,Seneca,7,Farrell (Farrell),44,1,PA,PA
+11,Eisenhower,21,Reynolds (Greenville),26,1,PA,PA
+11,Saegertown,7,Cambridge Springs,46,1,PA,PA
+11,Lakeview,7,Greenville,28,1,PA,PA
+11,Sharpsville,35,Mercyhurst Prep (Erie),31,1,PA,PA
+11,University Prep (USO co-op) (Pittsburgh),38,Punxsutawney,26,1,PA,PA
 11,Kiski Prep (Saltsburg),31,Linsly (Wheeling),28,0,PA,WV
+11,Virginia Academy (Ashburn),0,Football North (via Clarkson SS) (Mississauga),49,1,VA,ON
 11,Archbishop Spalding (Severn),31,Mount St Joseph (Baltimore),0,0,MD,MD
+11,Mt Zion Prep (Lanham),20,St Frances Academy (Regional),14,0,MD,MD
 11,Long Island St Anthony's (South Huntington),42,Cardinal Hayes (Bronx),34,0,NY,NY
 11,Holy Cross (Flushing),38,Cardinal Spellman (Bronx),6,0,NY,NY
 11,St Francis Prep (Fresh Meadows),21,Kellenberg Memorial (Uniondale),35,0,NY,NY
@@ -5165,6 +6004,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 12,Carey (Carey),0,Patrick Henry (Hamler),24,0,,
 12,Centerburg (Centerburg),7,Northmor (Galion),39,0,,
 12,Chaminade Julienne (Dayton),12,London (London),24,0,,
+12,Chardon (Chardon),16,Cuyahoga Valley Christian Academy (Cuyahoga Falls),19,0,,
 12,Clyde (Clyde),7,Ontario (Ontario),38,0,,
 12,Colonel Crawford (North Robinson),6,Grandview Heights (Columbus),13,0,,
 12,Columbus Academy (Gahanna),7,Harvest Prep (Canal Winchester),48,0,,
@@ -5261,31 +6101,75 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 12,Wilmington (Wilmington),12,Wapakoneta (Wapakoneta),48,0,,
 12,Windham (Windham),14,Hillsdale (Jeromesville),43,0,,
 12,Worthington Kilbourne (Columbus),7,Teays Valley (Ashville),10,0,,
+12,Cameron (Cameron),34,Pendleton County,13,0,WV,WV
 12,Clay-Battelle (Blacksville),12,Magnolia (New Martinsville),14,0,WV,WV
 12,Herbert Hoover (Elkview),62,Weir (Weirton),7,0,WV,WV
 12,John Marshall (Glen Dale),30,Wheeling Park (Wheeling),35,0,WV,WV
 12,Keyser (Keyser),0,Frankfort (Ridgeley),55,0,WV,WV
+12,Lincoln,13,Bridgeport (Bridgeport),70,0,WV,WV
 12,Martinsburg (Martinsburg),44,Hurricane (Hurricane),17,0,WV,WV
+12,Musselman,6,Parkersburg (Parkersburg),29,0,WV,WV
+12,Oak Glen (New Cumberland),44,Tygarts Valley,8,0,WV,WV
+12,Richwood,32,Hundred (Hundred),38,0,WV,WV
 12,Ripley (Ripley),7,Roane County (Spencer),43,0,WV,WV
 12,Riverside (Belle),0,Cabell Midland (Ona),42,0,WV,WV
+12,Spring Valley (Huntington),49,Saint Albans,14,0,WV,WV
+12,Wheeling Central Catholic (Wheeling),48,Shady Spring,7,0,WV,WV
+12,Williamstown (Williamstown),7,Scott,17,0,WV,WV
+12,Winfield,34,Point Pleasant (Point Pleasant),55,0,WV,WV
+12,Spring Mills (Martinsburg),33,Hedgesville,0,0,WV,WV
 12,Linsly (Wheeling),20,Huntington (Huntington),55,0,WV,WV
 12,Bellevue (Bellevue),12,Bishop Brossart (Alexandria),39,0,KY,KY
 12,Boyd County (Ashland),14,Covington Catholic (Park Hills),42,0,KY,KY
+12,Campbell County (Alexandria),0,DuPont Manual,45,0,KY,KY
+12,Casey County,0,Central (Louisville),64,0,KY,KY
 12,Dayton (Dayton),9,Ludlow (Ludlow),55,0,KY,KY
+12,Dixie Heights (Edgewood),14,Woodford County,49,0,KY,KY
+12,Greenup County (Greenup),21,Mason County,56,0,KY,KY
 12,Harrison County (Cynthiana),7,Ashland Blazer (Ashland),47,0,KY,KY
 12,Holy Cross (Covington),0,Newport (Newport),35,0,KY,KY
+12,Paintsville (Paintsville),32,Middlesboro,19,0,KY,KY
 12,Pendleton County (Falmouth),7,Russell (Russell),55,0,KY,KY
+12,Perry County Central,7,Boyle County (Danville),57,0,KY,KY
+12,Pineville,0,Pikeville (Pikeville),42,0,KY,KY
 12,Pleasure Ridge Park (Louisville),0,Ryle (Union),39,0,KY,KY
 12,Sayre (Lexington),63,Fairview (Ashland),0,0,KY,KY
+12,Simon Kenton (Independence),13,St Xavier (Louisville),48,0,KY,KY
 12,South Oldham (Crestwood),28,Cooper (Union),56,0,KY,KY
+12,Southern (Louisville),0,Trinity (Louisville),63,0,KY,KY
 12,Floyd Central (Eastern),16,Shelby Valley (Pikeville),48,0,KY,KY
+12,Brighton,33,Howell,35,0,MI,MI
+12,Byron Center,30,Muskegon Mona Shores (Muskegon),23,0,MI,MI
+12,Dearborn,7,Detroit Cass Tech (Detroit),42,0,MI,MI
 12,Dearborn Divine Child (Dearborn),21,Harper Woods (Harper Woods),40,0,MI,MI
+12,Grand Rapids West Catholic (Grand Rapids),18,Grand Rapids Catholic Central,21,0,MI,MI
+12,Grandville (Grandville),16,Hudsonville,19,0,MI,MI
+12,Grosse Pointe North,28,Detroit King (Detroit),62,0,MI,MI
+12,Ida,28,Lumen Christi (Jackson),49,0,MI,MI
+12,Manchester,26,Riverview Gabriel Richard (Riverview),44,0,MI,MI
+12,Orchard Lake St Mary (Orchard Lake),51,Farmington,0,0,MI,MI
+12,Pittsford,26,Britton-Deerfield (Britton),60,0,MI,MI
+12,Reading (Reading),30,Springport,29,0,MI,MI
+12,River Rouge (River Rouge),20,Riverview,14,0,MI,MI
+12,Warren De La Salle (Warren),35,Grosse Pointe South,21,0,MI,MI
+12,West Bloomfield,14,Novi Detroit Catholic Central (Novi),41,0,MI,MI
+12,Central Dauphin East,14,Central York (York),47,0,PA,PA
+12,McKeesport (McKeesport),35,Mars,7,0,PA,PA
+12,Franklin Regional,0,Pine-Richland (Gibsonia),42,0,PA,PA
+12,McDowell (Erie),7,State College,35,0,PA,PA
+12,Meadville,0,General McLane (Edinboro),34,1,PA,PA
 12,Corry (Corry),7,Hickory (Hermitage),42,1,PA,PA
 12,Titusville (Titusville),7,Sharon (Sharon),40,1,PA,PA
+12,East Noble,38,Bishop Dwenger (Fort Wayne),0,0,IN,IN
+12,Franklin Central,14,Center Grove (Greenwood),52,0,IN,IN
+12,Franklin Community,0,East Central (St Leon),21,0,IN,IN
 12,Bishop Chatard (Indianapolis),28,Roncalli (Indianapolis),24,0,IN,IN
 12,Cathedral (Indianapolis),7,Lawrence North (Indianapolis),24,0,IN,IN
+12,Lawrenceburg (Lawrenceburg),7,Batesville,21,0,IN,IN
+12,Linton-Stockton (Linton),42,Greencastle,39,0,IN,IN
 12,Mount St Joseph (Baltimore),0,Archbishop Spalding (Severn),38,0,MD,MD
 12,Riverdale Baptist (Upper Marlboro),30,Friendship Collegiate (Washington),12,0,MD,DC
+12,Mt Zion Prep (Lanham),6,Football North (via Clarkson SS) (Mississauga),60,1,MD,ON
 12,Aquinas Institute (Rochester),21,McQuaid Jesuit (Rochester),6,0,NY,NY
 12,Chaminade (Mineola),14,Monsignor Farrell (Staten Island),7,0,NY,NY
 12,St Thomas More (Oakdale),7,IMG Academy (Bradenton),28,0,CT,FL
@@ -5307,13 +6191,36 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 12,St Mary's (Kitchener),14,Resurrection (Kitchener),28,1,ON,ON
 12,St Mary's (Owen Sound),0,Centennial CVI (Guelph),38,1,ON,ON
 12,IMG Academy Var-White (Bradenton),24,NFL Academy London (London),40,0,FL,UK
+12,Brookings,7,Watertown,20,0,SD,SD
+12,Canistota,28,Sully Buttes,34,0,SD,SD
+12,Elk Point-Jefferson,14,Sioux Valley,28,0,SD,SD
+12,Elkton-Lake Benton,16,Hamlin,20,0,SD,SD
+12,Harrisburg,14,Sioux Falls Lincoln,20,0,SD,SD
+12,Lennox,35,Dell Rapids,0,0,SD,SD
+12,Pierre T.F. Riggs,14,Yankton,9,0,SD,SD
+12,Pine Ridge,42,Winnebago (Winnebago),40,1,SD,NE
+12,Sioux Falls Jefferson,34,Brandon Valley,37,0,SD,SD
+12,St. Mary's,22,Faulkton Area,48,0,SD,SD
+12,St. Thomas More,0,Winner,36,0,SD,SD
+12,Warner,13,Howard,40,0,SD,SD
+12,West Central,7,Sioux Falls Christian,31,0,SD,SD
+12,White River,8,Lower Brule,60,1,SD,SD
+12,Wolsey-Wessington,30,Wall,28,0,SD,SD
+12,Freeman/Marion/Freeman Academy (co-op),22,Parkston,28,0,SD,SD
 12,Guam High (Agana Heights),6,Southern (Santa Rita),30,1,GU,GU
 12,Brebeuf College (North York),4,Northern SS (Toronto),16,1,ON,ON
 12,Chalker (Southington),6,St Mary Central Catholic (Sandusky),41,0,,
 12,Miller (Corning),36,Catholic Central (Steubenville),20,0,,
 12,St John's (Delphos),27,Calvert (Tiffin),0,0,,
+12,Landmark Eagles (club) (Cincinnati),46,Osceola Grace (club) (Elkhart),48,1,,IN
+12,C4 Lions (club) (Trenton),0,Noblesville Lions (club) (Noblesville),24,1,,IN
+12,Martin,22,Mendon,26,0,MI,MI
+12,Greenville,27,Cambridge Springs,26,1,PA,PA
 12,Reynolds (Greenville),14,Wilmington (New Wilmington),49,1,PA,PA
+12,Sharpsville,18,Farrell (Farrell),28,1,PA,PA
+12,University Prep (USO co-op) (Pittsburgh),24,Clearfield,34,1,PA,PA
 12,Saint Joseph's Prep (Philadelphia),21,La Salle College (Wyndmoor),14,1,PA,PA
+12,Calumet Christian (Griffith),35,Columbus Crusaders (club) (Columbus),34,1,IN,
 12,Good Counsel (Wheaton),18,Bishop McNamara (Forestville),16,0,MD,MD
 12,Gonzaga (Washington),10,St John's College (Washington),7,0,DC,DC
 12,Holy Trinity - Long Island (Hicksville),6,St Joseph by-the-Sea (Staten Island),30,0,NY,NY
@@ -5325,6 +6232,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 12,Christ the King Regional (Middle Village),0,Mt St Michael Academy (Bronx),35,0,NY,NY
 12,John F Kennedy Catholic (Somers),14,Cardinal Spellman (Bronx),8,0,NY,NY
 12,St Charles North (St Charles),15,Mt Carmel (Chicago),48,0,IL,IL
+12,Ursuline College (The Pines) (Chatham),13,Northern CI (Sarnia),23,0,ON,ON
 12,Huron Heights (Newmarket),33,Long Island Lutheran (Brookville),41,0,ON,NY
 12,Preston (Cambridge),14,Cameron Heights CI (Kitchener),31,1,ON,ON
 12,Lo-Ellen Park (Sudbury),18,Korah (Sault Ste. Marie),41,0,ON,ON
@@ -5349,6 +6257,8 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 13,Sir Winston Churchill (St Catharines),2,Westmount (Hamilton),41,1,ON,ON
 13,St Joseph's (Barrie),0,Barrie North (Barrie),13,1,ON,ON
 13,Resurrection (Kitchener),0,Centennial CVI (Guelph),56,1,ON,ON
+13,Hamlin,32,Parkston,8,1,SD,SD
+13,Sully Buttes,34,Faulkton Area,14,1,SD,SD
 13,Anna (Anna),56,Cincinnati Country Day (Cincinnati),14,1,,
 13,Ansonia (Ansonia),0,Marion Local (Maria Stein),61,1,,
 13,Anthony Wayne (Whitehouse),14,Highland (Medina),38,1,,
@@ -5361,6 +6271,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 13,Columbia (Columbia Station),7,Kirtland (Kirtland),41,1,,
 13,Conotton Valley (Bowerston),22,Eastern (Beaver),29,1,,
 13,Cuyahoga Heights (Cuyahoga Heights),21,John F Kennedy (Warren),19,1,,
+13,Cuyahoga Valley Christian Academy (Cuyahoga Falls),28,Gilmour Academy (Gates Mills),35,1,,
 13,Dalton (Dalton),25,Springfield (New Middletown),0,1,,
 13,Dover (Dover),14,Steubenville (Steubenville),42,1,,
 13,Dublin Coffman (Dublin),7,Centerville (Centerville),42,1,,
@@ -5404,14 +6315,36 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 13,Wheelersburg (Wheelersburg),30,West Muskingum (Zanesville),14,1,,
 13,Harvest Prep (Canal Winchester),13,Ironton (Ironton),41,1,,
 13,Cincinnati College Prep (Cincinnati),0,Minster (Minster),42,1,,
+13,Ballard,23,Male (Louisville),17,0,KY,KY
+13,Bishop Brossart (Alexandria),14,Newport Central Catholic,41,0,KY,KY
+13,Fern Creek,0,Trinity (Louisville),45,0,KY,KY
+13,Garrard County,7,Central (Louisville),32,0,KY,KY
+13,Johnson Central,13,Covington Catholic (Park Hills),14,0,KY,KY
+13,Letcher County Central,6,Boyle County (Danville),47,0,KY,KY
 13,Lloyd Memorial (Erlanger),20,Russell (Russell),21,0,KY,KY
+13,Mason County,14,Ashland Blazer (Ashland),42,0,KY,KY
 13,Newport (Newport),23,Ludlow (Ludlow),7,0,KY,KY
 13,Paintsville (Paintsville),14,Pikeville (Pikeville),42,0,KY,KY
+13,St Xavier (Louisville),17,Ryle (Union),38,0,KY,KY
 13,Martin County (Inez),32,Shelby Valley (Pikeville),22,0,KY,KY
+13,Belleville,21,Novi Detroit Catholic Central (Novi),35,0,MI,MI
+13,Detroit Cass Tech (Detroit),21,Macomb Dakota,14,0,MI,MI
+13,Detroit Loyola,12,Riverview Gabriel Richard (Riverview),30,0,MI,MI
+13,Orchard Lake St Mary (Orchard Lake),27,Gibraltar Carlson,3,0,MI,MI
 13,River Rouge (River Rouge),0,Detroit King (Detroit),34,0,MI,MI
+13,Warren De La Salle (Warren),19,Birmingham Groves,21,0,MI,MI
 13,Central York (York),20,Wilson (West Lawn),28,0,PA,PA
+13,Windber,6,Westinghouse (Pittsburgh),61,0,PA,PA
+13,Bethel Park,7,Pine-Richland (Gibsonia),28,1,PA,PA
+13,Peters Township,7,Upper Saint Clair,3,1,PA,PA
+13,General McLane (Edinboro),26,Clearfield,27,0,PA,PA
 13,Hickory (Hermitage),37,Sharon (Sharon),31,1,PA,PA
+13,Central Clarion (co-op),41,Farrell (Farrell),6,0,PA,PA
+13,Brownstown Central,21,Linton-Stockton (Linton),22,0,IN,IN
 13,Center Grove (Greenwood),23,Warren Central (Indianapolis),15,0,IN,IN
+13,East Central (St Leon),16,Decatur Central,21,0,IN,IN
+13,Lawrence North (Indianapolis),21,Brownsburg,22,0,IN,IN
+13,New Palestine,28,Bishop Chatard (Indianapolis),21,0,IN,IN
 13,Bishop O'Connell (Arlington),0,St Mary's Ryken (Leonardtown),48,0,VA,MD
 13,Gonzaga (Washington),14,Good Counsel (Wheaton),26,0,DC,MD
 13,Archbishop Carroll (Washington),14,Paul VI (Chantilly),38,0,DC,VA
@@ -5421,9 +6354,25 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 13,Mt St Michael Academy (Bronx),13,Xaverian (Brooklyn),55,0,NY,NY
 13,Fordham Prep (Bronx),16,St Joseph by-the-Sea (Staten Island),21,0,NY,NY
 13,St Joseph (Metuchen),6,Don Bosco Prep (Ramsey),45,0,NJ,NJ
+13,Red Lion Christian Academy (Bear),28,Delmar,21,0,DE,DE
+13,Conrad Science (Wilmington),14,Indian River,38,0,DE,DE
 13,St Georges Tech (Middletown),27,Smyrna (Smyrna),12,0,DE,DE
+13,Cape Henlopen,0,Salesianum (Wilmington),35,0,DE,DE
+13,Christiana,0,Brandywine,44,0,DE,DE
+13,Laurel,0,Caravel Academy (Bear),34,0,DE,DE
 13,Lake Norman (Mooresville),9,Mallard Creek (Charlotte),34,0,NC,NC
+13,Mililani,6,Kahuku (Kahuku),8,1,HI,HI
+13,Pierre T.F. Riggs,13,Watertown,14,1,SD,SD
+13,Winner,20,Sioux Valley,14,1,SD,SD
+13,Wolsey-Wessington,30,Howard,38,1,SD,SD
 13,St Mary Central Catholic (Sandusky),0,Toledo Christian (Toledo),24,1,,
+13,Constantine,6,Lumen Christi (Jackson),42,0,MI,MI
+13,Hudsonville,35,Howell,6,0,MI,MI
+13,Mendon,32,Deckerville,49,0,MI,MI
+13,Morrice,36,Britton-Deerfield (Britton),0,0,MI,MI
+13,Reading (Reading),0,Decatur,41,0,MI,MI
+13,McKeesport (McKeesport),7,Thomas Jefferson,28,1,PA,PA
+13,Greenville,21,Wilmington (New Wilmington),26,1,PA,PA
 13,Saint Joseph's Prep (Philadelphia),42,Imhotep Charter (Philadelphia),0,0,PA,PA
 13,McDonogh School (Owings Mills),7,Archbishop Spalding (Severn),31,1,MD,MD
 13,Concordia Prep (Towson),35,Long Island Lutheran (Brookville),18,0,MD,NY
@@ -5436,17 +6385,32 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 13,Seton Hall Prep (West Orange),10,Bergen Catholic (Oradell),41,0,NJ,NJ
 13,Appoquinimink (Middletown),28,Sussex Central (Georgetown),31,0,DE,DE
 13,Paul M. Hodgson Vo-Tech (Newark),0,Middletown (Middletown),41,0,DE,DE
+13,First State Military Academy,6,Polytech,35,0,DE,DE
+13,Lake Forest,24,Howard,36,0,DE,DE
+13,St. Elizabeth,6,Tatnall,41,0,DE,DE
+13,Woodbridge,16,Archmere,14,0,DE,DE
 13,Community (Normal),42,Mt Carmel (Chicago),49,1,IL,IL
 13,Algonquin Catholic (North Bay),6,Korah (Sault Ste. Marie),37,0,ON,ON
 13,Riverside (Windsor),35,Cardinal Carter Catholic (Leamington),27,1,ON,ON
 13,North Star (Amherstburg),0,l'Essor (Tecumseh),17,1,ON,ON
 13,La Salle (Kingston),13,Frontenac (Kingston),27,1,ON,ON
+13,Campbell,24,Saint Louis School,27,1,HI,HI
+13,Pac-Five (co-op),0,Kaiser,30,0,HI,HI
+13,Kamehameha Schools - Hawaii,7,Roosevelt,13,0,HI,HI
+13,Lennox,14,Sioux Falls Christian,6,1,SD,SD
+13,Sioux Falls Lincoln,31,Brandon Valley,21,1,SD,SD
+13,Leilehua,40,Lahainaluna,13,0,HI,HI
 14,St Mark (Manotick),2,St Joseph (Nepean),16,1,ON,ON
 14,W.F. Herman (Windsor),21,Northern CI (Sarnia),15,0,ON,ON
 14,Bishop Tonnos (Ancaster),21,Corpus Christi (Burlington),35,0,ON,ON
 14,Jacob Hespeler SS (Cambridge),19,Centennial CVI (Guelph),40,1,ON,ON
 14,Westmount (Hamilton),13,A.N. Myer (Niagara Falls),35,0,ON,ON
+14,Atlas Rattlers (club),28,Christ Prep Academy (Lenexa),26,1,TX,KS
+14,Tomball Christian (club) (Tomball),47,Landmark Eagles (club) (Cincinnati),6,1,TX,
 14,l'Essor (Tecumseh),0,Great Lakes (Sarnia),26,0,ON,ON
+14,Dike-New Hartford,7,Grundy Center,28,1,IA,IA
+14,Gladbrook-Reinbeck,12,Remsen St. Mary's (Remsen),51,1,IA,IA
+14,Pella,14,North Polk (Alleman),28,1,IA,IA
 14,West Hancock (Britt),10,Tri-Center (Neola),14,1,IA,IA
 14,Anna (Anna),21,Coldwater (Coldwater),45,1,,
 14,Archbishop Alter (Kettering),12,Taft (Cincinnati),26,1,,
@@ -5476,26 +6440,82 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 14,Massillon Washington (Massillon),7,Big Walnut (Sunbury),14,1,,
 14,Wayne (Huber Heights),14,Centerville (Centerville),23,1,,
 14,Wheelersburg (Wheelersburg),0,Ironton (Ironton),55,1,,
+14,East Fairmont,6,Spring Valley (Huntington),54,0,WV,WV
 14,George Washington (Charleston),13,Hurricane (Hurricane),14,0,WV,WV
+14,Hedgesville,0,Spring Mills (Martinsburg),56,0,WV,WV
+14,Lewis County,6,Oak Hill,27,0,WV,WV
+14,Nicholas County,20,Wheeling Central Catholic (Wheeling),41,0,WV,WV
 14,Point Pleasant (Point Pleasant),6,Fairmont Senior (Fairmont),35,0,WV,WV
+14,Ripley (Ripley),10,North Marion,47,0,WV,WV
+14,Robert C Byrd,0,Bridgeport (Bridgeport),65,0,WV,WV
+14,South Harrison (Lost Creek),18,Bluefield,20,0,WV,WV
+14,Tyler Consolidated,14,Sherman (Seth),30,0,WV,WV
+14,Valley (Wetzel) (Pine Grove),0,Cameron (Cameron),62,0,WV,WV
 14,Woodrow Wilson (Beckley),10,Morgantown (Morgantown),35,0,WV,WV
+14,Ashland Blazer (Ashland),7,Corbin,42,0,KY,KY
+14,Ballard,21,Trinity (Louisville),35,0,KY,KY
+14,Central (Louisville),6,Christian Academy-Louisville (Louisville),28,0,KY,KY
+14,Central Hardin,14,Ryle (Union),43,0,KY,KY
 14,Covington Catholic (Park Hills),31,Boyle County (Danville),28,0,KY,KY
 14,Pikeville (Pikeville),6,Sayre (Lexington),21,0,KY,KY
 14,Russell (Russell),17,Belfry (Belfry),35,0,KY,KY
 14,Martin County (Inez),7,Beechwood (Fort Mitchell),44,0,KY,KY
+14,Bishop McDevitt (Harrisburg),48,Exeter Township,14,1,PA,PA
+14,State College,19,Central Catholic (Pittsburgh),41,1,PA,PA
+14,Hollidaysburg,14,Roman Catholic (Philadelphia),48,1,PA,PA
 14,Wilmington (New Wilmington),20,Port Allegany (Port Allegany),38,1,PA,PA
+14,Parkland,7,Saint Joseph's Prep (Philadelphia),46,1,PA,PA
+14,Brownsburg,31,Center Grove (Greenwood),27,0,IN,IN
 14,Linton-Stockton (Linton),40,Indianapolis Lutheran (Indianapolis),28,0,IN,IN
 14,Paul VI (Chantilly),27,St Mary's Ryken (Leonardtown),17,1,VA,MD
 14,Lancaster (Lancaster),19,Aquinas Institute (Rochester),21,1,NY,NY
 14,St Peter's (Staten Island),7,St Joseph by-the-Sea (Staten Island),8,1,NY,NY
 14,St Augustine Prep (Richland),14,Don Bosco Prep (Ramsey),35,0,NJ,NJ
 14,Sussex Central (Georgetown),13,Salesianum (Wilmington),39,0,DE,DE
+14,Polytech,22,Indian River,30,0,DE,DE
+14,Woodbridge,0,Caravel Academy (Bear),35,0,DE,DE
 14,Hillcrest (Ammon),31,Skyline (Idaho Falls),8,1,ID,ID
+14,Humboldt,14,Wahlert Catholic,49,1,IA,IA
+14,Spirit Lake,7,West Lyon (Inwood),42,1,IA,IA
+14,Valley (West Des Moines),35,Southeast Polk,38,1,IA,IA
+14,Landmark Eagles (club) (Cincinnati),7,Christ Prep Academy (Lenexa),48,1,,KS
+14,Cabell Midland (Ona),28,Jefferson,48,0,WV,WV
+14,Chapmanville,14,Roane County (Spencer),35,0,WV,WV
+14,Clay County,17,Philip Barbour (Philippi),28,0,WV,WV
+14,Elkins,7,Herbert Hoover (Elkview),49,0,WV,WV
+14,Hampshire,9,Princeton Senior (Princeton),63,0,WV,WV
 14,Madonna (Weirton),13,Wahama (Mason),68,0,WV,WV
+14,Meadow Bridge,30,Pendleton County,44,0,WV,WV
+14,Moorefield,21,Williamstown (Williamstown),47,0,WV,WV
+14,Musselman,0,Wheeling Park (Wheeling),43,0,WV,WV
 14,Parkersburg (Parkersburg),7,Martinsburg (Martinsburg),77,0,WV,WV
+14,Shady Spring,7,Nitro,41,0,WV,WV
+14,Tolsia,8,Tug Valley (Williamson),48,0,WV,WV
 14,University (Morgantown),28,Huntington (Huntington),56,0,WV,WV
+14,Wayne,12,Scott,40,0,WV,WV
+14,Wirt County (Elizabeth),8,Doddridge County,28,0,WV,WV
+14,Westside,0,Frankfort (Ridgeley),45,0,WV,WV
+14,Washington,17,Parkersburg South (Parkersburg),24,0,WV,WV
+14,River View (Bradshaw),8,Petersburg,49,0,WV,WV
+14,Decatur,30,Riverview Gabriel Richard (Riverview),36,0,MI,MI
 14,Detroit Cass Tech (Detroit),17,Novi Detroit Catholic Central (Novi),14,0,MI,MI
+14,Marine City,6,Lumen Christi (Jackson),35,0,MI,MI
+14,Mason,14,Detroit King (Detroit),35,0,MI,MI
+14,Morrice,20,Crystal Falls Forest Park,42,1,MI,MI
+14,Orchard Lake St Mary (Orchard Lake),28,Birmingham Groves,27,0,MI,MI
+14,Pickford,28,Deckerville,30,1,MI,MI
+14,Rochester Adams,7,Hudsonville,27,0,MI,MI
+14,Scranton Preparatory,0,Northwestern Lehigh (New Tripoli),34,1,PA,PA
+14,Riverside,28,Williams Valley,21,1,PA,PA
+14,Wilson (West Lawn),14,Harrisburg,42,1,PA,PA
+14,Penn Cambria,30,Hickory (Hermitage),7,1,PA,PA
+14,Cambria Heights,6,Central Clarion (co-op),49,1,PA,PA
 14,Bishop Guilfoyle (Altoona),56,Westinghouse (Pittsburgh),15,1,PA,PA
+14,Peters Township,9,Pine-Richland (Gibsonia),20,1,PA,PA
+14,South Park,21,Seton LaSalle,14,1,PA,PA
+14,Clairton,20,Fort Cherry,21,1,PA,PA
+14,Clearfield,0,Thomas Jefferson,35,1,PA,PA
+14,Southern Lehigh,45,Juniata,7,1,PA,PA
 14,Central Valley (Monaca),0,Avonworth (Pittsburgh),17,1,PA,PA
 14,Anacostia (Washington),8,Bell (Washington),49,1,DC,DC
 14,Saint Albans School (Washington),35,Maret School (Washington),34,1,DC,DC
@@ -5503,12 +6523,19 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 14,Long Island St Anthony's (South Huntington),22,Iona Prep (New Rochelle),43,1,NY,NY
 14,Xaverian (Brooklyn),14,Holy Cross (Flushing),6,1,NY,NY
 14,Saint Joseph Regional (Montvale),14,Bergen Catholic (Oradell),20,0,NJ,NJ
+14,Red Lion Christian Academy (Bear),14,Howard,40,0,DE,DE
 14,St Georges Tech (Middletown),7,Middletown (Middletown),24,0,DE,DE
+14,Brandywine,24,Tatnall,27,0,DE,DE
 14,Mt Carmel (Chicago),43,St Rita (Chicago),24,0,IL,IL
+14,Atlas Rattlers (club),6,Tomball Christian (club) (Tomball),42,1,TX,TX
+14,Eagle,21,Rigby,41,1,ID,ID
 14,Mallard Creek (Charlotte),23,Watauga (Boone),0,0,NC,NC
+14,Leilehua,20,Konawaena,45,0,HI,HI
 14,Leone (Vailoatai),0,Tafuna (Tafuna),40,0,AS,AS
 14,East Hardy (Baker),0,Tucker County (Hambleton),30,0,WV,WV
+14,James Monroe,23,Independence (Coal City),41,0,WV,WV
 14,Good Counsel (Wheaton),7,DeMatha Catholic (Hyattsville),16,1,MD,MD
+14,Roosevelt,26,Kamehameha Schools - Maui,60,0,HI,HI
 15,Huron Heights (Newmarket),35,Korah (Sault Ste. Marie),15,1,ON,ON
 15,London Catholic Central (London),30,W.F. Herman (Windsor),7,1,ON,ON
 15,Northern SS (Toronto),4,Holy Cross (Peterborough),23,1,ON,ON
@@ -5535,29 +6562,69 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 15,Olentangy Liberty (Powell),21,St Edward (Lakewood),7,1,,
 15,South Range (Canfield),14,Liberty Center (Liberty Center),48,1,,
 15,West Liberty-Salem (West Liberty),21,Ironton (Ironton),63,1,,
+15,Doddridge County,13,Cameron (Cameron),28,0,WV,WV
 15,Huntington (Huntington),51,Wheeling Park (Wheeling),39,0,WV,WV
 15,Morgantown (Morgantown),7,Spring Mills (Martinsburg),14,0,WV,WV
+15,Oak Hill,14,Herbert Hoover (Elkview),56,0,WV,WV
 15,Parkersburg South (Parkersburg),14,Martinsburg (Martinsburg),56,0,WV,WV
+15,Scott,0,Roane County (Spencer),21,0,WV,WV
 15,Sherman (Seth),0,Wahama (Mason),61,0,WV,WV
 15,Spring Valley (Huntington),6,Fairmont Senior (Fairmont),29,0,WV,WV
 15,Wheeling Central Catholic (Wheeling),21,Williamstown (Williamstown),29,0,WV,WV
 15,Belfry (Belfry),21,Union County (Morganfield),43,0,KY,KY
 15,Bowling Green (Bowling Green),31,South Warren (Bowling Green),28,0,KY,KY
+15,Campbellsville,14,Sayre (Lexington),35,0,KY,KY
+15,Corbin,14,Paducah Tilghman (Paducah),31,0,KY,KY
 15,Covington Catholic (Park Hills),10,Franklin County (Frankfort),14,0,KY,KY
 15,Highlands (Fort Thomas),23,Cooper (Union),61,0,KY,KY
+15,Lexington Catholic,14,Christian Academy-Louisville (Louisville),50,0,KY,KY
+15,Lexington Christian,24,Beechwood (Fort Mitchell),44,0,KY,KY
+15,Raceland (Raceland),14,Kentucky Country Day,0,0,KY,KY
+15,Somerset,14,Owensboro Catholic (Owensboro),27,0,KY,KY
+15,Frederick Douglass (Lexington),0,Trinity (Louisville),17,0,KY,KY
 15,Great Crossing (Georgetown),7,Ryle (Union),35,0,KY,KY
 15,Lansing Catholic Central (Lansing),18,Lumen Christi (Jackson),56,1,MI,MI
+15,Beal City,43,Riverview Gabriel Richard (Riverview),14,1,MI,MI
+15,Niles,6,Goodrich,35,1,MI,MI
+15,Orchard Lake St Mary (Orchard Lake),35,Byron Center,19,1,MI,MI
+15,Lampeter-Strasburg (Lancaster),20,Thomas Jefferson,16,1,PA,PA
+15,Danville,14,Northwestern Lehigh (New Tripoli),31,1,PA,PA
+15,Troy (Troy),35,Riverside,14,1,PA,PA
+15,Bishop Guilfoyle (Altoona),21,Muncy,6,1,PA,PA
+15,Pine-Richland (Gibsonia),14,Bishop McDevitt (Harrisburg),28,1,PA,PA
+15,Fort Cherry,8,Port Allegany (Port Allegany),46,1,PA,PA
+15,Avonworth (Pittsburgh),16,Penn Cambria,6,1,PA,PA
+15,Southern Lehigh,26,Bonner-Prendergast (Drexel Hill),55,1,PA,PA
 15,Roman Catholic (Philadelphia),41,West Chester Rustin (West Chester),17,1,PA,PA
+15,Saint Joseph's Prep (Philadelphia),36,Downingtown West,7,1,PA,PA
+15,Central Clarion (co-op),55,South Park,0,1,PA,PA
+15,Adams Central,46,Linton-Stockton (Linton),6,1,IN,IN
+15,East Noble,26,New Palestine,56,1,IN,IN
+15,Westfield,17,Brownsburg,22,1,IN,IN
 15,Don Bosco Prep (Ramsey),7,Bergen Catholic (Oradell),25,1,NJ,NJ
 15,Middletown (Middletown),30,Salesianum (Wilmington),27,1,DE,DE
 15,West Linn (West Linn),44,Lake Oswego (Lake Oswego),30,1,OR,OR
 15,Wilsonville (Wilsonville),56,Mountain View (Bend),35,1,OR,OR
 15,Mallard Creek (Charlotte),0,W. A. Hough (Cornelius),34,1,NC,NC
+15,Bluefield,6,Frankfort (Ridgeley),27,0,WV,WV
+15,Hurricane (Hurricane),57,Jefferson,21,0,WV,WV
+15,Nitro,21,Bridgeport (Bridgeport),70,0,WV,WV
+15,North Marion,20,Princeton Senior (Princeton),34,0,WV,WV
+15,Pendleton County,0,Tucker County (Hambleton),50,0,WV,WV
+15,Petersburg,20,Tug Valley (Williamson),49,0,WV,WV
 15,Philip Barbour (Philippi),17,Independence (Coal City),49,0,WV,WV
+15,Detroit Cass Tech (Detroit),42,Hudsonville,20,1,MI,MI
 15,Detroit King (Detroit),22,Zeeland West (Zeeland),42,1,MI,MI
 15,Millington (Millington),24,Monroe St Mary Catholic Central (Monroe),0,1,MI,MI
+15,Pontiac Notre Dame (Pontiac),42,Frankenmuth,7,1,MI,MI
+15,Harrisburg,33,Central Catholic (Pittsburgh),38,1,PA,PA
+15,Bishop Luers (Fort Wayne),15,Heritage Hills,38,1,IN,IN
+15,North Judson-San Pierre,20,Providence,35,1,IN,IN
+15,Warsaw Community,24,Decatur Central,38,1,IN,IN
 15,Bell (Washington),34,Saint Albans School (Washington),40,1,DC,DC
 15,Iona Prep (New Rochelle),42,Canisius (Buffalo),26,0,NY,NY
+15,Howard,6,Caravel Academy (Bear),43,1,DE,DE
+15,Tatnall,45,Indian River,47,1,DE,DE
 15,North Medford (Medford),31,South Medford (Medford),13,1,OR,OR
 15,Burns (Burns),42,Vale (Vale),16,1,OR,OR
 15,Henley (Klamath Falls),6,Marist Catholic (Eugene),30,1,OR,OR
@@ -5565,6 +6632,8 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 15,St Paul (St Paul),28,Oakland (Oakland),20,1,OR,OR
 15,Harper Charter (Harper),13,Powers (Powers),32,1,OR,OR
 15,Mt Carmel (Chicago),55,Batavia (Batavia),34,1,IL,IL
+15,Kaiser,14,Kamehameha Schools - Maui,37,1,HI,HI
+15,Saint Louis School,17,Kahuku (Kahuku),10,1,HI,HI
 16,Avon (Avon),20,Anderson (Cincinnati),13,1,,
 16,Lampeter-Strasburg (Lancaster),14,Bonner-Prendergast (Drexel Hill),40,1,PA,PA
 16,Port Allegany (Port Allegany),22,Bishop Guilfoyle (Altoona),41,1,PA,PA
@@ -5578,8 +6647,12 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 16,Franklin County (Frankfort),20,Paducah Tilghman (Paducah),27,1,KY,KY
 16,Owensboro Catholic (Owensboro),34,Beechwood (Fort Mitchell),50,1,KY,KY
 16,Raceland (Raceland),22,Sayre (Lexington),27,1,KY,KY
+16,Bishop McDevitt (Harrisburg),34,Roman Catholic (Philadelphia),31,1,PA,PA
+16,Central Clarion (co-op),24,Troy (Troy),25,1,PA,PA
+16,Wilbur-Creston-Keller (Wilbur),42,Liberty Christian School,34,1,WA,WA
 16,Seton Catholic (Vancouver),28,Royal (Royal City),61,1,WA,WA
 16,O'Dea (Seattle),38,Bellevue (Bellevue),15,1,WA,WA
+16,"Charlotte Amalie (Charlotte Amalie, St Thomas)",20,"Ivanna Eudora Kean (Red Hook, St Thomas)",34,0,VI,VI
 16,Ironton (Ironton),28,Liberty Center (Liberty Center),17,1,,
 16,Kirtland (Kirtland),7,Coldwater (Coldwater),31,1,,
 16,Perkins (Sandusky),36,Indian Valley (Gnadenhutten),37,1,,
@@ -5588,6 +6661,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 16,Hurricane (Hurricane),7,Spring Mills (Martinsburg),49,0,WV,WV
 16,Wahama (Mason),29,Tucker County (Hambleton),6,0,WV,WV
 16,Christian Academy-Louisville (Louisville),42,Union County (Morganfield),21,1,KY,KY
+16,Ryle (Union),23,Trinity (Louisville),42,1,KY,KY
 16,Cooper (Union),20,Bowling Green (Bowling Green),37,1,KY,KY
 16,Central Catholic (Pittsburgh),6,Saint Joseph's Prep (Philadelphia),35,1,PA,PA
 16,Avonworth (Pittsburgh),33,Northwestern Lehigh (New Tripoli),36,1,PA,PA

@@ -1,0 +1,127 @@
+week,date,time,away,home,neutral,away_state,home_state
+1,2024-08-23,7:30pm,Jefferson Davis Academy (Blackville),Cross Schools (Bluffton),0,SC,SC
+1,2024-08-23,11:30pm,Colony (Palmer),Dimond (Anchorage),0,AK,AK
+1,2024-08-23,11:30pm,Bettye Davis East Anchorage (Anchorage),West Anchorage (Anchorage),0,AK,AK
+1,2024-08-23,11pm,Homer (Homer),Redington (Wasilla),0,AK,AK
+1,2024-08-23,,North Pole (North Pole),Wasilla (Wasilla),0,AK,AK
+1,2024-08-23,11pm,Soldotna (Soldotna),Chugiak (Eagle River),0,AK,AK
+1,2024-08-23,11pm,South Anchorage (Anchorage),Bartlett (Anchorage),0,AK,AK
+1,2024-08-23,11pm,Eagle River (Eagle River),West Valley (Fairbanks),0,AK,AK
+1,2024-08-24,7pm,Palmer (Palmer),Lathrop (Fairbanks),0,AK,AK
+1,2024-08-24,7pm,Service (Anchorage),Juneau-Douglas (Juneau),0,AK,AK
+2,2024-08-30,4:30pm,Jefferson Davis Academy (Blackville),Georgia School for Innovation and the Classics (Hephzibah),0,SC,GA
+2,2024-08-30,11pm,Houston (Houston),North Pole (North Pole),0,AK,AK
+2,2024-08-30,11:30pm,Bartlett (Anchorage),Eagle River (Eagle River),0,AK,AK
+2,2024-08-30,11:30pm,Chugiak (Eagle River),Service (Anchorage),0,AK,AK
+2,2024-08-30,11pm,Colony (Palmer),Palmer (Palmer),0,AK,AK
+2,2024-08-30,10pm,Dimond (Anchorage),Linfield Christian (Temecula),0,AK,CA
+2,2024-08-30,,Wasilla (Wasilla),Barrow (Barrow),0,AK,AK
+2,2024-08-30,10pm,West Valley (Fairbanks),Homer (Homer),0,AK,AK
+2,2024-08-30,11pm,Central East (Fresno),Bettye Davis East Anchorage (Anchorage),0,CA,AK
+2,2024-08-31,6pm,Juneau-Douglas (Juneau),South Anchorage (Anchorage),0,AK,AK
+2,2024-08-31,7pm,West Anchorage (Anchorage),Lathrop (Fairbanks),0,AK,AK
+3,2024-09-06,6pm,Curtis (Staten Island),New Rochelle (New Rochelle),0,NY,NY
+3,2024-09-06,6pm,Fort Hamilton (Brooklyn),New Dorp (Staten Island),0,NY,NY
+3,2024-09-06,4:30pm,Stuyvesant (New York),The Michael J. Petrides School (Staten Island),0,NY,NY
+3,2024-09-06,7:30pm,Jefferson Davis Academy (Blackville),Conway Christian (Conway),0,SC,SC
+3,2024-09-06,2pm,Saltfleet (Stoney Creek),Bishop Ryan (Hamilton),0,ON,ON
+3,2024-09-06,10pm,Colony (Palmer),Bartlett (Anchorage),0,AK,AK
+3,2024-09-06,11pm,Homer (Homer),Houston (Houston),0,AK,AK
+3,2024-09-06,10pm,West Valley (Fairbanks),Soldotna (Soldotna),0,AK,AK
+3,2024-09-06,11pm,South Anchorage (Anchorage),Wasilla (Wasilla),0,AK,AK
+3,2024-09-06,7pm,Rabun Gap - Nacoochee,John Curtis,0,GA,LA
+3,2024-09-07,12pm,Frank J. Macchiarola Educational Complex (Brooklyn),Port Richmond (Staten Island),0,NY,NY
+3,2024-09-07,1pm,Harry S. Truman (Bronx),McKee/Staten Island Tech (co-op) (Staten Island),0,NY,NY
+3,2024-09-07,5pm,Chugiak (Eagle River),Kenai-Central (Kenai),0,AK,AK
+3,2024-09-07,10pm,North Pole (North Pole),Lathrop (Fairbanks),0,AK,AK
+3,2024-09-07,6pm,Palmer (Palmer),Eagle River (Eagle River),0,AK,AK
+3,2024-09-07,6pm,Service (Anchorage),Bettye Davis East Anchorage (Anchorage),0,AK,AK
+3,2024-09-07,6pm,West Anchorage (Anchorage),Dimond (Anchorage),0,AK,AK
+4,2024-09-12,,St Oscar Romero (Toronto),Dr Frank J Hayden (Burlington),0,ON,ON
+4,2024-09-13,7:30pm,Jefferson Davis Academy (Blackville),The King's Academy (Florence),0,SC,SC
+4,2024-09-13,,Bishop Allen (Etobicoke),Michael Power - St Joseph (Etobicoke),0,ON,ON
+4,2024-09-13,11pm,Chugiak (Eagle River),North Pole (North Pole),0,AK,AK
+4,2024-09-13,11:15pm,Bettye Davis East Anchorage (Anchorage),Colony (Palmer),0,AK,AK
+4,2024-09-13,11pm,Soldotna (Soldotna),Palmer (Palmer),0,AK,AK
+4,2024-09-13,11pm,Wasilla (Wasilla),West Valley (Fairbanks),0,AK,AK
+4,2024-09-14,6pm,Houston (Houston),Kenai-Central (Kenai),0,AK,AK
+4,2024-09-14,7pm,Dimond (Anchorage),South Anchorage (Anchorage),0,AK,AK
+4,2024-09-14,6pm,Lathrop (Fairbanks),Eagle River (Eagle River),0,AK,AK
+4,2024-09-14,7pm,Service (Anchorage),Bartlett (Anchorage),0,AK,AK
+4,2024-09-14,7pm,West Anchorage (Anchorage),Juneau-Douglas (Juneau),0,AK,AK
+4,2024-09-14,,Redington (Wasilla),Barrow (Barrow),0,AK,AK
+5,2024-09-19,11am,St Michael (Niagara Falls),Notre Dame College (Welland),0,ON,ON
+5,2024-09-19,2pm,Michael Power - St Joseph (Etobicoke),Etobicoke CI (Etobicoke),0,ON,ON
+5,2024-09-19,2pm,Bishop Allen (Etobicoke),Lakeshore CI (Toronto),0,ON,ON
+5,2024-09-20,7:30pm,Holly Hill Academy (Holly Hill),Jefferson Davis Academy (Blackville),0,SC,SC
+5,2024-09-20,7:30pm,Western Tech (Toronto),Chaminade College School (North York),1,ON,ON
+5,2024-09-20,11:30pm,Colony (Palmer),Service (Anchorage),0,AK,AK
+5,2024-09-20,11pm,Kenai-Central (Kenai),Redington (Wasilla),0,AK,AK
+5,2024-09-20,11pm,Lathrop (Fairbanks),Chugiak (Eagle River),0,AK,AK
+5,2024-09-20,11pm,Soldotna (Soldotna),Wasilla (Wasilla),0,AK,AK
+5,2024-09-20,11pm,West Valley (Fairbanks),Palmer (Palmer),0,AK,AK
+5,2024-09-20,11:30pm,South Anchorage (Anchorage),West Anchorage (Anchorage),0,AK,AK
+5,2024-09-21,6pm,Barrow (Barrow),Homer (Homer),0,AK,AK
+5,2024-09-21,6pm,Bettye Davis East Anchorage (Anchorage),Bartlett (Anchorage),0,AK,AK
+5,2024-09-21,6pm,Juneau-Douglas (Juneau),Dimond (Anchorage),0,AK,AK
+5,2024-09-21,6pm,North Pole (North Pole),Eagle River (Eagle River),0,AK,AK
+6,2024-09-24,2pm,Villanova College (King City),Markham District (Markham),0,ON,ON
+6,2024-09-25,7pm,Cross Schools (Bluffton),Jefferson Davis Academy (Blackville),0,SC,SC
+6,2024-09-26,3pm,Blessed Trinity (Grimsby),St Michael (Niagara Falls),0,ON,ON
+6,2024-09-27,7pm,Southern Buckeye (club) (Russellville),West Union (club) (West Union),0,,
+6,2024-09-27,3pm,Senator O'Connor (Toronto),St Oscar Romero (Toronto),0,ON,ON
+6,2024-09-27,2pm,Etobicoke CI (Etobicoke),Chaminade College School (North York),0,ON,ON
+6,2024-09-27,11pm,Palmer (Palmer),North Pole (North Pole),0,AK,AK
+6,2024-09-27,11:30pm,West Anchorage (Anchorage),Service (Anchorage),0,AK,AK
+6,2024-09-27,11pm,South Anchorage (Anchorage),Colony (Palmer),0,AK,AK
+6,2024-09-27,9pm,Redington (Wasilla),Homer (Homer),0,AK,AK
+6,2024-09-27,9pm,Eagle River (Eagle River),Soldotna (Soldotna),0,AK,AK
+6,2024-09-28,11pm,Houston (Houston),Barrow (Barrow),0,AK,AK
+6,2024-09-28,6pm,Bartlett (Anchorage),Juneau-Douglas (Juneau),0,AK,AK
+6,2024-09-28,,Chugiak (Eagle River),West Valley (Fairbanks),0,AK,AK
+6,2024-09-28,7pm,Dimond (Anchorage),Bettye Davis East Anchorage (Anchorage),0,AK,AK
+6,2024-09-28,9:30pm,Wasilla (Wasilla),Lathrop (Fairbanks),0,AK,AK
+7,2024-10-02,3pm,Markham District (Markham),Father Henry Carr (Etobicoke),0,ON,ON
+7,2024-10-04,7:30pm,Cathedral Academy (North Charleston),Jefferson Davis Academy (Blackville),0,SC,SC
+7,2024-10-04,3pm,James Cardinal McGuigan (North York),St Oscar Romero (Toronto),0,ON,ON
+7,2024-10-04,11:30pm,Juneau-Douglas (Juneau),Colony (Palmer),0,AK,AK
+7,2024-10-04,9pm,Kenai-Central (Kenai),Homer (Homer),0,AK,AK
+7,2024-10-04,11pm,West Valley (Fairbanks),North Pole (North Pole),0,AK,AK
+7,2024-10-04,11pm,Redington (Wasilla),Houston (Houston),0,AK,AK
+7,2024-10-05,,Canarsie Campus (Brooklyn),Port Richmond (Staten Island),0,NY,NY
+7,2024-10-05,11pm,Bartlett (Anchorage),West Anchorage (Anchorage),0,AK,AK
+7,2024-10-05,8pm,Dimond (Anchorage),Service (Anchorage),0,AK,AK
+7,2024-10-05,7pm,Bettye Davis East Anchorage (Anchorage),South Anchorage (Anchorage),0,AK,AK
+7,2024-10-05,6pm,Lathrop (Fairbanks),Soldotna (Soldotna),0,AK,AK
+7,2024-10-05,8pm,Palmer (Palmer),Chugiak (Eagle River),0,AK,AK
+7,2024-10-05,11pm,Eagle River (Eagle River),Wasilla (Wasilla),0,AK,AK
+8,2024-10-08,2:30pm,Brebeuf College (North York),Michael Power - St Joseph (Etobicoke),0,ON,ON
+8,2024-10-09,3:30pm,James Cardinal McGuigan (North York),Senator O'Connor (Toronto),0,ON,ON
+8,2024-10-10,2:30pm,Villanova College (King City),Father Henry Carr (Etobicoke),0,ON,ON
+8,2024-10-11,,Dohn Community (Cincinnati),North Adams (club) (Seaman),0,,
+8,2024-10-11,7:30pm,Conway Christian (Conway),Jefferson Davis Academy (Blackville),0,SC,SC
+8,2024-10-11,8pm,Chugiak (Eagle River),Eagle River (Eagle River),0,AK,AK
+8,2024-10-11,11pm,Soldotna (Soldotna),North Pole (North Pole),0,AK,AK
+8,2024-10-11,11pm,Wasilla (Wasilla),Palmer (Palmer),0,AK,AK
+9,2024-10-16,12pm,Markham District (Markham),Senator O'Connor (Toronto),0,ON,ON
+9,2024-10-17,3pm,Father Henry Carr (Etobicoke),St Oscar Romero (Toronto),0,ON,ON
+9,2024-10-18,6pm,New Dorp (Staten Island),New Utrecht (Brooklyn),0,NY,NY
+9,2024-10-18,,McKee/Staten Island Tech (co-op) (Staten Island),Canarsie Campus (Brooklyn),0,NY,NY
+9,2024-10-19,4pm,"Ivanna Eudora Kean (Red Hook, St Thomas)","St Croix Educational Complex (Kingshill, St Croix)",0,VI,VI
+9,2024-10-19,4pm,"St Croix Central (Kingshill, St Croix)","Charlotte Amalie (Charlotte Amalie, St Thomas)",0,VI,VI
+10,2024-10-25,7:30pm,The King's Academy (Florence),Jefferson Davis Academy (Blackville),0,SC,SC
+10,2024-10-25,3pm,St Oscar Romero (Toronto),Villanova College (King City),0,ON,ON
+10,2024-10-25,2pm,James Cardinal McGuigan (North York),Markham District (Markham),0,ON,ON
+10,2024-10-26,6pm,Canarsie Campus (Brooklyn),New Dorp (Staten Island),0,NY,NY
+10,2024-10-26,2:30pm,"St Croix Educational Complex (Kingshill, St Croix)","St Croix Central (Kingshill, St Croix)",0,VI,VI
+11,2024-10-28,2pm,Markham District (Markham),York Memorial CI (York),0,ON,ON
+11,2024-10-30,3pm,St Ignatius of Loyola (Oakville),St Francis Xavier (Milton),0,ON,ON
+11,2024-11-01,7pm,Tottenville (Staten Island),Canarsie Campus (Brooklyn),0,NY,NY
+11,2024-11-01,7:30pm,Jefferson Davis Academy (Blackville),Holly Hill Academy (Holly Hill),0,SC,SC
+11,2024-11-02,3pm,"Ivanna Eudora Kean (Red Hook, St Thomas)","St Croix Central (Kingshill, St Croix)",0,VI,VI
+12,2024-11-08,,Susan Wagner (Staten Island),Canarsie Campus (Brooklyn),0,NY,NY
+12,2024-11-08,6pm,Port Richmond (Staten Island),New Dorp (Staten Island),0,NY,NY
+15,2024-11-30,10am,Frank J. Macchiarola Educational Complex (Brooklyn),Eagle Academy for Young Men III (Jamaica),1,NY,NY
+15,2024-11-30,,"St Croix Educational Complex (Kingshill, St Croix)","Charlotte Amalie (Charlotte Amalie, St Thomas)",0,VI,VI
+16,2024-12-21,4pm,Vandegrift (Austin),Carroll (Southlake),1,TX,TX
+16,2024-12-21,8pm,Westlake (Austin),North Crowley (Fort Worth),1,TX,TX
