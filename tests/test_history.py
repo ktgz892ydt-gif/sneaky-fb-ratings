@@ -143,3 +143,28 @@ def test_only_the_next_week_is_recorded():
                         fixture("A", "C", 6, 7.0, 0.7),
                         fixture("A", "D", 4, 7.0, 0.7)])
     assert [p[2] for p in s["pred"]] == [5]
+
+
+def test_a_snapshot_with_nothing_to_predict_is_refused(tmp_path):
+    """A finished season has nothing to forecast.
+
+    The workflow builds LAST season every run to derive the preseason prior.
+    That build has no remaining fixtures, and without this guard it appended a
+    line for 2025 week 16 marked "live" -- a completed season recorded as
+    though it had been foreseen. It would have done so on every run, and the
+    log's entire value is that its entries predate the games.
+    """
+    empty = build_snapshot(2025, 16, "t", {}, [team("A")], [])
+    assert empty["pred"] == []
+    # build.py refuses to append this; the log stays as it was.
+    p = str(tmp_path / "h.jsonl")
+    if empty["pred"]:
+        append_if_new(p, empty)
+    assert load(p) == []
+
+
+def test_a_snapshot_with_predictions_is_still_recorded(tmp_path):
+    p = str(tmp_path / "h.jsonl")
+    live = snap(1)
+    assert live["pred"]
+    assert append_if_new(p, live) is True

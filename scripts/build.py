@@ -761,7 +761,16 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
     if hpath and record_history:
         snap = build_snapshot(season, through_week, payload["generatedAt"],
                               tuned_meta, rows, schedule)
-        if append_if_new(hpath, snap):
+        # A snapshot with nothing to forecast is not a prediction, and must not
+        # enter a log whose whole value is that its entries were written before
+        # the games. The workflow builds LAST season every run to derive the
+        # prior; that build has no remaining fixtures, and without this guard it
+        # appended a "live" line for 2025 week 16 -- a finished season, recorded
+        # as though it had been foreseen. It would have done so on every run.
+        if not snap["pred"]:
+            print(f"history        : {season} week {through_week} has nothing "
+                  f"left to predict; not recorded", file=sys.stderr)
+        elif append_if_new(hpath, snap):
             print(f"history        : recorded {season} week {through_week}",
                   file=sys.stderr)
 

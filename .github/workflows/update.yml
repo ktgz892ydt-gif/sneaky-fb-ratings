@@ -81,7 +81,11 @@ jobs:
             # build.py would auto-detect it and hand last season's teams a
             # "remaining" fixture. That flows into prior.json and out into
             # this season's ratings.
-            python scripts/build.py --no-site --no-prior --no-schedule \
+            # --no-history as well: this is a build of a FINISHED season, so
+            # it has nothing to forecast and nothing belongs in the prediction
+            # log. build.py refuses to record an empty snapshot anyway; this
+            # says so at the call site rather than relying on that.
+            python scripts/build.py --no-site --no-prior --no-schedule --no-history \
               --games data/games_2025.csv \
               --roster data/roster_2025.csv \
               --out data/ratings_2025.json
