@@ -31,10 +31,40 @@ a handful of matrix products rather than 10,000 passes over the schedule.
 
 from __future__ import annotations
 
+from dataclasses import dataclass
+
 import numpy as np
 from scipy import sparse
 
 from harbin import DIVISION_POINTS, LAST_REGULAR_WEEK, OUT_OF_STATE_POINTS
+
+
+@dataclass
+class SeasonSim:
+    """The finished simulation, kept whole so it can be asked new questions.
+
+    `summary` is the per-team distribution the page reads. The arrays behind it
+    are retained because every what-if is already contained in them:
+
+        P(playoffs | we beat Canfield)
+          = of the simulated seasons in which we beat Canfield,
+            the share in which we also qualified
+
+    That is the exact conditional under the model, and it costs a boolean mask
+    -- no re-simulation. Re-running instead would mean two fresh simulations
+    per team per remaining fixture, about 12,600 runs, which at 0.9s each is
+    over three hours to answer a question the existing sample already answers.
+    """
+    summary: dict
+    team_ids: list
+    won: np.ndarray          # (remaining games x sims) did the HOME team win
+    qualified: np.ndarray    # (teams x sims) did this team make the playoffs
+    home: np.ndarray         # team index of the home side, per remaining game
+    away: np.ndarray
+    n_sims: int
+
+    def index(self):
+        return {t: i for i, t in enumerate(self.team_ids)}
 
 
 def _division_values(team_ids, teams, out_of_state=OUT_OF_STATE_POINTS):
@@ -123,7 +153,11 @@ def simulate_season(team_ids, teams, played, remaining, probs, per_region,
     harbin = (l1 + l2) / divisor
 
     wins = fixed_wins[:, None] + s_home @ won + s_away @ lost
-    return _summarise(team_ids, teams, harbin, wins, per_region, n_sims, rng)
+    summary, qualified = _summarise(team_ids, teams, harbin, wins, per_region,
+                                    n_sims, rng)
+    return SeasonSim(summary=summary, team_ids=list(team_ids),
+                     won=won.astype(bool), qualified=qualified,
+                     home=home, away=away, n_sims=n_sims)
 
 
 # Harbin values are sums of halves divided by a game count of at most 16, so
@@ -164,19 +198,21 @@ def _summarise(team_ids, teams, harbin, wins, per_region, n_sims,
                           axis=0)
         seed_rank[rows] = ranks
 
+    qualified = np.zeros((n, n_sims), dtype=bool)
     out = {}
     for i, t in enumerate(team_ids):
         tm = teams[t]
         if not (tm.in_ohio and tm.region is not None):
             continue
         r = seed_rank[i]
+        qualified[i] = r <= per_region
         w = wins[i]
         made = float((r <= per_region).mean())
         rec = np.bincount(np.rint(w).astype(int), minlength=17)[:17]
         out[t] = {
-            "playoffOdds": round(made, 4),
-            "byeOdds": round(float((r <= 4).mean()), 4),
-            "topSeedOdds": round(float((r == 1).mean()), 4),
+            "playoffOdds": round(made, DP),
+            "byeOdds": round(float((r <= 4).mean()), DP),
+            "topSeedOdds": round(float((r == 1).mean()), DP),
             "meanSeed": round(float(r.mean()), 2),
             "medianSeed": int(np.median(r)),
             "meanHarbin": round(float(harbin[i].mean()), 3),
@@ -185,11 +221,146 @@ def _summarise(team_ids, teams, harbin, wins, per_region, n_sims,
             # Trimmed to the range that ever happens so the payload stays small.
             "winDist": _trim(rec / n_sims),
         }
-    return out
+    return out, qualified
 
 
 def _trim(dist):
     nz = np.nonzero(dist > 0.0005)[0]
     if not len(nz):
         return {}
-    return {int(k): round(float(dist[k]), 4) for k in range(nz[0], nz[-1] + 1)}
+    return {int(k): round(float(dist[k]), DP) for k in range(nz[0], nz[-1] + 1)}
+
+
+# ---------------------------------------------------------------------------
+# What-ifs
+# ---------------------------------------------------------------------------
+#
+# Two questions, and the second is the one nothing else on the internet answers
+# for Ohio high school football:
+#
+#   1. What do MY remaining games do to my odds?
+#   2. Which games that I am NOT playing in do the most to my odds?
+#
+# (2) exists because of how Harbin is built. Level 2 pays you for your
+# opponents' wins, so a team you already beat winning again lifts you; and the
+# twelve places in a region are contested, so a rival losing lifts you too.
+# Those two channels pull in opposite directions and their net effect is not
+# something anyone can work out in their head. The simulation already knows.
+#
+# Both are read off the finished sample rather than re-simulated. Conditioning
+# is exact, not an approximation of re-running: the seasons in which we beat
+# Canfield ARE a fair sample of the seasons in which we beat Canfield.
+
+# Below this many simulated seasons on the thinner side of a split, the
+# conditional is too noisy to publish. At 10,000 sims a 300-season branch gives
+# a standard error near 3 points, which is about the resolution the page claims
+# anyway; anything thinner is mostly sampling noise and is dropped rather than
+# shown with false precision.
+MIN_BRANCH = 300
+
+# Simulation output is rounded to this many decimals. Not a size trick: with
+# 10,000 seasons the standard error on a probability near a half is
+# sqrt(0.25/10000) = 0.005, so the fourth decimal is noise and publishing it
+# claims fifty times the precision the method has. Three decimals is still
+# finer than the page displays.
+DP = 3
+
+
+def _conditional(qualified_row, mask, n_sims):
+    """P(qualify | mask) and P(qualify | not mask), or None if a branch is thin."""
+    n_true = int(mask.sum())
+    n_false = n_sims - n_true
+    if n_true < MIN_BRANCH or n_false < MIN_BRANCH:
+        return None
+    return (float((qualified_row & mask).sum()) / n_true,
+            float((qualified_row & ~mask).sum()) / n_false,
+            n_true)
+
+
+def own_game_swings(sim, team_ids=None):
+    """-> {team_id: [{gameIndex, oddsIfWin, oddsIfLose, swing}]}.
+
+    One entry per remaining fixture the team plays in. `won` records whether the
+    HOME side won, so for a team playing away the mask is inverted -- getting
+    that backwards would silently report every road game upside-down.
+    """
+    wanted = set(team_ids) if team_ids is not None else set(sim.team_ids)
+    by_team = {}
+    for k in range(len(sim.home)):
+        for side, team_i in (("home", sim.home[k]), ("away", sim.away[k])):
+            t = sim.team_ids[team_i]
+            if t not in wanted:
+                continue
+            mask = sim.won[k] if side == "home" else ~sim.won[k]
+            got = _conditional(sim.qualified[team_i], mask, sim.n_sims)
+            if got is None:
+                continue
+            win, lose, n = got
+            by_team.setdefault(t, []).append({
+                "g": k,
+                "oddsIfWin": round(win, DP),
+                "oddsIfLose": round(lose, DP),
+                "swing": round(win - lose, DP),
+            })
+    for t in by_team:
+        by_team[t].sort(key=lambda r: -abs(r["swing"]))
+    return by_team
+
+
+def scoreboard_watch(sim, teams, top_n=3):
+    """-> {team_id: [{gameIndex, rooting, swing}]} for games the team is not in.
+
+    Restricted to fixtures involving a team from the same region, because those
+    are the ones that can plausibly move a regional cut line, and because
+    scoring every team against every fixture would be 700 x 3,000 conditionals
+    for no gain.
+
+    Vectorised per region: one matrix product gives every member's conditional
+    against every candidate fixture at once.
+    """
+    idx = sim.index()
+    members = {}
+    for t in sim.team_ids:
+        tm = teams[t]
+        if tm.in_ohio and tm.region is not None:
+            members.setdefault(tm.region, []).append(idx[t])
+
+    out = {}
+    for region, rows in members.items():
+        rows = np.array(rows)
+        in_region = np.zeros(len(sim.team_ids), dtype=bool)
+        in_region[rows] = True
+        # fixtures with at least one team from this region
+        cand = np.where(in_region[sim.home] | in_region[sim.away])[0]
+        if not len(cand):
+            continue
+
+        w = sim.won[cand].astype(np.float32)              # (games x sims)
+        n_home = w.sum(axis=1)
+        ok = (n_home >= MIN_BRANCH) & ((sim.n_sims - n_home) >= MIN_BRANCH)
+        cand, w, n_home = cand[ok], w[ok], n_home[ok]
+        if not len(cand):
+            continue
+
+        q = sim.qualified[rows].astype(np.float32)        # (members x sims)
+        both = q @ w.T                                     # home won AND qualified
+        qtot = q.sum(axis=1)[:, None]
+        p_home = both / n_home[None, :]
+        p_away = (qtot - both) / (sim.n_sims - n_home)[None, :]
+        swing = p_home - p_away                            # (members x games)
+
+        for r, team_i in enumerate(rows):
+            t = sim.team_ids[team_i]
+            # A game this team plays in is not scoreboard watching.
+            mine = (sim.home[cand] == team_i) | (sim.away[cand] == team_i)
+            s = np.where(mine, 0.0, swing[r])
+            order = np.argsort(-np.abs(s))[:top_n]
+            picks = [{
+                "g": int(cand[j]),
+                # Positive swing means the HOME side winning helps this team.
+                "rooting": "home" if s[j] > 0 else "away",
+                "swing": round(float(abs(s[j])), DP),
+            } for j in order if abs(s[j]) >= 0.005]
+            if picks:
+                out[t] = picks
+    return out

@@ -558,6 +558,28 @@ tr[data-top="1"] .c-rank::before {
   font-weight: 600; }
 .pp-line { margin: 0 0 6px; line-height: 1.5; }
 .pp-note { margin: 12px 0 0; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+.wi-rows { display: flex; flex-direction: column; }
+.wi-row { display: grid; grid-template-columns: 3.2em 1fr auto 2.4em; gap: 8px;
+  align-items: baseline; padding: 5px 0; border-top: 1px solid var(--rule); }
+.wi-row:first-child { border-top: 0; }
+.wi-big { background: var(--surface-sunk); margin: 0 -8px; padding: 5px 8px;
+  border-radius: 3px; }
+.wi-wk { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); }
+.wi-opp { font-size: 14px; }
+.wi-odds { font-family: var(--mono); font-size: 13px; white-space: nowrap; }
+.wi-odds em { color: var(--ink-soft); font-style: normal; padding: 0 3px; }
+.wi-root { font-size: 13px; color: var(--ink-soft); }
+.wi-swing { font-family: var(--mono); font-size: 13px; text-align: right;
+  color: var(--ink-soft); }
+@media (max-width: 620px) {
+  .wi-row { grid-template-columns: 3.2em 1fr auto; }
+  .wi-swing { display: none; }
+  /* A watch row carries two long team names and a "root for" line. Squeezed
+     into columns they wrap to four lines each; stacked they read cleanly. */
+  .wi-watch { grid-template-columns: 3.2em 1fr; }
+  .wi-watch .wi-root { grid-column: 2 / -1; padding-top: 2px; }
+}
+
 .pp-bars { display: flex; flex-direction: column; gap: 3px; }
 .pp-bar { display: grid; grid-template-columns: 3.4em 1fr 3em; align-items: center; gap: 8px; }
 .pp-rec { font-family: var(--mono); font-size: 13px; color: var(--ink-soft); }
@@ -686,6 +708,28 @@ tr[data-top="1"] .c-rank::before {
   font-weight: 600; }
 .pp-line { margin: 0 0 6px; line-height: 1.5; }
 .pp-note { margin: 12px 0 0; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+.wi-rows { display: flex; flex-direction: column; }
+.wi-row { display: grid; grid-template-columns: 3.2em 1fr auto 2.4em; gap: 8px;
+  align-items: baseline; padding: 5px 0; border-top: 1px solid var(--rule); }
+.wi-row:first-child { border-top: 0; }
+.wi-big { background: var(--surface-sunk); margin: 0 -8px; padding: 5px 8px;
+  border-radius: 3px; }
+.wi-wk { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); }
+.wi-opp { font-size: 14px; }
+.wi-odds { font-family: var(--mono); font-size: 13px; white-space: nowrap; }
+.wi-odds em { color: var(--ink-soft); font-style: normal; padding: 0 3px; }
+.wi-root { font-size: 13px; color: var(--ink-soft); }
+.wi-swing { font-family: var(--mono); font-size: 13px; text-align: right;
+  color: var(--ink-soft); }
+@media (max-width: 620px) {
+  .wi-row { grid-template-columns: 3.2em 1fr auto; }
+  .wi-swing { display: none; }
+  /* A watch row carries two long team names and a "root for" line. Squeezed
+     into columns they wrap to four lines each; stacked they read cleanly. */
+  .wi-watch { grid-template-columns: 3.2em 1fr; }
+  .wi-watch .wi-root { grid-column: 2 / -1; padding-top: 2px; }
+}
+
 .pp-bars { display: flex; flex-direction: column; gap: 3px; }
 .pp-bar { display: grid; grid-template-columns: 3.4em 1fr 3em; align-items: center; gap: 8px; }
 .pp-rec { font-family: var(--mono); font-size: 13px; color: var(--ink-soft); }
@@ -1209,6 +1253,55 @@ tr[data-top="1"] .c-rank::before {
     return { rating: place("rating"), harbin: place("harbinNow"), of: peers.length };
   }
 
+  // "Beat them and you're at 94%; lose and you're at 68%." The swing is the
+  // number that matters -- it is what makes one Friday worth more than another.
+  function whatIfPanel(t) {
+    var rows = t.whatIf || [];
+    if (!rows.length) return "";
+    var best = rows.reduce(function (a, b) {
+      return Math.abs(b.win - b.lose) > Math.abs(a.win - a.lose) ? b : a;
+    });
+    var html = "<h4>What each remaining game is worth</h4>"
+      + '<p class="pp-note" style="margin:0 0 8px">Playoff odds if this team wins, '
+      + "against if it loses. Biggest swing: <strong>week " + best.w + "</strong>, "
+      + Math.round(Math.abs(best.win - best.lose) * 100) + " points.</p>"
+      + '<div class="wi-rows">';
+    rows.forEach(function (r) {
+      var opp = typeof r.o === "number" ? (DATA.teams[r.o] || {}).name : r.o;
+      var sw = r.win - r.lose;
+      html += '<div class="wi-row' + (r === best ? " wi-big" : "") + '">'
+        + '<span class="wi-wk">Wk ' + r.w + "</span>"
+        + '<span class="wi-opp">' + (r.h ? "vs " : "at ") + esc(opp || "—") + "</span>"
+        + '<span class="wi-odds"><i class="pos">' + pct(r.win) + "</i>"
+        + '<em>/</em><i class="neg">' + pct(r.lose) + "</i></span>"
+        + '<span class="wi-swing">' + (sw >= 0 ? "+" : "")
+        + Math.round(sw * 100) + "</span></div>";
+    });
+    return html + "</div>";
+  }
+
+  // Games this team is not playing in that still move its odds. Harbin pays
+  // for your opponents' wins and the regional places are contested, so those
+  // two pulls do not cancel in any way a person could work out unaided.
+  function watchPanel(t) {
+    var rows = t.watch || [];
+    if (!rows.length) return "";
+    var html = "<h4>Scoreboard watching</h4>"
+      + '<p class="pp-note" style="margin:0 0 8px">Games elsewhere that move this '
+      + "team&rsquo;s odds the most, and which way to want them to go.</p>"
+      + '<div class="wi-rows">';
+    rows.forEach(function (r) {
+      var h = typeof r.h === "number" ? (DATA.teams[r.h] || {}).name : r.h;
+      var a = typeof r.a === "number" ? (DATA.teams[r.a] || {}).name : r.a;
+      var root = r["for"] === "home" ? h : a;
+      html += '<div class="wi-row wi-watch"><span class="wi-wk">Wk ' + r.w + "</span>"
+        + '<span class="wi-opp">' + esc(a) + " at " + esc(h) + "</span>"
+        + '<span class="wi-root">root for <strong>' + esc(root) + "</strong></span>"
+        + '<span class="wi-swing">' + Math.round(r.sw * 100) + "</span></div>";
+    });
+    return html + "</div>";
+  }
+
   function playoffPanel(t) {
     var wrap = document.createElement("div");
     wrap.className = "playoff-panel";
@@ -1244,6 +1337,8 @@ tr[data-top="1"] .c-rank::before {
       });
       html += "</div>";
     }
+
+    html += whatIfPanel(t) + watchPanel(t);
 
     html += '<p class="pp-note">Odds come from simulating the rest of the regular '
       + "season " + (po.simulations || 10000).toLocaleString() + " times, deciding each "

@@ -18,7 +18,8 @@ from harbin import (FIRST_ROUND_BYES, LAST_REGULAR_WEEK,  # noqa: E402
                     leans_on_out_of_state, qualifiers, validate)
 from ratings import RatingConfig, rate, win_probability  # noqa: E402
 from resolve import load_games, load_roster, resolve, team_identity  # noqa: E402
-from simulate import simulate_season  # noqa: E402
+from simulate import (own_game_swings, scoreboard_watch,  # noqa: E402
+                      simulate_season)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
@@ -468,8 +469,64 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
             continue
         sim_rem.append((g["home"], g["away"]))
         sim_p.append(g["homeWinProb"])
-    sim = simulate_season(team_ids, res.teams, res.games, sim_rem, sim_p,
-                          QUALIFIERS_PER_REGION)
+    # `sim_rows` keeps the schedule row each simulated fixture came from, so a
+    # what-if can name the opponent and the week rather than an array index.
+    sim_rows = []
+    for g in schedule:
+        if not g.get("predicted") or g["week"] > LAST_REGULAR_WEEK:
+            continue
+        if g["home"] is None or g["away"] is None:
+            continue
+        sim_rows.append(g)
+
+    # NB: `season` in this function is the YEAR. Do not shadow it here -- doing
+    # so put the simulation object into the payload's "season" field, which
+    # json.dump then refused. Loud, but only because a dataclass is not
+    # serialisable; an int-like object would have shipped a wrong year.
+    sim_season = simulate_season(team_ids, res.teams, res.games, sim_rem, sim_p,
+                                 QUALIFIERS_PER_REGION)
+    sim = sim_season.summary
+
+    # ---- what-ifs ---------------------------------------------------------
+    # Read off the finished simulation by conditioning, never re-simulated:
+    # two fresh runs per team per fixture would be ~12,600 simulations.
+    pos_of_team = {t: i for i, t in enumerate(team_ids)}
+    # Only teams that can actually qualify. An out-of-state team is never in a
+    # region, so its conditional odds are trivially zero either way -- rows that
+    # say nothing, for a third of the payload.
+    can_qualify = [t for t in team_ids
+                   if res.teams[t].in_ohio and res.teams[t].region is not None]
+    swings = own_game_swings(sim_season, can_qualify)
+    watches = scoreboard_watch(sim_season, res.teams)
+
+    def _row(k):
+        return sim_rows[k]
+
+    what_if = {}
+    for t, entries in swings.items():
+        rows = []
+        for e in entries:
+            g = _row(e["g"])
+            opp = g["away"] if g["home"] == t else g["home"]
+            rows.append({"w": g["week"],
+                         "o": pos_of_team.get(opp, opp),
+                         "h": 1 if g["home"] == t else 0,
+                         "win": e["oddsIfWin"], "lose": e["oddsIfLose"]})
+        rows.sort(key=lambda r: r["w"])
+        if rows:
+            what_if[t] = rows
+
+    watch_out = {}
+    for t, picks in watches.items():
+        rows = []
+        for pick in picks:
+            g = _row(pick["g"])
+            rows.append({"w": g["week"],
+                         "h": pos_of_team.get(g["home"], g["homeName"]),
+                         "a": pos_of_team.get(g["away"], g["awayName"]),
+                         "for": pick["rooting"], "sw": pick["swing"]})
+        if rows:
+            watch_out[t] = rows
 
     # Rank Ohio teams only, and only those that have actually played.
     #
@@ -535,6 +592,10 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
                 "seedNow": seeds_now.get(t),
                 **projections.get(t, {}),
                 **sim.get(t, {}),
+                # What each remaining game is worth, and which games elsewhere
+                # to watch. See whatIfCols in the payload.
+                **({"whatIf": what_if[t]} if t in what_if else {}),
+                **({"watch": watch_out[t]} if t in watch_out else {}),
             }
         )
 
@@ -596,6 +657,14 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
                 "forecast is this board's, because Harbin cannot forecast."
             ),
             "harbinAgreement": harbin_check,
+            "whatIfCols": (
+                "whatIf: w=week o=opponent (index into teams) h=1 when at home "
+                "win/lose=playoff odds conditional on that result. "
+                "watch: w=week h/a=the two teams for=which side to root for "
+                "sw=how much their result moves this team's odds. "
+                "Both are read off the same 10,000 seasons by conditioning, so "
+                "playoffOdds always lies between win and lose."
+            ),
             "approxTeams": sum(1 for t in team_ids
                                if res.teams[t].in_ohio and harbin_approx.get(t)),
             "approxNote": (

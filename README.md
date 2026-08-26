@@ -153,6 +153,26 @@ Brier of 0.0795, against 0.2495 for always predicting the base rate.
 `check.py` enforces the conservation law: playoff odds must sum to exactly 12
 across each region, bye odds to 4, top-seed odds to 1.
 
+### What each game is worth
+
+Every remaining fixture carries the playoff odds **if the team wins** against
+**if it loses**, and the board also names the games it is *not* playing in that
+move its odds the most, with which side to root for. That second one exists
+because Harbin pays you for your opponents' wins while the regional places are
+contested — the two pulls run opposite ways and the net is not something anyone
+can work out unaided.
+
+Both are read off the same 10,000 seasons by conditioning rather than
+re-simulated: the seasons in which a team beat a given opponent are a fair
+sample of exactly that. Re-running instead would be ~12,600 simulations to
+answer a question the sample already contains.
+
+Because they are conditionals they obey the law of total probability, so a
+team's own odds must sit between the two — and `check.py` asserts it. That
+catches the one mistake that would otherwise be invisible: reading a road game
+the wrong way round, which reports "if we win" numbers that are really "if we
+lose".
+
 ## Teams with no result yet
 
 A team that has not played this season still receives a rating — the prior and

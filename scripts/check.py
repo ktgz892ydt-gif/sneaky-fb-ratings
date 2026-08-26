@@ -390,6 +390,48 @@ def main():
                 check(abs(sm - 1.0) < 0.02,
                       f"{t['name']}: win distribution sums to {sm:.3f}, not 1")
 
+        # ---- what-ifs are conditionals, so they obey the law of total
+        # probability. P(qualify) is a weighted average of P(qualify | win) and
+        # P(qualify | lose), which means the unconditional figure must lie
+        # BETWEEN them. This is the check that catches the mistake that matters:
+        # inverting a road game, so the odds shown for winning are really the
+        # odds for losing. Nothing about such a payload looks wrong otherwise.
+        inverted = between = 0
+        for t in d["teams"]:
+            odds = t.get("playoffOdds")   # not `po`: that is the playoffs block
+            check(odds is not None or not t.get("whatIf"),
+                  f"{t['name']} carries what-if odds but no playoff odds")
+            if odds is None:
+                continue
+            for r in (t.get("whatIf") or []):
+                lo, hi = min(r["win"], r["lose"]), max(r["win"], r["lose"])
+                if not (lo - 0.02 <= odds <= hi + 0.02):
+                    inverted += 1
+                between += 1
+                check(0.0 <= r["win"] <= 1.0 and 0.0 <= r["lose"] <= 1.0,
+                      f"{t['name']} week {r['w']}: what-if odds out of range")
+            for r in (t.get("watch") or []):
+                check(r["for"] in ("home", "away"),
+                      f"{t['name']}: watch entry roots for {r['for']!r}")
+                check(0.0 <= r["sw"] <= 1.0,
+                      f"{t['name']}: watch swing {r['sw']} is not a probability")
+        check(inverted == 0,
+              f"{inverted} of {between} what-if pairs do not bracket the team's "
+              f"own playoff odds -- a conditional is inverted, most likely a "
+              f"home/away mix-up")
+        warn(between > 0 or not any(t.get("remaining") for t in d["teams"]),
+             "no what-if numbers were published even though games remain")
+
+        # A team must never be told to watch a game it is playing in -- that is
+        # not scoreboard watching, and it would silently double-count.
+        pos = {t["id"]: i for i, t in enumerate(d["teams"])}
+        for t in d["teams"]:
+            me = pos[t["id"]]
+            for r in (t.get("watch") or []):
+                check(me not in (r["h"], r["a"]),
+                      f"{t['name']} is told to watch a game it plays in "
+                      f"(week {r['w']})")
+
         # The published Harbin implementation must still agree with the source.
         ag = po.get("harbinAgreement") or {}
         if ag.get("exactFraction") is not None:

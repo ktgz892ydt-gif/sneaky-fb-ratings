@@ -20,7 +20,8 @@ sys.path.insert(0, os.path.join(ROOT, "scripts"))
 from harbin import (DIVISION_POINTS, QUALIFIERS_PER_REGION,  # noqa: E402
                     harbin_points, qualifiers, validate, win_tables)
 from resolve import load_games, load_roster, resolve  # noqa: E402
-from simulate import simulate_season  # noqa: E402
+from simulate import (own_game_swings, scoreboard_watch,  # noqa: E402
+                      simulate_season)
 
 
 class T:
@@ -151,7 +152,7 @@ def test_the_odds_across_a_region_sum_to_the_places_available():
     season, so the odds must add to that -- whatever the simulation does."""
     teams, rem, probs = _toy()
     sim = simulate_season(sorted(teams), teams, [], rem, probs, per_region=2,
-                          n_sims=2000)
+                          n_sims=2000).summary
     for r in (1, 2):
         tot = sum(v["playoffOdds"] for t, v in sim.items() if teams[t].region == r)
         assert tot == pytest.approx(2.0, abs=0.02), (r, tot)
@@ -160,7 +161,7 @@ def test_the_odds_across_a_region_sum_to_the_places_available():
 def test_evenly_matched_teams_get_even_odds():
     teams, rem, probs = _toy()
     sim = simulate_season(sorted(teams), teams, [], rem, probs, per_region=2,
-                          n_sims=4000)
+                          n_sims=4000).summary
     odds = [v["playoffOdds"] for v in sim.values()]
     assert max(odds) - min(odds) < 0.12, odds
 
@@ -170,7 +171,7 @@ def test_a_certain_winner_is_certain_to_qualify():
     probs = [1.0 if rem[k][0] == "t0" else (0.0 if rem[k][1] == "t0" else 0.5)
              for k in range(len(rem))]
     sim = simulate_season(sorted(teams), teams, [], rem, probs, per_region=2,
-                          n_sims=2000)
+                          n_sims=2000).summary
     assert sim["t0"]["playoffOdds"] > 0.99
 
 
@@ -179,12 +180,13 @@ def test_the_simulation_is_reproducible():
     teams, rem, probs = _toy()
     a = simulate_season(sorted(teams), teams, [], rem, probs, 2, n_sims=500)
     b = simulate_season(sorted(teams), teams, [], rem, probs, 2, n_sims=500)
-    assert a == b
+    assert a.summary == b.summary
+    assert (a.qualified == b.qualified).all()
 
 
 def test_a_win_distribution_is_a_distribution():
     teams, rem, probs = _toy()
-    sim = simulate_season(sorted(teams), teams, [], rem, probs, 2, n_sims=2000)
+    sim = simulate_season(sorted(teams), teams, [], rem, probs, 2, n_sims=2000).summary
     for t, v in sim.items():
         assert sum(v["winDist"].values()) == pytest.approx(1.0, abs=0.02)
         assert all(0 <= k <= 16 for k in v["winDist"])
@@ -193,5 +195,82 @@ def test_a_win_distribution_is_a_distribution():
 def test_out_of_state_teams_cannot_qualify():
     teams = {"oh": T("III", region=1), "oos": T(None, None, in_ohio=False)}
     sim = simulate_season(sorted(teams), teams, [game("oh", "oos", 21, 0)], [], [],
-                          per_region=QUALIFIERS_PER_REGION, n_sims=100)
+                          per_region=QUALIFIERS_PER_REGION, n_sims=100).summary
     assert "oos" not in sim and "oh" in sim
+
+
+# --------------------------------------------------------------- what-ifs
+#
+# These are conditionals read off the finished sample, so they satisfy the law
+# of total probability exactly. That identity is the test: it catches the one
+# mistake that would otherwise be invisible -- reporting a road game the wrong
+# way round, so "if we win" is really "if we lose".
+
+def test_total_probability_holds_for_every_what_if():
+    teams, rem, probs = _toy()
+    sim = simulate_season(sorted(teams), teams, [], rem, probs, 2, n_sims=4000)
+    swings = own_game_swings(sim)
+    assert swings, "no what-ifs produced"
+    for t, rows in swings.items():
+        odds = sim.summary[t]["playoffOdds"]
+        for r in rows:
+            lo, hi = min(r["oddsIfWin"], r["oddsIfLose"]), max(r["oddsIfWin"], r["oddsIfLose"])
+            assert lo - 0.01 <= odds <= hi + 0.01, (t, r, odds)
+
+
+def test_winning_never_hurts():
+    """Under this model a win cannot lower your own playoff odds."""
+    teams, rem, probs = _toy()
+    sim = simulate_season(sorted(teams), teams, [], rem, probs, 2, n_sims=6000)
+    for t, rows in own_game_swings(sim).items():
+        for r in rows:
+            assert r["oddsIfWin"] >= r["oddsIfLose"] - 0.02, (t, r)
+
+
+def test_an_away_game_is_not_reported_upside_down():
+    """`won` records the HOME side. Getting this backwards for road games is
+    the failure the law-of-total-probability check exists to catch, so it is
+    worth a direct test too."""
+    teams = {"a": T("III", region=1), "b": T("III", region=1),
+             "c": T("III", region=1)}
+    # 'a' is always AWAY, and always wins.
+    rem = [("b", "a"), ("c", "a")]
+    sim = simulate_season(sorted(teams), teams, [], rem, [0.0, 0.0], 1, n_sims=800)
+    rows = own_game_swings(sim).get("a")
+    # With p(home)=0 there is no losing branch to condition on, so nothing is
+    # published -- which is itself correct behaviour.
+    assert rows is None or all(r["oddsIfWin"] >= r["oddsIfLose"] for r in rows)
+
+    sim2 = simulate_season(sorted(teams), teams, [], rem, [0.5, 0.5], 1, n_sims=4000)
+    rows2 = own_game_swings(sim2)["a"]
+    for r in rows2:
+        assert r["oddsIfWin"] > r["oddsIfLose"], r
+
+
+def test_a_lopsided_game_is_not_published_at_all():
+    """A branch nobody simulated is not evidence. Below MIN_BRANCH we say
+    nothing rather than quote a number built on a handful of seasons."""
+    teams, rem, _ = _toy()
+    probs = [1.0] * len(rem)          # every home team certain to win
+    sim = simulate_season(sorted(teams), teams, [], rem, probs, 2, n_sims=2000)
+    for rows in own_game_swings(sim).values():
+        assert rows == [] or rows is None or len(rows) == 0
+
+
+def test_scoreboard_watch_never_lists_your_own_game():
+    teams, rem, probs = _toy()
+    sim = simulate_season(sorted(teams), teams, [], rem, probs, 2, n_sims=4000)
+    idx = sim.index()
+    for t, picks in scoreboard_watch(sim, teams).items():
+        for p in picks:
+            k = p["g"]
+            assert idx[t] not in (sim.home[k], sim.away[k]), (t, p)
+
+
+def test_scoreboard_watch_picks_a_side():
+    teams, rem, probs = _toy()
+    sim = simulate_season(sorted(teams), teams, [], rem, probs, 2, n_sims=4000)
+    for picks in scoreboard_watch(sim, teams).values():
+        for p in picks:
+            assert p["rooting"] in ("home", "away")
+            assert 0.0 <= p["swing"] <= 1.0

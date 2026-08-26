@@ -23,7 +23,7 @@ nothing.
 
 **Current state: working and deployed.** Week 1 of 2026 is live. Three past
 seasons (2023–2025) are committed. Model constants are fitted, not guessed.
-171 unit tests pass in CI before anything touches the network.
+177 unit tests pass in CI before anything touches the network.
 
 ---
 
@@ -32,7 +32,7 @@ seasons (2023–2025) are committed. Model constants are fitted, not guessed.
 ```bash
 cd ~/Documents/GitHub/sneaky-fb-ratings
 git fetch && git status          # the bot commits here; the remote is often ahead
-python -m pytest tests/ -q       # expect 171 passed; pip install -r requirements.txt if not
+python -m pytest tests/ -q       # expect 177 passed; pip install -r requirements.txt if not
 python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/check.json --no-site
 ```
 
@@ -176,11 +176,10 @@ now ~82 KB gzipped. `scheduleCols` in the payload documents the short keys.
 The two lists grow past each other as the season runs, so the page stays about
 the same size all year.
 
-**Phases 2, 3 and 4 are built** — Monte Carlo, regional playoff odds and a real
+**Phases 2, 3, 4 and 5 are built** — Monte Carlo, regional playoff odds and a real
 Harbin implementation, delivered together because they are one thing. See "The
-playoff model" below. Phases 5 (what-if scenarios) and 6 (weekly trend history)
-are not started; a first step toward 6 is described under Open items as
-forward-looking scorekeeping.
+playoff model" below. Phase 6 (weekly trend history) is not started; a first
+step toward it is described under Open items as forward-looking scorekeeping.
 
 Monte Carlo runs at build time in numpy, not in the browser: 10,000 seasons
 takes 0.9s vectorised and would be painful on a phone.
@@ -267,6 +266,47 @@ simulated season, so those sums are conservation laws. They are the strongest
 available check on a Monte Carlo — a plausible-looking set of percentages that
 does not add up means the ranking inside the simulation is wrong, and nothing
 else would reveal it.
+
+### What-ifs (Phase 5) are conditionals, not re-runs
+
+"Beat La Salle and you are at 94%; lose and you are at 68%."
+
+The obvious implementation is to pin a fixture's probability to 1 and simulate
+again. **Don't.** That is two fresh runs per team per remaining fixture — about
+12,600 simulations, over three hours at 0.9s each — to answer a question the
+sample already contains. The seasons in which we beat La Salle *are* a fair
+sample of the seasons in which we beat La Salle, so conditioning on the finished
+run is exact, not an approximation, and it costs a boolean mask. Both what-if
+tables build in about 0.1s.
+
+Two are published per team:
+
+- **`whatIf`** — every remaining game, with playoff odds conditional on winning
+  and on losing. The gap between them is what makes one Friday matter more than
+  another, and it is often not the game you would guess: Elder's out-of-state
+  fixtures swing 2-7 points while its Ohio games swing 22-26, because Harbin
+  only pays for beating Ohio teams who then win.
+- **`watch`** — the games this team is *not* playing in that move its odds most,
+  and which side to root for. This exists because Harbin's Level 2 pays you for
+  your opponents' wins while the twelve regional places are contested, so the
+  two pulls run in opposite directions and the net is not something anyone can
+  work out unaided.
+
+**The invariant that guards them.** These are conditionals, so the law of total
+probability applies: a team's own playoff odds must lie *between* its
+odds-if-win and odds-if-lose. `check.py` asserts it on every pair. It catches
+the one error that is otherwise invisible — `won` records whether the *home*
+side won, so a road game read the wrong way round reports "if we win" numbers
+that are really "if we lose", and nothing about the resulting page looks wrong.
+6,126 of 6,126 pairs currently satisfy it.
+
+**A branch nobody simulated is not evidence.** Below `MIN_BRANCH` (300 seasons)
+on the thinner side, nothing is published rather than quoting a figure built on
+a handful of samples.
+
+**Precision is capped at three decimals** (`simulate.DP`). Not a size trick: at
+10,000 seasons the standard error near a half is 0.005, so a fourth decimal
+claims fifty times the precision the method has.
 
 ### One trap already hit
 
@@ -600,11 +640,6 @@ or a manual `scrape.py --season {yr}` run.
 
 **~~Phase 3 before Phase 4~~ — resolved by doing Harbin first**, exactly as this
 note advised. The odds are computed under the real qualifier, not under record.
-
-**Phase 5 (what-if scenarios)** is the natural next step and most of the
-machinery exists: `simulate_season` already accepts a probability per fixture,
-so forcing a result is a matter of pinning that probability to 0 or 1 and
-re-running. "If we beat X, our odds go from 62% to 81%" is one call.
 
 **Phase 6 (weekly trend history), and benchmarking against other models.** Alex
 asked for a comparison against public Ohio models — Drew Pasteur's is the one
