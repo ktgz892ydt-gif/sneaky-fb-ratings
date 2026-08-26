@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-08-26T17:17:34+00:00",
+ "generatedAt": "2026-08-26T17:21:35+00:00",
  "season": 2026,
  "weeksLoaded": [
   1
@@ -87640,7 +87640,7 @@
    "topSeedOdds": 0.004,
    "meanSeed": 12.05,
    "medianSeed": 12,
-   "meanHarbin": 11.945,
+   "meanHarbin": 11.944,
    "meanWins": 6.36,
    "winDist": {
     "2": 0.001,
@@ -100031,7 +100031,7 @@
  ],
  "scheduleCols": "w=week d=date t=time h=home a=away n=neutral m=predictedHomeMargin p=homeWinProb e=usedStandIn o=assumedOhio x=whyNotPredicted; h/a are indexes into teams, or a name when unresolved",
  "scheduleGameCount": 3219,
- "scheduleForeignDropped": 1001,
+ "scheduleForeignDropped": 999,
  "schedulePredictedCount": 3219,
  "scheduleEstimatedCount": 123,
  "fallbackRating": {
