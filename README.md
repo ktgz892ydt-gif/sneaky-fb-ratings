@@ -30,8 +30,10 @@ point margin.
 | 56 pts | 0.998 wins |
 
 One model, one likelihood, no arbitrary blend weights. Margin still matters, but
-a 63-0 game is not worth nine times a 7-0 game. Ratings are in points: the gap
-between two ratings is the expected neutral-field margin.
+a 63-0 game is not worth nine times a 7-0 game. Ratings are expressed on a
+point-margin scale: the gap between two ratings is the model's neutral-field
+margin estimate. It is still a squashed-margin Bradley-Terry fit under the hood,
+not a raw expected-margin regression.
 
 Plain Bradley-Terry and plain Massey are still fitted and shown alongside, under
 "Compare models." Where they disagree is the interesting part.
@@ -186,8 +188,9 @@ Two kinds of record, reported separately and **never averaged**:
 - **live** — captured by the build running that week, before kickoff.
 - **backtest** — replayed from committed scores, fit on weeks 1..N to predict
   N+1. Honest walk-forward, but the model's constants were tuned on those
-  seasons, so it is a weaker claim. `check.py` fails the build if the two are
-  ever merged into one figure.
+  seasons, and the replay should not be read as a byte-for-byte reconstruction
+  of every side input present in a live weekly build. It is a weaker claim.
+  `check.py` fails the build if the two are ever merged into one figure.
 
 Across 13,751 backtested games: **75.9% of games called correctly**, log loss
 0.4758, Brier 0.1588. Calibration is the part that matters —
@@ -247,7 +250,7 @@ site/                what GitHub Pages serves
 ## Running it
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 python scripts/scrape.py --season 2026   # needs network
 python scripts/build.py
 python scripts/check.py
@@ -255,6 +258,11 @@ python scripts/check.py
 
 `build.py` falls back to the checked-in Week 1 fixture when no scraped data is
 present, so the pipeline runs offline.
+
+On systems where `python` is not installed as a command, use `python3` for the
+same commands. The dependency file gives lower bounds rather than a locked
+environment; for strict numerical reproducibility, use the same Python and
+package versions as CI.
 
 ## Automation
 
@@ -348,10 +356,15 @@ not because it is prohibitive: the full 1,296-combination grid takes roughly
 15 minutes on the current data. Tick it whenever the history changes, the model
 changes, or `check.py` warns that `data/tuned.json` is on a stale schema.
 
+One ordering detail matters: the workflow's re-fit step reads the historical CSV
+files that are already committed. If a parser change should alter past seasons,
+refresh those files first, then re-fit, otherwise the constants are being chosen
+against stale history.
+
 ### Reproducing a build
 
 `generatedAt` refreshes on every build, so `site/ratings.json` always shows a
-diff. To verify a build reproduces exactly, pin it:
+diff. To verify a build reproduces in a stable environment, pin it:
 
 ```bash
 python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/check.json --no-site --no-history
@@ -359,7 +372,9 @@ python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/chec
 
 `--no-site` matters here: without it the run still rewrites `site/index.html`
 and `dist/preview.html` as a side effect, so a command whose whole purpose is
-to leave the tree alone does not.
+to leave the tree alone does not. Tiny last-decimal differences can still appear
+across Python/numpy/scipy environments in simulation-derived summaries; treat
+those as environment drift unless structural fields, checks, or rankings move.
 
 ### More seasons
 
@@ -380,3 +395,9 @@ all of that, and credit the source on any page you publish.
 Harbin points are OHSAA's official playoff qualifier and are shown only for
 comparison. They ignore margin entirely and award nothing for a loss, however
 narrow — they answer "who earned a playoff spot," not "who is best."
+
+## Contributors
+
+- Alex Shore — project owner and product direction.
+- Codex (OpenAI) — repository review, README precision pass, and
+  reproducibility/maintenance notes.
