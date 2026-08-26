@@ -393,7 +393,7 @@ def predict_margin(result: RatingResult, home: str, away: str, neutral: bool = F
     return d + (0.0 if neutral else result.hfa_margin)
 
 
-def prob_scale(games_played, cfg: RatingConfig) -> float:
+def prob_scale(games_played, cfg: RatingConfig, stand_in: bool = False) -> float:
     """Points-per-logit for converting a predicted margin into a probability.
 
     `games_played` is the number of completed games behind the *less*
@@ -402,7 +402,22 @@ def prob_scale(games_played, cfg: RatingConfig) -> float:
 
     Below one game there is no in-season fit to be uncertain about -- the
     prediction is the preseason prior -- so the flat squash_scale is used.
+
+    `stand_in` marks the other case that lands at zero games: an opponent with
+    no rating at all, standing in at a division baseline. These two are not the
+    same and must not share a scale. The flat squash_scale is *steeper* than
+    the fitted curve at one game (9.0 against 10.8), so borrowing it would make
+    a prediction against a completely unrated opponent more confident than one
+    against a barely-rated opponent -- backwards, and it applied to 23% of the
+    2026 week 1 fixture list. A stand-in gets the flattest scale the curve is
+    allowed to reach, which is the least the model can claim to know.
+
+    tune.py fits the curve on g >= 1 only, so neither zero-game regime is
+    measured. The flat scale for week 1 is measured (see the module docstring);
+    this bound is a stated floor on confidence, not a fit.
     """
+    if stand_in:
+        return float(cfg.prob_scale_max)
     g = float(games_played)
     if g < 1.0:
         return float(cfg.squash_scale)
@@ -410,10 +425,14 @@ def prob_scale(games_played, cfg: RatingConfig) -> float:
     return float(min(max(s, cfg.prob_scale_min), cfg.prob_scale_max))
 
 
-def win_probability(margin: float, games_played, cfg: RatingConfig) -> float:
+def win_probability(margin: float, games_played, cfg: RatingConfig,
+                    stand_in: bool = False) -> float:
     """P(the team favoured by `margin` wins), calibrated for how far in we are.
 
     `margin` is from one team's perspective; pass the predicted margin from
     predict_margin() and you get the home team's win probability.
+
+    Set `stand_in` when either side is being stood in for rather than rated.
     """
-    return 1.0 / (1.0 + math.exp(-float(margin) / prob_scale(games_played, cfg)))
+    return 1.0 / (1.0 + math.exp(
+        -float(margin) / prob_scale(games_played, cfg, stand_in)))

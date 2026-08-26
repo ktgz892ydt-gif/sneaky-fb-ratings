@@ -9,19 +9,39 @@ which corrupts every rating that touches them and does so invisibly.
 
 The resolver's contract is: it will decline to guess before it will merge.
 
-Method
-------
-The regional ranking pages list every OHSAA team with its division, region and
-running record. A team plays at most one game per week, so a school's record is
-a fingerprint: after week N, each roster slot has a distinct W-L that we can
-match against the sequence of results attached to each scoreboard appearance.
+What the source already settles
+-------------------------------
+Two of the three keys come from the pages themselves and cost nothing:
 
-For a duplicated name we enumerate the roster slots carrying that name and the
-game appearances carrying that name, then look for an assignment that makes
-every slot's record consistent with its assigned results. If exactly one
-assignment works, the name is resolved. If several work, the entities are still
-kept *separate* -- they are simply labelled with an index rather than a school,
-and written to conflicts.csv for a human to look at. Nothing is ever merged.
+  City   -- every team is written "School (City)", so Jackson (Massillon) and
+            Jackson (Jackson) are simply different strings. This resolves the
+            overwhelming majority of Ohio collisions outright.
+  State  -- an out-of-state team carries a tag, "Salem (Salem) [NJ]". Ohio has
+            six schools whose School (City) string is also a school somewhere
+            else, and in past seasons over twenty. The
+            tag is part of the identity, because dropping it merges a New
+            Jersey program into an Ohio one and nothing downstream can tell.
+            Built in one place, `team_identity` below.
+
+What this module actually decides
+---------------------------------
+Only what those two keys leave over: an Ohio name carried by several roster
+entries. The unit of duplication is the WEEK, not the season -- a team plays at
+most one game a week, so two appearances of "Perry" in the same week are two
+schools, while ten appearances across ten weeks are one school playing a
+season. Counting per season shattered every school into ten phantom teams, and
+the integrity guard at the end of resolve() exists to make that class of error
+loud rather than plausible.
+
+Names that really are shared by several simultaneously-active schools go to the
+geography pass: it learns a region-versus-region scheduling distribution from
+the names that already resolved unambiguously, then scores each way of dealing
+that week's games out to the candidate schools and takes the most plausible. A
+narrow margin between the best and second-best pairing is reported as low
+confidence rather than presented as an answer.
+
+If nothing settles it, the entities are still kept *separate* -- labelled and
+written to the conflicts list for a human to look at. Nothing is ever merged.
 
 Names absent from the roster are treated as out-of-state opponents. They are
 rated (their results carry real information about the Ohio teams that played
@@ -35,9 +55,6 @@ import itertools
 import math
 from collections import defaultdict
 from dataclasses import dataclass, field
-
-import numpy as np
-from scipy.optimize import linear_sum_assignment
 
 
 @dataclass

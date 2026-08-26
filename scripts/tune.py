@@ -57,7 +57,12 @@ DATA = os.path.join(ROOT, "data")
 #    since those two conditions mean opposite things
 # 3: adds "probScale" -- the margin-to-probability curve, fitted separately
 #    from squash_scale. See fit_prob_scale() below.
-SCHEMA_VERSION = 3
+# 4: the one-standard-error rule now pairs per-game log losses against the
+#    outright best instead of using the marginal SE of its score. Adds
+#    selection.standardErrorPaired and best.sePaired. This changes which
+#    configurations count as tied, so a schema 3 file's selection is not
+#    comparable with a schema 4 one.
+SCHEMA_VERSION = 4
 
 
 # ---------------------------------------------------------------------------
@@ -175,6 +180,11 @@ def evaluate(res, prev_ratings, cfg, carry, holdouts, division_weight=1.0):
     abs_err = 0.0
     bins = defaultdict(lambda: [0, 0])
     week_stats = defaultdict(lambda: {"n": 0, "ll": 0.0, "correct": 0, "total": 0})
+    # Per-game log loss, in a fixed order. Every configuration is scored on the
+    # same games in the same sequence, which is what makes selection a *paired*
+    # comparison rather than two independent samples. See the standard-error
+    # calculation in main().
+    per_game = []
 
     for w in holdouts:
         train = [g for g in res.games if g["week"] < w]
@@ -198,6 +208,7 @@ def evaluate(res, prev_ratings, cfg, carry, holdouts, division_weight=1.0):
             gll = -(y * np.log(p) + (1 - y) * np.log(1 - p))
             ll += gll
             ll_sq += gll * gll
+            per_game.append(float(gll))
             if m != 0:
                 correct += int((pred > 0) == (m > 0))
                 total += 1
@@ -223,6 +234,8 @@ def evaluate(res, prev_ratings, cfg, carry, holdouts, division_weight=1.0):
         "logloss": ll / n,
         "ll_sum": ll,
         "ll_sumsq": ll_sq,
+        # Not serialized -- main() consumes it and drops it.
+        "perGame": per_game,
         "perWeek": per_week,
         # correct/total are returned raw so callers can aggregate across
         # seasons without reweighting a ratio whose denominator (non-tie
@@ -306,6 +319,37 @@ def collect_predictions(res, prev_ratings, cfg, carry, holdouts, division_weight
                         float(min(played[g["home"]], played[g["away"]])),
                         int(w)))
     return out
+
+
+def tied_with_best(llvecs):
+    """Which configurations are statistically indistinguishable from the best?
+
+    `llvecs[i]` is configuration i's per-game log loss, all on the same games
+    in the same order, with index 0 the outright best. Returns the indices that
+    tie with it under the one-standard-error rule, plus each one's standard
+    error, as (indices, ses).
+
+    The comparison is PAIRED. Every configuration is scored on the same games,
+    so most of the variance in per-game log loss is the game itself -- a
+    coin-flip upset scores badly under every configuration alike. Taking the
+    marginal standard error of the winning score treats those as independent
+    samples and enormously overstates the uncertainty in the comparison: on the
+    committed fit it admitted 294 of 1,296 configurations as tied, which was
+    then read as evidence that the evaluation set was too small. It was not; it
+    was the wrong standard error. Differencing first removes the shared game
+    noise and leaves only the part that separates one configuration from
+    another.
+    """
+    best = llvecs[0]
+    keep, ses = [], []
+    for i, vec in enumerate(llvecs):
+        d = vec - best
+        se = float(d.std(ddof=1) / (len(d) ** 0.5)) if len(d) > 1 else 0.0
+        # i == 0 differences to all zeros, so 0 <= 0 always admits the best.
+        if float(d.mean()) <= se:
+            keep.append(i)
+            ses.append(se)
+    return keep, ses
 
 
 def _logloss(pred, y, scales):
@@ -528,11 +572,16 @@ def main():
 
     prev_cache = {}
     results = []
+    # Per-game log-loss vectors, held parallel to `results` and never written
+    # to the payload. Seasons are appended in a fixed order (`evals`), and
+    # evaluate() walks holdout weeks and games deterministically, so index k
+    # refers to the same game in every configuration's vector.
+    llvecs = []
     combos = list(itertools.product(grid_scale, grid_pg, grid_carry, grid_dw))
     for i, (scale, pg, carry, dw) in enumerate(combos, 1):
         cfg = RatingConfig(squash_scale=scale, prior_games=pg, division_weight=dw)
         agg = {"n": 0, "ll": 0.0, "llsq": 0.0, "correct": 0, "total": 0,
-               "mae": 0.0, "perSeason": {}}
+               "mae": 0.0, "perSeason": {}, "perGame": []}
         for S in evals:
             ck = (S - 1, scale, pg)
             if ck not in prev_cache:
@@ -547,8 +596,10 @@ def main():
             agg["correct"] += m["correct"]
             agg["total"] += m["total"]
             agg["mae"] += m["mae_margin"] * m["n"]
+            agg["perGame"].extend(m["perGame"])
         if agg["n"] == 0:
             continue
+        llvecs.append(np.asarray(agg["perGame"], dtype=float))
         results.append({
             "ll_sumsq": agg["llsq"],
             "perSeason": agg["perSeason"],
@@ -565,35 +616,53 @@ def main():
               f"logloss={results[-1]['logloss']:.4f} acc={results[-1]['accuracy']:.1%}",
               file=sys.stderr)
 
-    results.sort(key=lambda r: r["logloss"])
+    order = sorted(range(len(results)), key=lambda i: results[i]["logloss"])
+    results = [results[i] for i in order]
+    llvecs = [llvecs[i] for i in order]
     raw_best = results[0]
 
     # A grid search on two evaluation seasons will happily chase noise to the
-    # edge of the grid. So: compute the standard error of the best score, then
-    # among every configuration statistically indistinguishable from it, take
-    # the most conservative one. This is the one-standard-error rule, and it is
-    # the difference between "the best number we saw" and "the best number we
-    # can defend".
+    # edge of the grid. So: work out which configurations are statistically
+    # indistinguishable from the best one, then among those take the most
+    # conservative. This is the one-standard-error rule, and it is the
+    # difference between "the best number we saw" and "the best number we can
+    # defend".
+    #
+    # The standard error has to be of the DIFFERENCE, not of the score --
+    # see tied_with_best() for why, and for what the old rule cost.
+
+    # Reported alongside, because the old files carry it and the contrast is
+    # the whole point of this change.
     var = max(raw_best["ll_sumsq"] / raw_best["n"] - (raw_best["logloss"] ** 2), 0.0)
-    se = (var / raw_best["n"]) ** 0.5 if raw_best["n"] else 0.0
-    threshold = raw_best["logloss"] + se
+    se_marginal = (var / raw_best["n"]) ** 0.5 if raw_best["n"] else 0.0
 
     DEFAULTS = {"squash_scale": 9.0, "prior_games": 1.5, "carry": 0.5,
                 "division_weight": 1.0}
 
     def conservatism(r):
-        """Distance from the documented defaults, scaled per parameter."""
+        """Distance from the documented defaults, scaled per parameter.
+
+        A tie-break, not a regularizer: the defaults are themselves judgement,
+        so this says "prefer where we started" rather than "prefer the simpler
+        model". It only ever chooses among configurations already shown to be
+        statistically indistinguishable.
+        """
         return (abs(r["carry"] - DEFAULTS["carry"]) / 0.5
                 + abs(r["division_weight"] - DEFAULTS["division_weight"]) / 1.0
                 + abs(r["squash_scale"] - DEFAULTS["squash_scale"]) / 9.0
                 + abs(r["prior_games"] - DEFAULTS["prior_games"]) / 1.5)
 
-    within = [r for r in results if r["logloss"] <= threshold]
+    keep, keep_se = tied_with_best(llvecs)
+    within = [results[i] for i in keep]
+    se_of = {id(results[i]): e for i, e in zip(keep, keep_se)}
+
     best = min(within, key=conservatism) if within else raw_best
-    best["selectedBy"] = ("one-standard-error rule" if best is not raw_best
-                          else "outright best")
-    best["seLogloss"] = round(se, 5)
+    best["selectedBy"] = ("one-standard-error rule (paired)"
+                          if best is not raw_best else "outright best")
+    best["seLogloss"] = round(se_marginal, 5)
+    best["sePaired"] = round(se_of.get(id(best), 0.0), 5)
     best["candidatesWithinOneSE"] = len(within)
+    se = best["sePaired"]
 
     # Calibration for the winner, so the report says whether the probabilities
     # mean anything, not just whether the ordering is good.
@@ -691,6 +760,16 @@ def main():
         "perWeek": (detail or {}).get("perWeek"),
         "selection": {
             "rule": best.get("selectedBy"),
+            "seMethod": (
+                "Paired: for each configuration, the per-game log-loss "
+                "difference against the outright best over the same games in "
+                "the same order; a configuration is tied when its mean penalty "
+                "is within one standard error of that difference. The marginal "
+                "SE reported below is the old, unpaired quantity, kept only so "
+                "the two can be compared -- it is dominated by game noise "
+                "common to every configuration and admits far too many."
+            ),
+            "standardErrorPaired": best.get("sePaired"),
             "standardError": best.get("seLogloss"),
             "candidatesWithinOneSE": best.get("candidatesWithinOneSE"),
             "outrightBest": {k: raw_best[k] for k in
@@ -712,8 +791,11 @@ def main():
               f"prior={raw_best['prior_games']} carry={raw_best['carry']} "
               f"div={raw_best['division_weight']} "
               f"(logloss {raw_best['logloss']:.4f}).", file=sys.stderr)
-        print(f"{len(within)} configurations sit within one standard error "
-              f"({se:.4f}) of it; taking the most conservative.", file=sys.stderr)
+        print(f"{len(within)} configurations sit within one paired standard "
+              f"error ({se:.4f}) of it; taking the most conservative.",
+              file=sys.stderr)
+        print(f"(the old unpaired SE was {se_marginal:.4f} -- it counts the "
+              f"game noise every configuration shares)", file=sys.stderr)
         print("-" * 64, file=sys.stderr)
     print(f"BEST  squash_scale={best['squash_scale']}  "
           f"prior_games={best['prior_games']}  carry={best['carry']}  "

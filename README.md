@@ -58,22 +58,52 @@ gives:
    `School (City)`, so `Jackson (Massillon)` and `Jackson (Jackson)` are
    simply different strings. This is the primary key and it resolves the
    overwhelming majority of collisions outright.
-2. **School ID.** The ranking pages carry a stable numeric ID per school.
+2. **State.** The scoreboard carries national scores, and an out-of-state team
+   is tagged: `Salem (Salem) [NJ]`. Ohio has schools whose `School (City)`
+   string is *also* a school somewhere else — six in the 2026 schedule, and
+   twenty-six across the 2025 scores, some of them out-of-state on both sides
+   (Bloomfield CT/NM, Greenwich CT/NY, Roswell GA/NM). The tag is part of the
+   identity, because the per-week rule below cannot see this case at all: two
+   schools that never play in the same week look exactly like one school
+   playing a season.
+3. **School ID.** The ranking pages carry a stable numeric ID per school.
    It survives division and region changes, so it is what matches a team to
    its own record in a previous season.
-3. **Opponent geography.** Only for names that are still shared after the
-   above — two schools with the same name *and* city — the resolver scores
-   candidate assignments by how plausible each one's opponents are, using a
-   region-versus-region scheduling distribution learned from the games that
-   already resolved unambiguously.
+4. **Opponent geography.** Only for names that are still shared after the
+   above — two Ohio schools with the same name *and* city — the resolver
+   scores candidate assignments by how plausible each one's opponents are,
+   using a region-versus-region scheduling distribution learned from the games
+   that already resolved unambiguously.
 
 **Anything still unresolved is kept as separate entities and tagged `?` —
 never merged.**
 
 Duplication is counted **per week**, not per season. A team plays at most one
 game a week, so two appearances of "Perry" in the same week are two schools,
-while ten appearances across ten weeks are one school playing a season. An
-integrity check fails the build if any team ends up in two games in one week.
+while ten appearances across ten weeks are one school playing a season.
+
+Two checks enforce this, and they cover different things. An integrity check
+**fails the build** if any team ends up in two *results* in one week. A team
+holding two *fixtures* in one week is a warning rather than a failure — it
+distorts a projection but leaves the ratings beneath it untouched, and
+blocking the week's publish over it would trade a working board for none. What
+does fail the build is a team whose season adds up to more games than a team
+can play; that is the check that catches fixtures from two schools landing on
+one team.
+
+## The remaining schedule
+
+Fixtures are predicted, never rated — a game with no result must not reach the
+fit. Two filters apply before prediction: a fixture between two schools that
+are both from outside Ohio is dropped (it is a prediction about teams this
+board does not cover, made from two stand-in ratings), and an opponent that
+still has no rating is stood in for at a division baseline and flagged
+`Estimated` rather than quietly filled in.
+
+A team whose played-plus-scheduled games exceed sixteen fails the build. That
+is the check that catches fixtures from two different schools landing on one
+team, which is invisible to every other assertion — the projected record adds
+up perfectly well, just over a season that cannot happen.
 
 ## Teams with no result yet
 
@@ -94,7 +124,7 @@ scripts/check.py     verification; the workflow fails if this fails
 scripts/tune.py      fits the model constants against past seasons
 scripts/season_prior.py  turns a finished season into next season's prior
 tests/               unit tests for the fragile parts (pytest)
-data/                committed raw scores and roster — versioned, replayable
+data/                committed raw scores, schedule and roster — replayable
 site/                what GitHub Pages serves
 ```
 
@@ -156,12 +186,25 @@ punished.
 
 It then applies the **one-standard-error rule**: among every configuration
 statistically indistinguishable from the best, it takes the most conservative
-rather than the best-scoring. On the committed fit, 294 configurations sat
-within one standard error of the optimum, which is precisely why picking the
-single lowest number would have been fitting noise.
+rather than the best-scoring.
+
+The standard error is of the *difference*, not of the score. Every
+configuration is scored on the same games in the same order, so comparing two
+of them is a paired comparison — and most of the variance in per-game log loss
+is the game itself, since a coin-flip upset scores badly under every
+configuration alike. The committed fit used the marginal standard error of the
+winning score, which treats those as independent samples and admitted 294 of
+1,296 configurations as "tied". That was read as evidence the evaluation set
+was too small; it was the wrong standard error. Pairing removes the shared game
+noise and leaves only the part that distinguishes one configuration from
+another. **This takes effect on the next re-fit**, and is expected to change
+which constants get selected.
 
 Two consequences worth understanding:
 
+- `data/tuned.json` reports both standard errors: `standardErrorPaired` is the
+  one selection uses, `standardError` is the old marginal quantity, kept only
+  so the two can be compared.
 - `data/tuned.json` reports `selectedConfigAtGridEdge` separately from
   `outrightBestAtGridEdge`. An edge on the *outright best* means the grid
   constrained the search and should be widened. An edge on the *selected*
@@ -179,8 +222,12 @@ model constants*. It is opt-in because it is slow and the answer moves little.
 diff. To verify a build reproduces exactly, pin it:
 
 ```bash
-python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/check.json
+python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/check.json --no-site
 ```
+
+`--no-site` matters here: without it the run still rewrites `site/index.html`
+and `dist/preview.html` as a side effect, so a command whose whole purpose is
+to leave the tree alone does not.
 
 ### More seasons
 

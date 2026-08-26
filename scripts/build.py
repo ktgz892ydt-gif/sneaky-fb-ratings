@@ -206,7 +206,12 @@ def predict_schedule(fixtures, res, result, team_ids, cfg, fallback):
         # curve should be: a rating difference is only as trustworthy as the
         # thinner of the two records behind it.
         established = min(hg, ag)
-        p = win_probability(margin, established, cfg)
+        # A stood-in opponent is not merely early-season, it is unrated. Both
+        # arrive here at zero games and they get different scales -- see
+        # prob_scale(). Without this a stand-in reads as more confident than a
+        # real team with one game behind it.
+        stand_in = "stand-in" in (hstat, astat)
+        p = win_probability(margin, established, cfg, stand_in=stand_in)
         row.update(
             predicted=True,
             predictedHomeMargin=round(float(margin), 1),
@@ -214,8 +219,8 @@ def predict_schedule(fixtures, res, result, team_ids, cfg, fallback):
             favoriteName=f["home"] if margin >= 0 else f["away"],
             spread=round(abs(float(margin)), 1),
             gamesBehind=established,
-            estimated=("stand-in" in (hstat, astat)),
-            estimatedNote=(fb_note if "stand-in" in (hstat, astat) else ""),
+            estimated=stand_in,
+            estimatedNote=(fb_note if stand_in else ""),
             assumedOhio=("assumed-ohio" in (hstat, astat)),
         )
         out.append(row)
@@ -512,12 +517,14 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
             # win probability without re-deriving it:
             #     scale = sqrt(a + b / gamesPlayed), floored/capped, and
             #     flatScale when gamesPlayed < 1
+            #     standInScale whenever the fixture is flagged `e`
             #     p(home) = 1 / (1 + exp(-margin / scale))
             # gamesPlayed is w+l+t of the *less* established of the two teams.
             "probScale": {
                 "a": round(cfg.prob_scale_a, 4),
                 "b": round(cfg.prob_scale_b, 4),
                 "flatScale": cfg.squash_scale,
+                "standInScale": cfg.prob_scale_max,
                 "min": cfg.prob_scale_min,
                 "max": cfg.prob_scale_max,
             },
@@ -568,6 +575,27 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
     return payload, result, res
 
 
+# app.html is a fragment: a bare <head> run followed by the page body. These
+# are the tags that make it a document, and BOTH variants get them. The preview
+# used to be written as the raw fragment, which cost it the charset (the title
+# rendered as "Alexâ€™s Awesome Aggregator") and, more seriously, the viewport
+# meta -- so a real phone opening it laid the page out at 980px and none of the
+# mobile media queries fired. The Playwright check in the handoff sets its
+# viewport explicitly, so it passed while testing a page that was not the one
+# being shipped.
+HEAD_META = (
+    "<meta charset=\"utf-8\">\n"
+    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
+    "<meta name=\"description\" content=\"Bradley-Terry and Massey ratings for "
+    "Ohio high school varsity football, rebuilt weekly.\">\n"
+)
+
+
+def _document(head, body):
+    return ("<!doctype html>\n<html lang=\"en\">\n<head>\n" + HEAD_META + head
+            + "</head>\n<body>\n" + body + "\n</body>\n</html>\n")
+
+
 def emit_html(payload):
     """Write the two page variants from one source of truth.
 
@@ -585,15 +613,7 @@ def emit_html(payload):
     head, body = content[:split], content[split:]
 
     with open(os.path.join(SITE, "index.html"), "w", encoding="utf-8") as fh:
-        fh.write(
-            "<!doctype html>\n<html lang=\"en\">\n<head>\n"
-            "<meta charset=\"utf-8\">\n"
-            "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
-            "<meta name=\"description\" content=\"Bradley-Terry and Massey ratings for "
-            "Ohio high school varsity football, rebuilt weekly.\">\n"
-            + head +
-            "</head>\n<body>\n" + body + "\n</body>\n</html>\n"
-        )
+        fh.write(_document(head, body))
 
     inline = (
         "<script>window.__RATINGS__ = "
@@ -601,12 +621,13 @@ def emit_html(payload):
         + ";</script>\n"
     )
     # The <title> must stay near the top of the file -- publishers only scan the
-    # first few KB for it, and the inlined dataset is a few hundred KB.
-    tend = content.index("</title>") + len("</title>")
+    # first few KB for it, and the inlined dataset is a few hundred KB. So the
+    # data goes in immediately after it, not at the top of the head.
+    tend = head.index("</title>") + len("</title>")
     dist = os.path.join(ROOT, "dist")
     os.makedirs(dist, exist_ok=True)
     with open(os.path.join(dist, "preview.html"), "w", encoding="utf-8") as fh:
-        fh.write(content[:tend] + "\n" + inline + content[tend:])
+        fh.write(_document(head[:tend] + "\n" + inline + head[tend:], body))
 
 
 if __name__ == "__main__":

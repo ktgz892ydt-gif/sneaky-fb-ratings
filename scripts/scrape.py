@@ -414,8 +414,8 @@ def _diagnose(label, lines, limit=30, flat=None):
     print(f"\n  !! {label}: nothing matched.", file=sys.stderr)
 
     if flat is not None:
-        print(f"\n     --- flattened text, first 1200 chars "
-              f"(this is what the patterns scan) ---", file=sys.stderr)
+        print("\n     --- flattened text, first 1200 chars "
+              "(this is what the patterns scan) ---", file=sys.stderr)
         print(f"     {flat[:1200]}", file=sys.stderr)
 
     print(f"\n     --- first {limit} individual lines ---", file=sys.stderr)

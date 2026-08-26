@@ -155,6 +155,20 @@ def main():
                 check("outrightBestAtGridEdge" in tb and
                       "selectedConfigAtGridEdge" in tb,
                       "a schema 2 tuned.json must carry both edge fields")
+            if ver >= 4:
+                sel = tb.get("selection") or {}
+                check("standardErrorPaired" in sel,
+                      "a schema 4 tuned.json must report the paired standard "
+                      "error the selection rule actually used")
+                # The paired SE removes the game noise every configuration
+                # shares, so it must come out smaller than the marginal one.
+                # If it doesn't, the pairing is not lining up the same games.
+                sp, sm = sel.get("standardErrorPaired"), sel.get("standardError")
+                if sp is not None and sm is not None:
+                    check(sp <= sm,
+                          f"the paired standard error ({sp}) is not smaller "
+                          f"than the marginal one ({sm}) -- the per-game "
+                          f"vectors are not aligned across configurations")
             # Gated on the block being *present*, not on the schema number: a
             # `tune.py --calibrate-only` pass adds probScale to a tuned.json of
             # any vintage without claiming the current schema, and the curve
@@ -268,6 +282,26 @@ def main():
         check(t["projWins"] >= t["w"] - 0.05,
               f"{t['name']}: projected wins {t['projWins']} is below the "
               f"{t['w']} already banked")
+
+    # ---- a season has to be a possible length.
+    #
+    # Ten regular-season games plus at most five playoff rounds. Anything past
+    # that means fixtures belonging to more than one school have landed on this
+    # team. The arithmetic check above cannot see it -- an inflated schedule
+    # adds up perfectly well, and Salem was published at 13.3-5.7 over
+    # nineteen games with every other assertion here passing. The per-week
+    # duplicate warning can't see it either when the two schools never share a
+    # week. This is the check that catches it.
+    MAX_SEASON = 16
+    for t in d["teams"]:
+        if "remaining" not in t:
+            continue
+        total = t["w"] + t["l"] + t["t"] + t["remaining"]
+        check(total <= MAX_SEASON,
+              f"{t['name']}: {total} games this season "
+              f"({t['w']}-{t['l']}-{t['t']} played, {t['remaining']} scheduled) "
+              f"is more than the {MAX_SEASON} any team can play -- fixtures "
+              f"from another school are landing on this one")
 
     # ---- connectivity must be reported honestly
     c = d["connectivity"]

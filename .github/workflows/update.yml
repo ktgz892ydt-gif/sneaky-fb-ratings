@@ -3,9 +3,14 @@ name: Update ratings
 on:
   schedule:
     # Saturday 08:00 and Sunday 13:00 America/New_York, expressed in UTC.
-    # (EDT is UTC-4 for the whole football season, so no DST juggling.)
     # Saturday morning catches Friday night; Sunday afternoon catches the
     # corrections, forfeits and late-posted Saturday games.
+    #
+    # GitHub cron is UTC only, so these are pinned to EDT (UTC-4). That covers
+    # the regular season, but DST ends on the first Sunday of November and the
+    # playoffs run to the state finals in early December -- through those weeks
+    # these fire an hour earlier, at 07:00 and 12:00 ET. Still comfortably
+    # after the games, so it is left alone rather than split into two schedules.
     - cron: "0 12 * * 6"
     - cron: "0 17 * * 0"
   workflow_dispatch:
@@ -92,6 +97,19 @@ jobs:
       - name: Sanity check the output
         run: python scripts/check.py
 
+      # Publish BEFORE committing. The site is already built and checked at
+      # this point, and nothing about pushing the data back to the repo can
+      # improve it -- so the deploy must not be downstream of a step that can
+      # fail for reasons that have nothing to do with the ratings. It used to
+      # be: a `git push` that lost a race meant the job failed here and the
+      # week's board never reached the live site.
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v5
+
       - name: Commit refreshed data
         run: |
           git config user.name  "ratings-bot"
@@ -99,14 +117,20 @@ jobs:
           git add data/ site/ratings.json site/index.html site/app.html
           if git diff --staged --quiet; then
             echo "No change this run."
-          else
-            git commit -m "ratings: refresh $(date -u +%Y-%m-%d)"
-            git push
+            exit 0
           fi
-
-      - uses: actions/configure-pages@v6
-      - uses: actions/upload-pages-artifact@v5
-        with:
-          path: site
-      - id: deployment
-        uses: actions/deploy-pages@v5
+          git commit -m "ratings: refresh $(date -u +%Y-%m-%d)"
+          # Alex pushes from GitHub Desktop, so the remote can move while a run
+          # is in flight. Rebase onto whatever landed and try again rather than
+          # failing on the race. The bot only ever touches generated files, so
+          # a rebase here has nothing to conflict with.
+          for attempt in 1 2 3; do
+            if git push; then
+              exit 0
+            fi
+            echo "push attempt $attempt lost a race; rebasing onto the remote"
+            git pull --rebase origin "${GITHUB_REF_NAME}" || exit 1
+          done
+          echo "::error::could not push refreshed data after 3 attempts."
+          echo "The site itself deployed fine above; only the data commit failed."
+          exit 1

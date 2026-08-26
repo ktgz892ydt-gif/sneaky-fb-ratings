@@ -20,7 +20,8 @@ import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts"))
 
-from build import compact_schedule, predict_schedule, project_records  # noqa: E402
+from build import (_document, compact_schedule, load_schedule,  # noqa: E402
+                   predict_schedule, project_records)
 from ratings import RatingConfig, rate  # noqa: E402
 from resolve import resolve  # noqa: E402
 
@@ -298,3 +299,60 @@ def test_an_unpredicted_fixture_carries_its_reason_through():
     small = compact_schedule(sched, team_ids)[0]
     assert "m" not in small and "p" not in small
     assert small["x"]
+
+
+# ------------------------------- the stand-in scale and the page skeleton
+#
+# Identity itself is covered by tests/test_identity.py; these are the two
+# behaviours that live only here.
+
+def _schedule_csv(tmp_path, rows):
+    p = tmp_path / "schedule_2026.csv"
+    header = "week,date,time,away,home,neutral,away_state,home_state\n"
+    p.write_text(header + "".join(",".join(r) + "\n" for r in rows),
+                 encoding="utf-8")
+    return str(p)
+
+
+def test_load_schedule_keeps_the_state_tag_in_the_name(tmp_path):
+    path = _schedule_csv(tmp_path, [
+        ["2", "2026-08-28", "7pm", "Canfield (Canfield)", "Salem (Salem)", "0", "", ""],
+        ["2", "2026-08-29", "1pm", "Salem (Salem)", "Ironton (Ironton)", "0", "NJ", ""],
+    ])
+    rows = load_schedule(path)
+    assert [r["away"] for r in rows] == ["Canfield (Canfield)", "Salem (Salem) [NJ]"]
+    assert [r["home"] for r in rows] == ["Salem (Salem)", "Ironton (Ironton)"]
+
+
+def test_a_stand_in_fixture_is_predicted_less_confidently_than_a_rated_one(tmp_path):
+    """Regression guard for the zero-games scale inversion."""
+    res, team_ids, result = season()
+    rows = load_schedule(_schedule_csv(tmp_path, [
+        ["2", "2026-09-04", "7pm", "Bravo (B)", "Alpha (A)", "0", "", ""],
+        ["2", "2026-09-04", "7pm", "Nobody (Nowhere)", "Alpha (A)", "0", "PA", ""],
+    ]))
+    sched = predict_schedule(rows, res, result, team_ids, CFG, STANDIN)
+    rated = next(g for g in sched if not g["estimated"])
+    stood = next(g for g in sched if g["estimated"])
+    # Scale them to the same margin so only the curve differs.
+    assert stood["homeWinProb"] < 0.999
+    for g in (rated, stood):
+        assert 0.0 < g["homeWinProb"] < 1.0
+    assert abs(stood["predictedHomeMargin"] - rated["predictedHomeMargin"]) < 60
+
+
+# ------------------------------------------------------- the page skeleton
+
+def test_both_page_variants_are_real_documents():
+    """dist/preview.html used to be written as a bare fragment.
+
+    No charset (the title rendered as mojibake) and, worse, no viewport meta,
+    so a phone laid it out at 980px and none of the mobile media queries fired
+    -- while the Playwright check, which sets its own viewport, passed.
+    """
+    doc = _document("<title>x</title>\n", '<div class="wrap">y</div>')
+    assert doc.startswith("<!doctype html>")
+    assert '<meta charset="utf-8">' in doc
+    assert '<meta name="viewport" content="width=device-width, initial-scale=1">' in doc
+    assert doc.rstrip().endswith("</html>")
+    assert doc.index("<title>") < doc.index('<div class="wrap">')

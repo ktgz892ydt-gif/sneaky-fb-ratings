@@ -23,7 +23,7 @@ nothing.
 
 **Current state: working and deployed.** Week 1 of 2026 is live. Three past
 seasons (2023–2025) are committed. Model constants are fitted, not guessed.
-114 unit tests pass in CI before anything touches the network.
+138 unit tests pass in CI before anything touches the network.
 
 ---
 
@@ -32,7 +32,7 @@ seasons (2023–2025) are committed. Model constants are fitted, not guessed.
 ```bash
 cd ~/Documents/GitHub/sneaky-fb-ratings
 git fetch && git status          # the bot commits here; the remote is often ahead
-python -m pytest tests/ -q       # expect 114 passed; pip install -r requirements.txt if not
+python -m pytest tests/ -q       # expect 138 passed; pip install -r requirements.txt if not
 python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/check.json --no-site
 ```
 
@@ -104,6 +104,16 @@ Selected by the **one-standard-error rule**: 294 configurations sat within one
 SE of the outright optimum, so the most conservative of those was taken rather
 than the single best score.
 
+**That 294 was an artefact, and `tune.py` no longer produces it.** The SE used
+was the marginal one — the spread of per-game log loss for the winning config —
+but every config is scored on the same games in the same order, so the
+comparison is *paired*. Most of that spread is the game, not the config: a
+coin-flip upset scores badly under all of them alike. Differencing first removes
+the shared noise. On a smoke grid the paired rule ties 1 of 24 where the old
+one tied at least 6 of the top 10. `tied_with_best()` in `tune.py` is the
+function; `tests/test_tune.py` pins the behaviour. **This takes effect on the
+next re-fit and is expected to move the published constants.**
+
 `carry` is capped at 1.0 by design — above that the model would *amplify* last
 season's estimate rather than regress it.
 
@@ -112,6 +122,16 @@ season's estimate rather than regress it.
 means a flatter curve. This is why an early-season prediction is not stated
 with the same confidence as a Week 9 one — the model handles it, not a
 disclaimer.
+
+**A stand-in opponent gets its own scale, not week 1's.** Two different things
+arrive at `g = 0`: a real team in week 1, and an opponent with no rating at all
+standing in at a division baseline. They used to share the flat `squash_scale`
+of 9.0 — which is *steeper* than the fitted curve at one game (10.8), so a
+prediction against a completely unrated opponent came out more confident than
+one against a barely-rated one. It applied to 23% of the week 1 fixture list.
+A stand-in now uses `prob_scale_max` (20.0), the flattest the curve may reach.
+Week 1 keeps the flat scale, which is measured; the stand-in bound is a stated
+floor on confidence, not a fit, because `tune.py` only fits on `g >= 1`.
 
 ---
 
@@ -177,11 +197,33 @@ ladder, so it is the least-committal guess. Alex chose this explicitly, on the
 condition that it be visible: every prediction leaning on one is flagged
 `Estimated` and the basis is published in `fallbackRating`.
 
+**An out-of-state team's state tag is part of its identity.** `Salem (Salem)`
+is a school in Ohio *and* a school in New Jersey, and they write identically.
+Six such collisions were in the 2026 schedule and twenty-six in the 2025
+scores, some out-of-state on both sides (Bloomfield CT/NM, Greenwich CT/NY).
+
+This was a live bug: `load_schedule()` and `load_games()` read the name column
+and ignored the `away_state`/`home_state` columns sitting beside it, so New
+Jersey's fixtures landed on Ohio's Salem and the site published a nineteen-game
+season projected 13.3–5.7. The per-week duplicate guard cannot see this class
+at all — two schools that never play in the same week look exactly like one
+school playing a season. `resolve.team_identity()` is now the one place the key is
+built, and both loaders go through it. Ohio teams carry no tag, so no Ohio
+identity moved.
+
+**A fixture between two non-Ohio schools is dropped before prediction.** The
+source is an Ohio scoreboard but carries border-state games that are entirely
+someone else's — Kentucky at Kentucky, Michigan at Michigan. A *completed* one
+is worth keeping: it rates an out-of-state team an Ohio school will later play.
+An unplayed one is a prediction about two teams nobody here follows, built from
+two stand-in ratings. `build.py` filters them after resolution and reports the
+count as `scheduleForeignDropped`. This is why the fixture list and the
+"estimated" count both fell sharply.
+
 **A name shared by an Ohio school and an out-of-state namesake resolves to the
-Ohio one** — but only when exactly one candidate is in Ohio. Marietta is the
-real case: it appears twice in week 1, so the resolver correctly splits it, and
-name-matching alone would have left the Ohio school with no predictions all
-season. Two Ohio schools sharing a name are still refused rather than guessed.
+Ohio one** — but only when exactly one candidate is in Ohio. This is now a
+fallback for the case where the source omits the tag; the tag handles it first.
+Two Ohio schools sharing a name are still refused rather than guessed.
 
 **Harbin is shown for comparison only.** It's OHSAA's playoff qualifier: ignores
 margin, gives nothing for a loss, and scales by opponent *division*. It answers
@@ -198,6 +240,12 @@ separate and tagged — **never merged**.
 distorts a projection, but failing `check.py` would stop the week's ratings from
 publishing over the newest and least load-bearing part of the page. Structural
 problems that can only come from a code bug still fail.
+
+**One schedule problem does fail the build: an impossible season length.**
+`check.py` refuses a team whose played + scheduled games exceed 16 (ten regular
+plus five playoff rounds). This is the assertion that would have caught the
+Salem merge above. Every other check passed on it — the projected record was
+internally consistent arithmetic, just over a season that cannot happen.
 
 ---
 
@@ -303,6 +351,11 @@ changes, or (c) `check.py` warns that `data/tuned.json` has a stale schema.
 GitHub Desktop: **Fetch → Pull → then Push.** Doing this *before* making changes
 avoids the "Newer Commits on Remote" dialog entirely.
 
+The workflow no longer loses a deploy to that race. The Pages steps now run
+*before* the data commit, and the push rebases and retries. Previously a push
+that lost a race failed the job at that step, and the Pages steps below it
+never ran — so a perfectly good scrape did not reach the live site.
+
 **Never suggest dragging a *folder* onto a folder in Finder.** macOS "Replace"
 deletes the entire destination. Dragging *files* into a folder is safe.
 
@@ -338,18 +391,25 @@ Expect `0` at every width.
 
 ## Open items
 
-**Backfill more seasons (medium value).** Tuning currently uses two evaluation
-seasons. 294 configurations tying within one standard error is a direct symptom
-of that. Source has data back to 2000. Add years to the backfill loop in
+**Re-fit the constants — this is now the top item.** `data/tuned.json` is on
+schema 1 while `tune.py` is at 4, and three things have changed under it since
+it was written: the out-of-state identity fix moves the 2023–2025 game graphs
+that tuning fits on, the selection rule now pairs its standard errors, and the
+prior is rebuilt from a corrected 2025. The committed constants were chosen by
+the old rule on the old data. **Actions → Update ratings → Run workflow**, tick
+*Re-fit the model constants*. Expect the published constants to move, and check
+the README table after (it does not self-correct; the site footer does).
+
+**Backfill more seasons (medium value, and re-assess after the re-fit).** Source
+has data back to 2000. Add years to the backfill loop in
 `.github/workflows/update.yml`. Note 2020 is COVID-shortened — exclude it or
-report with and without.
+report with and without. The old argument for this was that 294 configurations
+tied within one SE; that was the wrong SE, not too little data, so judge the
+need from what the paired rule reports.
 
-**`carry=0.5` sits at the grid minimum.** The conservatism rule pushed it down
-until it ran out of grid. Worth extending the grid below 0.5 to confirm.
-
-**`data/tuned.json` is on schema 1 while `tune.py` is at 3.** `check.py` warns
-about it every run. Fix with one workflow run with **Re-fit the model
-constants** ticked.
+**`carry=0.5` sat at the grid minimum.** The conservatism rule pushed it down
+until it ran out of grid — but it was choosing among a pool the old rule had
+inflated. See what the paired rule selects before widening the grid below 0.5.
 
 **README quotes tuned constants and 76.6% accuracy in a table.** The site footer
 reads `tuned.json` and self-corrects; the README does not. Check it after any
@@ -357,6 +417,11 @@ re-fit — and after the re-fit above, it will be stale.
 
 **~28 fixtures sat in rare formats** the probe's sample cap didn't print. The
 per-week `UNRECOGNISED` count in the scrape log says whether they still matter.
+
+**`SB_TEAM` still skips a played game with an empty city.** Unchanged and still
+the right call — those are out-of-state-vs-out-of-state games that contribute
+nothing to Ohio ratings. Noted here only because the state-tag work sits next
+to it and it is easy to think it was covered.
 
 **Phase 3 before Phase 4 is questionable.** Regional playoff odds based on
 record alone will look wrong to anyone who follows Ohio football, because

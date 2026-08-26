@@ -215,3 +215,36 @@ def test_prob_scale_survives_a_degenerate_config():
     for g in (0, 1, 10):
         p = win_probability(7.0, g, bad)
         assert 0.0 < p < 1.0
+
+
+def test_a_stand_in_opponent_is_never_more_confident_than_a_rated_one():
+    """The inversion this flag exists to fix.
+
+    Both an unrated stand-in and a week-1 team arrive at zero games played.
+    The flat squash_scale (9.0) is *steeper* than the fitted curve at one game
+    (10.8), so sharing that path made a prediction against an opponent nobody
+    has rated more confident than one against a team with a game behind it.
+    """
+    for m in (7.0, 14.0, 21.0):
+        stand_in = win_probability(m, 0, CFG, stand_in=True)
+        for g in range(0, 11):
+            assert stand_in <= win_probability(m, g, CFG), (m, g)
+
+
+def test_the_stand_in_scale_is_the_flattest_the_curve_may_reach():
+    assert prob_scale(0, CFG, stand_in=True) == pytest.approx(CFG.prob_scale_max)
+    # and it does not depend on the games count it is handed
+    assert prob_scale(9, CFG, stand_in=True) == prob_scale(0, CFG, stand_in=True)
+
+
+def test_the_stand_in_flag_does_not_disturb_ordinary_predictions():
+    for g in (0, 1, 5, 10):
+        assert win_probability(12.0, g, CFG) == win_probability(12.0, g, CFG,
+                                                                stand_in=False)
+
+
+def test_a_stand_in_probability_is_still_a_probability():
+    for m in (-60.0, 0.0, 60.0):
+        p = win_probability(m, 0, CFG, stand_in=True)
+        assert 0.0 < p < 1.0
+    assert win_probability(0.0, 0, CFG, stand_in=True) == pytest.approx(0.5)
