@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-08-26T19:06:55+00:00",
+ "generatedAt": "2026-08-26T19:17:40+00:00",
  "season": 2026,
  "weeksLoaded": [
   1
@@ -87641,7 +87641,7 @@
    "topSeedOdds": 0.004,
    "meanSeed": 12.05,
    "medianSeed": 12,
-   "meanHarbin": 11.945,
+   "meanHarbin": 11.944,
    "meanWins": 6.36,
    "winDist": {
     "2": 0.001,

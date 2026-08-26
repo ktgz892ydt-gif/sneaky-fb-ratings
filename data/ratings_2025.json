@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-08-26T18:15:19+00:00",
+ "generatedAt": "2026-08-26T19:16:29+00:00",
  "season": 2025,
  "weeksLoaded": [
   1,
@@ -28,6 +28,7 @@
   "squashScale": 8.0,
   "marginCap": 49.0,
   "priorGames": 0.5,
+  "marginScale": 1.4708,
   "probScale": {
    "a": 19.6807,
    "b": 82.7213,
@@ -130575,34 +130576,34 @@
    "backtest": {
     "2023": {
      "games": 4107,
-     "accuracy": 0.7682,
+     "accuracy": 0.7677,
      "logloss": 0.465,
      "brier": 0.1546,
-     "meanMarginError": 18.91
+     "meanMarginError": 17.38
     },
     "2024": {
      "games": 5108,
      "accuracy": 0.7727,
      "logloss": 0.4517,
      "brier": 0.15,
-     "meanMarginError": 17.67
+     "meanMarginError": 16.28
     },
     "2025": {
      "games": 4536,
-     "accuracy": 0.778,
+     "accuracy": 0.7778,
      "logloss": 0.4499,
      "brier": 0.1485,
-     "meanMarginError": 17.97
+     "meanMarginError": 16.44
     }
    }
   },
   "overall": {
    "backtest": {
     "games": 13751,
-    "accuracy": 0.7731,
+    "accuracy": 0.7729,
     "logloss": 0.4551,
     "brier": 0.1509,
-    "meanMarginError": 18.14
+    "meanMarginError": 16.66
    }
   },
   "calibration": {
