@@ -395,9 +395,3 @@ all of that, and credit the source on any page you publish.
 Harbin points are OHSAA's official playoff qualifier and are shown only for
 comparison. They ignore margin entirely and award nothing for a loss, however
 narrow — they answer "who earned a playoff spot," not "who is best."
-
-## Contributors
-
-- Alex Shore — project owner and product direction.
-- Codex (OpenAI) — repository review, README precision pass, and
-  reproducibility/maintenance notes.
