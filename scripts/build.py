@@ -13,8 +13,12 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+from harbin import (FIRST_ROUND_BYES, LAST_REGULAR_WEEK,  # noqa: E402
+                    QUALIFIERS_PER_REGION, harbin_points,
+                    leans_on_out_of_state, qualifiers, validate)
 from ratings import RatingConfig, rate, win_probability  # noqa: E402
 from resolve import load_games, load_roster, resolve, team_identity  # noqa: E402
+from simulate import simulate_season  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
@@ -438,6 +442,35 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
     schedule = predict_schedule(fixtures, res, result, team_ids, cfg, fallback)
     projections = project_records(schedule, team_ids, result)
 
+    # ---- the playoff picture ----------------------------------------------
+    #
+    # Two different things, kept apart on purpose. `harbin` is the OHSAA
+    # qualifier computed from results that have actually happened -- the
+    # standings as they stand. `sim` is 10,000 simulated finishes to the
+    # regular season, each scored by that same rule, which is where the odds
+    # come from. The rule is theirs; only the forecast is ours.
+    harbin_now = harbin_points(res.teams, res.games)
+    seeds_now = qualifiers(res.teams, harbin_now, QUALIFIERS_PER_REGION)
+
+    published_harbin = {t: res.teams[t].harbin for t in team_ids
+                        if res.teams[t].harbin is not None}
+    harbin_check = validate(res.teams, res.games, published_harbin)
+    harbin_approx = leans_on_out_of_state(res.teams, res.games)
+
+    # Only unplayed REGULAR-season games decide qualification. Fixtures in
+    # week 11 and beyond are playoff or out-of-state dates and must not be
+    # simulated into the standings that produce the playoffs.
+    sim_rem, sim_p = [], []
+    for g in schedule:
+        if not g.get("predicted") or g["week"] > LAST_REGULAR_WEEK:
+            continue
+        if g["home"] is None or g["away"] is None:
+            continue
+        sim_rem.append((g["home"], g["away"]))
+        sim_p.append(g["homeWinProb"])
+    sim = simulate_season(team_ids, res.teams, res.games, sim_rem, sim_p,
+                          QUALIFIERS_PER_REGION)
+
     # Rank Ohio teams only, and only those that have actually played.
     #
     # A team with no result this season still gets a rating -- the prior and
@@ -496,7 +529,12 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
                 "games": int(result.games[i]),
                 "sos": round(float(result.sos[i]), 2),
                 "pd": int(result.point_diff[i]),
+                # The qualifier as it stands, and the seed it currently earns.
+                "harbinNow": round(float(harbin_now.get(t, 0.0)), 3),
+                "harbinApprox": bool(harbin_approx.get(t, False)),
+                "seedNow": seeds_now.get(t),
                 **projections.get(t, {}),
+                **sim.get(t, {}),
             }
         )
 
@@ -538,6 +576,35 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
         "prior": prior_meta,
         "tuned": tuned_meta,
         "connectivity": diag,
+        # ---- the playoff model, and what it is entitled to claim -----------
+        #
+        # `harbinAgreement` is this build scoring its own Harbin implementation
+        # against the source's published column. It is published rather than
+        # merely asserted because the whole feature rests on the rule being the
+        # real one, and a reader is owed the evidence rather than the promise.
+        "playoffs": {
+            "qualifiersPerRegion": QUALIFIERS_PER_REGION,
+            "firstRoundByes": FIRST_ROUND_BYES,
+            "lastRegularWeek": LAST_REGULAR_WEEK,
+            "simulations": 10000,
+            "method": (
+                "Each remaining regular-season game is decided by the board's "
+                "own win probability, the OHSAA Harbin qualifier is computed on "
+                "the finished season, and the top "
+                f"{QUALIFIERS_PER_REGION} of each region qualify. Repeated "
+                "10,000 times. The rule is OHSAA's and is not modified; the "
+                "forecast is this board's, because Harbin cannot forecast."
+            ),
+            "harbinAgreement": harbin_check,
+            "approxTeams": sum(1 for t in team_ids
+                               if res.teams[t].in_ohio and harbin_approx.get(t)),
+            "approxNote": (
+                "An out-of-state opponent carries no OHSAA division, so one is "
+                "stood in. Teams whose two-level Harbin tree touches one are "
+                "flagged harbinApprox: measured on 2025 the stand-in overstates "
+                "by about 0.3 points for the teams most exposed to it."
+            ),
+        },
         "conflicts": res.conflicts,
         "warnings": res.warnings,
         "teams": rows,

@@ -23,7 +23,7 @@ nothing.
 
 **Current state: working and deployed.** Week 1 of 2026 is live. Three past
 seasons (2023–2025) are committed. Model constants are fitted, not guessed.
-151 unit tests pass in CI before anything touches the network.
+171 unit tests pass in CI before anything touches the network.
 
 ---
 
@@ -32,7 +32,7 @@ seasons (2023–2025) are committed. Model constants are fitted, not guessed.
 ```bash
 cd ~/Documents/GitHub/sneaky-fb-ratings
 git fetch && git status          # the bot commits here; the remote is often ahead
-python -m pytest tests/ -q       # expect 151 passed; pip install -r requirements.txt if not
+python -m pytest tests/ -q       # expect 171 passed; pip install -r requirements.txt if not
 python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/check.json --no-site
 ```
 
@@ -176,13 +176,105 @@ now ~82 KB gzipped. `scheduleCols` in the payload documents the short keys.
 The two lists grow past each other as the season runs, so the page stays about
 the same size all year.
 
-Phases 2–6 (Monte Carlo distributions, regional playoff odds, true Harbin
-simulation, what-if scenarios, weekly trend history) are sketched in Alex's
-roadmap and not started. Monte Carlo belongs at build time in numpy, not in the
-browser — 700 teams × 10 games × 10,000 sims is trivial in Python and painful
-on a phone.
+**Phases 2, 3 and 4 are built** — Monte Carlo, regional playoff odds and a real
+Harbin implementation, delivered together because they are one thing. See "The
+playoff model" below. Phases 5 (what-if scenarios) and 6 (weekly trend history)
+are not started; a first step toward 6 is described under Open items as
+forward-looking scorekeeping.
+
+Monte Carlo runs at build time in numpy, not in the browser: 10,000 seasons
+takes 0.9s vectorised and would be painful on a phone.
 
 ---
+
+## The playoff model
+
+**The output is a % chance of reaching the playoffs, per team.** It is built on
+a division of labour that is the entire design:
+
+> **The rule is Harbin, unaltered. The forecast is Alex Points.**
+
+Harbin decides who qualifies, so a defensible answer has to use it. But Harbin
+*cannot forecast* — it is a backward-looking reward with no opinion about who
+wins on Friday. So the odds are not computable from Harbin at all. Something
+predictive is required, and that is the board's own rating. This is why the
+feature is unique rather than a re-skin of OHSAA's standings: no one without a
+predictive rating can produce it.
+
+```
+repeat 10,000 times:
+    decide each remaining regular-season game by the board's win probability
+    compute REAL Harbin over the finished season
+    top 12 of each region qualify
+playoff% = share of simulations in which the team qualifies
+```
+
+Simulation is required, not decorative. Harbin's Level 2 pays you for *your
+opponents'* wins, so one Friday result moves the qualifier for dozens of teams,
+and the teams competing for a regional place are exactly the ones entangled
+that way. Multiplying independent probabilities would destroy that.
+
+### Harbin was recovered from data, not from the rulebook
+
+`scripts/harbin.py` was not written from a description of the rules. The
+formula was recovered by least squares against the source's own published
+Harbin column over 702 teams of a completed season. The fitted per-division win
+values came out `6.54 6.10 5.47 5.02 4.48 3.94 3.40` — a monotone ladder in
+steps of ~0.5 — and rounding to the clean values reproduces the published
+figure **exactly** for 86% of teams with no out-of-state opponent in their
+two-level tree, median error 0.0000.
+
+The test that matters is not point agreement but whether it names the real
+playoff field. Scored against the teams that actually played in week 11:
+
+| season | qualifiers/region | we identify | ceiling (site's own Harbin) |
+|---|---|---|---|
+| 2023 | 16 | 99.3% | 99.8% |
+| 2024 | 16 | 99.1% | 99.3% |
+| 2025 | 12 | 99.4% | 100% |
+
+**The qualifier count changed.** 16 per region through 2024; 12 from 2025, with
+the top 4 seeded into a bye. That was read off the brackets — counting distinct
+Ohio teams in weeks 11+ gives exactly 12 in all 28 regions for 2025 — not
+assumed. It lives in `harbin.QUALIFIERS_PER_REGION`.
+
+### Is it calibrated?
+
+Backtested on 2025 from the end of week 6, with four weeks unplayed:
+
+| predicted band | teams | actually qualified |
+|---|---|---|
+| 0–10% | 265 | 4.9% |
+| 20–30% | 29 | 24.1% |
+| 50–60% | 20 | 55.0% |
+| 90–100% | 248 | 96.8% |
+
+Brier score **0.0795** against 0.2495 for always predicting the base rate.
+
+### Known approximation
+
+An out-of-state opponent carries no OHSAA division; OHSAA assigns one by
+enrollment, which the scoreboard does not publish. A Division II stand-in is
+used (least squares put the effective value at 5.98). Measured on 2025 it
+*overstates* by ~0.3 for the teams most exposed. Those teams are flagged
+`harbinApprox` and the page says so rather than presenting the figure as exact.
+
+### The invariant that guards it
+
+`check.py` asserts that playoff odds **sum to exactly 12 across each region**,
+bye odds to 4, and top-seed odds to 1. Exactly that many teams qualify in every
+simulated season, so those sums are conservation laws. They are the strongest
+available check on a Monte Carlo — a plausible-looking set of percentages that
+does not add up means the ranking inside the simulation is wrong, and nothing
+else would reveal it.
+
+### One trap already hit
+
+Ranking inside the simulation originally broke ties by array position, which is
+alphabetical by team id. On four identical teams that skewed playoff odds from
+50% into a 40%–61% spread — an alphabetically early team won every tie in every
+simulation. Ties are now broken by a coin flip (see `TIEBREAK_JITTER`), which
+is what OHSAA does. `tests/test_harbin.py` pins it.
 
 ## Decisions already litigated (don't relitigate without new evidence)
 
@@ -472,14 +564,23 @@ the old rule on the old data. **Actions → Update ratings → Run workflow**, t
 *Re-fit the model constants*. Expect the published constants to move, and check
 the README table after (it does not self-correct; the site footer does).
 
-**Backfill more seasons (lower priority than it looked).** Source has data back
-to 2000. Add years to the backfill loop in `.github/workflows/update.yml`. Note
-2020 is COVID-shortened — exclude it or report with and without.
+**Backfill more seasons — decided against. Do not reopen without new evidence.**
+The source has data to 2000 and it is tempting. Two reasons not to:
 
-The old argument for this was that 294 configurations tied within one SE. That
-was the wrong standard error, not too little data: with the paired rule the
-same grid ties 20. Judge any further backfill on whether the per-season
-stability report actually disagrees, not on the tie count.
+1. *The old argument for it was wrong.* It rested on 294 configurations tying
+   within one standard error, read as "not enough data". That was the wrong
+   standard error. With paired differences the same grid ties 20.
+2. *The seasons would be fitted, not carried.* `carry` reaches back exactly one
+   season, so 2005 could never touch a 2026 rating; old seasons would serve
+   only as extra held-out games for choosing constants. But the constants
+   describe a sport, and the sport changed — divisions, qualification (16 per
+   region through 2024, 12 from 2025), transfer rules, the mercy rule. Fitting
+   across an era boundary trades variance for bias, and the bias is invisible
+   because more data always *looks* like it should help.
+
+The per-season stability report is the thing to watch: 2024 and 2025 currently
+pick different optima only ±0.002 log loss apart, which is not a fit starving
+for data. Revisit only if that gap widens.
 
 **`carry=0.5` sat at the grid minimum.** The conservatism rule pushed it down
 until it ran out of grid — but it was choosing among a pool the old rule had
@@ -497,9 +598,31 @@ Note for next time: the workflow's backfill step skips a season whose
 `games_{yr}.csv` already exists, so a future re-scrape needs the file deleted
 or a manual `scrape.py --season {yr}` run.
 
-**Phase 3 before Phase 4 is questionable.** Regional playoff odds based on
-record alone will look wrong to anyone who follows Ohio football, because
-seeding is Harbin, not record. Consider doing the Harbin scorer first.
+**~~Phase 3 before Phase 4~~ — resolved by doing Harbin first**, exactly as this
+note advised. The odds are computed under the real qualifier, not under record.
+
+**Phase 5 (what-if scenarios)** is the natural next step and most of the
+machinery exists: `simulate_season` already accepts a probability per fixture,
+so forcing a result is a matter of pinning that probability to 0 or 1 and
+re-running. "If we beat X, our odds go from 62% to 81%" is one call.
+
+**Phase 6 (weekly trend history), and benchmarking against other models.** Alex
+asked for a comparison against public Ohio models — Drew Pasteur's is the one
+named. Two honest constraints:
+
+- A retrospective comparison is not possible. It needs *their* week-by-week
+  predictions archived, which generally are not published, and reconstructing
+  them is guesswork.
+- Scraping and republishing a third party's projections is a different
+  proposition from joeeitel.com, where the etiquette is long established.
+  That needs its own decision, not an assumption.
+
+The defensible version is **forward-looking scorekeeping**: append each week's
+predictions to a committed history file with the build timestamp, score them as
+results land, and publish an accumulating track record. That is evidence rather
+than a claim, it doubles as Phase 6, and it makes a comparison against any
+source possible once its numbers can legitimately be recorded. Note the
+existing weekly commit already gives a natural place to append.
 
 ---
 

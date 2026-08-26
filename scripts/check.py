@@ -345,6 +345,60 @@ def main():
          f"if that number is climbing, the scoreboard format has moved "
          f"(first few: {short[:5]})")
 
+    # ---- the playoff model
+    #
+    # These are conservation laws, and they are the strongest check available
+    # on a Monte Carlo: however the simulation behaves, exactly N teams per
+    # region qualify in EVERY simulated season, so the odds across a region
+    # must sum to N. If they do not, the ranking inside the simulation is
+    # wrong, and no amount of plausible-looking percentages would show it.
+    po = d.get("playoffs") or {}
+    if po:
+        per = po["qualifiersPerRegion"]
+        byes = po["firstRoundByes"]
+        regions = defaultdict(list)
+        for t in d["teams"]:
+            if t["inOhio"] and t.get("playoffOdds") is not None and t["region"]:
+                regions[t["region"]].append(t)
+        check(len(regions) == 28,
+              f"{len(regions)} regions carry playoff odds, expected 28")
+        for r, ts in sorted(regions.items()):
+            tot = sum(x["playoffOdds"] for x in ts)
+            check(abs(tot - per) < 0.02,
+                  f"region {r}: playoff odds sum to {tot:.2f}, but exactly "
+                  f"{per} teams qualify from every simulated season")
+            tb = sum(x["byeOdds"] for x in ts)
+            check(abs(tb - byes) < 0.02,
+                  f"region {r}: first-round-bye odds sum to {tb:.2f}, expected {byes}")
+            t1 = sum(x["topSeedOdds"] for x in ts)
+            check(abs(t1 - 1.0) < 0.02,
+                  f"region {r}: top-seed odds sum to {t1:.2f}, expected exactly 1")
+
+        for t in d["teams"]:
+            if t.get("playoffOdds") is None:
+                continue
+            for k in ("playoffOdds", "byeOdds", "topSeedOdds"):
+                check(0.0 <= t[k] <= 1.0, f"{t['name']}.{k} = {t[k]} is not a probability")
+            # A bye is a subset of qualifying, and the top seed a subset of a bye.
+            check(t["byeOdds"] <= t["playoffOdds"] + 1e-6,
+                  f"{t['name']}: bye odds {t['byeOdds']} exceed playoff odds {t['playoffOdds']}")
+            check(t["topSeedOdds"] <= t["byeOdds"] + 1e-6,
+                  f"{t['name']}: top-seed odds exceed bye odds")
+            wd = t.get("winDist") or {}
+            if wd:
+                sm = sum(wd.values())
+                check(abs(sm - 1.0) < 0.02,
+                      f"{t['name']}: win distribution sums to {sm:.3f}, not 1")
+
+        # The published Harbin implementation must still agree with the source.
+        ag = po.get("harbinAgreement") or {}
+        if ag.get("exactFraction") is not None:
+            warn(ag["exactFraction"] >= 0.80,
+                 f"our Harbin matches the source's published column exactly for "
+                 f"only {ag['exactFraction']:.1%} of comparable teams "
+                 f"(was 86% when the formula was recovered) -- OHSAA may have "
+                 f"changed the ladder")
+
     # ---- connectivity must be reported honestly
     c = d["connectivity"]
     check(c["level"] in ("none", "low", "medium", "high"), "bad connectivity level")

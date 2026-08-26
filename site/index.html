@@ -551,6 +551,20 @@ tr[data-top="1"] .c-rank::before {
 }
 .sheet-close:hover { color: var(--ink); border-color: var(--ink-3); }
 
+.playoff-panel { margin: 18px 0 4px; }
+.playoff-panel h3 { font-family: var(--display); font-size: 15px; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--ink-soft); margin: 0 0 8px; }
+.playoff-panel h4 { font-size: 13px; color: var(--ink-soft); margin: 14px 0 6px;
+  font-weight: 600; }
+.pp-line { margin: 0 0 6px; line-height: 1.5; }
+.pp-note { margin: 12px 0 0; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+.pp-bars { display: flex; flex-direction: column; gap: 3px; }
+.pp-bar { display: grid; grid-template-columns: 3.4em 1fr 3em; align-items: center; gap: 8px; }
+.pp-rec { font-family: var(--mono); font-size: 13px; color: var(--ink-soft); }
+.pp-track { background: var(--surface-sunk); height: 12px; border-radius: 2px; overflow: hidden; }
+.pp-track i { display: block; height: 100%; background: var(--accent); }
+.pp-pct { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); text-align: right; }
+
 .sheet-figs {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -665,7 +679,21 @@ tr[data-top="1"] .c-rank::before {
     border-radius: 0;
     padding: 18px 16px 40px;
   }
-  .sheet-figs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .playoff-panel { margin: 18px 0 4px; }
+.playoff-panel h3 { font-family: var(--display); font-size: 15px; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--ink-soft); margin: 0 0 8px; }
+.playoff-panel h4 { font-size: 13px; color: var(--ink-soft); margin: 14px 0 6px;
+  font-weight: 600; }
+.pp-line { margin: 0 0 6px; line-height: 1.5; }
+.pp-note { margin: 12px 0 0; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+.pp-bars { display: flex; flex-direction: column; gap: 3px; }
+.pp-bar { display: grid; grid-template-columns: 3.4em 1fr 3em; align-items: center; gap: 8px; }
+.pp-rec { font-family: var(--mono); font-size: 13px; color: var(--ink-soft); }
+.pp-track { background: var(--surface-sunk); height: 12px; border-radius: 2px; overflow: hidden; }
+.pp-track i { display: block; height: 100%; background: var(--accent); }
+.pp-pct { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); text-align: right; }
+
+.sheet-figs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .gamelist li { grid-template-columns: 2.2rem minmax(0, 1fr) auto; }
 }
 
@@ -909,6 +937,7 @@ tr[data-top="1"] .c-rank::before {
     { key: "btBinary", label: "BT (W/L)",cls: "c-num",    always: false, num: true,  dir: -1 },
     { key: "massey",   label: "Massey",  cls: "c-num",    always: false, num: true,  dir: -1 },
     { key: "harbin",   label: "Harbin",  cls: "c-num",    always: true,  num: true,  dir: -1 },
+    { key: "playoffOdds", label: "Playoff %", cls: "c-num", always: true, num: true, dir: -1 },
     { key: "sos",      label: "SOS",     cls: "c-num",    always: true,  num: true,  dir: -1 },
     { key: "pd",       label: "Pt diff", cls: "c-num",    always: true,  num: true,  dir: -1 }
   ];
@@ -1104,8 +1133,13 @@ tr[data-top="1"] .c-rank::before {
       fig(signed(t.rating), "Alex Points")
       + fig(t.w + "&ndash;" + t.l + (t.t ? "&ndash;" + t.t : ""), "Record")
       + fig(String(t.remaining === undefined ? 0 : t.remaining), "Games left")
-      + fig(proj, "Projected");
+      + fig(proj, "Projected")
+      + (t.playoffOdds === undefined ? ""
+         : fig(pct(t.playoffOdds), "Playoff odds")
+           + fig(pct(t.byeOdds), "First-round bye"));
     sheet.appendChild(figs);
+
+    if (t.playoffOdds !== undefined) sheet.appendChild(playoffPanel(t));
 
     // The projection is only ever as good as the ratings behind it, and early
     // in the season those are mostly last season's carry. Say so here rather
@@ -1156,6 +1190,74 @@ tr[data-top="1"] .c-rank::before {
     $("scrim").hidden = false;
     sheet.querySelector(".sheet-close").addEventListener("click", closeTeam);
     sheet.focus();
+  }
+
+  // The rank a team holds in its own region, by two different measures. This
+  // is the comparison the board exists to make: Alex Points answer "who is
+  // best", Harbin answers "who qualified", and they are not the same question.
+  function regionRanks(t) {
+    if (!t.region) return null;
+    var peers = DATA.teams.filter(function (x) {
+      return x.inOhio && x.region === t.region && x.games > 0;
+    });
+    if (peers.length < 2) return null;
+    function place(key) {
+      var s = peers.slice().sort(function (a, b) { return b[key] - a[key]; });
+      for (var i = 0; i < s.length; i++) if (s[i].id === t.id) return i + 1;
+      return null;
+    }
+    return { rating: place("rating"), harbin: place("harbinNow"), of: peers.length };
+  }
+
+  function playoffPanel(t) {
+    var wrap = document.createElement("div");
+    wrap.className = "playoff-panel";
+    var po = DATA.playoffs || {};
+    var html = "<h3>Playoff picture</h3>";
+
+    var rr = regionRanks(t);
+    if (rr && rr.rating && rr.harbin) {
+      var gap = Math.abs(rr.rating - rr.harbin);
+      html += '<p class="pp-line">In Region ' + t.region + ', <strong>Alex Points</strong>'
+        + " rank this team <strong>" + ordinal(rr.rating) + "</strong> of " + rr.of
+        + '; <strong>Harbin</strong> &mdash; the rule that actually decides the '
+        + "playoffs &mdash; has them <strong>" + ordinal(rr.harbin) + "</strong>."
+        + (gap >= 5
+            ? " That is a wide gap: Harbin pays for beating Ohio teams who then win, "
+              + "and ignores margin entirely."
+            : " The two broadly agree here.")
+        + "</p>";
+    }
+
+    // The projected record as a distribution, not as an average nobody can finish with.
+    var wd = t.winDist || {};
+    var keys = Object.keys(wd).map(Number).sort(function (a, b) { return a - b; });
+    if (keys.length) {
+      var top = Math.max.apply(null, keys.map(function (k) { return wd[k]; }));
+      html += '<h4>How the season is most likely to end</h4><div class="pp-bars">';
+      keys.forEach(function (k) {
+        var p = wd[k], gp = t.w + t.l + t.t + (t.remaining || 0);
+        html += '<div class="pp-bar"><span class="pp-rec">' + k + "&ndash;" + (gp - k)
+          + '</span><span class="pp-track"><i style="width:'
+          + Math.max(1, Math.round(100 * p / top)) + '%"></i></span>'
+          + '<span class="pp-pct">' + pct(p) + "</span></div>";
+      });
+      html += "</div>";
+    }
+
+    html += '<p class="pp-note">Odds come from simulating the rest of the regular '
+      + "season " + (po.simulations || 10000).toLocaleString() + " times, deciding each "
+      + "game by this board&rsquo;s own win probability, then applying the real OHSAA "
+      + "Harbin qualifier to each finished season. Top " + (po.qualifiersPerRegion || 12)
+      + " of each region qualify; the top " + (po.firstRoundByes || 4)
+      + " get a first-round bye."
+      + (t.harbinApprox
+          ? " This team has played an out-of-state opponent, which carries no OHSAA "
+            + "division, so its Harbin figure is approximate."
+          : "")
+      + "</p>";
+    wrap.innerHTML = html;
+    return wrap;
   }
 
   function fig(value, label) {
@@ -1299,6 +1401,14 @@ tr[data-top="1"] .c-rank::before {
         } else if (c.key === "pd") {
           td.textContent = (t.pd > 0 ? "+" : "") + t.pd;
           td.className += t.pd > 0 ? " pos" : t.pd < 0 ? " neg" : "";
+        } else if (c.key === "playoffOdds") {
+          if (t.playoffOdds === undefined || t.playoffOdds === null) {
+            td.textContent = "—";
+          } else {
+            td.innerHTML = pct(t.playoffOdds);
+            td.className += t.playoffOdds >= 0.75 ? " pos"
+                          : t.playoffOdds <= 0.25 ? " neg" : "";
+          }
         } else if (c.key === "harbin") {
           td.textContent = t.harbin === null || t.harbin === undefined ? "—" : fmt(t.harbin, 1);
         } else if (c.key === "rating") {

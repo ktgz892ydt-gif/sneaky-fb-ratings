@@ -126,6 +126,33 @@ handled, and all three are pinned by tests built from verbatim page text:
 played or scheduled. That is what a silent parser regression looks like from
 the outside, and nothing else in the pipeline notices it.
 
+## Playoff odds
+
+The board reports each team's **chance of reaching the playoffs**, and the
+design behind that number is worth stating plainly:
+
+> **The rule is Harbin, unaltered. The forecast is the board's own rating.**
+
+Harbin is OHSAA's qualifier, so any defensible answer has to use it. But Harbin
+cannot forecast — it is a backward-looking reward with no opinion about who
+wins on Friday. The odds are therefore not computable from Harbin at all.
+Something predictive is required, which is what this project has.
+
+Each remaining regular-season game is decided by the board's win probability,
+the real Harbin qualifier is applied to the finished season, and the top 12 of
+each region qualify. Ten thousand times. Simulation is required rather than
+convenient: Harbin's second level pays you for *your opponents'* wins, so a
+single result moves the qualifier for dozens of teams at once.
+
+The Harbin implementation was recovered from the source's published values, not
+from the rulebook, and it identifies **99.1–99.4% of the teams that actually
+made the playoffs** in 2023–2025 — against a ceiling of 99.3–100% using the
+site's own published Harbin. Backtested from week 6 of 2025 the odds score a
+Brier of 0.0795, against 0.2495 for always predicting the base rate.
+
+`check.py` enforces the conservation law: playoff odds must sum to exactly 12
+across each region, bye odds to 4, top-seed odds to 1.
+
 ## Teams with no result yet
 
 A team that has not played this season still receives a rating — the prior and
