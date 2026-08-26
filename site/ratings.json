@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-08-26T16:27:11+00:00",
+ "generatedAt": "2026-08-26T16:45:13+00:00",
  "season": 2026,
  "weeksLoaded": [
   1
@@ -129132,5 +129132,74 @@
    "p": 0.697,
    "e": 1
   }
- ]
+ ],
+ "scorecard": {
+  "bySeason": {
+   "backtest": {
+    "2023": {
+     "games": 4107,
+     "accuracy": 0.7682,
+     "logloss": 0.465,
+     "brier": 0.1546,
+     "meanMarginError": 18.91
+    },
+    "2024": {
+     "games": 5108,
+     "accuracy": 0.7514,
+     "logloss": 0.4791,
+     "brier": 0.1604,
+     "meanMarginError": 18.73
+    },
+    "2025": {
+     "games": 4536,
+     "accuracy": 0.7593,
+     "logloss": 0.482,
+     "brier": 0.1609,
+     "meanMarginError": 19.3
+    }
+   }
+  },
+  "overall": {
+   "backtest": {
+    "games": 13751,
+    "accuracy": 0.759,
+    "logloss": 0.4758,
+    "brier": 0.1588,
+    "meanMarginError": 18.97
+   }
+  },
+  "calibration": {
+   "0.5": {
+    "predicted": 0.5,
+    "actual": 0.5312,
+    "n": 1459
+   },
+   "0.6": {
+    "predicted": 0.6,
+    "actual": 0.5974,
+    "n": 2397
+   },
+   "0.7": {
+    "predicted": 0.7,
+    "actual": 0.6769,
+    "n": 2420
+   },
+   "0.8": {
+    "predicted": 0.8,
+    "actual": 0.787,
+    "n": 2582
+   },
+   "0.9": {
+    "predicted": 0.9,
+    "actual": 0.8935,
+    "n": 2704
+   },
+   "1.0": {
+    "predicted": 1.0,
+    "actual": 0.9845,
+    "n": 2189
+   }
+  }
+ },
+ "trendCols": "w=throughWeek rating=Alex Points odds=playoff odds"
 }

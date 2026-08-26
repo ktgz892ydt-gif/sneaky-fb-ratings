@@ -552,6 +552,42 @@ tr[data-top="1"] .c-rank::before {
   font-weight: 600; }
 .pp-line { margin: 0 0 6px; line-height: 1.5; }
 .pp-note { margin: 12px 0 0; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+.scorecard { background: var(--surface); border: 1px solid var(--rule);
+  border-radius: 4px; padding: 18px; margin: 18px 0; }
+.scorecard h2 { font-family: var(--display); font-size: 20px; margin: 0 0 8px;
+  text-transform: uppercase; letter-spacing: .02em; }
+.scorecard p { margin: 0 0 12px; line-height: 1.55; color: var(--ink-soft); }
+.sc-figs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.sc-figs div { background: var(--surface-sunk); border-radius: 3px; padding: 10px; }
+.sc-figs b { display: block; font-family: var(--display); font-size: 22px; }
+.sc-figs span { display: block; font-size: 11px; text-transform: uppercase;
+  letter-spacing: .05em; color: var(--ink-soft); margin-top: 2px; }
+.scorecard summary { cursor: pointer; font-size: 14px; color: var(--ink-soft);
+  margin-top: 14px; }
+.sc-cal { display: flex; flex-direction: column; gap: 4px; margin: 10px 0 0; }
+.cal-row { display: grid; grid-template-columns: 5.2em 1fr 2.8em 3.4em; gap: 8px;
+  align-items: center; font-family: var(--mono); font-size: 12px; }
+.cal-said, .cal-n { color: var(--ink-soft); }
+.cal-n { text-align: right; }
+.cal-track { position: relative; background: var(--surface-sunk); height: 12px;
+  border-radius: 2px; overflow: hidden; }
+.cal-track i { display: block; height: 100%; background: var(--accent); }
+.cal-track u { position: absolute; top: 0; bottom: 0; width: 2px;
+  background: var(--ink); opacity: .55; }
+.sc-note { font-size: 12px; margin-top: 10px !important; }
+@media (max-width: 620px) {
+  .sc-figs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.tr-rows { display: flex; flex-direction: column; gap: 6px; }
+.tr-row { display: grid; grid-template-columns: 7.5em 1fr 3em; gap: 10px;
+  align-items: center; }
+.tr-lab { font-size: 13px; color: var(--ink-soft); }
+.tr-delta { font-family: var(--mono); font-size: 13px; text-align: right; }
+.spark { width: 100%; height: 22px; display: block; }
+.spark polyline { fill: none; stroke: var(--accent); stroke-width: 1.5;
+  vector-effect: non-scaling-stroke; }
+
 .wi-rows { display: flex; flex-direction: column; }
 .wi-row { display: grid; grid-template-columns: 3.2em 1fr auto 2.4em; gap: 8px;
   align-items: baseline; padding: 5px 0; border-top: 1px solid var(--rule); }
@@ -702,6 +738,42 @@ tr[data-top="1"] .c-rank::before {
   font-weight: 600; }
 .pp-line { margin: 0 0 6px; line-height: 1.5; }
 .pp-note { margin: 12px 0 0; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+.scorecard { background: var(--surface); border: 1px solid var(--rule);
+  border-radius: 4px; padding: 18px; margin: 18px 0; }
+.scorecard h2 { font-family: var(--display); font-size: 20px; margin: 0 0 8px;
+  text-transform: uppercase; letter-spacing: .02em; }
+.scorecard p { margin: 0 0 12px; line-height: 1.55; color: var(--ink-soft); }
+.sc-figs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.sc-figs div { background: var(--surface-sunk); border-radius: 3px; padding: 10px; }
+.sc-figs b { display: block; font-family: var(--display); font-size: 22px; }
+.sc-figs span { display: block; font-size: 11px; text-transform: uppercase;
+  letter-spacing: .05em; color: var(--ink-soft); margin-top: 2px; }
+.scorecard summary { cursor: pointer; font-size: 14px; color: var(--ink-soft);
+  margin-top: 14px; }
+.sc-cal { display: flex; flex-direction: column; gap: 4px; margin: 10px 0 0; }
+.cal-row { display: grid; grid-template-columns: 5.2em 1fr 2.8em 3.4em; gap: 8px;
+  align-items: center; font-family: var(--mono); font-size: 12px; }
+.cal-said, .cal-n { color: var(--ink-soft); }
+.cal-n { text-align: right; }
+.cal-track { position: relative; background: var(--surface-sunk); height: 12px;
+  border-radius: 2px; overflow: hidden; }
+.cal-track i { display: block; height: 100%; background: var(--accent); }
+.cal-track u { position: absolute; top: 0; bottom: 0; width: 2px;
+  background: var(--ink); opacity: .55; }
+.sc-note { font-size: 12px; margin-top: 10px !important; }
+@media (max-width: 620px) {
+  .sc-figs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.tr-rows { display: flex; flex-direction: column; gap: 6px; }
+.tr-row { display: grid; grid-template-columns: 7.5em 1fr 3em; gap: 10px;
+  align-items: center; }
+.tr-lab { font-size: 13px; color: var(--ink-soft); }
+.tr-delta { font-family: var(--mono); font-size: 13px; text-align: right; }
+.spark { width: 100%; height: 22px; display: block; }
+.spark polyline { fill: none; stroke: var(--accent); stroke-width: 1.5;
+  vector-effect: non-scaling-stroke; }
+
 .wi-rows { display: flex; flex-direction: column; }
 .wi-row { display: grid; grid-template-columns: 3.2em 1fr auto 2.4em; gap: 8px;
   align-items: baseline; padding: 5px 0; border-top: 1px solid var(--rule); }
@@ -872,6 +944,17 @@ tr[data-top="1"] .c-rank::before {
       <div><b id="d-avg">—</b><span>Games per team</span></div>
       <div><b id="d-frac">—</b><span>Field connected</span></div>
     </div>
+  </section>
+
+  <section class="scorecard" id="scorecard" hidden>
+    <h2>How this board has actually done</h2>
+    <p id="sc-intro"></p>
+    <div class="sc-figs" id="sc-figs"></div>
+    <details id="sc-detail">
+      <summary>Calibration &mdash; does 70% mean 70%?</summary>
+      <div class="sc-cal" id="sc-cal"></div>
+      <p class="sc-note" id="sc-note"></p>
+    </details>
   </section>
 
   <div class="controls">
@@ -1294,6 +1377,44 @@ tr[data-top="1"] .c-rank::before {
     return html + "</div>";
   }
 
+  // A rating line and a playoff-odds line over the weeks so far. Drawn as an
+  // inline SVG rather than a library: two polylines do not justify a dependency,
+  // and this page has no build step.
+  function sparkline(values, w, h) {
+    var vals = values.filter(function (v) { return v !== null && v !== undefined; });
+    if (vals.length < 2) return "";
+    var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals);
+    var span = (hi - lo) || 1;
+    var pts = vals.map(function (v, i) {
+      return (i / (vals.length - 1) * w).toFixed(1) + ","
+        + (h - (v - lo) / span * h).toFixed(1);
+    }).join(" ");
+    return '<svg class="spark" viewBox="0 0 ' + w + " " + h + '" preserveAspectRatio="none"'
+      + ' aria-hidden="true"><polyline points="' + pts + '"/></svg>';
+  }
+
+  function trendPanel(t) {
+    var tr = t.trend;
+    if (!tr || tr.w.length < 2) return "";
+    var first = tr.w[0], last = tr.w[tr.w.length - 1];
+    var dr = tr.rating[tr.rating.length - 1] - tr.rating[0];
+    var odds = tr.odds.filter(function (v) { return v !== null && v !== undefined; });
+    var html = "<h4>Since week " + first + "</h4><div class=\"tr-rows\">"
+      + '<div class="tr-row"><span class="tr-lab">Alex Points</span>'
+      + sparkline(tr.rating, 90, 22)
+      + '<span class="tr-delta ' + (dr >= 0 ? "pos" : "neg") + '">'
+      + (dr >= 0 ? "+" : "") + dr.toFixed(1) + "</span></div>";
+    if (odds.length >= 2) {
+      var do_ = odds[odds.length - 1] - odds[0];
+      html += '<div class="tr-row"><span class="tr-lab">Playoff odds</span>'
+        + sparkline(tr.odds, 90, 22)
+        + '<span class="tr-delta ' + (do_ >= 0 ? "pos" : "neg") + '">'
+        + (do_ >= 0 ? "+" : "") + Math.round(do_ * 100) + "</span></div>";
+    }
+    return html + "</div><p class=\"pp-note\" style=\"margin:6px 0 0\">Weeks "
+      + first + "&ndash;" + last + ".</p>";
+  }
+
   function playoffPanel(t) {
     var wrap = document.createElement("div");
     wrap.className = "playoff-panel";
@@ -1330,7 +1451,7 @@ tr[data-top="1"] .c-rank::before {
       html += "</div>";
     }
 
-    html += whatIfPanel(t) + watchPanel(t);
+    html += trendPanel(t) + whatIfPanel(t) + watchPanel(t);
 
     html += '<p class="pp-note">Odds come from simulating the rest of the regular '
       + "season " + (po.simulations || 10000).toLocaleString() + " times, deciding each "
@@ -1542,6 +1663,60 @@ tr[data-top="1"] .c-rank::before {
     }
   };
 
+  // The track record. Live weeks and backtested weeks are reported separately
+  // and never averaged: a replayed week came from constants fitted on that very
+  // season, so pooling would launder the weaker number into the stronger one.
+  function renderScorecard() {
+    var sc = DATA.scorecard;
+    if (!sc || !sc.overall) return;
+    var live = sc.overall.live, back = sc.overall.backtest;
+    if (!live && !back) return;
+    $("scorecard").hidden = false;
+
+    var lines = [];
+    if (live && live.games) {
+      lines.push("<strong>" + live.games.toLocaleString() + " games</strong> have been "
+        + "called in advance and then graded &mdash; recorded before kickoff, so "
+        + "there is no way for the model to have seen the result.");
+    }
+    if (back && back.games) {
+      lines.push((live && live.games ? "Alongside that, " : "")
+        + "<strong>" + back.games.toLocaleString() + " games</strong> from past "
+        + "seasons were replayed week by week, always fitting on earlier weeks "
+        + "only. That is a <em>backtest</em>: honest walk-forward, but the "
+        + "model&rsquo;s constants were tuned on those same seasons, so it is a "
+        + "weaker claim than a live week. The two are never averaged together.");
+    }
+    $("sc-intro").innerHTML = lines.join(" ");
+
+    var shown = live && live.games ? live : back;
+    var label = live && live.games ? "live" : "backtested";
+    $("sc-figs").innerHTML =
+      fig(Math.round(shown.accuracy * 100) + "%", "Games called right (" + label + ")")
+      + fig(fmt(shown.logloss, 3), "Log loss")
+      + fig(fmt(shown.brier, 3), "Brier score")
+      + fig(fmt(shown.meanMarginError, 1), "Margin error, pts");
+
+    var cal = sc.calibration || {};
+    var keys = Object.keys(cal).sort();
+    if (!keys.length) { $("sc-detail").hidden = true; return; }
+    var rows = keys.map(function (k) {
+      var c = cal[k], off = c.actual - c.predicted;
+      // The top bin collects everything from 95% up. Labelling it "100%"
+      // would claim a certainty the board never states.
+      var said = c.predicted >= 1 ? "95%+" : Math.round(c.predicted * 100) + "%";
+      return '<div class="cal-row"><span class="cal-said">said ' + said + "</span>"
+        + '<span class="cal-track"><i style="width:' + (c.actual * 100).toFixed(0)
+        + '%"></i><u style="left:' + (c.predicted * 100).toFixed(0) + '%"></u></span>'
+        + '<span class="cal-got">' + Math.round(c.actual * 100) + "%</span>"
+        + '<span class="cal-n">' + c.n.toLocaleString() + "</span></div>";
+    }).join("");
+    $("sc-cal").innerHTML = rows;
+    $("sc-note").innerHTML = "Each row: when the board made the favourite this "
+      + "confident, that is how often the favourite actually won. The tick marks "
+      + "where a perfectly calibrated board would land.";
+  }
+
   function boot() {
     if (!DATA) { return; }
     var c = DATA.connectivity;
@@ -1556,6 +1731,8 @@ tr[data-top="1"] .c-rank::before {
     var wk = DATA.weeksLoaded.length ? Math.max.apply(null, DATA.weeksLoaded) : 0;
     $("s-week").textContent = "Wk " + wk;
     $("sub").textContent = "Ohio varsity football · " + DATA.season + " · through Week " + wk;
+
+    renderScorecard();
 
     var rel = $("rel");
     rel.setAttribute("data-level", c.level);

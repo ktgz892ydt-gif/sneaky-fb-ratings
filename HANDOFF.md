@@ -23,7 +23,7 @@ nothing.
 
 **Current state: working and deployed.** Week 1 of 2026 is live. Three past
 seasons (2023–2025) are committed. Model constants are fitted, not guessed.
-177 unit tests pass in CI before anything touches the network.
+189 unit tests pass in CI before anything touches the network.
 
 ---
 
@@ -32,8 +32,8 @@ seasons (2023–2025) are committed. Model constants are fitted, not guessed.
 ```bash
 cd ~/Documents/GitHub/sneaky-fb-ratings
 git fetch && git status          # the bot commits here; the remote is often ahead
-python -m pytest tests/ -q       # expect 177 passed; pip install -r requirements.txt if not
-python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/check.json --no-site
+python -m pytest tests/ -q       # expect 189 passed; pip install -r requirements.txt if not
+python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/check.json --no-site --no-history
 ```
 
 That last command is the deterministic build check — pinning `--generated-at`
@@ -176,10 +176,9 @@ now ~82 KB gzipped. `scheduleCols` in the payload documents the short keys.
 The two lists grow past each other as the season runs, so the page stays about
 the same size all year.
 
-**Phases 2, 3, 4 and 5 are built** — Monte Carlo, regional playoff odds and a real
+**Phases 2 through 6 are built** — Monte Carlo, regional playoff odds and a real
 Harbin implementation, delivered together because they are one thing. See "The
-playoff model" below. Phase 6 (weekly trend history) is not started; a first
-step toward it is described under Open items as forward-looking scorekeeping.
+playoff model" and "The track record" below.
 
 Monte Carlo runs at build time in numpy, not in the browser: 10,000 seasons
 takes 0.9s vectorised and would be painful on a phone.
@@ -315,6 +314,89 @@ alphabetical by team id. On four identical teams that skewed playoff odds from
 50% into a 40%–61% spread — an alphabetically early team won every tie in every
 simulation. Ties are now broken by a coin flip (see `TIEBREAK_JITTER`), which
 is what OHSAA does. `tests/test_harbin.py` pins it.
+
+## The track record
+
+**`data/history.jsonl` is the only file in this repo that cannot be
+regenerated.** Everything else in `data/` is derived from the source and can be
+rebuilt by re-scraping. A prediction is what the board said *at a moment in
+time*, before the game was played; recomputing it later from a model that has
+since seen the result is not a prediction, it is a retrofit, and it would
+flatter the record without anyone noticing.
+
+**If this file is lost, the track record is genuinely gone.** The workflow
+commits it via `git add data/`; there is a note there so nobody narrows that
+path without realising what it drops.
+
+### Live and backtest are never pooled
+
+Two kinds of line, and the distinction is the whole point:
+
+| | what it is | strength |
+|---|---|---|
+| `live` | captured by the build running that week, before kickoff | out of sample; the model could not have seen the result |
+| `backtest` | replayed afterwards from committed scores, fit on weeks 1..N to predict N+1 | honest walk-forward, but the model's *constants* were tuned on those seasons |
+
+`scripts/backfill_history.py` produced 27 backtest weeks across 2023–2025 so the
+page is not blank for the first ten weeks of a season. They are labelled, shown
+separately, and `check.py` fails the build if the two are ever merged into one
+figure. Pooling would launder the weaker number into the stronger one and the
+headline would look entirely reasonable.
+
+### What it currently says
+
+13,751 backtested games: **75.9% called correctly**, log loss 0.4758, Brier
+0.1588, mean margin error 19.0 points. Calibration, which is the part that
+matters:
+
+| board said | favourite actually won | n |
+|---|---|---|
+| 60% | 59.7% | 2,397 |
+| 70% | 67.7% | 2,420 |
+| 80% | 78.7% | 2,582 |
+| 90% | 89.3% | 2,704 |
+| 95%+ | 98.5% | 2,189 |
+
+### Rules that keep it honest
+
+- **Append-only, idempotent per (season, week).** The first look at a week is
+  the prediction; a later build has seen more of the season. Re-recording would
+  swap a forecast for hindsight, so `append_if_new` refuses.
+- **A replay cannot overwrite a live capture.** Same guard, and a test pins it.
+- **Only the next unplayed week is recorded.** "We called this Friday right" is
+  the claim worth being held to, and it keeps the log small enough to live in
+  the repo for years.
+- **An unplayed prediction is never counted as a miss.** Otherwise the record
+  would look worse every time the source posts late.
+- **A truncated final line is skipped, not fatal** — that is what an interrupted
+  commit looks like, and losing the history to one bad append would be a poor
+  trade.
+- **Backtest lines carry no per-team block.** They are replayable by definition,
+  so storing their ratings duplicated something a two-second script regenerates.
+  It cost 1.2 MB of the log's first 1.7.
+
+### `build.py` now writes to data/
+
+This is new: the build has a side effect. It is idempotent, so a rebuild of the
+same week changes nothing and the deterministic-build check still passes. But
+**the reproducibility recipe should use `--no-history`** — a check should not
+write to an append-only log at all, even harmlessly.
+
+### Comparing against other models
+
+Alex asked about benchmarking against public Ohio models, Drew Pasteur's in
+particular. Two constraints that have not gone away:
+
+- **A retrospective comparison is not possible.** It needs their week-by-week
+  calls archived at the time. Reconstructing them is guesswork.
+- **Scraping and republishing a third party's projections** is a different
+  proposition from joeeitel.com, where the etiquette is long established. That
+  needs its own decision.
+
+What now exists is the machinery: a dated, append-only log of what this board
+claimed before kickoff, scored the same way every week. Any other source whose
+numbers can legitimately be recorded can be scored beside it on identical games.
+That is the honest form of the comparison, and it accumulates from here.
 
 ## Decisions already litigated (don't relitigate without new evidence)
 

@@ -173,6 +173,38 @@ catches the one mistake that would otherwise be invisible: reading a road game
 the wrong way round, which reports "if we win" numbers that are really "if we
 lose".
 
+## The track record
+
+The board keeps a dated, append-only log of what it predicted **before** each
+week was played, and grades itself as results land. `data/history.jsonl` is the
+only file in this repo that cannot be regenerated: a prediction is what was
+said at a moment in time, and recomputing it from a model that has since seen
+the result is a retrofit, not a forecast.
+
+Two kinds of record, reported separately and **never averaged**:
+
+- **live** — captured by the build running that week, before kickoff.
+- **backtest** — replayed from committed scores, fit on weeks 1..N to predict
+  N+1. Honest walk-forward, but the model's constants were tuned on those
+  seasons, so it is a weaker claim. `check.py` fails the build if the two are
+  ever merged into one figure.
+
+Across 13,751 backtested games: **75.9% of games called correctly**, log loss
+0.4758, Brier 0.1588. Calibration is the part that matters —
+
+| board said | favourite actually won | n |
+|---|---|---|
+| 60% | 59.7% | 2,397 |
+| 70% | 67.7% | 2,420 |
+| 80% | 78.7% | 2,582 |
+| 90% | 89.3% | 2,704 |
+
+Because the log is dated and append-only, any other forecaster whose numbers
+can legitimately be recorded can be scored beside this one on identical games.
+That is the only honest form of such a comparison: a retrospective claim would
+need the other model's week-by-week calls archived at the time, which is not
+something that can be reconstructed after the fact.
+
 ## Teams with no result yet
 
 A team that has not played this season still receives a rating — the prior and
@@ -306,7 +338,7 @@ changes, or `check.py` warns that `data/tuned.json` is on a stale schema.
 diff. To verify a build reproduces exactly, pin it:
 
 ```bash
-python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/check.json --no-site
+python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/check.json --no-site --no-history
 ```
 
 `--no-site` matters here: without it the run still rewrites `site/index.html`

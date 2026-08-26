@@ -120,6 +120,11 @@ jobs:
         run: |
           git config user.name  "ratings-bot"
           git config user.email "actions@users.noreply.github.com"
+          # data/history.jsonl is append-only and CANNOT be regenerated -- it is
+          # the record of what the board predicted before each week was played.
+          # Losing it loses the track record, so it must be committed like any
+          # other result. `git add data/` covers it; this note exists so nobody
+          # narrows that path later without realising what it drops.
           git add data/ site/ratings.json site/index.html site/app.html
           if git diff --staged --quiet; then
             echo "No change this run."

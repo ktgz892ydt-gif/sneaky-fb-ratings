@@ -441,6 +441,60 @@ def main():
                  f"(was 86% when the formula was recovered) -- OHSAA may have "
                  f"changed the ladder")
 
+    # ---- the track record
+    #
+    # The one thing that must never happen here is a backtest being presented
+    # as a live result. A replayed week was produced by constants fitted on
+    # that very season; a live week was captured before the games. Pooling them
+    # launders the weaker number into the stronger one, and the resulting
+    # headline would look entirely reasonable.
+    sc = d.get("scorecard")
+    if sc:
+        check(isinstance(sc.get("overall"), dict),
+              "scorecard.overall must be split by kind, not a single figure")
+        for kind, v in (sc.get("overall") or {}).items():
+            check(kind in ("live", "backtest"),
+                  f"scorecard reports an unknown kind {kind!r}")
+            if not v:
+                continue
+            check(v["games"] > 0, f"scorecard[{kind}] claims a record over no games")
+            check(0.0 <= v["accuracy"] <= 1.0,
+                  f"scorecard[{kind}] accuracy {v['accuracy']} is not a fraction")
+            check(0.0 <= v["brier"] <= 1.0,
+                  f"scorecard[{kind}] brier {v['brier']} out of range")
+            # A forecast worse than a coin flip would mean the sign is inverted
+            # somewhere -- far more likely than a genuinely anti-predictive model.
+            warn(v["accuracy"] >= 0.55,
+                 f"scorecard[{kind}] calls only {v['accuracy']:.1%} of games "
+                 f"correctly over {v['games']} games -- check the sign")
+            warn(v["brier"] <= 0.25,
+                 f"scorecard[{kind}] Brier {v['brier']:.3f} is no better than "
+                 f"always saying 50%")
+        # Per-season figures must belong to a kind, never sit loose at the top.
+        for kind, seasons in (sc.get("bySeason") or {}).items():
+            check(kind in ("live", "backtest"),
+                  f"scorecard.bySeason has an unknown kind {kind!r}")
+            for yr, v in seasons.items():
+                check(str(yr).isdigit(), f"scorecard season key {yr!r} is not a year")
+                check(v["games"] > 0, f"scorecard {kind} {yr} covers no games")
+        for k, v in (sc.get("calibration") or {}).items():
+            check(0.0 <= v["actual"] <= 1.0,
+                  f"calibration bin {k}: actual {v['actual']} is not a fraction")
+            check(v["n"] > 0, f"calibration bin {k} has no games")
+
+    # Trend series must be internally consistent -- three parallel arrays that
+    # disagree in length would silently plot a team's odds against the wrong week.
+    for t in d["teams"]:
+        tr = t.get("trend")
+        if not tr:
+            continue
+        n = len(tr["w"])
+        check(len(tr["rating"]) == n and len(tr["odds"]) == n,
+              f"{t['name']}: trend arrays disagree in length "
+              f"({n} weeks, {len(tr['rating'])} ratings, {len(tr['odds'])} odds)")
+        check(tr["w"] == sorted(tr["w"]),
+              f"{t['name']}: trend weeks are not in order")
+
     # ---- connectivity must be reported honestly
     c = d["connectivity"]
     check(c["level"] in ("none", "low", "medium", "high"), "bad connectivity level")

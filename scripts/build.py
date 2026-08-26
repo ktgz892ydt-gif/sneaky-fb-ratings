@@ -16,6 +16,9 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from harbin import (FIRST_ROUND_BYES, LAST_REGULAR_WEEK,  # noqa: E402
                     QUALIFIERS_PER_REGION, harbin_points,
                     leans_on_out_of_state, qualifiers, validate)
+from history import (append_if_new, build_snapshot,  # noqa: E402
+                     load as load_history, score as score_history,
+                     trends)
 from ratings import RatingConfig, rate, win_probability  # noqa: E402
 from resolve import load_games, load_roster, resolve, team_identity  # noqa: E402
 from simulate import (own_game_swings, scoreboard_watch,  # noqa: E402
@@ -312,7 +315,8 @@ def project_records(schedule, team_ids, result):
 
 
 def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
-         prior_path=None, use_prior=True, schedule_path=None):
+         prior_path=None, use_prior=True, schedule_path=None,
+         history_path=None, record_history=True):
     # Prefer real scraped data when it exists; fall back to the checked-in
     # Week 1 fixture so the pipeline is runnable without network access.
     if games_path is None:
@@ -599,6 +603,36 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
             }
         )
 
+    # ---- the track record ------------------------------------------------
+    #
+    # Capture what the board is claiming BEFORE the games are played, then
+    # grade every earlier capture against what has since happened. The log is
+    # append-only and idempotent per (season, week): the first look at a week
+    # is the prediction, and a later build has seen more of the season, so
+    # re-recording would quietly swap a forecast for hindsight.
+    hpath = history_path if history_path is not None else os.path.join(DATA, "history.jsonl")
+    weeks_loaded = sorted({g["week"] for g in res.games})
+    through_week = max(weeks_loaded) if weeks_loaded else 0
+
+    scorecard, trend = None, {}
+    if hpath:
+        snaps = load_history(hpath)
+        results_by_season = {season: {
+            (g.get("week", 1), res.teams[g["home"]].name, res.teams[g["away"]].name):
+                g["home_score"] - g["away_score"] for g in res.games}}
+        # Past seasons are scored from their own committed scores.
+        for other in sorted({s.get("season") for s in snaps} - {season}):
+            gp = os.path.join(DATA, f"games_{other}.csv")
+            rp = os.path.join(DATA, f"roster_{other}.csv")
+            if not (os.path.exists(gp) and os.path.exists(rp)):
+                continue
+            o = resolve(load_roster(rp), load_games(gp))
+            results_by_season[other] = {
+                (g.get("week", 1), o.teams[g["home"]].name, o.teams[g["away"]].name):
+                    g["home_score"] - g["away_score"] for g in o.games}
+        scorecard = score_history(snaps, results_by_season)
+        trend = trends(snaps, season, [t["name"] for t in rows if t.get("inOhio")])
+
     payload = {
         "generatedAt": generated_at or datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "season": season,
@@ -701,7 +735,23 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
         "fallbackRating": ({"value": fallback[0], "basis": fallback[1]}
                            if fallback[0] is not None else None),
         "schedule": compact_schedule(schedule, team_ids),
+        # How the board has actually done. `live` weeks were captured before
+        # the games; `backtest` weeks were replayed afterwards from committed
+        # scores and are a weaker claim -- they are never pooled together.
+        "scorecard": scorecard,
+        "trendCols": "w=throughWeek rating=Alex Points odds=playoff odds",
     }
+    for r in rows:
+        t = trend.get(r["name"])
+        if t and len(t["w"]) >= 2:
+            r["trend"] = t
+
+    if hpath and record_history:
+        snap = build_snapshot(season, through_week, payload["generatedAt"],
+                              tuned_meta, rows, schedule)
+        if append_if_new(hpath, snap):
+            print(f"history        : recorded {season} week {through_week}",
+                  file=sys.stderr)
 
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as fh:
@@ -780,6 +830,10 @@ if __name__ == "__main__":
                     help="ignore any remaining schedule (use for past seasons)")
     ap.add_argument("--no-prior", action="store_true",
                     help="ignore any prior (use when building a past season)")
+    ap.add_argument("--no-history", action="store_true",
+                    help="do not append this build to data/history.jsonl. Use "
+                         "for reproducibility checks: the log is append-only "
+                         "and a check should not write to it.")
     ap.add_argument("--no-site", action="store_true",
                     help="write ratings JSON only, do not rebuild the pages")
     ap.add_argument("--generated-at",
@@ -805,6 +859,7 @@ if __name__ == "__main__":
         prior_path=a.prior,
         use_prior=not a.no_prior,
         schedule_path=(False if a.no_schedule else a.schedule),
+        record_history=not a.no_history,
     )
     print(f"games          : {payload['gameCount']}")
     print(f"teams          : {payload['teamCount']}  (Ohio: {payload['ohioTeamCount']})")
