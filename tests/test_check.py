@@ -20,8 +20,8 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts"))
 
-from check import (_name, overdue_fixtures, week_coverage,  # noqa: E402
-                   week_date_spans, weeks_out_of_order)
+from check import (_name, calibration_is_nested, overdue_fixtures,  # noqa: E402
+                   week_coverage, week_date_spans, weeks_out_of_order)
 from resolve import load_games  # noqa: E402
 
 TODAY = "2026-09-10"
@@ -122,6 +122,29 @@ def test_an_unresolved_fixture_still_renders_in_a_warning():
     assert _name(payload, 0) == "Alpha (A)"
     assert _name(payload, "Someone (Nowhere)") == "Someone (Nowhere)"
     assert _name(payload, 99) == "#99"          # out of range, must not raise
+
+
+# ------------------------------------------- calibration table shape
+
+BIN = {"predicted": 0.8, "actual": 0.787, "n": 2582}
+
+
+def test_calibration_nested_by_kind_is_the_accepted_shape():
+    assert calibration_is_nested({"backtest": {"0.8": BIN}, "live": {}})
+
+
+def test_an_empty_calibration_table_is_fine():
+    """Nothing settled yet is a normal early-season state, not a shape error."""
+    assert calibration_is_nested({})
+
+
+def test_the_flat_legacy_shape_is_rejected_not_crashed_on():
+    """The trap: a flat table's values are dicts too, so a one-level
+    isinstance test waves it through -- and iterating its "bins" then dies on
+    a float. This is the exact payload shape that produced
+    `TypeError: 'float' object is not subscriptable` on a stale ratings.json;
+    it must come back False so check.py FAILS with its own message instead."""
+    assert not calibration_is_nested({"0.8": BIN})
 
 
 # ------------------------------------------------- the CSV contract itself

@@ -246,3 +246,59 @@ path with history recording, check.py, semantic rebuild comparison,
 empty-schedule and post-season reproductions, and independent walk-forward
 validation of margin and probability calibration over 10,512 held-out
 games.*
+
+---
+
+# Addendum: fix verification, same day (later)
+
+All findings from the review above were re-checked against commit `e3caf77`.
+Every one of them is addressed, most of them better than asked:
+
+- **November gate — fixed and verified both ways.** `build.py` publishes
+  `playoffs.simulated` + `remainingRegularFixtures`; `check.py` accepts a
+  skipped simulation only when results have reached `lastRegularWeek`.
+  Reproduced: a mid-season schedule loss fails with "the remaining schedule
+  has been lost"; a legitimate post-season skip passes.
+- **Fetch retry — fixed**, 3 attempts with backoff on 5xx/timeouts/connection
+  errors only; 4xx (the end-of-season 404 sentinel) never retried.
+  `tests/test_fetch.py` pins the paths. 256 tests pass.
+- **Season single-sourced** in `scrape.py` (`CURRENT_SEASON` /
+  `HISTORY_SEASONS` / `PRIOR_SEASON`); the workflow resolves them at runtime;
+  no hardcoded years remain in `update.yml`.
+- **Crons gated August–December and moved off minute :00** (:13/:17/:23),
+  with the 60-day-inactivity disable documented on the rollover checklist.
+- **Timezone advice struck** with a correction banner in
+  `AUTOMATION_REVIEW_CONCERNS.md`.
+- **Copy self-corrects now**: the method panel derives the squash examples
+  and prior size from `tuned.json` at render time; the footer label reads
+  "squash scale"; the README table is correct at scale 8 with the 49-cap
+  note; `pct()` caps at ">99%"; win-distribution labels handle ties.
+- **Calibration nested by kind** end to end (producer, check, and page, with
+  a legacy-flat fallback and an empty-live guard); **head-to-head reads live
+  captures only**; **schedule cliff-guard** added in `scrape.py`
+  (a >50 → 0 drop refuses to overwrite); **MAX_SEASON comment corrected**
+  (six playoff rounds; 16 is right).
+
+Two small items remain:
+
+1. **The committed `site/ratings.json` is one generation stale** — it was
+   refreshed in the commit *before* the calibration-nesting code landed, so
+   it still carries the flat calibration shape. Running `check.py` standalone
+   against it crashes (below), and the deployed page serves the old shape
+   (it renders fine via the JS legacy fallback). One workflow run reconciles
+   everything — it will self-heal at the next scheduled run, or run
+   **Actions → Update ratings → Run workflow** once.
+2. **`check.py`'s flat-calibration guard crashes instead of failing
+   cleanly.** The structural test (`all(isinstance(v, dict))`) also passes
+   for the legacy flat shape, because flat bins are dicts too. The unknown-
+   kind check then correctly registers a FAIL, but the loop continues into
+   the bin values and dies with `TypeError: 'float' object is not
+   subscriptable` before the report prints. Harmless in CI (build always
+   runs first and writes the new shape), but anyone running `check.py`
+   against an older payload gets a traceback instead of the intended
+   message. Fix: `continue` past a kind that is not live/backtest, or test
+   the values-of-values.
+
+Verified this pass: 256 tests; fresh build → nested calibration → clean
+check (2 expected warnings); mid-season-loss and post-season reproductions;
+README squash table recomputed at scale 8; cron syntax month-window checked.

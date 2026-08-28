@@ -112,6 +112,22 @@ def weeks_out_of_order(spans):
     return bad
 
 
+def calibration_is_nested(cal):
+    """Is the calibration table nested by kind, or the flat legacy shape?
+
+    The two are indistinguishable one level down: a flat table's values are
+    dicts too ({"predicted": .8, "actual": ...}), so testing only
+    `isinstance(v, dict)` waves the legacy shape through -- and the first
+    stale payload this met then crashed the bin loop with a TypeError before
+    report() could print anything. A wrong shape must FAIL, not crash, so the
+    test has to look one level deeper: in the nested shape, the values of the
+    values are the bin dicts themselves.
+    """
+    return all(isinstance(kbins, dict)
+               and all(isinstance(v, dict) for v in kbins.values())
+               for kbins in cal.values())
+
+
 def main():
     # ---- model invariants (these are pure math and must always hold)
     cfg = RatingConfig()
@@ -717,12 +733,16 @@ def main():
                 check(str(yr).isdigit(), f"scorecard season key {yr!r} is not a year")
                 check(v["games"] > 0, f"scorecard {kind} {yr} covers no games")
         # Calibration is nested by kind, and must stay that way: a shared
-        # bin dict would pool a replayed week with a live one.
+        # bin dict would pool a replayed week with a live one. The shape test
+        # is one level deeper than it looks -- see calibration_is_nested() --
+        # and the bin loop is skipped entirely on a wrong shape, because
+        # iterating a flat table's "bins" is what used to crash here.
         cal = sc.get("calibration") or {}
-        check(all(isinstance(v, dict) for v in cal.values()),
+        nested = calibration_is_nested(cal)
+        check(nested,
               "scorecard.calibration must be nested by kind (live/backtest), "
               "not a flat set of bins -- a flat one pools them")
-        for kind, kbins in cal.items():
+        for kind, kbins in (cal.items() if nested else ()):
             check(kind in ("live", "backtest"),
                   f"scorecard.calibration has an unknown kind {kind!r}")
             for k, v in kbins.items():
