@@ -238,8 +238,17 @@ def projected_score(margin, total, implausible=IMPLAUSIBLE_SCORES):
             continue
         # A stated favourite must not be shown level, and must not be shown
         # losing. Below half a point the margin is not claiming a favourite.
-        if abs(margin) >= 0.5 and (h > a) != (margin > 0):
-            continue
+        #
+        # Written as two explicit comparisons rather than `(h > a) != (margin >
+        # 0)`, which is subtly asymmetric: for a NEGATIVE margin a tie makes
+        # both sides False, the test passes, and 22-22 was published against a
+        # stated -0.5 favourite. Positive margins were fine, so the bug only
+        # ever showed on away favourites.
+        if abs(margin) >= 0.5:
+            if margin > 0 and h <= a:
+                continue
+            if margin < 0 and h >= a:
+                continue
         cost = (round(drift, 6), abs(delta))
         if best is None or cost < best[0]:
             best = (cost, (h, a))

@@ -458,3 +458,30 @@ def test_an_ordinary_game_is_left_alone():
     for margin, total in ((18.4, 41.0), (-19.3, 47.0), (7.0, 45.0)):
         h, a = projected_score(margin, total)
         assert h + a == pytest.approx(total, abs=2)
+
+
+def test_a_negative_half_point_favourite_is_not_shown_level():
+    """The asymmetry that shipped.
+
+    The guard read `(h > a) != (margin > 0)`. For a NEGATIVE margin a tie makes
+    both sides False, so the test passed and 22-22 was published against a
+    stated -0.5 favourite. Positive margins were fine, so it only ever showed
+    on away favourites -- which is why it survived the first round of tests.
+    """
+    for total in range(20, 70):
+        h, a = projected_score(-0.5, total)
+        assert a > h, (total, h, a)
+        h, a = projected_score(0.5, total)
+        assert h > a, (total, h, a)
+
+
+def test_the_favourite_rule_is_symmetric_across_the_whole_range():
+    for mi in range(-140, 141):
+        margin = mi / 2
+        if abs(margin) < 0.5:
+            continue
+        for total in range(20, 90):
+            if total < abs(margin):
+                continue
+            h, a = projected_score(margin, total)
+            assert (h > a) if margin > 0 else (a > h), (margin, total, h, a)

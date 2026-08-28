@@ -27,7 +27,15 @@ a truncated write could corrupt.
                  model is visible in the record rather than silently mixed in
     keys         team names, in a fixed order
     teams        [rating, rank, playoffOdds] parallel to keys
-    pred         [homeKey, awayKey, week, predictedMargin, homeWinProb]
+    pred         [homeKey, awayKey, week, predictedMargin, homeWinProb,
+                 projectedHomeScore, projectedAwayScore]
+
+                 The two scores were added once projected scores became a
+                 visible feature. A claim shown publicly should be scoreable
+                 later, and the log is append-only, so the time to start
+                 recording is before the predictions accumulate rather than
+                 after. Entries written before that carry five elements; the
+                 reader below tolerates both lengths.
 
 Predictions are stored for the NEXT unplayed week only. That is the claim worth
 being held to -- "we called this Friday right" -- and it keeps the file small
@@ -108,8 +116,11 @@ def build_snapshot(season, through_week, generated_at, tuned, team_rows,
             continue
         if not (through_week < g["week"] <= horizon):
             continue
-        pred.append([g["homeName"], g["awayName"], g["week"],
-                     g["predictedHomeMargin"], g["homeWinProb"]])
+        row = [g["homeName"], g["awayName"], g["week"],
+               g["predictedHomeMargin"], g["homeWinProb"]]
+        if g.get("projectedHomeScore") is not None:
+            row += [g["projectedHomeScore"], g["projectedAwayScore"]]
+        pred.append(row)
 
     return {
         "season": season,
@@ -156,7 +167,9 @@ def score(snapshots, results_by_season):
 
     for snap in snapshots:
         got = results_by_season.get(snap.get("season")) or {}
-        for home, away, week, margin, prob in snap.get("pred", []):
+        for entry in snap.get("pred", []):
+            # Five elements before projected scores were archived, seven after.
+            home, away, week, margin, prob = entry[:5]
             actual = got.get((week, home, away))
             if actual is None or actual == 0:
                 continue          # unplayed, or a tie: no favourite to be right about

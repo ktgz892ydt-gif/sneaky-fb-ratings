@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-08-28T14:56:17+00:00",
+ "generatedAt": "2026-08-28T15:15:19+00:00",
  "season": 2026,
  "weeksLoaded": [
   1,
@@ -132565,7 +132565,7 @@
    "m": -0.5,
    "p": 0.492,
    "ph": 22,
-   "pa": 22
+   "pa": 23
   },
   {
    "w": 7,
@@ -141721,7 +141721,7 @@
    "m": -0.5,
    "p": 0.492,
    "ph": 25,
-   "pa": 25
+   "pa": 26
   },
   {
    "w": 9,
@@ -147184,7 +147184,7 @@
   "accuracyVerdict": "indistinguishable",
   "loglossGap": 0.1109,
   "loglossGapSE": 0.0134,
-  "loglossVerdict": "clear"
+  "loglossVerdict": "indistinguishable"
  },
  "trendCols": "w=throughWeek rating=Alex Points odds=playoff odds"
 }

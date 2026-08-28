@@ -81,18 +81,34 @@ jobs:
       # against data the current scraper would no longer produce -- which is
       # exactly what happened when the nested-parenthesis and empty-city fixes
       # landed and recovered ~20% more games per season.
+      #
+      # This was previously an mtime test (`scripts/scrape.py -nt
+      # data/games_$Y.csv`). That guard could never fire: git does not preserve
+      # mtimes, so on a fresh checkout every file carries the same timestamp and
+      # `-nt` is always false. The marker below is written by the scraper itself.
       - name: Re-fit model constants
         if: ${{ inputs.retune }}
         run: |
-          for Y in 2023 2024 2025; do
-            if [ "scripts/scrape.py" -nt "data/games_$Y.csv" ]; then
-              echo "::error::scripts/scrape.py is newer than data/games_$Y.csv."
-              echo "Re-fitting now would fit on history the current parser would"
-              echo "not produce. Re-scrape that season first:"
-              echo "    python scripts/scrape.py --season $Y"
-              exit 1
-            fi
-          done
+          python - <<'PY'
+          import json, sys
+          sys.path.insert(0, "scripts")
+          from scrape import PARSER_VERSION
+          try:
+              recorded = json.load(open("data/parser_versions.json"))
+          except Exception:
+              recorded = {}
+          stale = [y for y in ("2023", "2024", "2025")
+                   if recorded.get(y) != PARSER_VERSION]
+          if stale:
+              print(f"::error::seasons {stale} were scraped by parser version "
+                    f"{[recorded.get(y) for y in stale]}, but scrape.py is at "
+                    f"{PARSER_VERSION}. Re-fitting now would fit on history the "
+                    f"current parser would not produce. Re-scrape first:")
+              for y in stale:
+                  print(f"    python scripts/scrape.py --season {y}")
+              raise SystemExit(1)
+          print(f"all history recorded under parser version {PARSER_VERSION}")
+          PY
           python scripts/tune.py --seasons 2023,2024,2025 --holdouts 1,2,4,7,10
 
       - name: Build last season's ratings and derive the preseason prior

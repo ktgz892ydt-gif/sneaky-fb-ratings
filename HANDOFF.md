@@ -23,7 +23,7 @@ nothing.
 
 **Current state: working and deployed.** Week 1 of 2026 is live. Three past
 seasons (2023–2025) are committed. Model constants are fitted, not guessed.
-212 unit tests pass in CI before anything touches the network.
+225 unit tests pass in CI before anything touches the network.
 
 ---
 
@@ -32,7 +32,7 @@ seasons (2023–2025) are committed. Model constants are fitted, not guessed.
 ```bash
 cd ~/Documents/GitHub/sneaky-fb-ratings
 git fetch && git status          # the bot commits here; the remote is often ahead
-python -m pytest tests/ -q       # expect 212 passed; pip install -r requirements.txt if not
+python -m pytest tests/ -q       # expect 225 passed; pip install -r requirements.txt if not
 python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/check.json --no-site --no-history
 ```
 
@@ -536,6 +536,16 @@ internally consistent arithmetic, just over a season that cannot happen.
 
 ## Hard-won gotchas
 
+**0d. A guard that cannot fire is worse than no guard.** The re-fit step used
+to refuse to run when `scripts/scrape.py` was newer than a season's
+`games_{yr}.csv`. It never fired once: git does not preserve mtimes, so on a
+fresh CI checkout every file carries the same timestamp and `-nt` is always
+false. It read as protection and provided none. The check now compares
+`scrape.PARSER_VERSION` against `data/parser_versions.json`, which the scraper
+writes beside each season it produces. **Bump `PARSER_VERSION` whenever a
+parsing change could yield a different set of games from the same pages.**
+
+
 These cost real debugging time. Don't rediscover them.
 
 **0. A school's name can contain its own parentheses, and the LAST one is the
@@ -641,7 +651,7 @@ scripts/tune.py          fits constants by walk-forward prediction
 scripts/build.py         orchestrates; fits ratings, predicts the schedule,
                          writes ratings.json + both page variants
 scripts/check.py         ~40 assertions; the workflow fails if these fail
-tests/                   114 unit tests (pytest)
+tests/                   225 unit tests (pytest)
 data/                    committed raw scores, schedule, rosters, prior, tuned
 site/                    ONLY deployable assets: app.html, index.html, ratings.json
 .github/workflows/       the weekly automation

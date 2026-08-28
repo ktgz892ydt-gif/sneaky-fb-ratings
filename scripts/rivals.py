@@ -62,6 +62,11 @@ SOURCE_URL = "https://www.fantastic50.net/"
 PICKS_URL = "https://www.fantastic50.net/picks.html"
 CRAWL_DELAY = 10.0          # robots.txt asks for this; we make one request a week
 
+# Below this many shared games no verdict beyond "indistinguishable" is offered.
+# A normal approximation on a handful of games will report a tiny standard
+# error and a large z from pure coincidence.
+MIN_SHARED_FOR_VERDICT = 30
+
 _NAME = r"[A-Za-z][A-Za-z0-9'&.\-/ ]{0,38}?"
 _DAY = r"(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day"
 
@@ -243,7 +248,8 @@ def head_to_head(rival_records, our_snapshots, results_by_season, source=SOURCE)
     """
     ours_by = {}
     for snap in our_snapshots:
-        for home, away, week, margin, prob in snap.get("pred", []):
+        for entry in snap.get("pred", []):
+            home, away, week, margin, prob = entry[:5]   # 5 or 7 elements
             ours_by[(snap.get("season"), week, home, away)] = (margin, prob)
 
     n = 0
@@ -330,9 +336,18 @@ def head_to_head(rival_records, our_snapshots, results_by_season, source=SOURCE)
             return "leaning"
         return "clear"
 
-    def _z_verdict(gap, se):
-        """For log loss, where n is large and the quantity is continuous."""
-        if se <= 0:
+    def _z_verdict(gap, se, n):
+        """For log loss, where the quantity is continuous.
+
+        The normal approximation needs a sample to approximate. On two shared
+        games it happily returned "clear" -- the two per-game differences
+        happened to be close, so the standard error was tiny and z was 8.
+        That is not evidence, it is two numbers agreeing with each other.
+
+        The accuracy verdict is already protected by using an exact binomial;
+        this is the equivalent floor for the continuous measure.
+        """
+        if se <= 0 or n < MIN_SHARED_FOR_VERDICT:
             return "indistinguishable"
         z = abs(gap) / se
         return "indistinguishable" if z < 1.64 else ("leaning" if z < 2.58 else "clear")
@@ -357,5 +372,5 @@ def head_to_head(rival_records, our_snapshots, results_by_season, source=SOURCE)
         "accuracyVerdict": _verdict(_p_value(we_only, they_only)),
         "loglossGap": round(mean_ll_gap, 4),
         "loglossGapSE": round(ll_se, 4),
-        "loglossVerdict": _z_verdict(mean_ll_gap, ll_se),
+        "loglossVerdict": _z_verdict(mean_ll_gap, ll_se, n),
     }

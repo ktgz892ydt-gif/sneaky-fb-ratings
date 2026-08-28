@@ -22,6 +22,8 @@ from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+from build import (expected_total_points, projected_score,  # noqa: E402
+                   scoring_profile)
 from harbin import LAST_REGULAR_WEEK  # noqa: E402
 from history import (KIND_BACKTEST, append_if_new,  # noqa: E402
                      build_snapshot)
@@ -115,12 +117,18 @@ def replay(season, path, cfg, tuned_meta, carry):
             "playoffOdds": None,
         } for t in ids]
 
+        # Same score layer the live build publishes, so a replayed row and a
+        # live row are the same shape on disk.
+        prof = scoring_profile(type("R", (), {"games": train})(), ids)
         schedule = []
         for gm in test:
             h, a = gm["home"], gm["away"]
             margin = (result.bt_margin[idx[h]] - result.bt_margin[idx[a]]
                       + (0.0 if gm.get("neutral") else result.hfa_margin))
             est = min(played[h], played[a])
+            shown = round(float(expected_margin(margin, cfg)), 1)
+            proj_h, proj_a = projected_score(
+                shown, expected_total_points(h, a, prof, idx))
             schedule.append({
                 "predicted": True,
                 "week": through + 1,
@@ -128,8 +136,10 @@ def replay(season, path, cfg, tuned_meta, carry):
                 "awayName": res.teams[a].name,
                 # Same split as the live build: the probability from the raw
                 # difference, the published margin calibrated.
-                "predictedHomeMargin": round(float(expected_margin(margin, cfg)), 1),
+                "predictedHomeMargin": shown,
                 "homeWinProb": round(float(win_probability(margin, est, cfg)), 3),
+                "projectedHomeScore": proj_h,
+                "projectedAwayScore": proj_a,
             })
 
         snap = build_snapshot(season, through, f"backtest:{season}w{through}",

@@ -546,47 +546,51 @@ tr[data-top="1"] .c-rank::before {
 .sheet-close:hover { color: var(--ink); border-color: var(--ink-3); }
 
 .playoff-panel { margin: 18px 0 4px; }
-.playoff-panel h3 { font-family: var(--display); font-size: 15px; letter-spacing: .04em;
-  text-transform: uppercase; color: var(--ink-soft); margin: 0 0 8px; }
-.playoff-panel h4 { font-size: 13px; color: var(--ink-soft); margin: 14px 0 6px;
+/* No font-family or size here on purpose: `.sheet h3` below has equal
+   specificity and comes later, so it wins, and the panel heading renders
+   exactly like its siblings ("Results", "Remaining"). That is the right look
+   inside the sheet. Declaring Oswald here would be dead code that reads as
+   intent. */
+.playoff-panel h3 { margin: 0 0 8px; }
+.playoff-panel h4 { font-size: 13px; color: var(--ink-3); margin: 14px 0 6px;
   font-weight: 600; }
 .pp-line { margin: 0 0 6px; line-height: 1.5; }
-.pp-note { margin: 12px 0 0; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+.pp-note { margin: 12px 0 0; font-size: 13px; color: var(--ink-3); line-height: 1.5; }
 .scorecard { background: var(--surface); border: 1px solid var(--rule);
   border-radius: 4px; padding: 18px; margin: 18px 0; }
-.scorecard h2 { font-family: var(--display); font-size: 20px; margin: 0 0 8px;
+.scorecard h2 { font-family: Oswald, "Arial Narrow", sans-serif; font-size: 20px; margin: 0 0 8px;
   text-transform: uppercase; letter-spacing: .02em; }
-.scorecard p { margin: 0 0 12px; line-height: 1.55; color: var(--ink-soft); }
+.scorecard p { margin: 0 0 12px; line-height: 1.55; color: var(--ink-3); }
 .sc-figs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
 .sc-figs div { background: var(--surface-sunk); border-radius: 3px; padding: 10px; }
-.sc-figs b { display: block; font-family: var(--display); font-size: 22px; }
+.sc-figs b { display: block; font-family: Oswald, "Arial Narrow", sans-serif; font-size: 22px; }
 .sc-figs span { display: block; font-size: 11px; text-transform: uppercase;
-  letter-spacing: .05em; color: var(--ink-soft); margin-top: 2px; }
-.scorecard summary { cursor: pointer; font-size: 14px; color: var(--ink-soft);
+  letter-spacing: .05em; color: var(--ink-3); margin-top: 2px; }
+.scorecard summary { cursor: pointer; font-size: 14px; color: var(--ink-3);
   margin-top: 14px; }
 #h2h { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--rule); }
-#h2h h3 { font-family: var(--display); font-size: 16px; margin: 0 0 8px;
+#h2h h3 { font-family: Oswald, "Arial Narrow", sans-serif; font-size: 16px; margin: 0 0 8px;
   text-transform: uppercase; letter-spacing: .03em; }
 /* Fixed height so the two columns line up even when one name wraps. */
 #h2h h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
-  color: var(--ink-soft); margin: 0 0 6px; min-height: 2.6em;
+  color: var(--ink-3); margin: 0 0 6px; min-height: 2.6em;
   display: flex; align-items: flex-end; }
 .h2h-grid { margin: 4px 0 0; }
 .h2h-head, .h2h-row { display: grid; grid-template-columns: 1fr 4.6em 4.6em;
   gap: 8px; align-items: baseline; }
 .h2h-head { padding-bottom: 4px; border-bottom: 1px solid var(--rule); }
 .h2h-head b { font-size: 11px; text-transform: uppercase; letter-spacing: .04em;
-  color: var(--ink-soft); text-align: right; font-weight: 600; line-height: 1.25; }
+  color: var(--ink-3); text-align: right; font-weight: 600; line-height: 1.25; }
 .h2h-row { padding: 7px 0; border-bottom: 1px solid var(--rule); }
-.h2h-lab { font-size: 13px; color: var(--ink-soft); }
-.h2h-row b { font-family: var(--mono); font-size: 15px; text-align: right; }
+.h2h-lab { font-size: 13px; color: var(--ink-3); }
+.h2h-row b { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 15px; text-align: right; }
 .h2h-win { color: var(--accent); }
 .h2h-verdict { margin-top: 10px !important; }
 
 .sc-cal { display: flex; flex-direction: column; gap: 4px; margin: 10px 0 0; }
 .cal-row { display: grid; grid-template-columns: 5.2em 1fr 2.8em 3.4em; gap: 8px;
-  align-items: center; font-family: var(--mono); font-size: 12px; }
-.cal-said, .cal-n { color: var(--ink-soft); }
+  align-items: center; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; }
+.cal-said, .cal-n { color: var(--ink-3); }
 .cal-n { text-align: right; }
 .cal-track { position: relative; background: var(--surface-sunk); height: 12px;
   border-radius: 2px; overflow: hidden; }
@@ -601,8 +605,8 @@ tr[data-top="1"] .c-rank::before {
 .tr-rows { display: flex; flex-direction: column; gap: 6px; }
 .tr-row { display: grid; grid-template-columns: 7.5em 1fr 3em; gap: 10px;
   align-items: center; }
-.tr-lab { font-size: 13px; color: var(--ink-soft); }
-.tr-delta { font-family: var(--mono); font-size: 13px; text-align: right; }
+.tr-lab { font-size: 13px; color: var(--ink-3); }
+.tr-delta { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; text-align: right; }
 .spark { width: 100%; height: 22px; display: block; }
 .spark polyline { fill: none; stroke: var(--accent); stroke-width: 1.5;
   vector-effect: non-scaling-stroke; }
@@ -613,13 +617,13 @@ tr[data-top="1"] .c-rank::before {
 .wi-row:first-child { border-top: 0; }
 .wi-big { background: var(--surface-sunk); margin: 0 -8px; padding: 5px 8px;
   border-radius: 3px; }
-.wi-wk { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); }
+.wi-wk { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; color: var(--ink-3); }
 .wi-opp { font-size: 14px; }
-.wi-odds { font-family: var(--mono); font-size: 13px; white-space: nowrap; }
-.wi-odds em { color: var(--ink-soft); font-style: normal; padding: 0 3px; }
-.wi-root { font-size: 13px; color: var(--ink-soft); }
-.wi-swing { font-family: var(--mono); font-size: 13px; text-align: right;
-  color: var(--ink-soft); }
+.wi-odds { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; white-space: nowrap; }
+.wi-odds em { color: var(--ink-3); font-style: normal; padding: 0 3px; }
+.wi-root { font-size: 13px; color: var(--ink-3); }
+.wi-swing { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; text-align: right;
+  color: var(--ink-3); }
 @media (max-width: 620px) {
   .wi-row { grid-template-columns: 3.2em 1fr auto; }
   .wi-swing { display: none; }
@@ -631,10 +635,10 @@ tr[data-top="1"] .c-rank::before {
 
 .pp-bars { display: flex; flex-direction: column; gap: 3px; }
 .pp-bar { display: grid; grid-template-columns: 3.4em 1fr 3em; align-items: center; gap: 8px; }
-.pp-rec { font-family: var(--mono); font-size: 13px; color: var(--ink-soft); }
+.pp-rec { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; color: var(--ink-3); }
 .pp-track { background: var(--surface-sunk); height: 12px; border-radius: 2px; overflow: hidden; }
 .pp-track i { display: block; height: 100%; background: var(--accent); }
-.pp-pct { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); text-align: right; }
+.pp-pct { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; color: var(--ink-3); text-align: right; }
 
 .sheet-figs {
   display: grid;
@@ -958,7 +962,7 @@ tr[data-top="1"] .c-rank::before {
       <div>
         <h3><code>Alex Points</code> — the headline</h3>
         <p>A Bradley-Terry model where each game counts as a <em>fractional</em> win taken from the point margin. A 3-point win is worth about .59 of a win, a 17-point win about .85, a 45-point win about .97.</p>
-        <p>So margin still matters, but a 63-0 game is not worth nine times a 7-0 game. The number is in points: the difference between two ratings is the expected margin on a neutral field.</p>
+        <p>So margin still matters, but a 63-0 game is not worth nine times a 7-0 game. The number is in points &mdash; though a rating difference is not itself an expected margin. Measured over 13,756 walk-forward predictions the slope of actual on predicted is about 1.5, because the squash discounts blowouts when fitting and that discount survives the rescale. The margins shown on this page are calibrated for it; the win probabilities are computed from the raw difference, which is the scale they were calibrated against.</p>
       </div>
       <div>
         <h3><code>BT (W/L)</code> — record only</h3>

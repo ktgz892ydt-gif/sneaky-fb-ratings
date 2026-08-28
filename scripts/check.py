@@ -305,7 +305,11 @@ def main():
                       f"contains a total football does not produce")
                 # A stated favourite must not be shown level or losing.
                 if abs(g["m"]) >= 0.5:
-                    check((g["ph"] > g["pa"]) == (g["m"] > 0),
+                    # Explicit both ways: `(ph > pa) == (m > 0)` passes a TIE
+                    # when the margin is negative, which is how 22-22 shipped
+                    # against a -0.5 favourite.
+                    ok = (g["ph"] > g["pa"]) if g["m"] > 0 else (g["ph"] < g["pa"])
+                    check(ok,
                           f"week {g['w']}: margin {g['m']:+.1f} names a "
                           f"favourite but the projected score is "
                           f"{g['ph']}-{g['pa']}")

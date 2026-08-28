@@ -202,3 +202,32 @@ def test_a_week_is_recorded_once(tmp_path):
     assert append_if_new(p, rec) is True
     assert append_if_new(p, rec) is False
     assert len(load(p)) == 1
+
+
+def test_no_verdict_beyond_indistinguishable_on_a_tiny_sample():
+    """A z-test needs a sample to approximate.
+
+    On two shared games the two per-game log-loss differences happened to be
+    close, the standard error came out tiny, z was 8, and the payload reported
+    "clear". That is not evidence, it is two numbers agreeing with each other.
+    Accuracy was already protected by an exact binomial; this is the floor for
+    the continuous measure.
+    """
+    games = [("A", "B", 20.0, 0.95), ("C", "D", 20.0, 0.95)]
+    ours = _ours(2026, 2, games)
+    theirs = _theirs(2026, 2, [(h, a, m, 0.55) for h, a, m, _ in games])
+    res = {2026: {(2, "A", "B"): 10, (2, "C", "D"): 10}}
+    h = head_to_head(theirs, ours, res)
+    assert h["sharedGames"] == 2
+    assert h["loglossVerdict"] == "indistinguishable", h
+    assert h["accuracyVerdict"] == "indistinguishable", h
+
+
+def test_a_real_sample_can_still_earn_a_verdict():
+    games = [(f"H{i}", f"A{i}", 20.0, 0.95) for i in range(60)]
+    ours = _ours(2026, 2, games)
+    theirs = _theirs(2026, 2, [(h, a, m, 0.55) for h, a, m, _ in games])
+    res = {2026: {(2, h, a): 10 for h, a, _, _ in games}}
+    r = head_to_head(theirs, ours, res)
+    assert r["sharedGames"] == 60
+    assert r["loglossVerdict"] in ("leaning", "clear"), r

@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 import os
 import re
 import sys
@@ -32,6 +33,18 @@ from typing import NamedTuple
 
 import requests
 from bs4 import BeautifulSoup
+
+# Bump this whenever a change to the parsing above could produce a DIFFERENT
+# set of games from the same pages -- a new pattern, a relaxed filter, a
+# changed identity rule. It is written into data/parser_versions.json beside
+# each season it scrapes, and the workflow refuses to re-fit model constants
+# against a season recorded under an older version.
+#
+#   1  original patterns
+#   2  nested parentheses in school names, empty mailing cities on completed
+#      games, TBA/TBD/called-off records, non-varsity placeholders, and the
+#      relaxed name-length bound
+PARSER_VERSION = 2
 
 BASE = "https://joeeitel.com"
 UA = (
@@ -1047,6 +1060,23 @@ def main():
         wtr.writeheader()
         wtr.writerows(roster)
     print(f"roster: {len(roster)} teams -> {rpath}", file=sys.stderr)
+
+    # Record which parser produced this season, so a later re-fit can tell
+    # whether the committed history still matches the current code. File
+    # mtimes cannot answer that: git does not preserve them, so on a fresh
+    # checkout every file carries the same timestamp.
+    vpath = os.path.join(DATA, "parser_versions.json")
+    try:
+        with open(vpath, encoding="utf-8") as fh:
+            versions = json.load(fh)
+    except (OSError, ValueError):
+        versions = {}
+    versions[str(args.season)] = PARSER_VERSION
+    with open(vpath, "w", encoding="utf-8") as fh:
+        json.dump(dict(sorted(versions.items())), fh, indent=1)
+        fh.write("\n")
+    print(f"parser version {PARSER_VERSION} recorded for {args.season}",
+          file=sys.stderr)
 
 
 if __name__ == "__main__":

@@ -362,9 +362,12 @@ def rate(team_ids, games, cfg: RatingConfig | None = None, priors=None) -> Ratin
     r_massey, hfa_massey = fit_massey(n, home_idx, away_idx, margin, neutral, cfg,
                                       prior=prior_pts)
 
-    # Convert logit ratings to points. A rating difference of d points is the
-    # model's expected neutral-field margin, which is what makes the headline
-    # number readable to someone who has never heard of Bradley-Terry.
+    # Convert logit ratings to points. This puts the headline number on a scale
+    # a reader understands without knowing what Bradley-Terry is -- but a
+    # difference of d points is NOT the expected margin, and this comment used
+    # to say it was. Measured, the slope of actual on predicted is about 1.5.
+    # See margin_scale above: the displayed margin is calibrated for it, while
+    # everything fitted here stays on this raw scale.
     bt_margin_pts = r_margin * cfg.squash_scale
     bt_binary_pts = r_binary * cfg.squash_scale
 
