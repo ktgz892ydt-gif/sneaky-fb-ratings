@@ -150,15 +150,8 @@ jobs:
           python scripts/scrape.py --season 2026 \
             ${{ inputs.no_cache && '--no-cache' || '' }}
 
-      # Output is teed so the notification at the end can quote real numbers
-      # rather than just "it worked". `set -o pipefail` is load-bearing: the
-      # default shell is `bash -e`, and without it a pipeline reports the exit
-      # status of `tee`, so a build that died would be reported as a success
-      # and the run would sail on to deploy.
       - name: Fit ratings and build the site
-        run: |
-          set -o pipefail
-          python scripts/build.py 2>&1 | tee /tmp/build.log
+        run: python scripts/build.py
 
       # Record another forecaster's picks for the coming week, so the two can
       # be scored on the same games once they are played. Runs AFTER the build
@@ -174,9 +167,7 @@ jobs:
         run: python scripts/capture_rivals.py || true
 
       - name: Sanity check the output
-        run: |
-          set -o pipefail
-          python scripts/check.py 2>&1 | tee /tmp/check.log
+        run: python scripts/check.py
 
       # Publish BEFORE committing. The site is already built and checked at
       # this point, and nothing about pushing the data back to the repo can
@@ -269,64 +260,3 @@ jobs:
               core.notice(`Opened report #${made.data.number}`);
             }
 
-      # ---- text me the outcome ------------------------------------------
-      #
-      # Last step, and `always()`, so it reports on a failure anywhere above --
-      # including the commit step and the issue-opener.
-      #
-      # FAIL-SOFT, deliberately. `continue-on-error` means a texting API being
-      # down can never turn a good week's ratings into a red run. Same trade as
-      # the rivals capture: the board publishing matters more than the alert.
-      # With no secrets set the step prints a note and exits 0, so a fork -- or
-      # this repo before the secrets exist -- still runs clean.
-      #
-      # THE PHONE NUMBER NEVER APPEARS IN A LOG. It lives only in the
-      # ALERT_PHONE secret. GitHub masks a secret's exact string in log output,
-      # but that masking is literal: Twilio's JSON response echoes the number
-      # back NORMALISED (+12165551234 for a 216-555-1234 you sent), which no
-      # longer matches the secret and would print in the clear. So the response
-      # body is discarded and only the HTTP status is kept. Do not "improve"
-      # this by echoing the response to debug it.
-      - name: Text me the outcome
-        if: always()
-        continue-on-error: true
-        env:
-          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
-          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
-          TWILIO_FROM: ${{ secrets.TWILIO_FROM }}
-          ALERT_PHONE: ${{ secrets.ALERT_PHONE }}
-          OUTCOME: ${{ job.status }}
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: |
-          set -u
-          if [ -z "${TWILIO_ACCOUNT_SID:-}" ] || [ -z "${ALERT_PHONE:-}" ]; then
-            echo "No SMS secrets configured; skipping the text."
-            echo "Set TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM and"
-            echo "ALERT_PHONE under Settings -> Secrets and variables -> Actions."
-            exit 0
-          fi
-
-          if [ "$OUTCOME" = "success" ]; then
-            # Quote the real numbers off the build log rather than saying
-            # "done" -- a text that cannot distinguish a 700-game week from a
-            # zero-game one is not worth the notification.
-            GAMES=$(sed -n 's/^games *: *\([0-9]*\).*/\1/p'    /tmp/build.log | tail -1)
-            HIST=$(sed -n 's/^history *: *\(.*\)/\1/p'         /tmp/build.log | tail -1)
-            WARN=$(grep -c '^WARN' /tmp/check.log 2>/dev/null || echo 0)
-            BODY="Alex's Awesome Aggregator: updated OK. ${GAMES:-?} games, ${WARN} warning(s). ${HIST:-no history line}. Site is live."
-          else
-            BODY="Alex's Awesome Aggregator: run FAILED ($OUTCOME). The live site is UNCHANGED and still serving the last good build. Log: $RUN_URL"
-          fi
-
-          CODE=$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
-            "https://api.twilio.com/2010-04-01/Accounts/$TWILIO_ACCOUNT_SID/Messages.json" \
-            --data-urlencode "To=$ALERT_PHONE" \
-            --data-urlencode "From=$TWILIO_FROM" \
-            --data-urlencode "Body=$BODY" \
-            -u "$TWILIO_ACCOUNT_SID:$TWILIO_AUTH_TOKEN") || CODE="000"
-
-          if [ "$CODE" = "201" ]; then
-            echo "Text sent (HTTP $CODE)."
-          else
-            echo "::warning::Text NOT sent (HTTP $CODE). The ratings run itself was: $OUTCOME"
-          fi

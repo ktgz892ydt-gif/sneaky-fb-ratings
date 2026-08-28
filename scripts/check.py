@@ -39,6 +39,79 @@ def warn(cond, msg):
         warns.append(msg)
 
 
+# ---- date-based completeness -------------------------------------------
+#
+# These are pure so tests can drive them directly; main() only reports.
+#
+# The question they answer is one a week number cannot: has a game been played
+# yet, or was it played and missed? Both look identical in a fixture list. With
+# the kickoff date on every record, a fixture whose date has passed is a game
+# the board should already hold a score for, and does not.
+
+
+def _name(payload, ref):
+    """A schedule row points at a team by index, or carries a bare name when
+    the team could not be resolved. Both have to render in a warning."""
+    if isinstance(ref, int):
+        teams = payload.get("teams") or []
+        return teams[ref]["name"] if 0 <= ref < len(teams) else f"#{ref}"
+    return str(ref)
+
+
+def overdue_fixtures(schedule, today):
+    """Fixtures whose kickoff date has passed but which still have no score.
+
+    `today` is the build's own generated-at date, not the wall clock, so the
+    result is a property of the build and a pinned rebuild gives the same
+    answer.
+    """
+    return [g for g in schedule if g.get("d") and g["d"] < today]
+
+
+def week_coverage(schedule, results, today):
+    """-> {week: (overdue, captured)} for every week with an overdue fixture.
+
+    A handful of overdue games is ordinary -- a postponement, or the source
+    posting a score late. HALF A WEEK is not: nobody postpones 180 games, so
+    that shape means the week's scoreboard did not parse.
+    """
+    out = {}
+    for g in overdue_fixtures(schedule, today):
+        o, c = out.get(g["w"], (0, 0))
+        out[g["w"]] = (o + 1, c)
+    for r in results or []:
+        if r["w"] in out:
+            o, c = out[r["w"]]
+            out[r["w"]] = (o, c + 1)
+    return out
+
+
+def week_date_spans(results):
+    """-> {week: (earliest, latest)} over results that carry a date."""
+    spans = {}
+    for r in results or []:
+        d = r.get("d")
+        if not d:
+            continue
+        lo, hi = spans.get(r["w"], (d, d))
+        spans[r["w"]] = (min(lo, d), max(hi, d))
+    return spans
+
+
+def weeks_out_of_order(spans):
+    """Weeks whose dates overlap the following week's.
+
+    Week numbering is the spine of the whole model -- the prior, the
+    walk-forward tuning and the track record are all keyed on it. A game filed
+    under the wrong week is invisible in a fixture list and shifts a rating.
+    """
+    bad = []
+    for w in sorted(spans):
+        if w + 1 in spans and spans[w][1] >= spans[w + 1][0]:
+            bad.append((w, spans[w], w + 1, spans[w + 1]))
+    return bad
+
+
 def main():
     # ---- model invariants (these are pure math and must always hold)
     cfg = RatingConfig()
@@ -421,6 +494,60 @@ def main():
          f"{len(short)} OHSAA teams have fewer than 9 games this season -- "
          f"if that number is climbing, the scoreboard format has moved "
          f"(first few: {short[:5]})")
+
+    # ---- every game that should have been played has been captured
+    #
+    # The check that the date column exists for. Before it, a game the parser
+    # dropped and a game not yet played were the same thing: a row in the
+    # fixture list. Now a fixture carrying a date that has already passed is,
+    # by definition, a score the board should be holding and is not.
+    #
+    # `today` is the build's own timestamp rather than the wall clock, so a
+    # pinned rebuild reproduces the same verdict.
+    today = (d.get("generatedAt") or "")[:10]
+    results = d.get("results") or []
+    if today:
+        late = overdue_fixtures(sched, today)
+        # A warning, not a failure. A postponement and a score the source has
+        # not posted yet both look exactly like this, and neither should stop a
+        # good week's ratings from publishing -- same trade as the rest of the
+        # schedule checks. Measured on the 2026 board mid-week 2 the honest
+        # baseline was 1 (Dunbar at Stivers, played Thursday, unposted Friday).
+        # The list is printed rather than just the count so the games can
+        # actually be looked up on the source.
+        shown = [f"w{g['w']} {g['d']} "
+                 f"{_name(d, g['a'])} at {_name(d, g['h'])}" for g in late[:5]]
+        warn(not late,
+             f"{len(late)} fixture(s) are past their kickoff date with no "
+             f"score -- either the source has not posted them or the parser "
+             f"missed them: {shown}")
+
+        # A whole week is different in kind, and it does fail. Postponements
+        # do not come in hundreds; a week that is mostly still 'unplayed' days
+        # after its date means the scoreboard for that week did not parse, and
+        # every rating built on the weeks around it is standing on a hole.
+        for wk, (missing, got) in sorted(week_coverage(sched, results, today).items()):
+            total = missing + got
+            check(missing < 20 or missing <= total * 0.5,
+                  f"week {wk}: {missing} of {total} games are past their date "
+                  f"with no score, and only {got} were captured -- that is not "
+                  f"late posting, that week's scoreboard did not parse")
+
+    # Dates only arrived with parser version 2; a season scraped before that
+    # carries none, so this reports coverage rather than demanding it.
+    dated = sum(1 for r in results if r.get("d"))
+    if dated:
+        warn(dated >= len(results) * 0.95,
+             f"only {dated} of {len(results)} results carry a kickoff date -- "
+             f"expected nearly all of them once the season is re-scraped")
+        # Week numbering is the spine of the model: the prior, the
+        # walk-forward tuning and the track record are all keyed on it. If
+        # week N's games run into week N+1's dates, something is filed wrong.
+        # A postponement replayed later can do this innocently, so it warns.
+        overlap = weeks_out_of_order(week_date_spans(results))
+        warn(not overlap,
+             f"{len(overlap)} week(s) hold games dated into the following "
+             f"week: {overlap[:3]}")
 
     # ---- the playoff model
     #

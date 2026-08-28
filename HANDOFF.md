@@ -23,7 +23,7 @@ nothing.
 
 **Current state: working and deployed.** Week 1 of 2026 is live. Three past
 seasons (2023–2025) are committed. Model constants are fitted, not guessed.
-225 unit tests pass in CI before anything touches the network.
+250 unit tests pass in CI before anything touches the network.
 
 ---
 
@@ -32,7 +32,7 @@ seasons (2023–2025) are committed. Model constants are fitted, not guessed.
 ```bash
 cd ~/Documents/GitHub/sneaky-fb-ratings
 git fetch && git status          # the bot commits here; the remote is often ahead
-python -m pytest tests/ -q       # expect 225 passed; pip install -r requirements.txt if not
+python -m pytest tests/ -q       # expect 250 passed; pip install -r requirements.txt if not
 python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/check.json --no-site --no-history
 ```
 
@@ -556,6 +556,50 @@ distorts a projection, but failing `check.py` would stop the week's ratings from
 publishing over the newest and least load-bearing part of the page. Structural
 problems that can only come from a code bug still fail.
 
+**Every scored game carries its kickoff date, and that is what makes a missed
+game visible.** `games_{yr}.csv` gained a `date` column beside `week`.
+`SB_GAME_RE` had always captured the date — it anchors the whole pattern — it
+was simply thrown away.
+
+The reason it matters: in a fixture list, *"not played yet"* and *"played, and
+we failed to read it"* are the same row. A week number cannot tell them apart,
+which is how two schools once sat at zero games for a season with every check
+passing. With the date, a fixture whose kickoff has passed is by definition a
+score the board should hold and does not. `check.py` names them:
+
+```
+WARN  1 fixture(s) are past their kickoff date with no score -- either the
+      source has not posted them or the parser missed them:
+      ['w2 2026-08-27 Dunbar (Dayton) at Stivers (Dayton)']
+```
+
+Three rules, deliberately lopsided:
+
+- **A few overdue games warn.** A postponement and a score the source posts
+  late look identical, and neither should stop a good week publishing. The
+  measured baseline mid-week 2 of 2026 was 1. The games are listed, not just
+  counted, so they can be looked up on the source.
+- **Half a week overdue fails.** Nobody postpones 180 games; that shape means
+  the scoreboard did not parse. The rule is `missing < 20 or missing <= half`,
+  so small playoff weeks (5–59 fixtures) cannot trip it and permanently
+  postponed games cannot accumulate into a failure — each stays inside its own
+  week.
+- **Week numbering must not overlap** — if week N holds games dated into week
+  N+1, something is filed wrong. Warns, because a postponement replayed later
+  does this innocently. Week numbering is the spine of the model: the prior,
+  the walk-forward tuning and the track record are all keyed on it.
+
+`today` is the build's own `generatedAt`, never the wall clock, so a pinned
+rebuild reproduces the verdict.
+
+**`PARSER_VERSION` was deliberately NOT bumped.** It gates the re-fit on
+whether a season's games would parse differently now; adding a column does not
+change the set of games, and bumping would have blocked every re-fit until
+2023–2025 were re-scraped for nothing. Those three seasons therefore carry no
+dates and never will unless re-scraped — `load_games` treats the column as
+optional and the checks skip undated records. 2026 picks up dates on its next
+scrape, since the workflow re-reads the whole season every run.
+
 **One schedule problem does fail the build: an impossible season length.**
 `check.py` refuses a team whose played + scheduled games exceed 16 (ten regular
 plus five playoff rounds). This is the assertion that would have caught the
@@ -717,7 +761,8 @@ scripts/tune.py          fits constants by walk-forward prediction
 scripts/build.py         orchestrates; fits ratings, predicts the schedule,
                          writes ratings.json + both page variants
 scripts/check.py         ~40 assertions; the workflow fails if these fail
-tests/                   225 unit tests (pytest)
+                         (its date-completeness helpers are pure and tested)
+tests/                   250 unit tests (pytest)
 data/                    committed raw scores, schedule, rosters, prior, tuned
 site/                    ONLY deployable assets: app.html, index.html, ratings.json
 .github/workflows/       the weekly automation
@@ -762,10 +807,6 @@ here, broken on CI's 3.12).
 serving the last good build, which is correct but looks exactly like nothing
 having happened.
 
-0. A text message, on every run, success or failure. Success quotes the game
-   count, the warning count and the history line, because an alert that cannot
-   tell a 700-game week from a zero-game one is not worth having.
-
 1. The workflow opens a GitHub issue titled "Weekly update run failed", with a
    link to the run. GitHub emails the repo owner. Repeat failures COMMENT on
    the open issue rather than opening new ones, so a fortnight of breakage is
@@ -808,37 +849,6 @@ The workflow no longer loses a deploy to that race. The Pages steps now run
 *before* the data commit, and the push rebases and retries. Previously a push
 that lost a race failed the job at that step, and the Pages steps below it
 never ran — so a perfectly good scrape did not reach the live site.
-
-**The text alerts, and keeping the phone number private.** The last workflow
-step posts to Twilio. Four repository secrets, set at **Settings → Secrets and
-variables → Actions → New repository secret**:
-
-```
-TWILIO_ACCOUNT_SID    from the Twilio console
-TWILIO_AUTH_TOKEN     from the Twilio console
-TWILIO_FROM           the Twilio number, E.164:  +1216...
-ALERT_PHONE           Alex's number, E.164:      +1216...
-```
-
-Secrets are safe to use in a public repo: they are write-only once set (nobody,
-including Alex, can read a value back), they are never given to workflows
-triggered by pull requests from forks, and this workflow only runs on
-`schedule` and `workflow_dispatch` — never on `pull_request_target`, which is
-the setting that *would* hand secrets to a stranger's code. Anyone with write
-access to the repo could still exfiltrate them by editing the workflow, so
-write access is the real boundary.
-
-**The number is kept out of the logs by discarding Twilio's response, and that
-is load-bearing.** GitHub masks a secret's exact string in log output, but the
-masking is literal: Twilio echoes the destination back *normalised*, so a
-number entered in any other format would not match the secret and would print
-in the clear. The step keeps only the HTTP status. Do not echo the response to
-debug it.
-
-With no secrets set the step prints a note and exits 0, so the workflow still
-runs clean — nothing about the ratings depends on it. `continue-on-error` is
-on it as well: a texting API being down must never turn a good week's ratings
-into a red run.
 
 **Never suggest dragging a *folder* onto a folder in Finder.** macOS "Replace"
 deletes the entire destination. Dragging *files* into a folder is safe.

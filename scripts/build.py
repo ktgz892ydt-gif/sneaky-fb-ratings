@@ -881,13 +881,21 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
         # is a team's whole season -- what happened, then what is left. The two
         # lists shrink and grow past each other, so the payload stays about the
         # same size all season.
-        #   w week · h home · a away · hs/as scores · n neutral
+        #   w week · d date · h home · a away · hs/as scores · n neutral
+        #
+        # `d` is omitted for a season scraped before the date column existed,
+        # which is why check.py treats it as optional rather than asserting it.
+        # It costs little after gzip -- a season holds ~14 distinct dates -- and
+        # it is what lets a missed game be told apart from an unplayed one.
         "results": [
             {"w": g.get("week", 1), "h": pos_of[g["home"]], "a": pos_of[g["away"]],
              "hs": g["home_score"], "as": g["away_score"],
+             **({"d": g["date"]} if g.get("date") else {}),
              **({"n": 1} if g.get("neutral") else {})}
             for g in res.games
         ],
+        "resultCols": "w=week d=date h=home a=away hs=homeScore as=awayScore "
+                      "n=neutral; h/a are indexes into teams",
         "scheduleCols": "w=week d=date t=time h=home a=away n=neutral "
                         "m=predictedHomeMargin p=homeWinProb "
                         "ph=projectedHomeScore pa=projectedAwayScore "

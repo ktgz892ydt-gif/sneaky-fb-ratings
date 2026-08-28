@@ -128,6 +128,11 @@ def load_games(path):
                     games.append(
                         {
                             "week": int(row["week"]),
+                            # Optional on purpose. Seasons scraped before the
+                            # date column existed have no such field, and they
+                            # are finished history that nothing needs to
+                            # re-read; an empty string keeps them loadable.
+                            "date": (row.get("date") or "").strip(),
                             # The state tag is part of the identity, not
                             # decoration -- see team_identity().
                             "away": team_identity(row["away"], row.get("away_state")),

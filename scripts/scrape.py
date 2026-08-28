@@ -843,6 +843,13 @@ def scrape_week(sess, season, week, use_cache=True, diagnose=False, probe=False)
         games.append(
             {
                 "week": week,
+                # The kickoff date, straight off the record the score was read
+                # from. SB_GAME_RE has always captured it -- it anchors the
+                # whole pattern -- it was simply thrown away. Keeping it is
+                # what lets check.py tell "this game has not been played yet"
+                # apart from "this game was played and we failed to read it",
+                # which are indistinguishable from a week number alone.
+                "date": m.group("date"),
                 "away": away,
                 "away_score": a,
                 "home": home,
@@ -1009,7 +1016,7 @@ def main():
     with open(gpath, "w", newline="", encoding="utf-8") as fh:
         wtr = csv.DictWriter(
             fh,
-            fieldnames=["week", "away", "away_score", "home", "home_score",
+            fieldnames=["week", "date", "away", "away_score", "home", "home_score",
                         "neutral", "away_state", "home_state"],
         )
         wtr.writeheader()
