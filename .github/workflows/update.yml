@@ -19,9 +19,29 @@ on:
     # SUNDAY in UTC -- so the third entry is day 0, not day 6. Writing it as
     # "0 0 * * 6" would fire Friday evening ET, before the games it exists to
     # catch. This is the easiest line in the file to get wrong.
-    - cron: "0 12 * * 6"    # Sat 08:00 ET
-    - cron: "0 0 * * 0"     # Sat 20:00 ET  <- Sunday in UTC. See above.
-    - cron: "0 17 * * 0"    # Sun 13:00 ET
+    # AUGUST THROUGH DECEMBER ONLY. Year-round these fired ~90 times in the
+    # off-season, re-scraping a site the docs promise to treat gently and
+    # republishing a finished season as the current one from January.
+    #
+    # The cost of the month window: GitHub disables a scheduled workflow after
+    # 60 days of repository inactivity, and the bot's weekly commit is what was
+    # keeping this one alive. Seven quiet months will trip that. GitHub emails
+    # the owner when it does, and re-enabling is one button in the Actions tab
+    # -- it is on the season-rollover checklist in HANDOFF.md alongside
+    # CURRENT_SEASON, which has to be edited by hand anyway.
+    #
+    # NOT on minute :00. GitHub queues every cron in the world at the top of
+    # the hour, and a scheduled run that loses that scramble can be delayed by
+    # tens of minutes or dropped. The exact minute does not matter; being off
+    # the hour does.
+    #
+    # There is NO `timezone:` key on a GitHub schedule. Cron here is UTC only,
+    # and adding one risks the whole workflow failing to parse, so that no
+    # scheduled run fires at all -- silently, because a workflow that does not
+    # parse does not report. Do not add it.
+    - cron: "13 12 * 8-12 6"   # Sat 08:13 ET
+    - cron: "17 0 * 8-12 0"    # Sat 20:17 ET  <- Sunday in UTC. See above.
+    - cron: "23 17 * 8-12 0"   # Sun 13:23 ET
   workflow_dispatch:
     inputs:
       no_cache:
@@ -56,6 +76,23 @@ jobs:
 
       - run: pip install -r requirements.txt
 
+      # The season lives in scripts/scrape.py and nowhere else. It used to be
+      # typed into five files, so the annual rollover was a hunt and a missed
+      # copy would publish a finished season as the current one.
+      - name: Resolve the season
+        id: season
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import sys
+          sys.path.insert(0, "scripts")
+          from scrape import CURRENT_SEASON, HISTORY_SEASONS, PRIOR_SEASON
+          print(f"current={CURRENT_SEASON}")
+          print(f"prior={PRIOR_SEASON}")
+          print(f"history={' '.join(str(y) for y in HISTORY_SEASONS)}")
+          print(f"history_csv={','.join(str(y) for y in HISTORY_SEASONS)}")
+          PY
+          echo "Season constants:" && cat "$GITHUB_OUTPUT"
+
       # What CI actually resolved. Committed results depend on numpy and scipy
       # -- solver, sparse products, RNG -- so when a numerical diff appears with
       # no code change, this is the first place to look.
@@ -74,7 +111,7 @@ jobs:
       # at 44 requests instead of 176.
       - name: Backfill past seasons (first run only)
         run: |
-          for Y in 2023 2024 2025; do
+          for Y in ${{ steps.season.outputs.history }}; do
             if [ ! -f "data/games_$Y.csv" ]; then
               echo "Backfilling $Y."
               python scripts/scrape.py --season "$Y"
@@ -107,8 +144,8 @@ jobs:
               recorded = json.load(open("data/parser_versions.json"))
           except Exception:
               recorded = {}
-          stale = [y for y in ("2023", "2024", "2025")
-                   if recorded.get(y) != PARSER_VERSION]
+          seasons = "${{ steps.season.outputs.history }}".split()
+          stale = [y for y in seasons if recorded.get(y) != PARSER_VERSION]
           if stale:
               print(f"::error::seasons {stale} were scraped by parser version "
                     f"{[recorded.get(y) for y in stale]}, but scrape.py is at "
@@ -119,11 +156,14 @@ jobs:
               raise SystemExit(1)
           print(f"all history recorded under parser version {PARSER_VERSION}")
           PY
-          python scripts/tune.py --seasons 2023,2024,2025 --holdouts 1,2,4,7,10
+          python scripts/tune.py \
+            --seasons ${{ steps.season.outputs.history_csv }} \
+            --holdouts 1,2,4,7,10
 
       - name: Build last season's ratings and derive the preseason prior
         run: |
-          if [ -f data/games_2025.csv ]; then
+          PRIOR=${{ steps.season.outputs.prior }}
+          if [ -f "data/games_$PRIOR.csv" ]; then
             # --no-schedule because the season is over. The scraper writes a
             # schedule_{yr}.csv for past seasons too -- a handful of games the
             # site marked '***' and never scored -- and without this flag
@@ -135,19 +175,19 @@ jobs:
             # log. build.py refuses to record an empty snapshot anyway; this
             # says so at the call site rather than relying on that.
             python scripts/build.py --no-site --no-prior --no-schedule --no-history \
-              --games data/games_2025.csv \
-              --roster data/roster_2025.csv \
-              --out data/ratings_2025.json
+              --games "data/games_$PRIOR.csv" \
+              --roster "data/roster_$PRIOR.csv" \
+              --out "data/ratings_$PRIOR.json"
             python scripts/season_prior.py \
-              --from-ratings data/ratings_2025.json \
+              --from-ratings "data/ratings_$PRIOR.json" \
               --out data/prior.json
           else
-            echo "No 2025 data; this season will run without a prior."
+            echo "No $PRIOR data; this season will run without a prior."
           fi
 
       - name: Scrape scores and roster
         run: |
-          python scripts/scrape.py --season 2026 \
+          python scripts/scrape.py --season ${{ steps.season.outputs.current }} \
             ${{ inputs.no_cache && '--no-cache' || '' }}
 
       - name: Fit ratings and build the site

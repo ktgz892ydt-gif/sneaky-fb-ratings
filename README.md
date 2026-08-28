@@ -23,11 +23,15 @@ point margin.
 | Margin | Counts as |
 |-------:|----------:|
 | 3 pts  | 0.59 wins |
-| 7 pts  | 0.68 wins |
-| 14 pts | 0.83 wins |
-| 21 pts | 0.91 wins |
-| 35 pts | 0.98 wins |
+| 7 pts  | 0.71 wins |
+| 14 pts | 0.85 wins |
+| 21 pts | 0.93 wins |
+| 35 pts | 0.99 wins |
 | 56 pts | 0.998 wins |
+
+*(at the fitted `squash_scale` of 8.0; margins are capped at 49 first, so 56
+and 49 count the same. The page derives this table from `tuned.json` and
+self-corrects — this copy does not, so re-check it after any re-fit.)*
 
 One model, one likelihood, no arbitrary blend weights. Margin still matters, but
 a 63-0 game is not worth nine times a 7-0 game. Ratings are expressed on a point-margin
@@ -254,6 +258,12 @@ scripts/build.py     orchestrate, emit ratings.json + both page variants
 scripts/check.py     verification; the workflow fails if this fails
 scripts/tune.py      fits the model constants against past seasons
 scripts/season_prior.py  turns a finished season into next season's prior
+scripts/harbin.py    the OHSAA playoff qualifier, recovered from published data
+scripts/simulate.py  10,000-season Monte Carlo -> playoff odds and what-ifs
+scripts/history.py   the append-and-revise track record (data/history.jsonl)
+scripts/backfill_history.py  replays past seasons as labelled backtests
+scripts/rivals.py    scoring against another public forecaster
+scripts/capture_rivals.py    records that forecaster's weekly picks
 tests/               unit tests for the fragile parts (pytest)
 data/                committed raw scores, schedule and roster — replayable
 site/                what GitHub Pages serves
@@ -278,7 +288,8 @@ package versions as CI.
 
 ## Automation
 
-`.github/workflows/update.yml` runs Saturday 08:00 and Sunday 13:00 ET. Every
+`.github/workflows/update.yml` runs Saturday 08:00, Saturday 20:00 and Sunday
+13:00 ET, August through December. Every
 run re-scrapes **all** weeks rather than appending — scores get corrected days
 later, and an append-only store would carry the original typo forever. Raw data
 is committed each run, so any past week's board can be replayed exactly.

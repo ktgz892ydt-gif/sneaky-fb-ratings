@@ -56,6 +56,8 @@ import os
 import re
 import time
 
+from history import KIND_LIVE
+
 SOURCE = "fantastic50"
 SOURCE_NAME = "Drew Pasteur's Ohio Fantastic 50"
 SOURCE_URL = "https://www.fantastic50.net/"
@@ -246,8 +248,16 @@ def head_to_head(rival_records, our_snapshots, results_by_season, source=SOURCE)
     statistic is McNemar's -- only the games the two disagreed about carry any
     information about which is better.
     """
+    # LIVE captures only. A backtest was replayed from committed scores by
+    # constants fitted on that same season; letting one into a comparison
+    # against another forecaster's archived weekly picks would score a replay
+    # against a real forecast and call it a head-to-head. Harmless today --
+    # rival records exist only for 2026, which has no backtests -- and exactly
+    # the kind of thing a future backfill would turn into a silent lie.
     ours_by = {}
     for snap in our_snapshots:
+        if snap.get("kind", KIND_LIVE) != KIND_LIVE:
+            continue
         for entry in snap.get("pred", []):
             home, away, week, margin, prob = entry[:5]   # 5 or 7 elements
             ours_by[(snap.get("season"), week, home, away)] = (margin, prob)

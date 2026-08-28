@@ -247,6 +247,11 @@ def score(snapshots, results_by_season):
     per_season = defaultdict(lambda: {"n": 0, "correct": 0, "ll": 0.0,
                                       "absMargin": 0.0, "brier": 0.0,
                                       "kind": KIND_LIVE})
+    # Keyed by (kind, bin), never bin alone. The headline figures above are
+    # already split by kind, but the calibration table used one shared dict --
+    # a quiet exception to the rule the rest of this module exists to enforce.
+    # It was immaterial while only three live games existed and would have
+    # stopped being immaterial without anyone noticing.
     bins = defaultdict(lambda: [0, 0])
 
     for snap in snapshots:
@@ -269,8 +274,8 @@ def score(snapshots, results_by_season):
             fav_p = p if p >= 0.5 else 1 - p
             fav_won = won if p >= 0.5 else not won
             b = min(round(fav_p, 1), 1.0)
-            bins[b][0] += int(fav_won)
-            bins[b][1] += 1
+            bins[(snap.get("kind", KIND_LIVE), b)][0] += int(fav_won)
+            bins[(snap.get("kind", KIND_LIVE), b)][1] += 1
 
     out = {}
     for (kind, yr), s in per_season.items():
@@ -300,9 +305,16 @@ def score(snapshots, results_by_season):
         "bySeason": out,
         # Deliberately two totals, never one. See the note on KIND_LIVE.
         "overall": {k: _pool(v) for k, v in out.items()},
-        "calibration": {f"{k:.1f}": {"predicted": k, "actual": round(v[0] / v[1], 4),
-                                     "n": v[1]}
-                        for k, v in sorted(bins.items()) if v[1] >= 20},
+        # Nested by kind for the same reason `overall` is: pooling a
+        # replayed week with a live one launders the weaker number into the
+        # stronger. A bin needs 20 games before it says anything.
+        "calibration": {
+            kind: {f"{b:.1f}": {"predicted": b,
+                                "actual": round(v[0] / v[1], 4), "n": v[1]}
+                   for (k2, b), v in sorted(bins.items())
+                   if k2 == kind and v[1] >= 20}
+            for kind in sorted({k for k, _ in bins})
+        },
     }
 
 

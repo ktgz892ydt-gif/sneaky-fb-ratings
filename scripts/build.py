@@ -21,6 +21,7 @@ from history import (build_snapshot, load as load_history,  # noqa: E402
                      trends)
 from ratings import (RatingConfig, expected_margin, rate,  # noqa: E402
                      win_probability)
+from scrape import CURRENT_SEASON  # noqa: E402
 from rivals import head_to_head, load as load_rivals  # noqa: E402
 from resolve import load_games, load_roster, resolve, team_identity  # noqa: E402
 from simulate import (own_game_swings, scoreboard_watch,  # noqa: E402
@@ -464,17 +465,17 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
     # Prefer real scraped data when it exists; fall back to the checked-in
     # Week 1 fixture so the pipeline is runnable without network access.
     if games_path is None:
-        scraped = os.path.join(DATA, "games_2026.csv")
+        scraped = os.path.join(DATA, f"games_{CURRENT_SEASON}.csv")
         games_path = scraped if os.path.exists(scraped) else os.path.join(
-            DATA, "fixture_week1_2026.psv"
+            DATA, f"fixture_week1_{CURRENT_SEASON}.psv"
         )
-    roster_path = roster_path or os.path.join(DATA, "roster_2026.csv")
+    roster_path = roster_path or os.path.join(DATA, f"roster_{CURRENT_SEASON}.csv")
     out_path = out_path or os.path.join(SITE, "ratings.json")
 
     # The season is whichever one these files are for -- inferred from the
     # filename so that building a past season does not mislabel its output.
     m = re.search(r"(\d{4})", os.path.basename(games_path))
-    season = int(m.group(1)) if m else 2026
+    season = int(m.group(1)) if m else CURRENT_SEASON
 
     roster = load_roster(roster_path)
     raw_games = load_games(games_path)
@@ -848,6 +849,18 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
             "firstRoundByes": FIRST_ROUND_BYES,
             "lastRegularWeek": LAST_REGULAR_WEEK,
             "simulations": 10000,
+            # Whether the Monte Carlo actually ran this build. Once the regular
+            # season is over there is nothing left to decide, so it is skipped
+            # and no team carries playoff odds -- the legitimate state of every
+            # build from about November 1 to the state finals.
+            #
+            # check.py needs to be told, rather than inferring it from the
+            # absence of odds, because "no odds because the season is finished"
+            # and "no odds because the remaining schedule was lost" look
+            # identical in the payload and mean opposite things. The count is
+            # published alongside so the reason is legible.
+            "simulated": bool(sim_rem),
+            "remainingRegularFixtures": len(sim_rem),
             "method": (
                 "Each remaining regular-season game is decided by the board's "
                 "own win probability, the OHSAA Harbin qualifier is computed on "

@@ -23,7 +23,7 @@ nothing.
 
 **Current state: working and deployed.** Week 1 of 2026 is live. Three past
 seasons (2023–2025) are committed. Model constants are fitted, not guessed.
-250 unit tests pass in CI before anything touches the network.
+256 unit tests pass in CI before anything touches the network.
 
 ---
 
@@ -32,7 +32,7 @@ seasons (2023–2025) are committed. Model constants are fitted, not guessed.
 ```bash
 cd ~/Documents/GitHub/sneaky-fb-ratings
 git fetch && git status          # the bot commits here; the remote is often ahead
-python -m pytest tests/ -q       # expect 250 passed; pip install -r requirements.txt if not
+python -m pytest tests/ -q       # expect 256 passed; pip install -r requirements.txt if not
 python scripts/build.py --generated-at 2026-08-25T00:00:00+00:00 --out /tmp/check.json --no-site --no-history
 ```
 
@@ -273,6 +273,32 @@ used (least squares put the effective value at 5.98). Measured on 2025 it
 *overstates* by ~0.3 for the teams most exposed. Those teams are flagged
 `harbinApprox` and the page says so rather than presenting the figure as exact.
 
+### The simulation stops when the regular season does
+
+From about November 1 there is nothing left to simulate: every regular-season
+game has been played, `sim_rem` is empty, and no team carries playoff odds.
+That is correct, and it is the state of every build through the state finals.
+
+`check.py` used to demand 28 regions carrying odds unconditionally, so **the
+first Saturday after week 10 would have gone red and the board would have
+stopped updating for the entire playoffs** — with the failure issue pointing at
+a check rather than a fault. Reproduced before fixing.
+
+The fix is not to drop the check. "The season is finished" and "the remaining
+schedule was lost" produce the *same* empty payload and mean opposite things,
+and that check was doing double duty as the schedule-loss detector. So
+`build.py` now publishes `playoffs.simulated` and
+`playoffs.remainingRegularFixtures`, and a skip is accepted only against
+independent evidence — the results themselves having reached
+`lastRegularWeek`. A mid-season skip still fails, loudly:
+
+```
+FAIL  the playoff simulation was skipped, but results only reach week 2 of 10
+      -- the season is not over, so the remaining schedule has been lost
+```
+
+Both directions are covered by reproduction, not by argument.
+
 ### The invariant that guards it
 
 `check.py` asserts that playoff odds **sum to exactly 12 across each region**,
@@ -345,6 +371,22 @@ commits it via `git add data/`; there is a note there so nobody narrows that
 path without realising what it drops.
 
 ### Live and backtest are never pooled
+
+**Including the calibration table, which used to be the one exception.**
+`history.score()` split its headline figures by kind but accumulated one shared
+`bins` dict, so the calibration display pooled replayed weeks with live ones —
+the exact laundering the rest of this section exists to prevent. It was
+immaterial at three live games and would have stopped being immaterial without
+anyone noticing. Bins are now keyed `(kind, bin)`, `calibration` is nested by
+kind, and `check.py` fails a flat one. The page picks whichever bucket actually
+has bins (an empty bucket is still a truthy object in JS).
+
+**`head_to_head` reads live captures only.** It built its lookup from every
+snapshot regardless of kind. Harmless today — rival picks exist only for 2026,
+which has no backtests — but a future backfill would have quietly scored a
+replay against another forecaster's archived real-time picks and called it a
+head-to-head. Verified byte-identical before and after the filter.
+
 
 Two kinds of line, and the distinction is the whole point:
 
@@ -656,6 +698,14 @@ writes beside each season it produces. **Bump `PARSER_VERSION` whenever a
 parsing change could yield a different set of games from the same pages.**
 
 
+**0g. A one-person server gets three attempts, but a 404 gets one.**
+`fetch()` had no retry: a single 502 or dropped connection aborted the whole
+run before anything was written. It now retries 5xx, timeouts and connection
+errors three times with backoff. **4xx is never retried, and that is the point
+of the split** — a 404 is not a fault here, it is the sentinel that tells the
+week loop the season has no further weeks. Retrying it would triple the
+requests at the end of every season. `tests/test_fetch.py` pins all five paths.
+
 These cost real debugging time. Don't rediscover them.
 
 **0. A school's name can contain its own parentheses, and the LAST one is the
@@ -762,7 +812,7 @@ scripts/build.py         orchestrates; fits ratings, predicts the schedule,
                          writes ratings.json + both page variants
 scripts/check.py         ~40 assertions; the workflow fails if these fail
                          (its date-completeness helpers are pure and tested)
-tests/                   250 unit tests (pytest)
+tests/                   256 unit tests (pytest)
 data/                    committed raw scores, schedule, rosters, prior, tuned
 site/                    ONLY deployable assets: app.html, index.html, ratings.json
 .github/workflows/       the weekly automation
@@ -778,14 +828,42 @@ for opening in a headless browser to check rendering without a server.
 
 ## Operating it
 
+**The season lives in ONE place: `CURRENT_SEASON` in `scripts/scrape.py`.**
+It used to be typed into five files, so the annual rollover was a hunt and a
+missed copy would publish a finished season as the current one. The workflow
+now reads `CURRENT_SEASON`, `HISTORY_SEASONS` and `PRIOR_SEASON` from that
+module rather than repeating them; there are no hardcoded years left in
+`update.yml`.
+
+### Season rollover checklist (once a year, ~August)
+
+1. Edit `scripts/scrape.py`: bump `CURRENT_SEASON`, and add the season that
+   just finished to `HISTORY_SEASONS`.
+2. Re-scrape the finished season if the parser has moved since
+   (`python scripts/scrape.py --season <year>`), then re-run the tune.
+3. **Check Actions is still enabled.** The crons only run August–December now,
+   and GitHub disables a scheduled workflow after 60 days of repository
+   inactivity — the bot's weekly commit is what keeps it alive, and seven quiet
+   months will trip it. GitHub emails the owner; re-enabling is one button in
+   the Actions tab.
+4. Run the workflow manually once *before* week 1, or the season's week-1
+   predictions are never captured live. 2026 lost its week 1 that way.
+
 **Weekly runs are automatic** — Saturday 08:00, Saturday 20:00 and Sunday
-13:00 ET. Every run re-scrapes all weeks (scores get corrected days later) and
+13:00 ET, **August through December only**. Every run re-scrapes all weeks (scores get corrected days later) and
 commits refreshed data back to the repo.
 
 The Saturday evening run catches games added to Friday's list late, and most of
 the ~26 fixtures a week that are actually played on Saturday (the season has
 3,810 Friday fixtures, 259 Saturday, 131 Thursday). It costs one extra pass of
 ~44 requests; see "Source etiquette".
+
+**The crons do not run at minute :00**, because every cron on GitHub is
+queued at the top of the hour and a run that loses that scramble is delayed or
+dropped. They fire at :13, :17 and :23. **There is no `timezone:` key on a
+GitHub schedule** — cron is UTC only, and adding one risks the workflow failing
+to parse so that *no* scheduled run fires, silently. `AUTOMATION_REVIEW_CONCERNS.md`
+recommended adding it; that advice is struck at the top of that file.
 
 **In UTC that middle run is a SUNDAY cron.** Saturday 20:00 EDT is midnight
 UTC, so it is `0 0 * * 0`, not `0 0 * * 6` — the latter would fire Friday

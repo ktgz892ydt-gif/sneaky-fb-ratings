@@ -961,7 +961,7 @@ tr[data-top="1"] .c-rank::before {
     <div class="method-body">
       <div>
         <h3><code>Alex Points</code> — the headline</h3>
-        <p>A Bradley-Terry model where each game counts as a <em>fractional</em> win taken from the point margin. A 3-point win is worth about .59 of a win, a 17-point win about .85, a 45-point win about .97.</p>
+        <p>A Bradley-Terry model where each game counts as a <em>fractional</em> win taken from the point margin. <span id="squash-examples">A 3-point win is worth about .59 of a win, a 17-point win about .89, a 45-point win essentially a full win.</span></p>
         <p>So margin still matters, but a 63-0 game is not worth nine times a 7-0 game. The number is in points &mdash; though a rating difference is not itself an expected margin. Measured over 13,756 walk-forward predictions the slope of actual on predicted is about 1.5, because the squash discounts blowouts when fitting and that discount survives the rescale. The margins shown on this page are calibrated for it; the win probabilities are computed from the raw difference, which is the scale they were calibrated against.</p>
       </div>
       <div>
@@ -981,7 +981,7 @@ tr[data-top="1"] .c-rank::before {
       </div>
       <div>
         <h3>Shrinkage</h3>
-        <p>Every model is pulled toward the field average by a fixed prior worth about 1.5 pseudo-games. This is what makes the math solvable at all in Week 1, when the unregularized estimate is infinite.</p>
+        <p>Every model is pulled toward the field average by a fixed prior worth <span id="prior-size">about half a pseudo-game</span>. This is what makes the math solvable at all in Week 1, when the unregularized estimate is infinite.</p>
         <p>The prior does not decay on a schedule — real games simply outgrow it. By Week 8 it is noise.</p>
       </div>
       <div>
@@ -1024,8 +1024,15 @@ tr[data-top="1"] .c-rank::before {
   var $ = function (id) { return document.getElementById(id); };
 
   function pct(f) {
-    if (f >= 0.01 || f === 0) return Math.round(f * 100) + "%";
-    return "<1%";
+    // Cap both ends. 0.996 rounds to "100%", which claims a certainty a
+    // 10,000-season Monte Carlo cannot support -- the same reason the
+    // calibration table stops its label at "95%+". The floor has always been
+    // here; the ceiling was missing.
+    if (f === 0) return "0%";
+    if (f === 1) return "100%";
+    if (f > 0.99) return ">99%";
+    if (f < 0.01) return "<1%";
+    return Math.round(f * 100) + "%";
   }
 
   function fmt(v, digits) {
@@ -1421,8 +1428,13 @@ tr[data-top="1"] .c-rank::before {
       var top = Math.max.apply(null, keys.map(function (k) { return wd[k]; }));
       html += '<h4>How the season is most likely to end</h4><div class="pp-bars">';
       keys.forEach(function (k) {
+        // Ties are real and are NOT losses. The label used to read
+        // k-(gp-k), which quietly folded a tie into the loss column and
+        // described a 9-0-1 season as 9-1.
         var p = wd[k], gp = t.w + t.l + t.t + (t.remaining || 0);
-        html += '<div class="pp-bar"><span class="pp-rec">' + k + "&ndash;" + (gp - k)
+        var losses = gp - t.t - k;
+        var rec = k + "&ndash;" + losses + (t.t ? "&ndash;" + t.t : "");
+        html += '<div class="pp-bar"><span class="pp-rec">' + rec
           + '</span><span class="pp-track"><i style="width:'
           + Math.max(1, Math.round(100 * p / top)) + '%"></i></span>'
           + '<span class="pp-pct">' + pct(p) + "</span></div>";
@@ -1676,7 +1688,24 @@ tr[data-top="1"] .c-rank::before {
       + fig(fmt(shown.brier, 3), "Brier score")
       + fig(fmt(shown.meanMarginError, 1), "Margin error, pts");
 
-    var cal = sc.calibration || {};
+    // Calibration is nested by kind so a replayed week is never averaged in
+    // with a live one. Show whichever has the volume to mean anything --
+    // backtest today, live once the season has accumulated -- and never both
+    // added together. (A payload written before the nesting had a flat set of
+    // bins; fall back to it so an older ratings.json still renders.)
+    var calAll = sc.calibration || {};
+    var cal, calKind = "";
+    if (calAll.backtest || calAll.live) {
+      // An empty bucket is still an object, and `{}` is truthy in JS -- so
+      // choose on whether a bucket actually HAS bins, not on whether the key
+      // exists. Right now `live` is present and empty (3 games, below the
+      // 20-game floor a bin needs), and picking it would blank the panel.
+      var bt = calAll.backtest || {}, lv = calAll.live || {};
+      if (Object.keys(bt).length) { cal = bt; calKind = "backtest"; }
+      else { cal = lv; calKind = "live"; }
+    } else {
+      cal = calAll;            // a payload written before the nesting
+    }
     var keys = Object.keys(cal).sort();
     if (!keys.length) { $("sc-detail").hidden = true; return; }
     var rows = keys.map(function (k) {
@@ -1824,12 +1853,38 @@ tr[data-top="1"] .c-rank::before {
       $("reg").appendChild(o);
     });
 
+    // The method panel quotes the squash curve and the prior. Both are fitted
+    // constants, so they are rendered from DATA.tuned rather than written into
+    // the copy -- the re-fit that moved the scale from 9 to 8 left three
+    // hand-written figures wrong on the page and in the README, and only the
+    // footer self-corrected.
+    if (DATA.tuned && DATA.tuned.squash_scale) {
+      var sq = function (m) {
+        var cap = 49, x = Math.min(Math.abs(m), cap) * (m < 0 ? -1 : 1);
+        return 1 / (1 + Math.exp(-x / DATA.tuned.squash_scale));
+      };
+      var two = function (m) { return sq(m).toFixed(2).replace(/^0/, ""); };
+      var ex = $("squash-examples");
+      if (ex) {
+        ex.textContent = "A 3-point win is worth about " + two(3)
+          + " of a win, a 17-point win about " + two(17)
+          + ", a 45-point win " + (sq(45) >= 0.995
+              ? "essentially a full win." : "about " + two(45) + ".");
+      }
+      var pr = $("prior-size"), pg = DATA.tuned.prior_games;
+      if (pr) {
+        pr.textContent = pg === 1 ? "about one pseudo-game"
+          : (pg < 1 ? "about " + pg + " of a pseudo-game"
+                    : "about " + pg + " pseudo-games");
+      }
+    }
+
     var stamp = "Generated " + DATA.generatedAt.replace("T", " ") + " · "
       + DATA.conflicts.length + " unresolved name conflict"
       + (DATA.conflicts.length === 1 ? "" : "s");
     if (DATA.tuned && DATA.tuned.squash_scale) {
       stamp += " · constants fitted on " + (DATA.tuned.tunedOn || []).join(", ")
-        + " (margin scale " + DATA.tuned.squash_scale
+        + " (squash scale " + DATA.tuned.squash_scale
         + ", prior " + DATA.tuned.prior_games
         + ", carry " + DATA.tuned.carry
         + ", division " + DATA.tuned.division_weight

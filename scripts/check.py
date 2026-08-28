@@ -435,7 +435,12 @@ def main():
 
     # ---- a season has to be a possible length.
     #
-    # Ten regular-season games plus at most five playoff rounds. Anything past
+    # Ten regular-season games plus at most six playoff rounds. A team that
+    # does not earn a first-round bye plays every round: first round, regional
+    # quarter-final, regional semi-final, regional final, state semi-final,
+    # state final. (The old comment here said "five", which would make the
+    # limit 15; the value 16 is the correct one and the arithmetic was what
+    # was wrong.) Anything past
     # that means fixtures belonging to more than one school have landed on this
     # team. The arithmetic check above cannot see it -- an inflated schedule
     # adds up perfectly well, and Salem was published at 13.3-5.7 over
@@ -564,8 +569,38 @@ def main():
         for t in d["teams"]:
             if t["inOhio"] and t.get("playoffOdds") is not None and t["region"]:
                 regions[t["region"]].append(t)
-        check(len(regions) == 28,
-              f"{len(regions)} regions carry playoff odds, expected 28")
+
+        # Once the regular season ends there is nothing left to simulate, so
+        # the odds are legitimately absent -- the state of every build from
+        # about November 1 through the state finals. Demanding 28 regions
+        # unconditionally would have turned the first Saturday after week 10
+        # red and stopped the board updating for the entire playoffs, with the
+        # failure issue pointing at a check rather than a fault.
+        #
+        # But "finished" and "the remaining schedule was lost" produce the
+        # SAME empty payload and mean opposite things, so the skip is only
+        # accepted against independent evidence: the results themselves having
+        # reached the last regular week. That keeps the schedule-loss detector
+        # this check was doing double duty as, explicitly rather than by
+        # accident.
+        last_reg = po.get("lastRegularWeek", 10)
+        played_through = max((r["w"] for r in (d.get("results") or [])), default=0)
+        simulated = po.get("simulated")
+        if simulated is None:                 # payload written before the marker
+            simulated = bool(regions)
+
+        if not simulated:
+            check(played_through >= last_reg,
+                  f"the playoff simulation was skipped, but results only reach "
+                  f"week {played_through} of {last_reg} -- the season is not "
+                  f"over, so the remaining schedule has been lost")
+            check(not regions,
+                  f"{len(regions)} region(s) carry playoff odds from a build "
+                  f"that reports it did not simulate")
+        else:
+            check(len(regions) == 28,
+                  f"{len(regions)} regions carry playoff odds, expected 28")
+
         for r, ts in sorted(regions.items()):
             tot = sum(x["playoffOdds"] for x in ts)
             check(abs(tot - per) < 0.02,
@@ -681,10 +716,20 @@ def main():
             for yr, v in seasons.items():
                 check(str(yr).isdigit(), f"scorecard season key {yr!r} is not a year")
                 check(v["games"] > 0, f"scorecard {kind} {yr} covers no games")
-        for k, v in (sc.get("calibration") or {}).items():
-            check(0.0 <= v["actual"] <= 1.0,
-                  f"calibration bin {k}: actual {v['actual']} is not a fraction")
-            check(v["n"] > 0, f"calibration bin {k} has no games")
+        # Calibration is nested by kind, and must stay that way: a shared
+        # bin dict would pool a replayed week with a live one.
+        cal = sc.get("calibration") or {}
+        check(all(isinstance(v, dict) for v in cal.values()),
+              "scorecard.calibration must be nested by kind (live/backtest), "
+              "not a flat set of bins -- a flat one pools them")
+        for kind, kbins in cal.items():
+            check(kind in ("live", "backtest"),
+                  f"scorecard.calibration has an unknown kind {kind!r}")
+            for k, v in kbins.items():
+                check(0.0 <= v["actual"] <= 1.0,
+                      f"calibration {kind} bin {k}: actual {v['actual']} is "
+                      f"not a fraction")
+                check(v["n"] > 0, f"calibration {kind} bin {k} has no games")
 
     # ---- the head-to-head comparison
     #

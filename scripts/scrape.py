@@ -51,7 +51,22 @@ UA = (
     "sneaky-fb-ratings/1.0 (+https://github.com/ktgz892ydt-gif/sneaky-fb-ratings; "
     "weekly ratings project; contact via repo issues)"
 )
+# ---- the season, in ONE place -------------------------------------------
+#
+# These used to be typed into five files. The workflow, the build fallback and
+# the tuning list all carried their own copy of the year, so the annual
+# rollover was a hunt rather than an edit, and a missed one would quietly
+# publish a finished season as the current one.
+#
+# ROLLING OVER TO A NEW SEASON: change CURRENT_SEASON here, add the season that
+# just finished to HISTORY_SEASONS, and re-run the tune. Nothing else needs
+# editing -- the workflow reads these values rather than repeating them.
+CURRENT_SEASON = 2026
+HISTORY_SEASONS = (2023, 2024, 2025)   # committed, finished, tuned against
+PRIOR_SEASON = CURRENT_SEASON - 1      # supplies the preseason prior
+
 DELAY = 1.5  # seconds between requests
+FETCH_ATTEMPTS = 3  # transient 5xx / timeouts only; 4xx is never retried
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
@@ -666,12 +681,36 @@ def fetch(sess, path, use_cache=True):
                 return fh.read()
 
     url = BASE + path
-    resp = sess.get(url, timeout=30)
-    resp.raise_for_status()
-    time.sleep(DELAY)
-    with open(cached, "w", encoding="utf-8") as fh:
-        fh.write(resp.text)
-    return resp.text
+    # Retry transient faults only. joeeitel.com is one person's server: a
+    # single 502 or a dropped connection used to abort the whole run before
+    # anything was written, losing a good week's ratings to a blip that would
+    # have cleared on the next request seconds later.
+    #
+    # 4xx is NEVER retried, and that is deliberate rather than incidental: a
+    # 404 is not a fault here, it is the sentinel that says the season has no
+    # further weeks. Retrying it would turn the normal end of the season into
+    # three times the requests and a slower stop.
+    last = None
+    for attempt in range(1, FETCH_ATTEMPTS + 1):
+        try:
+            resp = sess.get(url, timeout=30)
+        except (requests.Timeout, requests.ConnectionError) as exc:
+            last = exc
+        else:
+            if resp.status_code < 500:
+                resp.raise_for_status()          # 4xx still raises immediately
+                time.sleep(DELAY)
+                with open(cached, "w", encoding="utf-8") as fh:
+                    fh.write(resp.text)
+                return resp.text
+            last = requests.HTTPError(
+                f"{resp.status_code} Server Error for {url}", response=resp)
+        if attempt < FETCH_ATTEMPTS:
+            backoff = DELAY * (2 ** attempt)
+            print(f"  {path}: {last} -- retrying in {backoff:.0f}s "
+                  f"({attempt + 1} of {FETCH_ATTEMPTS})", file=sys.stderr)
+            time.sleep(backoff)
+    raise last
 
 
 def page_lines(html):
@@ -930,7 +969,7 @@ def scrape_roster(sess, season, use_cache=True, known_pairs=frozenset()):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--season", type=int, default=2026)
+    ap.add_argument("--season", type=int, default=CURRENT_SEASON)
     ap.add_argument("--through-week", type=int, default=16)
     ap.add_argument("--no-cache", action="store_true")
     ap.add_argument(
@@ -1037,6 +1076,26 @@ def main():
               file=sys.stderr)
 
     spath = os.path.join(DATA, f"schedule_{args.season}.csv")
+    # `games_{yr}.csv` has two write guards; this file had none, and it is the
+    # one that can collapse silently -- every downstream consequence of an
+    # empty schedule is an ABSENCE, and absences render fine.
+    #
+    # A proportional drop guard would be wrong here: this file is SUPPOSED to
+    # shrink every week as fixtures become results. What is never legitimate is
+    # falling off a cliff to nothing. The real end-of-season taper runs
+    # 59 -> 26 -> 5 -> 0, so a prior above 50 going to zero in one step cannot
+    # be the season ending; it is a parse failure.
+    if not all_sched and os.path.exists(spath):
+        with open(spath, newline="", encoding="utf-8") as fh:
+            prior_sched = sum(1 for _ in csv.DictReader(fh))
+        if prior_sched > 50:
+            raise SystemExit(
+                f"Parsed no fixtures at all, but {spath} already holds "
+                f"{prior_sched}. A season ending tapers (59 -> 26 -> 5 -> 0); "
+                f"it does not drop from {prior_sched} to nothing in one week. "
+                f"Not overwriting -- inspect the source pages before re-running."
+            )
+
     with open(spath, "w", newline="", encoding="utf-8") as fh:
         wtr = csv.DictWriter(
             fh,

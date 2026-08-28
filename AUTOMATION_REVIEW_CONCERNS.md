@@ -1,3 +1,14 @@
+> **CORRECTION (2026-08-28): the `timezone:` advice below is WRONG. DO NOT APPLY IT.**
+>
+> GitHub Actions schedules are **UTC only**. There is no `timezone` key on a
+> `schedule` entry. Adding one risks the workflow failing to parse, in which
+> case **no scheduled run fires at all** — silently, because a workflow that
+> does not parse cannot report that it did not run. The live workflow correctly
+> does not use it, and pins the ET times in comments instead.
+>
+> The minute-zero advice in the same section **is** correct and has been
+> applied: the three crons now run at :13, :17 and :23.
+
 # Automation Review Concerns
 
 Reviewed on 2026-08-28, focusing specifically on the weekly GitHub Actions
