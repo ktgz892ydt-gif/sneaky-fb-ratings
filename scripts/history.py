@@ -6,8 +6,14 @@ from the source and can be rebuilt by re-scraping. `data/history.jsonl` is the
 one exception, and the exception matters: a prediction is what the board said
 *at a moment in time*, before the game was played. Recomputing it afterwards
 from a model that has since seen the result is not a prediction, it is a
-retrofit, and it would flatter the record without anyone noticing. So the log
-is append-only, and if it is lost the track record is genuinely gone.
+retrofit, and it would flatter the record without anyone noticing. So a line
+is only ever written before its games, never rewritten after them, and if the
+file is lost the track record is genuinely gone.
+
+Note "before its games", not "once". A capture may be revised while every game
+it forecasts is still unplayed -- there is no result to have seen, so that is
+not hindsight -- and it freezes the moment one of them kicks off. See `record`
+for why the stricter write-once rule was actively harmful.
 
 That property is also why this is the honest foundation for comparing against
 anyone else's model. A claim to have beaten another forecaster needs their
@@ -37,9 +43,14 @@ a truncated write could corrupt.
                  after. Entries written before that carry five elements; the
                  reader below tolerates both lengths.
 
-Predictions are stored for the NEXT unplayed week only. That is the claim worth
-being held to -- "we called this Friday right" -- and it keeps the file small
-enough to live in the repo for years.
+Predictions are stored one week past `throughWeek` only. That is the claim
+worth being held to -- "we called this Friday right" -- and it keeps the file
+small enough to live in the repo for years.
+
+`throughWeek` is the highest week holding any result, so it turns over on the
+first Thursday-night game rather than when the week finishes. That is fine for
+the horizon (the week in progress was forecast by the previous capture) but it
+is exactly why captures have to stay revisable until their games are played.
 """
 
 from __future__ import annotations
@@ -134,22 +145,95 @@ def build_snapshot(season, through_week, generated_at, tuned, team_rows,
     }
 
 
-def append_if_new(path, snap):
-    """Append unless this (season, throughWeek) is already recorded.
+def pred_keys(snap):
+    """The (week, home, away) keys a snapshot is making a claim about."""
+    return {(int(p[2]), p[0], p[1]) for p in snap.get("pred", [])}
 
-    Idempotent on purpose. The workflow builds twice a week and a developer may
-    build many times a day; only the first capture of a given week is the
-    prediction, and later ones would have seen more of the season. Re-recording
-    would quietly replace a forecast with hindsight.
+
+def _write_all(path, snaps):
+    """Rewrite the whole log atomically.
+
+    A revision has to rewrite the file, and this is the one file in the repo
+    that cannot be regenerated -- so it is written beside the original and
+    moved into place. os.replace is atomic, so an interrupted write leaves the
+    previous log intact rather than a truncated one.
     """
-    for existing in load(path):
-        if (existing.get("season") == snap["season"]
+    d = os.path.dirname(path)
+    if d:
+        os.makedirs(d, exist_ok=True)
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        for s in snaps:
+            fh.write(json.dumps(s, separators=(",", ":")) + "\n")
+    os.replace(tmp, path)
+
+
+def record(path, snap, played=None):
+    """Record this capture. Returns "appended", "replaced" or "kept".
+
+    The log holds what the board said BEFORE each week was played, so the rule
+    that matters is not "write once" -- it is **never revise a forecast for a
+    game that has already been played**. Those are different rules, and the
+    difference is what this function exists for.
+
+    The old rule was first-write-wins per (season, throughWeek). It assumed a
+    build only ever happens at the right moment, and `through_week` is
+    `max(week with any result)` -- so a single Thursday-night game flips the
+    week over while ~350 Friday fixtures are still hours away. Whichever build
+    ran first then claimed the week's slot permanently, and the far better
+    Saturday-morning forecast was silently refused. It happened on 2026 week 2:
+    a manual run on the Friday morning locked in week 3's predictions from a
+    model that had seen 27 of that week's 357 games.
+
+    The effect was not that the record flattered the board -- it understated it
+    -- but that the standard varied with when somebody happened to click "Run
+    workflow". Weeks captured at different points in the week are not
+    measuring the same thing and should not be averaged together.
+
+    So a capture may be revised while it is still entirely about the future,
+    and freezes the moment any game it predicts has been played. Revising a
+    forecast for an unplayed game is not hindsight; there is no result to have
+    seen. The freeze is what keeps it honest.
+
+    `played` is a container of (week, home, away) keys that already have a
+    result -- `build.py` passes the same map it scores against. Without it
+    nothing is revised, so a caller that cannot prove the games are unplayed
+    gets the strict old behaviour.
+    """
+    snaps = load(path)
+    for i, existing in enumerate(snaps):
+        if not (existing.get("season") == snap["season"]
                 and existing.get("throughWeek") == snap["throughWeek"]):
-            return False
-    os.makedirs(os.path.dirname(path), exist_ok=True)
+            continue
+        # A replay must never overwrite a live capture: the live line was
+        # written before the games, the replay was produced by constants
+        # fitted on that same season. Backtests never revise anything -- a
+        # replay is deterministic, so a second one has nothing new to say.
+        if snap.get("kind") != KIND_LIVE or existing.get("kind") != KIND_LIVE:
+            return "kept"
+        if played is None:
+            return "kept"
+        # Test the EXISTING line's claims, not the new one's. If any game it
+        # forecast has been played, that line is now a record of a call made
+        # before kickoff and must survive untouched.
+        if any(k in played for k in pred_keys(existing)):
+            return "kept"
+        snaps[i] = snap
+        _write_all(path, snaps)
+        return "replaced"
+
+    d = os.path.dirname(path)
+    if d:
+        os.makedirs(d, exist_ok=True)
     with open(path, "a", encoding="utf-8") as fh:
         fh.write(json.dumps(snap, separators=(",", ":")) + "\n")
-    return True
+    return "appended"
+
+
+def append_if_new(path, snap):
+    """Strict first-write-wins. Used by the backtest replay, which has no
+    reason to revise: it is deterministic and its games are long finished."""
+    return record(path, snap) == "appended"
 
 
 def score(snapshots, results_by_season):

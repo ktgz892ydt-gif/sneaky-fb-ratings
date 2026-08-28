@@ -382,13 +382,38 @@ matters:
 
 ### Rules that keep it honest
 
-- **Append-only, idempotent per (season, week).** The first look at a week is
-  the prediction; a later build has seen more of the season. Re-recording would
-  swap a forecast for hindsight, so `append_if_new` refuses.
-- **A replay cannot overwrite a live capture.** Same guard, and a test pins it.
-- **Only the next unplayed week is recorded.** "We called this Friday right" is
-  the claim worth being held to, and it keeps the log small enough to live in
-  the repo for years.
+- **A capture is revisable until its games start, then frozen forever.** This
+  is the rule, and it is *not* "write once" — that was tried and it was wrong.
+  `through_week` is the highest week holding **any** result, so a single
+  Thursday-night game turns the week over while ~350 Friday fixtures are still
+  to come. Under write-once, whichever build ran first owned the week's slot
+  permanently. It bit on 2026 week 2: a manual Friday-morning run recorded
+  week 3's forecast off a model that had seen **27 of week 2's 357 games**, and
+  Saturday's much better forecast was refused in silence.
+
+  The damage was not a flattered record — it was the opposite — but an
+  *incoherent* one: the standard varied with when somebody happened to click
+  "Run workflow", and weeks captured at different points cannot be averaged
+  together. `history.record()` now replaces a capture as long as **every game
+  it forecasts is still unplayed** (revising a call on a game nobody has played
+  is not hindsight; there is no result to have seen) and freezes it the moment
+  one kicks off. `build.py` passes the same results map it scores against.
+- **The freeze is whole-line, not per-game.** One capture is one instant. If
+  even one forecast game has been played the whole line stands.
+- **A caller without results revises nothing.** `append_if_new` is the strict
+  wrapper, still used by `backfill_history.py` — a replay is deterministic, so
+  a second one has nothing new to say.
+- **A replay cannot overwrite a live capture.** Backtests never revise at all,
+  and a test pins it both ways.
+- **A revision rewrites the file, so it is written atomically** — beside the
+  log, then `os.replace`d into place. An interrupted write leaves the previous
+  log intact rather than a truncated one. This is the file that cannot be
+  regenerated; it does not get a partial write.
+- **Only one week past `through_week` is recorded.** "We called this Friday
+  right" is the claim worth being held to, and it keeps the log small enough to
+  live in the repo for years. The week currently in progress was forecast by
+  the *previous* capture, so nothing is missed by the horizon starting above
+  `through_week`.
 - **An unplayed prediction is never counted as a miss.** Otherwise the record
   would look worse every time the source posts late.
 - **A truncated final line is skipped, not fatal** — that is what an interrupted
@@ -400,10 +425,11 @@ matters:
 
 ### `build.py` now writes to data/
 
-This is new: the build has a side effect. It is idempotent, so a rebuild of the
-same week changes nothing and the deterministic-build check still passes. But
+This is new: the build has a side effect. A rebuild of the same week rewrites
+that week's line rather than adding one, and with `--generated-at` pinned the
+rewrite is byte-identical, so the deterministic-build check still passes. But
 **the reproducibility recipe should use `--no-history`** — a check should not
-write to an append-only log at all, even harmlessly.
+write to the track record at all, even harmlessly.
 
 ### Comparing against another model — built
 
@@ -681,7 +707,10 @@ for opening in a headless browser to check rendering without a server.
 re-scrapes all weeks (scores get corrected days later) and commits refreshed
 data back to the repo.
 
-**Manual run:** Actions → Update ratings → Run workflow.
+**Manual run:** Actions → Update ratings → Run workflow. Safe at any time —
+a mid-week run can no longer poison that week's track-record entry, because a
+capture stays revisable until the games it forecasts kick off. That was not
+true before 2026-08-28; see "Rules that keep it honest".
 
 **Pushing does NOT run the workflow.** It triggers on schedule and manual
 dispatch only. So a batch of changes is not validated by CI until someone runs

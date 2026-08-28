@@ -20,7 +20,7 @@ import sys
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts"))
 
 from history import (KIND_BACKTEST, KIND_LIVE, append_if_new,  # noqa: E402
-                     build_snapshot, load, score, trends)
+                     build_snapshot, load, pred_keys, record, score, trends)
 
 
 def team(name, rating=1.0, rank=1, odds=0.5, games=1, ohio=True):
@@ -42,8 +42,10 @@ def snap(week=1, kind=KIND_LIVE, season=2026, preds=None, teams=None):
 # ------------------------------------------------------------- append-only
 
 def test_a_week_is_recorded_once(tmp_path):
-    """The first look at a week is the prediction. A later build has seen more
-    of the season, so re-recording would swap a forecast for hindsight."""
+    """Without results to check against, a week is written once and never
+    revised. `append_if_new` is the strict form, used by the backtest replay:
+    a caller that cannot prove the forecast games are still unplayed does not
+    get to rewrite anything."""
     p = str(tmp_path / "h.jsonl")
     assert append_if_new(p, snap(1)) is True
     assert append_if_new(p, snap(1)) is False
@@ -168,3 +170,118 @@ def test_a_snapshot_with_predictions_is_still_recorded(tmp_path):
     live = snap(1)
     assert live["pred"]
     assert append_if_new(p, live) is True
+
+# ------------------------------------------- revisable until the games start
+#
+# The log's rule is not "write once". It is "never revise a forecast for a game
+# that has been played". Those differ, and the difference caused real damage:
+# `through_week` is the highest week holding ANY result, so one Thursday-night
+# game turns the week over while ~350 Friday fixtures are still to come. Under
+# first-write-wins, whichever build ran first owned the week -- on 2026 week 2
+# a manual Friday-morning run locked in week 3's predictions from a model that
+# had seen 27 of week 2's 357 games, and Saturday's far better forecast was
+# refused in silence. The record was not flattered; it was made incoherent,
+# because the standard then depended on when somebody clicked "Run workflow".
+
+def test_a_capture_is_improved_while_its_games_are_still_ahead(tmp_path):
+    p = str(tmp_path / "h.jsonl")
+    early = snap(2, preds=[fixture("A", "B", 3, 3.0, 0.55)])
+    assert record(p, early, played={}) == "appended"
+
+    # Week 2 has now finished; week 3 has not started. Revising a forecast for
+    # a game nobody has played is not hindsight -- there is no result to see.
+    later = snap(2, preds=[fixture("A", "B", 3, 21.0, 0.95)])
+    played = {(2, "A", "B"): 14}
+    assert record(p, later, played=played) == "replaced"
+
+    lines = load(p)
+    assert len(lines) == 1
+    assert lines[0]["pred"][0][3] == 21.0
+
+
+def test_a_capture_freezes_once_one_of_its_games_is_played(tmp_path):
+    """The moment a forecast game kicks off, that line is a call made before
+    kickoff and must survive untouched."""
+    p = str(tmp_path / "h.jsonl")
+    before = snap(2, preds=[fixture("A", "B", 3, 3.0, 0.55),
+                            fixture("C", "D", 3, 3.0, 0.55)])
+    assert record(p, before, played={}) == "appended"
+
+    # Only ONE of the two has been played. The line still freezes whole: it is
+    # one capture at one instant, not a bag of independent rows.
+    played = {(3, "A", "B"): 10}
+    after = snap(2, preds=[fixture("A", "B", 3, 21.0, 0.95),
+                           fixture("C", "D", 3, 21.0, 0.95)])
+    assert record(p, after, played=played) == "kept"
+    assert load(p)[0]["pred"][0][3] == 3.0
+
+
+def test_the_home_away_order_of_a_result_key_is_respected(tmp_path):
+    """`pred_keys` must line up with the map build.py scores against, which is
+    keyed (week, home, away). Reading it the other way round would make every
+    played game look unplayed and the freeze would never fire."""
+    s = snap(2, preds=[fixture("Home", "Away", 3, 7.0, 0.7)])
+    assert pred_keys(s) == {(3, "Home", "Away")}
+    p = str(tmp_path / "h.jsonl")
+    record(p, s, played={})
+    assert record(p, s, played={(3, "Away", "Home"): 7}) == "replaced"
+    assert record(p, s, played={(3, "Home", "Away"): 7}) == "kept"
+
+
+def test_without_results_nothing_is_revised(tmp_path):
+    """A caller that cannot prove the games are unplayed gets the strict rule."""
+    p = str(tmp_path / "h.jsonl")
+    record(p, snap(2, preds=[fixture("A", "B", 3, 3.0, 0.55)]), played={})
+    assert record(p, snap(2, preds=[fixture("A", "B", 3, 9.0, 0.8)])) == "kept"
+    assert load(p)[0]["pred"][0][3] == 3.0
+
+
+def test_a_replay_cannot_revise_a_live_capture(tmp_path):
+    """Same property as the append-only version, through the new door. A
+    backtest was produced by constants fitted on that very season."""
+    p = str(tmp_path / "h.jsonl")
+    record(p, snap(3, kind=KIND_LIVE), played={})
+    assert record(p, snap(3, kind=KIND_BACKTEST), played={}) == "kept"
+    assert [s["kind"] for s in load(p)] == [KIND_LIVE]
+
+
+def test_a_revision_leaves_every_other_line_untouched_and_in_order(tmp_path):
+    """A revision rewrites the file, so the rest of the log has to come through
+    unchanged -- this is the one file in the repo that cannot be regenerated."""
+    p = str(tmp_path / "h.jsonl")
+    for wk in (1, 2, 3):
+        record(p, snap(wk, preds=[fixture("A", "B", wk + 1, float(wk), 0.6)]),
+               played={})
+    assert record(p, snap(2, preds=[fixture("A", "B", 3, 99.0, 0.9)]),
+                  played={}) == "replaced"
+
+    lines = load(p)
+    assert [l["throughWeek"] for l in lines] == [1, 2, 3]
+    assert [l["pred"][0][3] for l in lines] == [1.0, 99.0, 3.0]
+    # Written atomically, so no leftover temp file beside the log.
+    assert not os.path.exists(p + ".tmp")
+
+
+def test_the_2026_week_2_regression(tmp_path):
+    """The concrete case this rule was written for.
+
+    Friday 10:42am: 27 of week 2's games are in, `through_week` has flipped to
+    2, and a manual run records week 3's forecast. Saturday 08:00: all of week
+    2 is in and the model is materially better. Week 3 is still six days away,
+    so Saturday's forecast must win.
+    """
+    p = str(tmp_path / "h.jsonl")
+    friday = snap(2, preds=[fixture("A", "B", 3, 2.0, 0.52)])
+    record(p, friday, played={(2, "X", "Y"): 7})          # a Thursday game
+
+    week2_done = {(2, "X", "Y"): 7, (2, "A", "B"): 3, (2, "C", "D"): 21}
+    saturday = snap(2, preds=[fixture("A", "B", 3, 17.0, 0.88)])
+    assert record(p, saturday, played=week2_done) == "replaced"
+    assert load(p)[0]["pred"][0][3] == 17.0
+
+    # ...and once week 3 kicks off, it is frozen for good.
+    week3_started = dict(week2_done)
+    week3_started[(3, "A", "B")] = -6
+    assert record(p, snap(2, preds=[fixture("A", "B", 3, -6.0, 0.1)]),
+                  played=week3_started) == "kept"
+    assert load(p)[0]["pred"][0][3] == 17.0

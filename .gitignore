@@ -7,3 +7,6 @@ _to_delete/
 .DS_Store
 .pytest_cache/
 **/.DS_Store
+
+# atomic-write scratch for the track record (see history._write_all)
+data/*.jsonl.tmp

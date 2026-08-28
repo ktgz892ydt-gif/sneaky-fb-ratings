@@ -16,8 +16,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from harbin import (FIRST_ROUND_BYES, LAST_REGULAR_WEEK,  # noqa: E402
                     QUALIFIERS_PER_REGION, harbin_points,
                     leans_on_out_of_state, qualifiers, validate)
-from history import (append_if_new, build_snapshot,  # noqa: E402
-                     load as load_history, score as score_history,
+from history import (build_snapshot, load as load_history,  # noqa: E402
+                     record as record_history, score as score_history,
                      trends)
 from ratings import (RatingConfig, expected_margin, rate,  # noqa: E402
                      win_probability)
@@ -931,9 +931,24 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
         if not snap["pred"]:
             print(f"history        : {season} week {through_week} has nothing "
                   f"left to predict; not recorded", file=sys.stderr)
-        elif append_if_new(hpath, snap):
-            print(f"history        : recorded {season} week {through_week}",
-                  file=sys.stderr)
+        else:
+            # `through_week` is the highest week holding ANY result, so it
+            # turns over on the first Thursday-night game -- while ~350 of
+            # that week's fixtures are still to come. Passing the results in
+            # lets a capture be improved by a later build for as long as every
+            # game it forecasts is still unplayed, and freezes it the moment
+            # one kicks off. Without this the first build of the week won,
+            # even a mid-week manual one, and the far better Saturday-morning
+            # forecast was refused in silence.
+            played = results_by_season.get(season) or {}
+            what = record_history(hpath, snap, played=played)
+            if what != "kept":
+                print(f"history        : {what} {season} week {through_week} "
+                      f"({len(snap['pred'])} predictions)", file=sys.stderr)
+            else:
+                print(f"history        : {season} week {through_week} already "
+                      f"recorded and its games have started; left alone",
+                      file=sys.stderr)
 
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as fh:
