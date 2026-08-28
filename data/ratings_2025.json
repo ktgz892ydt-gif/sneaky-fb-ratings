@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-08-26T19:16:29+00:00",
+ "generatedAt": "2026-08-28T14:41:09+00:00",
  "season": 2025,
  "weeksLoaded": [
   1,
@@ -130564,7 +130564,7 @@
    "n": 1
   }
  ],
- "scheduleCols": "w=week d=date t=time h=home a=away n=neutral m=predictedHomeMargin p=homeWinProb e=usedStandIn o=assumedOhio x=whyNotPredicted; h/a are indexes into teams, or a name when unresolved",
+ "scheduleCols": "w=week d=date t=time h=home a=away n=neutral m=predictedHomeMargin p=homeWinProb ph=projectedHomeScore pa=projectedAwayScore e=usedStandIn o=assumedOhio x=whyNotPredicted; h/a are indexes into teams, or a name when unresolved",
  "scheduleGameCount": 0,
  "scheduleForeignDropped": 0,
  "schedulePredictedCount": 0,

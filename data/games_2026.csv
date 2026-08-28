@@ -125,7 +125,7 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 1,Fort Recovery (Fort Recovery),35,Ponitz Tech (Dayton),14,0,,
 1,Franklin Heights (Columbus),9,West (Columbus),14,0,,
 1,Fredericktown (Fredericktown),7,Highland (Marengo),28,0,,
-1,Fremont Ross (Fremont),22,Tiffin Columbian (Tiffin),21,0,,
+1,Fremont Ross (Fremont),0,Tiffin Columbian (Tiffin),1,0,,
 1,Galion (Galion),12,St Marys Memorial (St Marys),36,0,,
 1,Gallia Academy (Gallipolis),7,Boyd County (Ashland),45,0,,KY
 1,Garfield Heights (Garfield Heights),27,Canfield (Canfield),24,0,,
@@ -399,3 +399,30 @@ week,away,away_score,home,home_score,neutral,away_state,home_state
 1,Oakland (Murfreesboro),56,Christ Presbyterian Academy (Nashville),7,0,TN,TN
 1,Orem,14,Skyridge (Lehi),21,0,UT,UT
 1,James B. Dudley (Greensboro),6,Cardinal Gibbons (Raleigh),45,0,NC,NC
+2,Deer Park (Cincinnati),50,Shroder (Cincinnati),8,0,,
+2,Perkins (Sandusky),58,Scott (Toledo),6,0,,
+2,Cameron (Cameron),42,Clay-Battelle (Blacksville),0,0,WV,WV
+2,Weir (Weirton),0,Oak Glen (New Cumberland),35,0,WV,WV
+2,Flint Beecher,0,Petersburg Summerfield (Petersburg),42,0,MI,MI
+2,Hamtramck,6,Warren De La Salle (Warren),71,0,MI,MI
+2,Manchester,42,Sand Creek (Sand Creek),6,0,MI,MI
+2,North Adams-Jerome (North Adams),0,Stryker (Stryker),54,0,MI,
+2,Muskegon Mona Shores (Muskegon),27,Orchard Lake St Mary (Orchard Lake),35,0,MI,MI
+2,Portage Central (Portage),14,Central Catholic (Toledo),24,0,MI,
+2,Novi Detroit Catholic Central (Novi),55,Clinton Township Chippewa Valley,0,0,MI,MI
+2,Walled Lake Western,35,River Rouge (River Rouge),31,0,MI,MI
+2,Christ Presbyterian Academy (Nashville),13,Pearl Cohn,18,0,TN,TN
+2,King's Academy,44,Tri-Cities Christian Academy (Kingsport),14,0,TN,TN
+2,Jenks,33,Carroll (Southlake),34,0,OK,TX
+2,MU Sports Academy (Delson),7,Malvern Prep (Malvern),42,0,QB,PA
+2,Bear River,49,Thunder Ridge,35,0,UT,ID
+2,Riverton,0,Madison,27,0,UT,ID
+2,Higley,31,Queen Creek,35,0,AZ,AZ
+2,McClintock,42,Camelback,6,0,AZ,AZ
+2,Red Mountain (Mesa),35,Casteel,34,0,AZ,AZ
+2,Hamilton (Chandler),25,Brophy College Preparatory,6,0,AZ,AZ
+2,Desert Edge,20,Cactus Shadows,0,0,AZ,AZ
+2,Mt Pleasant (San Jose),33,Cupertino (Cupertino),27,0,CA,CA
+2,Robert F. Kennedy (Delano),36,Tulare Union (Tulare),35,0,CA,CA
+2,Marina (Marina),12,Independence (San Jose),21,0,CA,CA
+2,El Toro (Lake Forest),42,Marina (Huntington Beach),21,0,CA,CA

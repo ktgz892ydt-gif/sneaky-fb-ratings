@@ -106,16 +106,16 @@ Avon (Avon),Avon,Avon,150,II,6,1-0,6.5
 Findlay (Findlay),Findlay,Findlay,586,II,6,1-0,6.5
 Lakewood (Lakewood),Lakewood,Lakewood,832,II,6,1-0,6.5
 Amherst Steele (Amherst),Amherst Steele,Amherst,1486,II,6,1-0,6.0
-Central Catholic (Toledo),Central Catholic,Toledo,342,II,6,1-0,6.0
 St Francis de Sales (Toledo),St Francis de Sales,Toledo,1350,II,6,1-0,6.0
 Sylvania Southview (Sylvania),Sylvania Southview,Sylvania,1512,II,6,1-0,6.0
+Central Catholic (Toledo),Central Catholic,Toledo,342,II,6,2-0,6.0
 Clay (Oregon),Clay,Oregon,372,II,6,1-0,5.5
-Fremont Ross (Fremont),Fremont Ross,Fremont,616,II,6,1-0,5.5
 Springfield (Holland),Springfield,Holland,1476,II,6,1-0,5.5
 Start (Toledo),Start,Toledo,1482,II,6,1-0,5.5
 Anthony Wayne (Whitehouse),Anthony Wayne,Whitehouse,124,II,6,0-1,0.0
 Avon Lake (Avon Lake),Avon Lake,Avon Lake,152,II,6,0-1,0.0
 Bowsher (Toledo),Bowsher,Toledo,244,II,6,0-1,0.0
+Fremont Ross (Fremont),Fremont Ross,Fremont,616,II,6,0-1,0.0
 Normandy (Parma),Normandy,Parma,1118,II,6,0-1,0.0
 North Olmsted (North Olmsted),North Olmsted,North Olmsted,1146,II,6,0-1,0.0
 North Ridgeville (North Ridgeville),North Ridgeville,North Ridgeville,1152,II,6,0-1,0.0
@@ -206,6 +206,7 @@ Madison (Madison),Madison,Madison,922,III,9,0-1,0.0
 Ursuline (Youngstown),Ursuline,Youngstown,1580,III,9,0-1,0.0
 Holy Name (Parma Heights),Holy Name,Parma Heights,728,III,10,1-0,6.0
 Midview (Grafton),Midview,Grafton,1030,III,10,1-0,6.0
+Tiffin Columbian (Tiffin),Tiffin Columbian,Tiffin,406,III,10,1-0,6.0
 Elyria Catholic (Elyria),Elyria Catholic,Elyria,534,III,10,1-0,5.5
 Ontario (Ontario),Ontario,Ontario,1206,III,10,1-0,5.5
 Cloverleaf (Seville),Cloverleaf,Seville,390,III,10,1-0,5.0
@@ -224,10 +225,9 @@ Maumee (Maumee),Maumee,Maumee,976,III,10,0-1,0.0
 Norwalk (Norwalk),Norwalk,Norwalk,1160,III,10,0-1,0.0
 Padua Franciscan (Parma),Padua Franciscan,Parma,1224,III,10,0-1,0.0
 Revere (Richfield),Revere,Richfield,1288,III,10,0-1,0.0
-Scott (Toledo),Scott,Toledo,1398,III,10,0-1,0.0
+Scott (Toledo),Scott,Toledo,1398,III,10,0-2,0.0
 Shawnee (Lima),Shawnee,Lima,1412,III,10,0-1,0.0
 St Vincent-St Mary (Akron),St Vincent-St Mary,Akron,1384,III,10,0-1,0.0
-Tiffin Columbian (Tiffin),Tiffin Columbian,Tiffin,406,III,10,0-1,0.0
 Wapakoneta (Wapakoneta),Wapakoneta,Wapakoneta,1616,III,10,0-1,0.0
 Woodward (Toledo),Woodward,Toledo,1734,III,10,0-1,0.0
 Dover (Dover),Dover,Dover,472,III,11,1-0,6.5
@@ -308,7 +308,7 @@ Warrensville Heights (Warrensville Heights),Warrensville Heights,Warrensville He
 Elida (Elida),Elida,Elida,526,IV,14,1-0,6.0
 Firelands (Oberlin),Firelands,Oberlin,590,IV,14,1-0,6.0
 Otsego (Tontogany),Otsego,Tontogany,1212,IV,14,1-0,6.0
-Perkins (Sandusky),Perkins,Sandusky,1240,IV,14,1-0,6.0
+Perkins (Sandusky),Perkins,Sandusky,1240,IV,14,2-0,5.75
 Clear Fork (Bellville),Clear Fork,Bellville,378,IV,14,1-0,5.5
 Shelby (Shelby),Shelby,Shelby,1416,IV,14,1-0,5.5
 Bellevue (Bellevue),Bellevue,Bellevue,190,IV,14,1-0,5.0
@@ -375,7 +375,7 @@ Norwood (Norwood),Norwood,Norwood,1176,IV,16,0-1,0.0
 Reading (Reading),Reading,Reading,1284,IV,16,0-1,0.0
 Roger Bacon (St Bernard),Roger Bacon,St Bernard,1322,IV,16,0-1,0.0
 Shawnee (Springfield),Shawnee,Springfield,1414,IV,16,0-1,0.0
-Shroder (Cincinnati),Shroder,Cincinnati,1421,IV,16,0-1,0.0
+Shroder (Cincinnati),Shroder,Cincinnati,1421,IV,16,0-2,0.0
 Taft (Cincinnati),Taft,Cincinnati,1518,IV,16,0-1,0.0
 Taylor (Cleves),Taylor,Cleves,1524,IV,16,0-1,0.0
 Valley View (Germantown),Valley View,Germantown,1590,IV,16,0-1,0.0
@@ -568,9 +568,9 @@ Mount Gilead (Mount Gilead),Mount Gilead,Mount Gilead,1072,VI,23,0-1,0.0
 Northmor (Galion),Northmor,Galion,1144,VI,23,0-1,0.0
 Northridge (Johnstown),Northridge,Johnstown,1150,VI,23,0-1,0.0
 Tri-Village (New Madison),Tri-Village,New Madison,1546,VI,24,1-0,5.5
-Deer Park (Cincinnati),Deer Park,Cincinnati,462,VI,24,1-0,5.0
 Mechanicsburg (Mechanicsburg),Mechanicsburg,Mechanicsburg,1004,VI,24,1-0,5.0
 St Bernard-Elmwood Place (St Bernard),St Bernard-Elmwood Place,St Bernard,1340,VI,24,1-0,5.0
+Deer Park (Cincinnati),Deer Park,Cincinnati,462,VI,24,2-0,5.0
 Covington (Covington),Covington,Covington,430,VI,24,1-0,4.5
 Madison-Plains (London),Madison-Plains,London,928,VI,24,1-0,4.5
 Miami Valley Christian Academy (Cincinnati),Miami Valley Christian Academy,Cincinnati,1023,VI,24,1-0,4.5

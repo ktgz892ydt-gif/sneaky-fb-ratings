@@ -1,20 +1,6 @@
 week,date,time,away,home,neutral,away_state,home_state
-1,2026-08-22,4:30pm,Columbus Crusaders (club) (Columbus),Grand Valley Patriots (club),0,,MI
 1,2026-08-22,1:30pm,North Oakland Bucks (club) (Auburn Hills),C4 Lions (club) (Middletown),0,MI,
-2,2026-08-27,6:30pm,Deer Park (Cincinnati),Shroder (Cincinnati),0,,
 2,2026-08-27,6pm,Dunbar (Dayton),Stivers (Dayton),0,,
-2,2026-08-27,6pm,Perkins (Sandusky),Scott (Toledo),0,,
-2,2026-08-27,7pm,Weir (Weirton),Oak Glen (New Cumberland),0,WV,WV
-2,2026-08-27,7pm,Flint Beecher,Petersburg Summerfield (Petersburg),0,MI,MI
-2,2026-08-27,5pm,Hamtramck,Warren De La Salle (Warren),0,MI,MI
-2,2026-08-27,7pm,Manchester,Sand Creek (Sand Creek),0,MI,MI
-2,2026-08-27,7pm,North Adams-Jerome (North Adams),Stryker (Stryker),0,MI,
-2,2026-08-27,7pm,Muskegon Mona Shores (Muskegon),Orchard Lake St Mary (Orchard Lake),0,MI,MI
-2,2026-08-27,6pm,Portage Central (Portage),Central Catholic (Toledo),0,MI,
-2,2026-08-27,4pm,Novi Detroit Catholic Central (Novi),Clinton Township Chippewa Valley,0,MI,MI
-2,2026-08-27,8pm,Christ Presbyterian Academy (Nashville),Pearl Cohn,0,TN,TN
-2,2026-08-27,7pm,King's Academy,Tri-Cities Christian Academy (Kingsport),0,TN,TN
-2,2026-08-27,6pm,MU Sports Academy (Delson),Malvern Prep (Malvern),0,QB,PA
 2,2026-08-28,7pm,Ada (Ada),Arcadia (Arcadia),0,,
 2,2026-08-28,7pm,Aiken (Cincinnati),Northland (Columbus),0,,
 2,2026-08-28,7pm,Allen East (Harrod),Fort Recovery (Fort Recovery),0,,
@@ -357,7 +343,6 @@ week,date,time,away,home,neutral,away_state,home_state
 2,2026-08-28,7pm,Valley Christian School (Youngstown),Campbell Memorial (Campbell),0,,
 2,2026-08-28,7pm,Zane Trace (Chillicothe),Waverly (Waverly),0,,
 2,2026-08-28,7:30pm,Brooke (Wellsburg),Lincoln County (Hamlin),0,WV,WV
-2,2026-08-28,7pm,Cameron (Cameron),Clay-Battelle (Blacksville),0,WV,WV
 2,2026-08-28,7pm,John Marshall (Glen Dale),Marietta (Marietta),0,WV,
 2,2026-08-28,7pm,Madonna (Weirton),East Hardy (Baker),0,WV,WV
 2,2026-08-28,7:30pm,Ritchie County (Ellenboro),Wahama (Mason),0,WV,WV
@@ -382,14 +367,19 @@ week,date,time,away,home,neutral,away_state,home_state
 2,2026-08-28,7pm,Trinity (Louisville),Christian Brothers,0,KY,MO
 2,2026-08-28,7:30pm,West Carter,Fairview (Ashland),0,KY,KY
 2,2026-08-28,7pm,Cooper (Union),Highlands (Fort Thomas),0,KY,KY
+2,2026-08-28,4pm,Birmingham Groves,North Farmington,1,MI,MI
 2,2026-08-28,7pm,Blissfield,Erie Mason (Erie),0,MI,MI
+2,2026-08-28,3pm,Goodrich,Frankenmuth,1,MI,MI
 2,2026-08-28,7pm,Hudsonville Unity Christian,Dearborn Divine Child (Dearborn),0,MI,MI
 2,2026-08-28,4pm,Lumen Christi (Jackson),Detroit Edison PSA Early College (Detroit),0,MI,MI
 2,2026-08-28,7pm,Litchfield,Plymouth (Plymouth),0,MI,
 2,2026-08-28,7pm,Macomb Dakota,Brother Rice (Bloomfield Hills),0,MI,MI
+2,2026-08-28,4pm,Monroe Jefferson,Flint New Standard Academy (Flint),1,MI,MI
 2,2026-08-28,7pm,Monroe St Mary Catholic Central (Monroe),Ottawa Lake Whiteford (Ottawa Lake),0,MI,MI
+2,2026-08-28,7pm,Roseville,Davison,1,MI,MI
+2,2026-08-28,7pm,South Lyon,Clarkston,1,MI,MI
 2,2026-08-28,7pm,Sterling Heights Stevenson,Bedford (Temperance),0,MI,MI
-2,2026-08-28,7pm,Walled Lake Western,River Rouge (River Rouge),0,MI,MI
+2,2026-08-28,1pm,Detroit East English (Detroit),Flint Southwestern Academy,1,MI,MI
 2,2026-08-28,7pm,Southern Huntingdon County,Everett (Everett),0,PA,PA
 2,2026-08-28,7pm,Shaler,Butler (Butler),0,PA,PA
 2,2026-08-28,7pm,Pine-Richland (Gibsonia),Avon (Avon),0,PA,
@@ -407,6 +397,7 @@ week,date,time,away,home,neutral,away_state,home_state
 2,2026-08-28,7pm,Greenfield-Central,Lawrenceburg (Lawrenceburg),0,IN,IN
 2,2026-08-28,7:30pm,Cardinal Ritter (Indianapolis),Archbishop Alter (Kettering),0,IN,
 2,2026-08-28,7:30pm,Leo,Bishop Chatard (Indianapolis),0,IN,IN
+2,2026-08-28,7pm,Michigan City,Detroit Cass Tech (Detroit),0,IN,MI
 2,2026-08-28,7pm,South Dearborn (Aurora),Switzerland County,0,IN,IN
 2,2026-08-28,7pm,Southport (Indianapolis),Perry Meridian,0,IN,IN
 2,2026-08-28,7pm,Indianapolis Crimson Knights (club),Phalen Academy,0,IN,IN
