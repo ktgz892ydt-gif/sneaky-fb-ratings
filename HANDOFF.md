@@ -536,6 +536,16 @@ internally consistent arithmetic, just over a season that cannot happen.
 
 ## Hard-won gotchas
 
+**0e. CI runs Python 3.12; a dev box here runs 3.9.** `data/requirements.lock`
+records what CI resolved -- currently numpy 2.5.2 / scipy 1.18.1 against 2.0.2
+/ 1.13.1 locally. That gap is real and has already bitten once: a test built
+two identical vectors and then read their variance, which came out 1.2e-32 on
+3.9 and exactly 0.0 on 3.12, flipping a verdict and failing the build. **Never
+let a test's outcome turn on the last bits of a float.** Construct inputs that
+genuinely vary, and assert the standard error is a real quantity before
+asserting anything about the verdict derived from it.
+
+
 **0d. A guard that cannot fire is worse than no guard.** The re-fit step used
 to refuse to run when `scripts/scrape.py` was newer than a season's
 `games_{yr}.csv`. It never fired once: git does not preserve mtimes, so on a

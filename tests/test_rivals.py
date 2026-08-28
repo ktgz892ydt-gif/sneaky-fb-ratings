@@ -224,10 +224,29 @@ def test_no_verdict_beyond_indistinguishable_on_a_tiny_sample():
 
 
 def test_a_real_sample_can_still_earn_a_verdict():
-    games = [(f"H{i}", f"A{i}", 20.0, 0.95) for i in range(60)]
+    """Probabilities VARY between games, as two real models' always do.
+
+    An earlier version of this test gave every game an identical log-loss
+    difference (0.95 against 0.55, same result each time). The variance across
+    games is then exactly zero, so the standard error is zero and the guard
+    correctly declines to call it -- but on some interpreters floating-point
+    residue left a variance around 1e-32, the z-score went astronomical, and
+    the verdict came out "clear". It passed on Python 3.9 and failed on CI's
+    3.12. A test whose outcome turns on the last bits of a float is testing
+    the interpreter, not the code.
+    """
+    # A confident, well-calibrated model against a consistently hedged one,
+    # with the confidence varying game to game.
+    games = []
+    for i in range(60):
+        ours_p = 0.80 + (i % 5) * 0.03          # 0.80 .. 0.92
+        games.append((f"H{i}", f"A{i}", 20.0, ours_p))
     ours = _ours(2026, 2, games)
-    theirs = _theirs(2026, 2, [(h, a, m, 0.55) for h, a, m, _ in games])
+    theirs = _theirs(2026, 2,
+                     [(h, a, m, 0.50 + (i % 7) * 0.01)   # 0.50 .. 0.56
+                      for i, (h, a, m, _) in enumerate(games)])
     res = {2026: {(2, h, a): 10 for h, a, _, _ in games}}
     r = head_to_head(theirs, ours, res)
     assert r["sharedGames"] == 60
+    assert r["loglossGapSE"] > 1e-6, r          # a real spread, not float dust
     assert r["loglossVerdict"] in ("leaning", "clear"), r

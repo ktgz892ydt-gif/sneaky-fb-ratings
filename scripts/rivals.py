@@ -347,6 +347,12 @@ def head_to_head(rival_records, our_snapshots, results_by_season, source=SOURCE)
         The accuracy verdict is already protected by using an exact binomial;
         this is the equivalent floor for the continuous measure.
         """
+        # A zero standard error means every game gave the identical difference.
+        # With real data that cannot happen; when it does, the input is
+        # synthetic and there is nothing to be confident about, so decline.
+        # Note this branch is float-sensitive by nature: identical inputs leave
+        # a residue around 1e-32 on some interpreters and exactly 0.0 on
+        # others, which is why no test should depend on which side it lands.
         if se <= 0 or n < MIN_SHARED_FOR_VERDICT:
             return "indistinguishable"
         z = abs(gap) / se
