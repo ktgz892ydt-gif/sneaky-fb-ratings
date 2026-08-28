@@ -2,17 +2,26 @@ name: Update ratings
 
 on:
   schedule:
-    # Saturday 08:00 and Sunday 13:00 America/New_York, expressed in UTC.
-    # Saturday morning catches Friday night; Sunday afternoon catches the
-    # corrections, forfeits and late-posted Saturday games.
+    # Saturday 08:00, Saturday 20:00 and Sunday 13:00 America/New_York.
+    #
+    #   Sat 08:00  catches Friday night, the bulk of the schedule
+    #   Sat 20:00  catches games ADDED late to Friday's list, plus most of the
+    #              ~26 fixtures a week that are played on Saturday itself
+    #   Sun 13:00  catches corrections, forfeits and late-posted Saturday games
     #
     # GitHub cron is UTC only, so these are pinned to EDT (UTC-4). That covers
     # the regular season, but DST ends on the first Sunday of November and the
     # playoffs run to the state finals in early December -- through those weeks
-    # these fire an hour earlier, at 07:00 and 12:00 ET. Still comfortably
+    # these fire an hour earlier, at 07:00, 19:00 and 12:00 ET. Still safely
     # after the games, so it is left alone rather than split into two schedules.
-    - cron: "0 12 * * 6"
-    - cron: "0 17 * * 0"
+    #
+    # WATCH THE DAY FIELD. Saturday 20:00 EDT is MIDNIGHT UTC, which is already
+    # SUNDAY in UTC -- so the third entry is day 0, not day 6. Writing it as
+    # "0 0 * * 6" would fire Friday evening ET, before the games it exists to
+    # catch. This is the easiest line in the file to get wrong.
+    - cron: "0 12 * * 6"    # Sat 08:00 ET
+    - cron: "0 0 * * 0"     # Sat 20:00 ET  <- Sunday in UTC. See above.
+    - cron: "0 17 * * 0"    # Sun 13:00 ET
   workflow_dispatch:
     inputs:
       no_cache:
@@ -141,8 +150,15 @@ jobs:
           python scripts/scrape.py --season 2026 \
             ${{ inputs.no_cache && '--no-cache' || '' }}
 
+      # Output is teed so the notification at the end can quote real numbers
+      # rather than just "it worked". `set -o pipefail` is load-bearing: the
+      # default shell is `bash -e`, and without it a pipeline reports the exit
+      # status of `tee`, so a build that died would be reported as a success
+      # and the run would sail on to deploy.
       - name: Fit ratings and build the site
-        run: python scripts/build.py
+        run: |
+          set -o pipefail
+          python scripts/build.py 2>&1 | tee /tmp/build.log
 
       # Record another forecaster's picks for the coming week, so the two can
       # be scored on the same games once they are played. Runs AFTER the build
@@ -158,7 +174,9 @@ jobs:
         run: python scripts/capture_rivals.py || true
 
       - name: Sanity check the output
-        run: python scripts/check.py
+        run: |
+          set -o pipefail
+          python scripts/check.py 2>&1 | tee /tmp/check.log
 
       # Publish BEFORE committing. The site is already built and checked at
       # this point, and nothing about pushing the data back to the repo can
@@ -250,3 +268,65 @@ jobs:
               });
               core.notice(`Opened report #${made.data.number}`);
             }
+
+      # ---- text me the outcome ------------------------------------------
+      #
+      # Last step, and `always()`, so it reports on a failure anywhere above --
+      # including the commit step and the issue-opener.
+      #
+      # FAIL-SOFT, deliberately. `continue-on-error` means a texting API being
+      # down can never turn a good week's ratings into a red run. Same trade as
+      # the rivals capture: the board publishing matters more than the alert.
+      # With no secrets set the step prints a note and exits 0, so a fork -- or
+      # this repo before the secrets exist -- still runs clean.
+      #
+      # THE PHONE NUMBER NEVER APPEARS IN A LOG. It lives only in the
+      # ALERT_PHONE secret. GitHub masks a secret's exact string in log output,
+      # but that masking is literal: Twilio's JSON response echoes the number
+      # back NORMALISED (+12165551234 for a 216-555-1234 you sent), which no
+      # longer matches the secret and would print in the clear. So the response
+      # body is discarded and only the HTTP status is kept. Do not "improve"
+      # this by echoing the response to debug it.
+      - name: Text me the outcome
+        if: always()
+        continue-on-error: true
+        env:
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          TWILIO_FROM: ${{ secrets.TWILIO_FROM }}
+          ALERT_PHONE: ${{ secrets.ALERT_PHONE }}
+          OUTCOME: ${{ job.status }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -u
+          if [ -z "${TWILIO_ACCOUNT_SID:-}" ] || [ -z "${ALERT_PHONE:-}" ]; then
+            echo "No SMS secrets configured; skipping the text."
+            echo "Set TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM and"
+            echo "ALERT_PHONE under Settings -> Secrets and variables -> Actions."
+            exit 0
+          fi
+
+          if [ "$OUTCOME" = "success" ]; then
+            # Quote the real numbers off the build log rather than saying
+            # "done" -- a text that cannot distinguish a 700-game week from a
+            # zero-game one is not worth the notification.
+            GAMES=$(sed -n 's/^games *: *\([0-9]*\).*/\1/p'    /tmp/build.log | tail -1)
+            HIST=$(sed -n 's/^history *: *\(.*\)/\1/p'         /tmp/build.log | tail -1)
+            WARN=$(grep -c '^WARN' /tmp/check.log 2>/dev/null || echo 0)
+            BODY="Alex's Awesome Aggregator: updated OK. ${GAMES:-?} games, ${WARN} warning(s). ${HIST:-no history line}. Site is live."
+          else
+            BODY="Alex's Awesome Aggregator: run FAILED ($OUTCOME). The live site is UNCHANGED and still serving the last good build. Log: $RUN_URL"
+          fi
+
+          CODE=$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
+            "https://api.twilio.com/2010-04-01/Accounts/$TWILIO_ACCOUNT_SID/Messages.json" \
+            --data-urlencode "To=$ALERT_PHONE" \
+            --data-urlencode "From=$TWILIO_FROM" \
+            --data-urlencode "Body=$BODY" \
+            -u "$TWILIO_ACCOUNT_SID:$TWILIO_AUTH_TOKEN") || CODE="000"
+
+          if [ "$CODE" = "201" ]; then
+            echo "Text sent (HTTP $CODE)."
+          else
+            echo "::warning::Text NOT sent (HTTP $CODE). The ratings run itself was: $OUTCOME"
+          fi

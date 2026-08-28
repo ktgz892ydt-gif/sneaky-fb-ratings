@@ -733,9 +733,19 @@ for opening in a headless browser to check rendering without a server.
 
 ## Operating it
 
-**Weekly runs are automatic** — Saturday 08:00 and Sunday 13:00 ET. Every run
-re-scrapes all weeks (scores get corrected days later) and commits refreshed
-data back to the repo.
+**Weekly runs are automatic** — Saturday 08:00, Saturday 20:00 and Sunday
+13:00 ET. Every run re-scrapes all weeks (scores get corrected days later) and
+commits refreshed data back to the repo.
+
+The Saturday evening run catches games added to Friday's list late, and most of
+the ~26 fixtures a week that are actually played on Saturday (the season has
+3,810 Friday fixtures, 259 Saturday, 131 Thursday). It costs one extra pass of
+~44 requests; see "Source etiquette".
+
+**In UTC that middle run is a SUNDAY cron.** Saturday 20:00 EDT is midnight
+UTC, so it is `0 0 * * 0`, not `0 0 * * 6` — the latter would fire Friday
+evening ET, before the games it exists to catch. Verified against a real
+timezone table in both EDT and EST.
 
 **Manual run:** Actions → Update ratings → Run workflow. Safe at any time —
 a mid-week run can no longer poison that week's track-record entry, because a
@@ -751,6 +761,10 @@ here, broken on CI's 3.12).
 **How you find out a run failed.** A failure is otherwise silent: the site keeps
 serving the last good build, which is correct but looks exactly like nothing
 having happened.
+
+0. A text message, on every run, success or failure. Success quotes the game
+   count, the warning count and the history line, because an alert that cannot
+   tell a 700-game week from a zero-game one is not worth having.
 
 1. The workflow opens a GitHub issue titled "Weekly update run failed", with a
    link to the run. GitHub emails the repo owner. Repeat failures COMMENT on
@@ -794,6 +808,37 @@ The workflow no longer loses a deploy to that race. The Pages steps now run
 *before* the data commit, and the push rebases and retries. Previously a push
 that lost a race failed the job at that step, and the Pages steps below it
 never ran — so a perfectly good scrape did not reach the live site.
+
+**The text alerts, and keeping the phone number private.** The last workflow
+step posts to Twilio. Four repository secrets, set at **Settings → Secrets and
+variables → Actions → New repository secret**:
+
+```
+TWILIO_ACCOUNT_SID    from the Twilio console
+TWILIO_AUTH_TOKEN     from the Twilio console
+TWILIO_FROM           the Twilio number, E.164:  +1216...
+ALERT_PHONE           Alex's number, E.164:      +1216...
+```
+
+Secrets are safe to use in a public repo: they are write-only once set (nobody,
+including Alex, can read a value back), they are never given to workflows
+triggered by pull requests from forks, and this workflow only runs on
+`schedule` and `workflow_dispatch` — never on `pull_request_target`, which is
+the setting that *would* hand secrets to a stranger's code. Anyone with write
+access to the repo could still exfiltrate them by editing the workflow, so
+write access is the real boundary.
+
+**The number is kept out of the logs by discarding Twilio's response, and that
+is load-bearing.** GitHub masks a secret's exact string in log output, but the
+masking is literal: Twilio echoes the destination back *normalised*, so a
+number entered in any other format would not match the secret and would print
+in the clear. The step keeps only the HTTP status. Do not echo the response to
+debug it.
+
+With no secrets set the step prints a note and exits 0, so the workflow still
+runs clean — nothing about the ratings depends on it. `continue-on-error` is
+on it as well: a texting API being down must never turn a good week's ratings
+into a red run.
 
 **Never suggest dragging a *folder* onto a folder in Finder.** macOS "Replace"
 deletes the entire destination. Dragging *files* into a folder is safe.
@@ -904,5 +949,8 @@ existing weekly commit already gives a natural place to append.
 
 joeeitel.com is a one-person site running since 2000. A full season refresh is
 ~44 requests, rate-limited to one per 1.5s, with a self-identifying User-Agent
-pointing at the repo. **Keep all of that.** Credit is on the site footer and in
+pointing at the repo. **Keep all of that.** The Saturday evening run took this
+from two passes a week to three (~132 requests); that is still a rounding error
+against a public scoreboard, but it is the reason to think twice before adding
+a fourth. Credit is on the site footer and in
 the README.
