@@ -683,6 +683,28 @@ data back to the repo.
 
 **Manual run:** Actions → Update ratings → Run workflow.
 
+**Pushing does NOT run the workflow.** It triggers on schedule and manual
+dispatch only. So a batch of changes is not validated by CI until someone runs
+it — local green is not CI green, and that gap has already produced one failure
+(a test whose outcome turned on floating-point residue: fine on Python 3.9
+here, broken on CI's 3.12).
+
+**How you find out a run failed.** A failure is otherwise silent: the site keeps
+serving the last good build, which is correct but looks exactly like nothing
+having happened.
+
+1. The workflow opens a GitHub issue titled "Weekly update run failed", with a
+   link to the run. GitHub emails the repo owner. Repeat failures COMMENT on
+   the open issue rather than opening new ones, so a fortnight of breakage is
+   one thread.
+2. The page footer carries "Generated <timestamp>". If it has not moved since
+   the last scheduled run, the run failed.
+3. The Actions tab, if you go looking.
+
+The deploy is step 15 of 17, so tests, scrape, build and check.py all have to
+pass before the site changes. That is deliberate: a failed run publishes
+nothing rather than publishing something wrong.
+
 **The "Re-fit the model constants" checkbox:** leave it *unchecked* normally.
 Tick it when (a) another season's data is added or re-scraped, (b) the model
 itself changes, or (c) `check.py` warns that `data/tuned.json` has a stale
