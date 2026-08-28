@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-08-28T14:41:09+00:00",
+ "generatedAt": "2026-08-28T14:55:04+00:00",
  "season": 2025,
  "weeksLoaded": [
   1,
@@ -130573,6 +130573,15 @@
  "schedule": [],
  "scorecard": {
   "bySeason": {
+   "live": {
+    "2026": {
+     "games": 3,
+     "accuracy": 1.0,
+     "logloss": 0.2229,
+     "brier": 0.0438,
+     "meanMarginError": 22.8
+    }
+   },
    "backtest": {
     "2023": {
      "games": 4107,
@@ -130598,6 +130607,13 @@
    }
   },
   "overall": {
+   "live": {
+    "games": 3,
+    "accuracy": 1.0,
+    "logloss": 0.2229,
+    "brier": 0.0438,
+    "meanMarginError": 22.8
+   },
    "backtest": {
     "games": 13751,
     "accuracy": 0.7729,
@@ -130619,18 +130635,18 @@
    },
    "0.7": {
     "predicted": 0.7,
-    "actual": 0.6861,
-    "n": 2367
+    "actual": 0.6862,
+    "n": 2368
    },
    "0.8": {
     "predicted": 0.8,
-    "actual": 0.7957,
-    "n": 2413
+    "actual": 0.7958,
+    "n": 2414
    },
    "0.9": {
     "predicted": 0.9,
     "actual": 0.8963,
-    "n": 2816
+    "n": 2817
    },
    "1.0": {
     "predicted": 1.0,
@@ -130639,6 +130655,34 @@
    }
   }
  },
- "headToHead": null,
+ "headToHead": {
+  "source": "fantastic50",
+  "sourceName": "Drew Pasteur's Ohio Fantastic 50",
+  "sourceUrl": "https://www.fantastic50.net/",
+  "sharedGames": 2,
+  "ours": {
+   "accuracy": 1.0,
+   "logloss": 0.1742,
+   "meanMarginError": 29.45
+  },
+  "theirs": {
+   "accuracy": 1.0,
+   "logloss": 0.0633,
+   "meanMarginError": 10.5
+  },
+  "disagreements": {
+   "weWereRight": 0,
+   "theyWereRight": 0,
+   "bothRight": 2,
+   "bothWrong": 0
+  },
+  "accuracyGap": 0.0,
+  "accuracyGapSE": 0.0,
+  "accuracyPValue": 1.0,
+  "accuracyVerdict": "indistinguishable",
+  "loglossGap": 0.1109,
+  "loglossGapSE": 0.0134,
+  "loglossVerdict": "clear"
+ },
  "trendCols": "w=throughWeek rating=Alex Points odds=playoff odds"
 }
