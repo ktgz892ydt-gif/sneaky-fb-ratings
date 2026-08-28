@@ -1142,9 +1142,18 @@ tr[data-top="1"] .c-rank::before {
     } else {
       var margin = atHome ? g.m : -g.m;
       var p = atHome ? g.p : 1 - g.p;
-      right.textContent = signed1(margin);
+      if (g.ph !== undefined && g.pa !== undefined) {
+        var mineProj = atHome ? g.ph : g.pa;
+        var oppProj = atHome ? g.pa : g.ph;
+        right.innerHTML = '<span class="side">Proj</span> ' + mineProj
+          + "&ndash;" + oppProj;
+      } else {
+        right.textContent = signed1(margin);
+      }
       right.className += margin > 0 ? " pos" : margin < 0 ? " neg" : "";
       cap.push(chip("Win prob", pct(p), p >= 0.5 ? "pos" : "neg"));
+      cap.push(chip("Margin", signed1(margin),
+                    margin > 0 ? "pos" : margin < 0 ? "neg" : ""));
       if (g.d) cap.push(chip("", esc(g.d)));
       if (g.e) {
         cap.push(chip("Estimated", "opponent unrated"));
@@ -1240,7 +1249,7 @@ tr[data-top="1"] .c-rank::before {
     // The right-hand number means something different in each list -- a score
     // in one, a prediction in the other -- so each list says which.
     [["Results", played],
-     ["Remaining — predicted margin", ahead]].forEach(function (pair) {
+     ["Remaining — projected score", ahead]].forEach(function (pair) {
       if (!pair[1].length) return;
       var h = document.createElement("h3");
       h.textContent = pair[0];

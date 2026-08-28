@@ -112,6 +112,13 @@ is the check that catches fixtures from two different schools landing on one
 team, which is invisible to every other assertion — the projected record adds
 up perfectly well, just over a season that cannot happen.
 
+The team sheet also shows a projected score for each predicted fixture. That is
+a display layer, not a new rating input: the model first produces the calibrated
+margin and win probability, then a separate shrunk scoring profile estimates the
+game's total points. Splitting that total by the margin gives the displayed
+score. `check.py` fails the build if those integer scores contradict the
+published margin.
+
 ## Reading the source pages
 
 Every team is written `School (City)`, optionally tagged with a state or

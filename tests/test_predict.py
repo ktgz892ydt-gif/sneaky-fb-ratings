@@ -20,8 +20,9 @@ import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts"))
 
-from build import (_document, compact_schedule, load_schedule,  # noqa: E402
-                   predict_schedule, project_records)
+from build import (_document, compact_schedule, expected_total_points,  # noqa: E402
+                   load_schedule, predict_schedule, projected_score,
+                   project_records, scoring_profile)
 from ratings import RatingConfig, rate  # noqa: E402
 from resolve import resolve  # noqa: E402
 
@@ -126,6 +127,30 @@ def test_probabilities_stay_in_range_and_agree_with_the_margin():
         assert g["spread"] == pytest.approx(abs(g["predictedHomeMargin"]))
 
 
+def test_projected_score_matches_the_published_margin():
+    res, team_ids, result = season()
+    g = predict_schedule([fixture("Alpha (A)", "Bravo (B)")],
+                         res, result, team_ids, CFG, STANDIN)[0]
+    assert isinstance(g["projectedHomeScore"], int)
+    assert isinstance(g["projectedAwayScore"], int)
+    assert g["projectedHomeScore"] >= 0
+    assert g["projectedAwayScore"] >= 0
+    assert ((g["projectedHomeScore"] - g["projectedAwayScore"])
+            == pytest.approx(g["predictedHomeMargin"], abs=1.1))
+
+
+def test_projected_score_uses_total_points_not_probability():
+    res, team_ids, _ = season()
+    ids = {t: i for i, t in enumerate(team_ids)}
+    prof = scoring_profile(res, team_ids)
+    alpha = tid_for(res, "Alpha (A)")
+    bravo = tid_for(res, "Bravo (B)")
+    total = expected_total_points(alpha, bravo, prof, ids)
+    h, a = projected_score(14.0, total)
+    assert h + a == pytest.approx(round(total), abs=1)
+    assert h - a == pytest.approx(14.0, abs=1)
+
+
 # ------------------------------------------------------- unrateable opponents
 
 def test_an_unknown_opponent_uses_the_stand_in_and_says_so():
@@ -153,6 +178,8 @@ def test_with_no_stand_in_available_the_game_is_left_unpredicted():
     assert g["predicted"] is False
     assert "no rating" in g["reason"]
     assert "predictedHomeMargin" not in g
+    assert "projectedHomeScore" not in g
+    assert "projectedAwayScore" not in g
 
 
 # --------------------------------------------------------- shared team names
@@ -269,6 +296,8 @@ def test_compacting_keeps_the_teams_and_the_numbers():
     assert team_ids[small["a"]] == rich["away"]
     assert small["m"] == rich["predictedHomeMargin"]
     assert small["p"] == rich["homeWinProb"]
+    assert small["ph"] == rich["projectedHomeScore"]
+    assert small["pa"] == rich["projectedAwayScore"]
     assert small["w"] == 3
 
 
@@ -298,6 +327,7 @@ def test_an_unpredicted_fixture_carries_its_reason_through():
                              res, result, team_ids, CFG, (None, ""))
     small = compact_schedule(sched, team_ids)[0]
     assert "m" not in small and "p" not in small
+    assert "ph" not in small and "pa" not in small
     assert small["x"]
 
 

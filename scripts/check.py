@@ -282,11 +282,24 @@ def main():
             # were computed from different numbers.
             check((g["p"] > 0.5) == (g["m"] > 0) or abs(g["m"]) < 1e-9,
                   f"week {g['w']}: probability {g['p']} contradicts margin {g['m']}")
+            check("ph" in g and "pa" in g,
+                  f"week {g['w']}: predicted fixture has no projected score")
+            if "ph" in g and "pa" in g:
+                check(isinstance(g["ph"], int) and isinstance(g["pa"], int),
+                      f"week {g['w']}: projected score must be integer points")
+                check(g["ph"] >= 0 and g["pa"] >= 0,
+                      f"week {g['w']}: projected score cannot be negative "
+                      f"({g['ph']}-{g['pa']})")
+                check(abs((g["ph"] - g["pa"]) - g["m"]) <= 1.1,
+                      f"week {g['w']}: projected score {g['ph']}-{g['pa']} "
+                      f"does not match margin {g['m']}")
             if g.get("e"):
                 est_without_basis += 0 if d.get("fallbackRating") else 1
         else:
             check(bool(g.get("x")),
                   f"week {g['w']}: a fixture with no prediction must say why")
+            check("ph" not in g and "pa" not in g,
+                  f"week {g['w']}: unpredicted fixture carries a projected score")
 
         # Source quality, not a code bug: warn loudly, but do not stop the
         # week's ratings from publishing over it.

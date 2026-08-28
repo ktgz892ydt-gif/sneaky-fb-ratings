@@ -138,6 +138,64 @@ def division_baseline(blob, division, cfg):
     return None, ""
 
 
+def scoring_profile(res, team_ids, shrink=4.0):
+    """A conservative total-points layer for turning margins into scores.
+
+    The rating model says who is better and by how much. A score needs one more
+    number: the game's total points. Estimate that from each team's points
+    scored and allowed, but shrink hard toward the season average because a
+    single high-school football score is a noisy thing.
+    """
+    idx = {t: i for i, t in enumerate(team_ids)}
+    pf = np.zeros(len(team_ids))
+    pa = np.zeros(len(team_ids))
+    gp = np.zeros(len(team_ids))
+    total_points = 0.0
+
+    for g in res.games:
+        h, a = idx[g["home"]], idx[g["away"]]
+        hs, as_ = float(g["home_score"]), float(g["away_score"])
+        pf[h] += hs
+        pa[h] += as_
+        gp[h] += 1
+        pf[a] += as_
+        pa[a] += hs
+        gp[a] += 1
+        total_points += hs + as_
+
+    league_ppg = total_points / max(1.0, 2.0 * len(res.games))
+
+    def adj(points):
+        avg = np.divide(points, gp, out=np.full_like(points, league_ppg),
+                        where=gp > 0)
+        weight = gp / (gp + shrink)
+        return weight * (avg - league_ppg)
+
+    return {
+        "leagueTotal": 2.0 * league_ppg,
+        "offense": adj(pf),
+        "defense": adj(pa),
+    }
+
+
+def expected_total_points(home, away, profile, idx):
+    """Projected combined score before the margin is applied."""
+    total = float(profile["leagueTotal"])
+    for tid, kind in ((home, "offense"), (away, "offense"),
+                      (home, "defense"), (away, "defense")):
+        if tid in idx:
+            total += float(profile[kind][idx[tid]])
+    return max(10.0, min(100.0, total))
+
+
+def projected_score(margin, total):
+    """Integer projected score from a displayed margin and expected total."""
+    total = max(float(total), abs(float(margin)))
+    home = max(0.0, (total + float(margin)) / 2.0)
+    away = max(0.0, (total - float(margin)) / 2.0)
+    return int(round(home)), int(round(away))
+
+
 def predict_schedule(fixtures, res, result, team_ids, cfg, fallback):
     """Attach a predicted margin and win probability to each fixture.
 
@@ -151,6 +209,7 @@ def predict_schedule(fixtures, res, result, team_ids, cfg, fallback):
     merges, and predictions inherit it.
     """
     idx = {t: i for i, t in enumerate(team_ids)}
+    scoring = scoring_profile(res, team_ids)
     fb_rating, fb_note = fallback
 
     by_name = {}
@@ -227,9 +286,15 @@ def predict_schedule(fixtures, res, result, team_ids, cfg, fallback):
         # The published margin is the calibrated one, because a rating
         # difference measurably is not an expected margin -- see margin_scale.
         shown = expected_margin(margin, cfg)
+        # Scores are a display layer on top of that margin. The total comes from
+        # shrunk scoring/allowing tendencies; the winner comes from the rating.
+        total = expected_total_points(ht, at, scoring, idx)
+        proj_home, proj_away = projected_score(shown, total)
         row.update(
             predicted=True,
             predictedHomeMargin=round(float(shown), 1),
+            projectedHomeScore=proj_home,
+            projectedAwayScore=proj_away,
             homeWinProb=round(float(p), 3),
             favoriteName=f["home"] if margin >= 0 else f["away"],
             spread=round(abs(float(shown)), 1),
@@ -258,6 +323,8 @@ def compact_schedule(schedule, team_ids):
         t  kickoff time    n  neutral site
         m  predicted margin, home perspective
         p  home win probability
+        ph projected home score
+        pa projected away score
         e  1 if either side used the stand-in rating
         o  1 if a shared name was read as the Ohio school
         x  reason the game could not be predicted
@@ -277,6 +344,8 @@ def compact_schedule(schedule, team_ids):
         if g.get("predicted"):
             row["m"] = g["predictedHomeMargin"]
             row["p"] = g["homeWinProb"]
+            row["ph"] = g["projectedHomeScore"]
+            row["pa"] = g["projectedAwayScore"]
             if g.get("estimated"):
                 row["e"] = 1
             if g.get("assumedOhio"):
@@ -752,7 +821,9 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
             for g in res.games
         ],
         "scheduleCols": "w=week d=date t=time h=home a=away n=neutral "
-                        "m=predictedHomeMargin p=homeWinProb e=usedStandIn "
+                        "m=predictedHomeMargin p=homeWinProb "
+                        "ph=projectedHomeScore pa=projectedAwayScore "
+                        "e=usedStandIn "
                         "o=assumedOhio x=whyNotPredicted; h/a are indexes into "
                         "teams, or a name when unresolved",
         "scheduleGameCount": len(schedule),
