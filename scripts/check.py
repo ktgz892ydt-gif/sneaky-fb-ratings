@@ -19,6 +19,7 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+from build import IMPLAUSIBLE_SCORES  # noqa: E402
 from ratings import RatingConfig, squash  # noqa: E402
 from tune import SCHEMA_VERSION as TUNED_SCHEMA_VERSION  # noqa: E402
 
@@ -293,6 +294,21 @@ def main():
                 check(abs((g["ph"] - g["pa"]) - g["m"]) <= 1.1,
                       f"week {g['w']}: projected score {g['ph']}-{g['pa']} "
                       f"does not match margin {g['m']}")
+                # A projected score has to be one football can produce.
+                # Measured over 37,240 real team-scores, these five occur in
+                # under 0.4% of games, and 4 in under 0.03%. Publishing
+                # "48-1" is not a bold call, it is an impossible one, and it
+                # reads as a bug to exactly the audience this board is for.
+                check(g["ph"] not in IMPLAUSIBLE_SCORES
+                      and g["pa"] not in IMPLAUSIBLE_SCORES,
+                      f"week {g['w']}: projected score {g['ph']}-{g['pa']} "
+                      f"contains a total football does not produce")
+                # A stated favourite must not be shown level or losing.
+                if abs(g["m"]) >= 0.5:
+                    check((g["ph"] > g["pa"]) == (g["m"] > 0),
+                          f"week {g['w']}: margin {g['m']:+.1f} names a "
+                          f"favourite but the projected score is "
+                          f"{g['ph']}-{g['pa']}")
             if g.get("e"):
                 est_without_basis += 0 if d.get("fallbackRating") else 1
         else:

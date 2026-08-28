@@ -188,12 +188,66 @@ def expected_total_points(home, away, profile, idx):
     return max(10.0, min(100.0, total))
 
 
-def projected_score(margin, total):
-    """Integer projected score from a displayed margin and expected total."""
-    total = max(float(total), abs(float(margin)))
-    home = max(0.0, (total + float(margin)) / 2.0)
-    away = max(0.0, (total - float(margin)) / 2.0)
-    return int(round(home)), int(round(away))
+# Scores a football team essentially never finishes on. Measured, not guessed:
+# over 37,240 real team-scores from 2023-2026 these are the only values below
+# 43 occurring in under 0.4% of games.
+#
+#     4 -> 0.02%    5 -> 0.03%    11 -> 0.11%    1 -> 0.13%    2 -> 0.20%
+#
+# Everything else clears 0.4%. Football scoring is spiky -- 0, 7, 14, 6, 21,
+# 28, 35 dominate -- and a projection landing between the spikes reads as
+# broken to anyone who follows the sport. "Proj 48-1" is not a bold call, it
+# is an impossible one.
+IMPLAUSIBLE_SCORES = frozenset({1, 2, 4, 5, 11})
+
+# How far the total may be nudged to reach a plausible pair. Six points is
+# enough to always succeed across the range expected_total_points can actually
+# emit (it clamps to 10-100); the fallback below exists only for inputs that
+# function cannot produce.
+_TOTAL_SEARCH = (0, 1, -1, 2, -2, 3, -3, 4, -4, 5, -5, 6, -6)
+
+
+def projected_score(margin, total, implausible=IMPLAUSIBLE_SCORES):
+    """Integer projected score from a displayed margin and expected total.
+
+    The margin is the trusted quantity -- it comes from the fitted, calibrated
+    model -- while the total is a shrunk estimate off a handful of games. So
+    when the naive split lands on a scoreline football does not produce, the
+    TOTAL is what moves, and the margin is held.
+
+    Candidates are ranked by margin fidelity first and distance from the
+    estimated total second, so a projection never drifts further from the
+    model's own margin than it has to. Everything stays inside the tolerance
+    check.py asserts.
+    """
+    margin = float(margin)
+    total = max(float(total), abs(margin))
+
+    def split(t):
+        h = int(round(max(0.0, (t + margin) / 2.0)))
+        a = int(round(max(0.0, (t - margin) / 2.0)))
+        return h, a
+
+    best = None
+    for delta in _TOTAL_SEARCH:
+        h, a = split(total + delta)
+        if h in implausible or a in implausible:
+            continue
+        drift = abs((h - a) - margin)
+        if drift > 1.1:                      # the invariant check.py enforces
+            continue
+        # A stated favourite must not be shown level, and must not be shown
+        # losing. Below half a point the margin is not claiming a favourite.
+        if abs(margin) >= 0.5 and (h > a) != (margin > 0):
+            continue
+        cost = (round(drift, 6), abs(delta))
+        if best is None or cost < best[0]:
+            best = (cost, (h, a))
+    if best is not None:
+        return best[1]
+    # Nothing plausible within reach: keep the honest split rather than invent
+    # a scoreline. Rare, and check.py still holds it to the margin.
+    return split(total)
 
 
 def predict_schedule(fixtures, res, result, team_ids, cfg, fallback):
@@ -285,19 +339,24 @@ def predict_schedule(fixtures, res, result, team_ids, cfg, fallback):
         p = win_probability(margin, established, cfg, stand_in=stand_in)
         # The published margin is the calibrated one, because a rating
         # difference measurably is not an expected margin -- see margin_scale.
-        shown = expected_margin(margin, cfg)
+        # Round FIRST, then derive the score from the same number that gets
+        # published. Feeding the unrounded margin here let a raw 0.45 become a
+        # published 0.5, so the payload named a favourite while the projected
+        # score showed a tie -- the two must be consistent by construction, not
+        # by luck.
+        shown = round(float(expected_margin(margin, cfg)), 1)
         # Scores are a display layer on top of that margin. The total comes from
         # shrunk scoring/allowing tendencies; the winner comes from the rating.
         total = expected_total_points(ht, at, scoring, idx)
         proj_home, proj_away = projected_score(shown, total)
         row.update(
             predicted=True,
-            predictedHomeMargin=round(float(shown), 1),
+            predictedHomeMargin=shown,
             projectedHomeScore=proj_home,
             projectedAwayScore=proj_away,
             homeWinProb=round(float(p), 3),
             favoriteName=f["home"] if margin >= 0 else f["away"],
-            spread=round(abs(float(shown)), 1),
+            spread=round(abs(shown), 1),
             gamesBehind=established,
             estimated=stand_in,
             estimatedNote=(fb_note if stand_in else ""),

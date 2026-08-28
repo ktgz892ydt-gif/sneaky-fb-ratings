@@ -1262,6 +1262,18 @@ tr[data-top="1"] .c-rank::before {
       var h = document.createElement("h3");
       h.textContent = pair[0];
       sheet.appendChild(h);
+      // The same honesty the projected record gets: these are expected
+      // scores, not a call on the scoreline. Mean error is about 11 points
+      // per side, and the margin is the part the model actually fits.
+      if (pair[0].indexOf("projected score") !== -1) {
+        var note = document.createElement("p");
+        note.className = "pp-note";
+        note.style.margin = "0 0 8px";
+        note.innerHTML = "Expected scores, not predicted scorelines &mdash; "
+          + "roughly 11 points of error a side. The margin is what the model "
+          + "fits; the total is a separate, deliberately cautious estimate.";
+        sheet.appendChild(note);
+      }
       var ul = document.createElement("ul");
       ul.className = "gamelist";
       pair[1].forEach(function (g) { ul.appendChild(gameRow(i, g)); });

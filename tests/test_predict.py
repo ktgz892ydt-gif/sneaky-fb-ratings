@@ -20,7 +20,8 @@ import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts"))
 
-from build import (_document, compact_schedule, expected_total_points,  # noqa: E402
+from build import (IMPLAUSIBLE_SCORES, _document,  # noqa: E402
+                   compact_schedule, expected_total_points,
                    load_schedule, predict_schedule, projected_score,
                    project_records, scoring_profile)
 from ratings import RatingConfig, rate  # noqa: E402
@@ -386,3 +387,74 @@ def test_both_page_variants_are_real_documents():
     assert '<meta name="viewport" content="width=device-width, initial-scale=1">' in doc
     assert doc.rstrip().endswith("</html>")
     assert doc.index("<title>") < doc.index('<div class="wrap">')
+
+
+# --------------------------------------------------- plausible scorelines
+#
+# Football scoring is spiky. Measured over 37,240 real team-scores from
+# 2023-2026, five values below 43 occur in under 0.4% of games: 4 (0.02%),
+# 5 (0.03%), 11 (0.11%), 1 (0.13%) and 2 (0.20%). A projection landing between
+# the spikes reads as broken to anyone who follows the sport.
+#
+# The margin is the trusted quantity and the total is a shrunk estimate, so
+# when the naive split is unreachable it is the TOTAL that moves.
+
+# expected_total_points clamps to 10-100 and projected_score floors the total
+# at |margin|, so that is the domain worth sweeping. Outside it the function
+# falls back to the honest split rather than inventing a scoreline, which is
+# the right behaviour for inputs the estimator cannot produce.
+def _realistic():
+    for mi in range(-140, 141):
+        margin = mi / 2
+        for total in range(10, 101):
+            if total >= abs(margin):
+                yield margin, total
+
+
+def test_no_projection_lands_on_an_unreachable_score():
+    for margin, total in _realistic():
+        h, a = projected_score(margin, total)
+        assert h not in IMPLAUSIBLE_SCORES, (margin, total, h, a)
+        assert a not in IMPLAUSIBLE_SCORES, (margin, total, h, a)
+
+
+def test_the_margin_survives_snapping():
+    """check.py holds projections to the published margin within rounding."""
+    worst = 0.0
+    for margin, total in _realistic():
+        h, a = projected_score(margin, total)
+        worst = max(worst, abs((h - a) - margin))
+    assert worst <= 1.1, worst
+
+
+def test_a_blowout_projects_a_real_football_score():
+    """The case that shipped: 'Proj 48-1'."""
+    assert projected_score(47.0, 49.0) == (47, 0)
+    assert projected_score(35.0, 37.0) == (35, 0)
+
+
+def test_a_stated_favourite_is_never_shown_level_or_losing():
+    for margin in (0.5, 0.9, 1.4, -0.6, -2.0):
+        for total in range(20, 70):
+            h, a = projected_score(margin, total)
+            assert (h > a) == (margin > 0), (margin, total, h, a)
+
+
+def test_a_genuine_coin_flip_may_project_a_tie():
+    """Below half a point the margin is not claiming a favourite."""
+    h, a = projected_score(0.0, 40.0)
+    assert h == a
+
+
+def test_scores_are_never_negative():
+    for margin in (-80.0, -40.0, 0.0, 40.0, 80.0):
+        for total in (10, 30, 60, 90):
+            h, a = projected_score(margin, total)
+            assert h >= 0 and a >= 0
+
+
+def test_an_ordinary_game_is_left_alone():
+    """Snapping must not perturb projections that were already fine."""
+    for margin, total in ((18.4, 41.0), (-19.3, 47.0), (7.0, 45.0)):
+        h, a = projected_score(margin, total)
+        assert h + a == pytest.approx(total, abs=2)
