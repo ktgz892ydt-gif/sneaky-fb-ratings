@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-08-28T16:12:19+00:00",
+ "generatedAt": "2026-08-28T16:52:38+00:00",
  "season": 2025,
  "weeksLoaded": [
   1,
@@ -73,6 +73,8 @@
   "firstRoundByes": 4,
   "lastRegularWeek": 10,
   "simulations": 10000,
+  "simulated": false,
+  "remainingRegularFixtures": 0,
   "method": "Each remaining regular-season game is decided by the board's own win probability, the OHSAA Harbin qualifier is computed on the finished season, and the top 12 of each region qualify. Repeated 10,000 times. The rule is OHSAA's and is not modified; the forecast is this board's, because Harbin cannot forecast.",
   "harbinAgreement": {
    "comparableTeams": 477,
@@ -130624,36 +130626,39 @@
    }
   },
   "calibration": {
-   "0.5": {
-    "predicted": 0.5,
-    "actual": 0.5253,
-    "n": 1361
+   "backtest": {
+    "0.5": {
+     "predicted": 0.5,
+     "actual": 0.5253,
+     "n": 1361
+    },
+    "0.6": {
+     "predicted": 0.6,
+     "actual": 0.5987,
+     "n": 2230
+    },
+    "0.7": {
+     "predicted": 0.7,
+     "actual": 0.6861,
+     "n": 2367
+    },
+    "0.8": {
+     "predicted": 0.8,
+     "actual": 0.7957,
+     "n": 2413
+    },
+    "0.9": {
+     "predicted": 0.9,
+     "actual": 0.8963,
+     "n": 2816
+    },
+    "1.0": {
+     "predicted": 1.0,
+     "actual": 0.9821,
+     "n": 2564
+    }
    },
-   "0.6": {
-    "predicted": 0.6,
-    "actual": 0.5987,
-    "n": 2230
-   },
-   "0.7": {
-    "predicted": 0.7,
-    "actual": 0.6862,
-    "n": 2368
-   },
-   "0.8": {
-    "predicted": 0.8,
-    "actual": 0.7958,
-    "n": 2414
-   },
-   "0.9": {
-    "predicted": 0.9,
-    "actual": 0.8963,
-    "n": 2817
-   },
-   "1.0": {
-    "predicted": 1.0,
-    "actual": 0.9821,
-    "n": 2564
-   }
+   "live": {}
   }
  },
  "headToHead": {
