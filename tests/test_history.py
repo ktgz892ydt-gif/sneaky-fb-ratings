@@ -285,3 +285,93 @@ def test_the_2026_week_2_regression(tmp_path):
     assert record(p, snap(2, preds=[fixture("A", "B", 3, -6.0, 0.1)]),
                   played=week3_started) == "kept"
     assert load(p)[0]["pred"][0][3] == 17.0
+
+
+# ------------------------------------------------- the orchestration itself
+#
+# These drive build.main() end to end. Nothing else in the suite does, and that
+# gap has already cost a red CI run: `record` was imported into build.py as
+# `record_history`, which is ALSO the name of one of main()'s parameters, so
+# the call resolved to the boolean `True` and every real build died with
+# "'bool' object is not callable". 232 unit tests passed over it, because not
+# one of them called main(). A guard that cannot fire is worse than no guard --
+# so this reaches the actual code path the workflow runs.
+
+def _tiny_season(tmp_path):
+    """Four schools, two played games in week 1, four fixtures in week 2."""
+    names = ["Alpha (A)", "Bravo (B)", "Charlie (C)", "Delta (D)"]
+    roster = tmp_path / "roster.csv"
+    roster.write_text(
+        "name,school,city,school_id,division,region,record,harbin\n"
+        + "".join(f"{n},{n.split(' (')[0]},{n[-2]},{i + 1},V,17,1-0,4.0\n"
+                 for i, n in enumerate(names)),
+        encoding="utf-8")
+
+    games = tmp_path / "games.csv"
+    games.write_text(
+        "week,away,away_score,home,home_score,neutral,away_state,home_state\n"
+        "1,Bravo (B),0,Alpha (A),42,0,,\n"
+        "1,Delta (D),20,Charlie (C),21,0,,\n",
+        encoding="utf-8")
+
+    sched = tmp_path / "schedule.csv"
+    sched.write_text(
+        "week,date,time,away,home,neutral,away_state,home_state\n"
+        "2,2026-09-04,7pm,Charlie (C),Alpha (A),0,,\n"
+        "2,2026-09-04,7pm,Delta (D),Bravo (B),0,,\n"
+        "3,2026-09-11,7pm,Delta (D),Alpha (A),0,,\n"
+        "3,2026-09-11,7pm,Charlie (C),Bravo (B),0,,\n",
+        encoding="utf-8")
+    return roster, games, sched
+
+
+def _build(tmp_path, hist, **kw):
+    import build
+    roster, games, sched = _tiny_season(tmp_path)
+    return build.main(games_path=str(games), roster_path=str(roster),
+                      schedule_path=str(sched), out_path=str(tmp_path / "r.json"),
+                      history_path=str(hist), use_prior=False,
+                      generated_at=kw.pop("generated_at", "2026-09-01T00:00:00+00:00"),
+                      **kw)
+
+
+def test_build_main_actually_records_a_capture(tmp_path):
+    """The smoke test that was missing. If the history call is misspelled,
+    shadowed, or handed the wrong arguments, this is where it shows up."""
+    hist = tmp_path / "h.jsonl"
+    _build(tmp_path, hist)
+    lines = load(str(hist))
+    assert len(lines) == 1, lines
+    assert lines[0]["season"] == 2026
+    assert lines[0]["throughWeek"] == 1
+    # week 1 is played, so the capture forecasts week 2
+    assert {p[2] for p in lines[0]["pred"]} == {2}
+
+
+def test_a_rebuild_of_the_same_week_revises_rather_than_appends(tmp_path):
+    """Two builds of the same week must leave ONE line, not two. Under the old
+    write-once rule this also left one line -- but it kept the *older*, worse
+    forecast, which is the bug this whole mechanism exists to fix."""
+    hist = tmp_path / "h.jsonl"
+    _build(tmp_path, hist, generated_at="2026-09-01T00:00:00+00:00")
+    _build(tmp_path, hist, generated_at="2026-09-05T12:00:00+00:00")
+    lines = load(str(hist))
+    assert len(lines) == 1, [l["generatedAt"] for l in lines]
+    assert lines[0]["generatedAt"] == "2026-09-05T12:00:00+00:00"
+
+
+def test_a_pinned_rebuild_leaves_the_log_byte_identical(tmp_path):
+    """The deterministic-build check rebuilds with --generated-at pinned. A
+    revision must not make that produce a diff."""
+    hist = tmp_path / "h.jsonl"
+    _build(tmp_path, hist)
+    first = hist.read_bytes()
+    _build(tmp_path, hist)
+    assert hist.read_bytes() == first
+
+
+def test_no_history_records_nothing(tmp_path):
+    """The reproducibility recipe uses --no-history; it must not touch the log."""
+    hist = tmp_path / "h.jsonl"
+    _build(tmp_path, hist, record_history=False)
+    assert not hist.exists()

@@ -399,7 +399,11 @@ matters:
   is not hindsight; there is no result to have seen) and freezes it the moment
   one kicks off. `build.py` passes the same results map it scores against.
 - **The freeze is whole-line, not per-game.** One capture is one instant. If
-  even one forecast game has been played the whole line stands.
+  even one forecast game has been played the whole line stands. In practice
+  the freeze is belt-and-braces: the horizon is `through_week + 1`, so a game
+  in it being played is the *same event* as `through_week` advancing, which
+  opens a new slot anyway. The load-bearing half is the revision — same week,
+  better data, better forecast.
 - **A caller without results revises nothing.** `append_if_new` is the strict
   wrapper, still used by `backfill_history.py` — a replay is deterministic, so
   a second one has nothing new to say.
@@ -561,6 +565,32 @@ internally consistent arithmetic, just over a season that cannot happen.
 ---
 
 ## Hard-won gotchas
+
+**0f. Nothing tested `build.main()`, and a certain crash shipped green.**
+`record` was imported into `build.py` as `record_history` — which is also the
+name of one of `main()`'s own parameters, so the call resolved to the boolean
+`True` and every real build died with `'bool' object is not callable`. **232
+unit tests passed over it**, because not one of them called `main()`: the
+tests import helper functions and build seasons in memory. `py_compile` does
+not catch shadowing either, and the workflow does not run on push, so it
+reached CI unseen.
+
+`tests/test_history.py` now drives `main()` end to end on a four-school season
+written to real CSVs in `tmp_path`. Reintroducing the shadowed name turns three
+of them red at the exact line. **Any new orchestration in `build.main()` needs
+a test that calls `main()`** — a helper-level test cannot see this class at all.
+
+To run the suite here, there is no numpy/scipy/pytest on this Mac. Make a venv
+rather than installing into the system Python:
+
+```bash
+python3 -m venv /tmp/fbenv && /tmp/fbenv/bin/pip install -r requirements.txt
+/tmp/fbenv/bin/python -m pytest tests/ -q
+```
+
+It resolves numpy 2.0.2 / scipy 1.13.1 on Python 3.9 — the gap against CI's
+3.12 that gotcha 0e is about.
+
 
 **0e. CI runs Python 3.12; a dev box here runs 3.9.** `data/requirements.lock`
 records what CI resolved -- currently numpy 2.5.2 / scipy 1.18.1 against 2.0.2

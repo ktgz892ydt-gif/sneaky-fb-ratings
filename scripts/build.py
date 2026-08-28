@@ -17,7 +17,7 @@ from harbin import (FIRST_ROUND_BYES, LAST_REGULAR_WEEK,  # noqa: E402
                     QUALIFIERS_PER_REGION, harbin_points,
                     leans_on_out_of_state, qualifiers, validate)
 from history import (build_snapshot, load as load_history,  # noqa: E402
-                     record as record_history, score as score_history,
+                     record as record_snapshot, score as score_history,
                      trends)
 from ratings import (RatingConfig, expected_margin, rate,  # noqa: E402
                      win_probability)
@@ -941,7 +941,7 @@ def main(games_path=None, roster_path=None, out_path=None, generated_at=None,
             # even a mid-week manual one, and the far better Saturday-morning
             # forecast was refused in silence.
             played = results_by_season.get(season) or {}
-            what = record_history(hpath, snap, played=played)
+            what = record_snapshot(hpath, snap, played=played)
             if what != "kept":
                 print(f"history        : {what} {season} week {through_week} "
                       f"({len(snap['pred'])} predictions)", file=sys.stderr)
