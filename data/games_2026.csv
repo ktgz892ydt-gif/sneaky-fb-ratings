@@ -423,6 +423,430 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 2,2026-08-27,Hamilton (Chandler),25,Brophy College Preparatory,6,0,AZ,AZ
 2,2026-08-27,Desert Edge,20,Cactus Shadows,0,0,AZ,AZ
 2,2026-08-27,Mt Pleasant (San Jose),33,Cupertino (Cupertino),27,0,CA,CA
+2,2026-08-27,Sierra Canyon (Sierra Canyon),24,Chaminade-Madonna College Prep (Hollywood),7,0,CA,FL
 2,2026-08-27,Robert F. Kennedy (Delano),36,Tulare Union (Tulare),35,0,CA,CA
 2,2026-08-27,Marina (Marina),12,Independence (San Jose),21,0,CA,CA
 2,2026-08-27,El Toro (Lake Forest),42,Marina (Huntington Beach),21,0,CA,CA
+2,2026-08-27,Los Osos (Rancho Cucamonga),14,Citrus Valley (Redlands),42,0,CA,CA
+2,2026-08-28,Ada (Ada),38,Arcadia (Arcadia),28,0,,
+2,2026-08-28,Aiken (Cincinnati),14,Northland (Columbus),18,0,,
+2,2026-08-28,Allen East (Harrod),28,Fort Recovery (Fort Recovery),21,0,,
+2,2026-08-28,Anderson (Cincinnati),70,West Clermont (Cincinnati),19,0,,
+2,2026-08-28,Anthony Wayne (Whitehouse),0,St John's Jesuit (Toledo),25,0,,
+2,2026-08-28,Archbold (Archbold),41,St Henry (St Henry),15,0,,
+2,2026-08-28,Arlington (Arlington),12,Van Buren (Van Buren),55,0,,
+2,2026-08-28,Ashland (Ashland),27,Marion Harding (Marion),13,0,,
+2,2026-08-28,Athens (The Plains),14,Unioto (Chillicothe),33,0,,
+2,2026-08-28,Aurora (Aurora),13,Riverside (Painesville),40,0,,
+2,2026-08-28,Barberton (Barberton),13,Stow-Munroe Falls (Stow),44,0,,
+2,2026-08-28,Barnesville (Barnesville),47,Meadowbrook (Byesville),14,0,,
+2,2026-08-28,Batavia (Batavia),0,Taylor (Cleves),27,0,,
+2,2026-08-28,Beaver Local (East Liverpool),29,Western Beaver (Industry),13,0,,PA
+2,2026-08-28,Beavercreek (Beavercreek),42,Woodward (Cincinnati),0,0,,
+2,2026-08-28,Bellbrook (Bellbrook),49,Bellefontaine (Bellefontaine),17,0,,
+2,2026-08-28,Beechcroft (Columbus),15,Independence (Columbus),18,0,,
+2,2026-08-28,Bellevue (Bellevue),42,Wauseon (Wauseon),21,0,,
+2,2026-08-28,Belmont (Dayton),38,New Miami (Hamilton),0,0,,
+2,2026-08-28,Benjamin Logan (Bellefontaine),41,West Liberty-Salem (West Liberty),13,0,,
+2,2026-08-28,Berea-Midpark (Berea),43,Euclid (Euclid),33,0,,
+2,2026-08-28,Berne Union (Sugar Grove),7,Huntington (Chillicothe),34,0,,
+2,2026-08-28,Bethel (Tipp City),14,Oakwood (Dayton),42,0,,
+2,2026-08-28,Bexley (Columbus),12,Worthington Christian (Worthington),31,0,,
+2,2026-08-28,Bishop Hartley (Columbus),28,Marion-Franklin (Columbus),27,0,,
+2,2026-08-28,Bishop Ready (Columbus),34,Licking Heights (Pataskala),21,0,,
+2,2026-08-28,Black River (Sullivan),7,Northwestern (West Salem),9,0,,
+2,2026-08-28,Blanchester (Blanchester),41,Cincinnati Country Day (Cincinnati),20,0,,
+2,2026-08-28,Bluffton (Bluffton),42,Edison (Milan),7,0,,
+2,2026-08-28,Boardman (Youngstown),0,Lake (Uniontown),27,0,,
+2,2026-08-28,Bowling Green (Bowling Green),28,Bryan (Bryan),22,0,,
+2,2026-08-28,Bowsher (Toledo),7,Genoa Area (Genoa),56,0,,
+2,2026-08-28,Bradford (Bradford),28,Twin Valley South (West Alexandria),8,0,,
+2,2026-08-28,Brecksville-Broadview Heights (Broadview Heights),6,North Royalton (North Royalton),10,0,,
+2,2026-08-28,Briggs (Columbus),36,Dublin Scioto (Dublin),42,0,,
+2,2026-08-28,Brookfield (Brookfield),35,Springfield (New Middletown),18,0,,
+2,2026-08-28,Brooklyn (Brooklyn),0,Willard (Willard),41,0,,
+2,2026-08-28,Brookside (Sheffield),20,Woodridge (Peninsula),55,0,,
+2,2026-08-28,Buchtel (Akron),12,Indian Valley (Gnadenhutten),42,0,,
+2,2026-08-28,Buckeye (Medina),21,Amherst Steele (Amherst),38,0,,
+2,2026-08-28,Buckeye Central (New Washington),14,South Central (Greenwich),20,0,,
+2,2026-08-28,Buckeye Trail (Lore City),6,Crooksville (Crooksville),35,0,,
+2,2026-08-28,Buckeye Valley (Delaware),26,Africentric Early College (Columbus),0,0,,
+2,2026-08-28,Bucyrus (Bucyrus),27,Riverdale (Mt Blanchard),20,0,,
+2,2026-08-28,Calvert (Tiffin),10,St Paul (Norwalk),14,0,,
+2,2026-08-28,Canal Winchester (Canal Winchester),35,New Albany (New Albany),28,0,,
+2,2026-08-28,Canfield (Canfield),17,Salem (Salem),21,0,,
+2,2026-08-28,Canton McKinley (Canton),8,St Edward (Lakewood),22,0,,
+2,2026-08-28,Cardinal Mooney (Youngstown),37,Garfield Heights (Garfield Heights),39,0,,
+2,2026-08-28,Cardington-Lincoln (Cardington),14,Mohawk (Sycamore),56,0,,
+2,2026-08-28,Carlisle (Carlisle),7,Miami East (Casstown),20,0,,
+2,2026-08-28,Archbishop Carroll (Dayton),32,Tecumseh (New Carlisle),23,0,,
+2,2026-08-28,Catholic Central (Steubenville),0,Strasburg-Franklin (Strasburg),28,0,,
+2,2026-08-28,Centerburg (Centerburg),0,Johnstown (Johnstown),50,0,,
+2,2026-08-28,Chalker (Southington),38,Windham (Windham),54,0,,
+2,2026-08-28,Twinsburg (Twinsburg),20,Bedford (Bedford),23,0,,
+2,2026-08-28,Champion (Warren),42,Cardinal (Middlefield),0,0,,
+2,2026-08-28,Chesapeake (Chesapeake),13,Minford (Minford),28,0,,
+2,2026-08-28,Circleville (Circleville),28,Washington (Washington Court House),26,0,,
+2,2026-08-28,Clay (Oregon),35,Sylvania Southview (Sylvania),14,0,,
+2,2026-08-28,Claymont (Uhrichsville),54,River View (Warsaw),0,0,,
+2,2026-08-28,Clear Fork (Bellville),38,Zanesville (Zanesville),12,0,,
+2,2026-08-28,Clearview (Lorain),18,Westlake (Westlake),57,0,,
+2,2026-08-28,Cleveland Central Catholic (Cleveland),49,John Hay (Cleveland),18,0,,
+2,2026-08-28,Cleveland Heights (Cleveland Heights),7,Chardon (Chardon),25,0,,
+2,2026-08-28,Coldwater (Coldwater),14,Clinton-Massie (Clarksville),6,0,,
+2,2026-08-28,Colonel Crawford (North Robinson),14,Fairfield Union (Lancaster),20,0,,
+2,2026-08-28,Thurgood Marshall (Dayton),0,Ross (Hamilton),57,0,,
+2,2026-08-28,Columbia (Columbia Station),42,Fairview (Fairview Park),6,0,,
+2,2026-08-28,Tiffin Columbian (Tiffin),35,Mansfield Senior (Mansfield),7,0,,
+2,2026-08-28,Columbiana (Columbiana),20,Mathews (Vienna),6,0,,
+2,2026-08-28,Columbus Grove (Columbus Grove),40,Liberty-Benton (Findlay),20,0,,
+2,2026-08-28,Conotton Valley (Bowerston),62,Bishop Rosecrans (Zanesville),13,0,,
+2,2026-08-28,Cory-Rawson (Rawson),0,Upper Scioto Valley (McGuffey),36,0,,
+2,2026-08-28,Coshocton (Coshocton),13,Tuscarawas Valley (Zoarville),35,0,,
+2,2026-08-28,Coventry (Coventry Twp),0,Rittman (Rittman),35,0,,
+2,2026-08-28,Covington (Covington),7,New Bremen (New Bremen),40,0,,
+2,2026-08-28,Crestline (Crestline),28,Crestview (Ashland),16,0,,
+2,2026-08-28,Crestview (Convoy),0,Minster (Minster),37,0,,
+2,2026-08-28,Cuyahoga Heights (Cuyahoga Heights),31,Berkshire (Burton),7,0,,
+2,2026-08-28,Danbury (Lakeside),18,Waldron (Waldron),30,0,,MI
+2,2026-08-28,Danville (Danville),39,Utica (Utica),13,0,,
+2,2026-08-28,Lisbon David Anderson (Lisbon),21,Lowellville (Lowellville),50,0,,
+2,2026-08-28,Dawson-Bryant (Coal Grove),8,Adena (Frankfort),12,0,,
+2,2026-08-28,Dayton Christian (Miamisburg),36,Bethel-Tate (Bethel),6,0,,
+2,2026-08-28,Dixie (New Lebanon),27,Mississinawa Valley (Union City),26,0,,
+2,2026-08-28,Dover (Dover),14,Steubenville (Steubenville),44,0,,
+2,2026-08-28,Dublin Coffman (Dublin),7,Big Walnut (Sunbury),39,0,,
+2,2026-08-28,East (Akron),12,Nordonia (Macedonia),46,0,,
+2,2026-08-28,East (Columbus),25,Whitehall-Yearling (Whitehall),14,0,,
+2,2026-08-28,Youngstown (Youngstown),12,Warren G Harding (Warren),20,0,,
+2,2026-08-28,Sciotoville Community (Portsmouth),0,Belpre (Belpre),49,0,,
+2,2026-08-28,East Canton (East Canton),36,Western Reserve (Berlin Center),20,0,,
+2,2026-08-28,East Clinton (Sabina),12,Cedarville (Cedarville),55,0,,
+2,2026-08-28,Eastern (Beaver),49,Oak Hill (Oak Hill),7,0,,
+2,2026-08-28,East Liverpool (East Liverpool),48,Indian Creek (Wintersville),14,0,,
+2,2026-08-28,East Palestine (East Palestine),14,Harrison Central (Cadiz),47,0,,
+2,2026-08-28,Edgewood (Ashtabula),52,Harvey (Painesville),41,0,,
+2,2026-08-28,Edison (Richmond),6,Carrollton (Carrollton),23,0,,
+2,2026-08-28,Edon (Edon),35,Antwerp (Antwerp),12,0,,
+2,2026-08-28,Elder (Cincinnati),56,Covington Catholic (Park Hills),20,0,,KY
+2,2026-08-28,Elida (Elida),21,Van Wert (Van Wert),31,0,,
+2,2026-08-28,Evergreen (Metamora),15,Ottawa Hills (Toledo),20,0,,
+2,2026-08-28,Fairborn (Fairborn),49,Sidney (Sidney),6,0,,
+2,2026-08-28,Fairland (Proctorville),33,Point Pleasant (Point Pleasant),7,0,,WV
+2,2026-08-28,Fairview (Sherwood),30,Delta (Delta),43,0,,
+2,2026-08-28,Federal Hocking (Stewart),18,Alexander (Albany),49,0,,
+2,2026-08-28,Bishop Fenwick (Franklin),41,Monroe (Monroe),20,0,,
+2,2026-08-28,Field (Mogadore),30,Ellet (Akron),20,0,,
+2,2026-08-28,Findlay (Findlay),31,Lima Senior (Lima),6,0,,
+2,2026-08-28,Finneytown (Cincinnati),8,St Bernard-Elmwood Place (St Bernard),39,0,,
+2,2026-08-28,Firelands (Oberlin),7,Vermilion (Vermilion),41,0,,
+2,2026-08-28,Firestone (Akron),6,Copley (Copley),56,0,,
+2,2026-08-28,Fort Loramie (Fort Loramie),13,Anna (Anna),12,0,,
+2,2026-08-28,Fostoria (Fostoria),0,Port Clinton (Port Clinton),42,0,,
+2,2026-08-28,Franklin (Franklin),0,Valley View (Germantown),37,0,,
+2,2026-08-28,Franklin Heights (Columbus),2,Linden McKinley (Columbus),20,0,,
+2,2026-08-28,Fredericktown (Fredericktown),21,Northridge (Johnstown),0,0,,
+2,2026-08-28,Frontier (New Matamoras),45,Magnolia (New Martinsville),14,0,,WV
+2,2026-08-28,Galion (Galion),21,Carey (Carey),17,0,,
+2,2026-08-28,Garaway (Sugarcreek),40,Dalton (Dalton),16,0,,
+2,2026-08-28,Garfield (Garrettsville),48,Crestwood (Mantua),13,0,,
+2,2026-08-28,Geneva (Geneva),41,Lakeside (Ashtabula),6,0,,
+2,2026-08-28,Gibsonburg (Gibsonburg),39,Rogers (Toledo),27,0,,
+2,2026-08-28,Glenville (Cleveland),34,Olentangy Liberty (Powell),13,0,,
+2,2026-08-28,Granville (Granville),24,Tri-Valley (Dresden),21,0,,
+2,2026-08-28,Green (Franklin Furnace),13,Southeastern (Chillicothe),44,0,,
+2,2026-08-28,Greenville (Greenville),36,West Carrollton (West Carrollton),14,0,,
+2,2026-08-28,Grove City (Grove City),48,Westland (Galloway),47,0,,
+2,2026-08-28,Grove City Christian (Grove City),7,Madison-Plains (London),71,0,,
+2,2026-08-28,Groveport Madison (Groveport),7,Archbishop Moeller (Cincinnati),45,0,,
+2,2026-08-28,Hamilton (Hamilton),7,Colerain (Cincinnati),41,0,,
+2,2026-08-28,Hamilton Township (Columbus),26,St Charles (Columbus),28,0,,
+2,2026-08-28,Hardin Northern (Dola),18,North Baltimore (North Baltimore),56,0,,
+2,2026-08-28,Harrison (Harrison),28,Archbishop McNicholas (Cincinnati),0,0,,
+2,2026-08-28,Hawken (Gates Mills),36,Lutheran West (Rocky River),6,0,,
+2,2026-08-28,Highland (Medina),31,Strongsville (Strongsville),27,0,,
+2,2026-08-28,Highland (Marengo),6,Heath (Heath),14,0,,
+2,2026-08-28,Hilliard Darby (Hilliard),19,Hilliard Bradley (Hilliard),25,0,,
+2,2026-08-28,Hillsboro (Hillsboro),7,Goshen (Goshen),49,0,,
+2,2026-08-28,Hillsdale (Jeromesville),28,Lucas (Lucas),7,0,,
+2,2026-08-28,Hilltop (West Unity),36,Edgerton (Edgerton),28,0,,
+2,2026-08-28,Holgate (Holgate),62,Camden-Frontier (Camden),26,0,,MI
+2,2026-08-28,Holy Name (Parma Heights),0,Gilmour Academy (Gates Mills),7,0,,
+2,2026-08-28,Hoover (North Canton),18,Medina (Medina),14,0,,
+2,2026-08-28,Hopewell-Loudon (Bascom),37,Huron (Huron),0,0,,
+2,2026-08-28,Hubbard (Hubbard),26,Howland (Warren),34,0,,
+2,2026-08-28,Hudson (Hudson),55,Jackson (Massillon),35,0,,
+2,2026-08-28,Indian Hill (Cincinnati),0,Beechwood (Fort Mitchell),42,0,,KY
+2,2026-08-28,Indian Lake (Lewistown),40,Fairbanks (Milford Center),7,0,,
+2,2026-08-28,Jackson (Jackson),55,Gallia Academy (Gallipolis),0,0,,
+2,2026-08-28,Jefferson (Delphos),13,Parkway (Rockford),6,0,,
+2,2026-08-28,Jefferson Area (Jefferson),6,Conneaut (Conneaut),50,0,,
+2,2026-08-28,John Adams (Cleveland),0,West Holmes (Millersburg),49,0,,
+2,2026-08-28,John Glenn (New Concord),41,Cambridge (Cambridge),13,0,,
+2,2026-08-28,Jonathan Alder (Plain City),36,Columbus Academy (Gahanna),12,0,,
+2,2026-08-28,Kenton (Kenton),6,Shawnee (Lima),30,0,,
+2,2026-08-28,Kenton Ridge (Springfield),41,Northridge (Dayton),6,0,,
+2,2026-08-28,Kettering Fairmont (Kettering),7,Trotwood-Madison (Trotwood),20,0,,
+2,2026-08-28,Keystone (La Grange),12,Cloverleaf (Seville),10,0,,
+2,2026-08-28,Kings (Kings Mills),0,Winton Woods (Cincinnati),35,0,,
+2,2026-08-28,Kirtland (Kirtland),36,Poland Seminary (Poland),34,0,,
+2,2026-08-28,River Valley (Bidwell),6,South Gallia (Crown City),12,0,,
+2,2026-08-28,LaBrae (Leavittsburg),40,Pymatuning Valley (Andover),30,0,,
+2,2026-08-28,Lake Catholic (Mentor),14,Avon Lake (Avon Lake),13,0,,
+2,2026-08-28,Lakeview (Cortland),14,Crestview (Columbiana),34,0,,
+2,2026-08-28,Lakewood (Hebron),0,Maysville (Zanesville),53,0,,
+2,2026-08-28,Lakota (Kansas),39,Hicksville (Hicksville),0,0,,
+2,2026-08-28,Lakota East (Liberty Township),18,Lakota West (West Chester),48,0,,
+2,2026-08-28,Lancaster (Lancaster),13,Delaware Hayes (Delaware),28,0,,
+2,2026-08-28,Lebanon (Lebanon),42,Loveland (Loveland),7,0,,
+2,2026-08-28,Lehman Catholic (Sidney),8,Southeastern Local (South Charleston),14,0,,
+2,2026-08-28,Liberty (Youngstown),34,Niles McKinley (Niles),7,0,,
+2,2026-08-28,Liberty Center (Liberty Center),41,Eastwood (Pemberville),14,0,,
+2,2026-08-28,Licking Valley (Newark),40,Amanda-Clearcreek (Amanda),7,0,,
+2,2026-08-28,Little Miami (Morrow),27,Turpin (Cincinnati),24,0,,
+2,2026-08-28,Logan (Logan),6,Nelsonville-York (Nelsonville),48,0,,
+2,2026-08-28,London (London),37,Hamilton Heights (Arcadia),0,0,,IN
+2,2026-08-28,Loudonville (Loudonville),55,New London (New London),13,0,,
+2,2026-08-28,Madeira (Cincinnati),27,Madison (Middletown),0,0,,
+2,2026-08-28,Madison (Madison),36,Maple Heights (Maple Heights),24,0,,
+2,2026-08-28,Manchester (New Franklin),35,Streetsboro (Streetsboro),36,0,,
+2,2026-08-28,Margaretta (Castalia),7,Western Reserve (Collins),26,0,,
+2,2026-08-28,Marion Local (Maria Stein),54,Harvest Prep (Canal Winchester),28,0,,
+2,2026-08-28,Marlington (Alliance),21,Northwest (Canal Fulton),36,0,,
+2,2026-08-28,Marysville (Marysville),35,KIPP Columbus (Columbus),21,0,,
+2,2026-08-28,Mason (Mason),43,Sycamore (Cincinnati),24,0,,
+2,2026-08-28,Mayfield (Mayfield),31,Elyria Catholic (Elyria),13,0,,
+2,2026-08-28,McComb (McComb),7,Leipsic (Leipsic),26,0,,
+2,2026-08-28,McDonald (McDonald),54,Malvern (Malvern),28,0,,
+2,2026-08-28,Meadowdale (Dayton),0,Talawanda (Oxford),49,0,,
+2,2026-08-28,Meigs (Pomeroy),14,Symmes Valley (Willow Wood),55,0,,
+2,2026-08-28,St Marys Memorial (St Marys),35,Bath (Lima),14,0,,
+2,2026-08-28,Miamisburg (Miamisburg),28,Edgewood (Trenton),32,0,,
+2,2026-08-28,Miami Trace (Washington Court House),7,Wilmington (Wilmington),35,0,,
+2,2026-08-28,Miami Valley Christian Academy (Cincinnati),49,Clermont Northeastern (Batavia),28,0,,
+2,2026-08-28,Mifflin (Columbus),6,Martins Ferry (Martins Ferry),60,0,,
+2,2026-08-28,Milford (Milford),47,Walnut Hills (Cincinnati),7,0,,
+2,2026-08-28,Miller (Corning),8,Eastern (Reedsville),34,0,,
+2,2026-08-28,Milton-Union (West Milton),14,Graham Local (St Paris),44,0,,
+2,2026-08-28,Mineral Ridge (Mineral Ridge),31,United (Hanoverton),28,0,,
+2,2026-08-28,Minerva (Minerva),40,Springfield (Akron),7,0,,
+2,2026-08-28,Mogadore (Mogadore),8,Canton Central Catholic (Canton),19,0,,
+2,2026-08-28,Monroe Central (Woodsfield),29,Bellaire (Bellaire),14,0,,
+2,2026-08-28,Monroeville (Monroeville),12,Seneca East (Attica),28,0,,
+2,2026-08-28,Montpelier (Montpelier),25,Swanton (Swanton),7,0,,
+2,2026-08-28,Morgan (McConnelsville),21,Warren (Vincent),28,0,,
+2,2026-08-28,Mount Gilead (Mount Gilead),27,Upper Sandusky (Upper Sandusky),25,0,,
+2,2026-08-28,Mount Healthy (Cincinnati),18,Hughes (Cincinnati),28,0,,
+2,2026-08-28,Napoleon (Napoleon),21,Maumee (Maumee),24,0,,
+2,2026-08-28,National Trail (New Paris),7,Tri-Village (New Madison),38,0,,
+2,2026-08-28,Newark (Newark),34,Mount Vernon (Mount Vernon),14,0,,
+2,2026-08-28,Newton Falls (Newton Falls),35,Jackson-Milton (North Jackson),0,0,,
+2,2026-08-28,Normandy (Parma),0,Ravenna (Ravenna),55,0,,
+2,2026-08-28,North (Akron),0,Cuyahoga Falls (Cuyahoga Falls),50,0,,
+2,2026-08-28,North (Eastlake),42,Valley Forge (Parma Heights),0,0,,
+2,2026-08-28,North Central (Pioneer),0,Paulding (Paulding),46,0,,
+2,2026-08-28,North College Hill (Cincinnati),46,Ponitz Tech (Dayton),0,0,,
+2,2026-08-28,Northmont (Clayton),6,La Salle (Cincinnati),38,0,,
+2,2026-08-28,Northmor (Galion),15,Smithville (Smithville),59,0,,
+2,2026-08-28,North Olmsted (North Olmsted),26,Midview (Grafton),28,0,,
+2,2026-08-28,North Ridgeville (North Ridgeville),14,Brush (Lyndhurst),21,0,,
+2,2026-08-28,Norwalk (Norwalk),0,Ontario (Ontario),58,0,,
+2,2026-08-28,Northwest (McDermott),7,McClain (Greenfield),34,0,,
+2,2026-08-28,Northwestern (Springfield),6,Greenon (Enon),43,0,,
+2,2026-08-28,Northwood (Northwood),35,Lake (Millbury),36,0,,
+2,2026-08-28,Norwood (Norwood),6,Mariemont (Cincinnati),49,0,,
+2,2026-08-28,Notre Dame (Portsmouth),27,Fayetteville (Fayetteville),6,0,,
+2,2026-08-28,Oak Hills (Cincinnati),21,Fairfield (Fairfield),0,0,,
+2,2026-08-28,Olentangy Berlin (Delaware),0,Upper Arlington (Upper Arlington),24,0,,
+2,2026-08-28,Olentangy (Lewis Center),7,Perrysburg (Perrysburg),45,0,,
+2,2026-08-28,Olmsted Falls (Olmsted Falls),42,Brunswick (Brunswick),7,0,,
+2,2026-08-28,Orange (Pepper Pike),12,Chagrin Falls (Chagrin Falls),26,0,,
+2,2026-08-28,Orrville (Orrville),43,Trinity (Garfield Heights),0,0,,
+2,2026-08-28,Olentangy Orange (Lewis Center),33,Westerville North (Westerville),0,0,,
+2,2026-08-28,Otsego (Tontogany),21,Tinora (Defiance),14,0,,
+2,2026-08-28,Ottawa-Glandorf (Ottawa),42,Defiance (Defiance),21,0,,
+2,2026-08-28,Padua Franciscan (Parma),3,Benedictine (Cleveland),7,0,,
+2,2026-08-28,Pandora-Gilboa (Pandora),37,Elmwood (Bloomdale),19,0,,
+2,2026-08-28,Patrick Henry (Hamler),33,Ayersville (Defiance),14,0,,
+2,2026-08-28,Perry (Lima),42,Ridgemont (Mt Victory),0,0,,
+2,2026-08-28,Perry (Massillon),41,St Vincent-St Mary (Akron),0,0,,
+2,2026-08-28,Perry (Perry),45,Kenston (Chagrin Falls),12,0,,
+2,2026-08-28,Philo (Duncan Falls),14,New Lexington (New Lexington),36,0,,
+2,2026-08-28,Pickerington Central (Pickerington),0,Bishop Watterson (Columbus),28,0,,
+2,2026-08-28,Piketon (Piketon),43,Wellston (Wellston),8,0,,
+2,2026-08-28,Portsmouth West (West Portsmouth),42,Portsmouth (Portsmouth),0,0,,
+2,2026-08-28,Preble Shawnee (Camden),8,Ansonia (Ansonia),40,0,,
+2,2026-08-28,Princeton (Cincinnati),28,Middletown (Middletown),7,0,,
+2,2026-08-28,Purcell Marian (Cincinnati),8,Wyoming (Cincinnati),48,0,,
+2,2026-08-28,Reading (Reading),0,Northwest (Cincinnati),32,0,,
+2,2026-08-28,Reynoldsburg (Reynoldsburg),42,Dublin Jerome (Dublin),31,0,,
+2,2026-08-28,Rhodes (Cleveland),26,Lakewood (Lakewood),27,0,,
+2,2026-08-28,Richmond Heights (Richmond Heights),8,Wickliffe (Wickliffe),28,0,,
+2,2026-08-28,Ridgedale (Morral),6,Elgin (Marion),54,0,,
+2,2026-08-28,River (Hannibal),40,Buckeye Local (Rayland),8,0,,
+2,2026-08-28,Riverside (De Graff),47,Northeastern (South Vienna),21,0,,
+2,2026-08-28,River Valley (Caledonia),12,Madison Comprehensive (Mansfield),41,0,,
+2,2026-08-28,Rock Hill (Ironton),36,Boyd County (Ashland),39,0,,KY
+2,2026-08-28,Roger Bacon (St Bernard),41,Western Hills (Cincinnati),28,0,,
+2,2026-08-28,Rootstown (Rootstown),14,Independence (Independence),31,0,,
+2,2026-08-28,Rossford (Rossford),21,Waite (Toledo),28,0,,
+2,2026-08-28,St Ignatius (Cleveland),24,Pickerington North (Pickerington),21,0,,
+2,2026-08-28,St Mary Central Catholic (Sandusky),47,Adrian Lenawee Christian (Adrian),14,0,,MI
+2,2026-08-28,St Xavier (Cincinnati),35,Wayne (Huber Heights),7,0,,
+2,2026-08-28,Sandusky (Sandusky),6,Fremont Ross (Fremont),51,0,,
+2,2026-08-28,Sandy Valley (Magnolia),7,Norton (Norton),41,0,,
+2,2026-08-28,Shaker Heights (Shaker Heights),9,Solon (Solon),19,0,,
+2,2026-08-28,Shaw (East Cleveland),16,Ridgewood (West Lafayette),34,0,,
+2,2026-08-28,Shawnee (Springfield),6,Brookville (Brookville),38,0,,
+2,2026-08-28,Shelby (Shelby),48,Lexington (Lexington),6,0,,
+2,2026-08-28,Shenandoah (Sarahsville),49,Bridgeport (Bridgeport),18,0,,
+2,2026-08-28,Canton South (Canton),7,Cuyahoga Valley Christian Academy (Cuyahoga Falls),49,0,,
+2,2026-08-28,South (Columbus),29,Centennial (Columbus),0,0,,
+2,2026-08-28,South (Willoughby),34,Kent Roosevelt (Kent),13,0,,
+2,2026-08-28,Southeast (Ravenna),14,Grand Valley (Orwell),28,0,,
+2,2026-08-28,Southern (Racine),0,South Point (South Point),38,0,,
+2,2026-08-28,Southern (Salineville),0,Shadyside (Shadyside),49,0,,
+2,2026-08-28,South Range (Canfield),49,Jeannette (Jeannette),21,0,,PA
+2,2026-08-28,Spencerville (Spencerville),0,Wayne Trace (Haviland),55,0,,
+2,2026-08-28,Springboro (Springboro),7,Gahanna Lincoln (Gahanna),24,0,,
+2,2026-08-28,Springfield (Springfield),0,Walsh Jesuit (Cuyahoga Falls),1,0,,
+2,2026-08-28,Start (Toledo),6,Clyde (Clyde),33,0,,
+2,2026-08-28,Stebbins (Riverside),28,Butler (Vandalia),42,0,,
+2,2026-08-28,Struthers (Struthers),6,John F Kennedy (Warren),18,0,,
+2,2026-08-28,Summit Country Day (Cincinnati),17,Clark Montessori (Cincinnati),8,0,,
+2,2026-08-28,Sylvania Northview (Sylvania),7,Springfield (Holland),41,0,,
+2,2026-08-28,Taft (Cincinnati),6,Villa Angela-St Joseph (Cleveland),47,0,,
+2,2026-08-28,Tallmadge (Tallmadge),7,Green (Uniontown),28,0,,
+2,2026-08-28,Teays Valley (Ashville),35,Bloom-Carroll (Carroll),14,0,,
+2,2026-08-28,Tippecanoe (Tipp City),49,Piqua (Piqua),0,0,,
+2,2026-08-28,Toronto (Toronto),27,Newcomerstown (Newcomerstown),20,0,,
+2,2026-08-28,Triad (North Lewisburg),14,Pleasant (Marion),51,0,,
+2,2026-08-28,Trimble (Glouster),42,Fairfield Christian Academy (Lancaster),0,0,,
+2,2026-08-28,Triway (Wooster),38,Norwayne (Creston),13,0,,
+2,2026-08-28,Troy (Troy),10,Xenia (Xenia),6,0,,
+2,2026-08-28,Troy Christian (Troy),42,Catholic Central (Springfield),0,0,,
+2,2026-08-28,Tuscarawas Central Catholic (New Philadelphia),22,Fisher Catholic (Lancaster),28,0,,
+2,2026-08-28,Tuslaw (Massillon),14,Chippewa (Doylestown),13,0,,
+2,2026-08-28,Tri-County North (Lewisburg),12,Arcanum (Arcanum),43,0,,
+2,2026-08-28,Union Local (Belmont),40,St Clairsville (St Clairsville),21,0,,
+2,2026-08-28,University School (Hunting Valley),35,Bay (Bay Village),14,0,,
+2,2026-08-28,Urbana (Urbana),35,Mechanicsburg (Mechanicsburg),12,0,,
+2,2026-08-28,Ursuline (Youngstown),43,Louisville (Louisville),10,0,,
+2,2026-08-28,Valley (Lucasville),30,Liberty Union (Baltimore),24,0,,
+2,2026-08-28,Vanlue (Vanlue),12,Leetonia (Leetonia),42,0,,
+2,2026-08-28,Versailles (Versailles),20,Cincinnati Hills Christian Academy (Cincinnati),10,0,,
+2,2026-08-28,Vinton County (McArthur),60,Paint Valley (Bainbridge),33,0,,
+2,2026-08-28,Wadsworth (Wadsworth),33,Hilliard Davidson (Hilliard),8,0,,
+2,2026-08-28,Walnut Ridge (Columbus),6,St Francis DeSales (Columbus),41,0,,
+2,2026-08-28,Wapakoneta (Wapakoneta),6,Celina (Celina),7,0,,
+2,2026-08-28,Massillon Washington (Massillon),54,GlenOak (Canton),7,0,,
+2,2026-08-28,Waterford (Waterford),15,Caldwell (Caldwell),8,0,,
+2,2026-08-28,Waterloo (Atwater),38,Beachwood (Beachwood),44,0,,
+2,2026-08-28,Watkins Memorial (Pataskala),14,Sheridan (Thornville),21,0,,
+2,2026-08-28,Waynedale (Apple Creek),6,Fairless (Brewster),48,0,,
+2,2026-08-28,Waynesfield-Goshen (Waynesfield),0,North Union (Richwood),48,0,,
+2,2026-08-28,Waynesville (Waynesville),28,Greeneview (Jamestown),14,0,,
+2,2026-08-28,Wellington (Wellington),22,Mapleton (Ashland),40,0,,
+2,2026-08-28,Wellsville (Wellsville),8,St Thomas Aquinas (Louisville),19,0,,
+2,2026-08-28,West (Columbus),12,Central Crossing (Grove City),3,0,,
+2,2026-08-28,West Branch (Beloit),35,New Philadelphia (New Philadelphia),7,0,,
+2,2026-08-28,Western Brown (Mount Orab),27,Simon Kenton (Independence),34,0,,KY
+2,2026-08-28,Westerville Central (Westerville),17,Westerville South (Westerville),0,0,,
+2,2026-08-28,Westfall (Williamsport),20,Logan Elm (Circleville),54,0,,
+2,2026-08-28,West Geauga (Chesterland),7,Notre Dame-Cathedral Latin (Chardon),0,0,,
+2,2026-08-28,West Jefferson (West Jefferson),14,Newark Catholic (Newark),16,0,,
+2,2026-08-28,West Muskingum (Zanesville),20,Fort Frye (Beverly),42,0,,
+2,2026-08-28,Wheelersburg (Wheelersburg),18,Chillicothe (Chillicothe),26,0,,
+2,2026-08-28,Whetstone (Columbus),0,Grandview Heights (Columbus),53,0,,
+2,2026-08-28,Whitmer (Toledo),7,Detroit King (Detroit),27,0,,MI
+2,2026-08-28,Williamsburg (Williamsburg),34,New Richmond (New Richmond),14,0,,
+2,2026-08-28,Withrow (Cincinnati),45,Chaminade Julienne (Dayton),12,0,,
+2,2026-08-28,Woodmore (Elmore),49,Toledo Christian (Toledo),6,0,,
+2,2026-08-28,Woodward (Toledo),16,Oak Harbor (Oak Harbor),49,0,,
+2,2026-08-28,Wooster (Wooster),29,Alliance (Alliance),32,0,,
+2,2026-08-28,Thomas Worthington (Worthington),20,Worthington Kilbourne (Columbus),52,0,,
+2,2026-08-28,Wynford (Bucyrus),0,East Knox (Howard),34,0,,
+2,2026-08-28,Valley Christian School (Youngstown),7,Campbell Memorial (Campbell),14,0,,
+2,2026-08-28,Zane Trace (Chillicothe),27,Waverly (Waverly),7,0,,
+2,2026-08-28,Brooke (Wellsburg),46,Lincoln County (Hamlin),6,0,WV,WV
+2,2026-08-28,John Marshall (Glen Dale),37,Marietta (Marietta),28,0,WV,
+2,2026-08-28,Madonna (Weirton),12,East Hardy (Baker),66,0,WV,WV
+2,2026-08-28,Ritchie County (Ellenboro),16,Wahama (Mason),57,0,WV,WV
+2,2026-08-28,Tygarts Valley,8,Valley (Wetzel) (Pine Grove),20,0,WV,WV
+2,2026-08-28,Wheeling Park (Wheeling),28,Parkersburg South (Parkersburg),21,0,WV,WV
+2,2026-08-28,Williamstown (Williamstown),42,Ravenswood,7,0,WV,WV
+2,2026-08-28,Linsly (Wheeling),14,Girard (Girard),56,0,WV,
+2,2026-08-28,Bowling Green (Bowling Green),10,St Xavier (Louisville),39,0,KY,KY
+2,2026-08-28,Central (Louisville),14,Belfry (Belfry),28,0,KY,KY
+2,2026-08-28,Dixie Heights (Edgewood),13,Badin (Hamilton),42,0,KY,
+2,2026-08-28,East Carter,28,Rowan County,21,0,KY,KY
+2,2026-08-28,Greenup County (Greenup),22,Russell (Russell),28,0,KY,KY
+2,2026-08-28,Holy Cross (Covington),41,Bracken County,6,0,KY,KY
+2,2026-08-28,Johnson Central,6,Madison Central,38,0,KY,KY
+2,2026-08-28,Lewis County (Vanceburg),28,Morgan County (West Liberty),21,0,KY,KY
+2,2026-08-28,Newport (Newport),0,Lloyd Memorial (Erlanger),43,0,KY,KY
+2,2026-08-28,Newport Central Catholic,7,Paintsville (Paintsville),22,0,KY,KY
+2,2026-08-28,North Laurel,14,Corbin (Corbin),42,0,KY,KY
+2,2026-08-28,Pleasure Ridge Park (Louisville),18,Raceland (Raceland),56,0,KY,KY
+2,2026-08-28,Somerset (Somerset),42,South Laurel,21,0,KY,KY
+2,2026-08-28,Tates Creek,27,Ashland Blazer (Ashland),49,0,KY,KY
+2,2026-08-28,Trinity (Louisville),52,Christian Brothers,21,0,KY,MO
+2,2026-08-28,West Carter,34,Fairview (Ashland),6,0,KY,KY
+2,2026-08-28,Cooper (Union),6,Highlands (Fort Thomas),45,0,KY,KY
+2,2026-08-28,Birmingham Groves,13,North Farmington,14,1,MI,MI
+2,2026-08-28,Blissfield,48,Erie Mason (Erie),6,0,MI,MI
+2,2026-08-28,Goodrich,10,Frankenmuth,7,1,MI,MI
+2,2026-08-28,Hudsonville Unity Christian,28,Dearborn Divine Child (Dearborn),56,0,MI,MI
+2,2026-08-28,Lumen Christi (Jackson),39,Detroit Edison PSA Early College (Detroit),21,0,MI,MI
+2,2026-08-28,Litchfield,38,Plymouth (Plymouth),22,0,MI,
+2,2026-08-28,Macomb Dakota,20,Brother Rice (Bloomfield Hills),30,0,MI,MI
+2,2026-08-28,Monroe Jefferson,44,Flint Elite (co-op) (Flint),6,1,MI,MI
+2,2026-08-28,Monroe St Mary Catholic Central (Monroe),37,Ottawa Lake Whiteford (Ottawa Lake),28,0,MI,MI
+2,2026-08-28,Roseville,8,Davison,28,1,MI,MI
+2,2026-08-28,South Lyon,16,Clarkston,37,1,MI,MI
+2,2026-08-28,Sterling Heights Stevenson,13,Bedford (Temperance),20,0,MI,MI
+2,2026-08-28,Detroit East English (Detroit),65,Flint Southwestern Academy,0,1,MI,MI
+2,2026-08-28,Southern Huntingdon County,47,Everett (Everett),7,0,PA,PA
+2,2026-08-28,Shaler,14,Butler (Butler),17,0,PA,PA
+2,2026-08-28,Pine-Richland (Gibsonia),48,Avon (Avon),18,0,PA,
+2,2026-08-28,Canevin Catholic,40,University Prep (USO co-op) (Pittsburgh),0,1,PA,PA
+2,2026-08-28,Taylor Allderdice (Pittsburgh),24,Fox Chapel,27,0,PA,PA
+2,2026-08-28,Brashear (Pittsburgh),0,McKeesport (McKeesport),61,0,PA,PA
+2,2026-08-28,Carrick (Pittsburgh),18,Carlynton,20,0,PA,PA
+2,2026-08-28,Perry Traditional Academy (Pittsburgh),8,Wheeling Central Catholic (Wheeling),50,0,PA,WV
+2,2026-08-28,McDowell (Erie),30,Mentor (Mentor),31,0,PA,
+2,2026-08-28,Cathedral Prep (Erie),15,Sharon (Sharon),13,0,PA,PA
+2,2026-08-28,Bloomington South (Bloomington),48,Martinsville,14,0,IN,IN
+2,2026-08-28,East Central (St Leon),14,New Palestine,6,0,IN,IN
+2,2026-08-28,Bishop Dwenger (Fort Wayne),35,St Francis de Sales (Toledo),0,0,IN,
+2,2026-08-28,Blackhawk Christian (Fort Wayne),44,Southern Wells,13,0,IN,IN
+2,2026-08-28,Greenfield-Central,13,Lawrenceburg (Lawrenceburg),31,0,IN,IN
+2,2026-08-28,Cardinal Ritter (Indianapolis),6,Archbishop Alter (Kettering),47,0,IN,
+2,2026-08-28,Leo,7,Bishop Chatard (Indianapolis),42,0,IN,IN
+2,2026-08-28,Michigan City,0,Detroit Cass Tech (Detroit),62,0,IN,MI
+2,2026-08-28,Richmond (Richmond),8,Eaton (Eaton),39,0,IN,
+2,2026-08-28,South Dearborn (Aurora),28,Switzerland County,12,0,IN,IN
+2,2026-08-28,Southport (Indianapolis),14,Perry Meridian,45,0,IN,IN
+2,2026-08-28,Indianapolis Crimson Knights (club),22,Phalen Academy,24,0,IN,IN
+2,2026-08-28,Middle Tennessee Christian School (Murfreesboro),7,Grace Christian Academy (Franklin),16,0,TN,TN
+2,2026-08-28,Oakland (Murfreesboro),50,Centerville (Centerville),20,0,TN,
+2,2026-08-28,Loudoun Sports Academy (Leesburg),12,Baylor (Chattanooga),37,0,VA,TN
+2,2026-08-28,Saint Frances Academy (Baltimore),49,DeLand (DeLand),35,0,MD,FL
+2,2026-08-28,McDonogh School (Owings Mills),22,Riverdale Baptist (Upper Marlboro),14,0,MD,MD
+2,2026-08-28,Archbishop Spalding (Severn),14,DeMatha Catholic (Hyattsville),35,0,MD,MD
+2,2026-08-28,Good Counsel (Wheaton),21,Bishop McDevitt (Philadelphia),35,0,MD,PA
+2,2026-08-28,St Mary's Ryken (Leonardtown),17,McCallie,67,0,MD,TN
+2,2026-08-28,Anacostia (Washington),6,Digital Pioneers Academy (Washington),38,0,DC,DC
+2,2026-08-28,Friendship Collegiate (Washington),12,Eagle Academy for Young Men II (Brooklyn),14,0,DC,NY
+2,2026-08-28,Gonzaga (Washington),22,Calvert Hall (Towson),21,0,DC,MD
+2,2026-08-28,Saint Joseph Regional (Montvale),44,Mt Carmel (Chicago),48,0,NJ,IL
+2,2026-08-28,Bergen Catholic (Oradell),30,Central Catholic (Pittsburgh),45,1,NJ,PA
+2,2026-08-28,East St Louis Senior (East St Louis),28,American Heritage School (Plantation),35,0,IL,FL
+2,2026-08-28,Loyola Academy (Wilmette),33,Cathedral (Indianapolis),19,0,IL,IN
+2,2026-08-28,Legacy Sport Sciences (Spring),19,Celina (Celina),21,0,TX,TX
+2,2026-08-28,Lutheran North (St Louis),18,Cardinal Ritter (St Louis),30,0,MO,MO
+2,2026-08-28,Horizon (Winter Garden),0,West Orange (Winter Garden),53,0,FL,FL
+2,2026-08-28,Rabun Gap - Nacoochee (Rabun Gap),15,Brownsburg,31,0,GA,IN
+2,2026-08-28,Tafuna (Tafuna),0,Liberty (Henderson),42,0,AS,NV
+2,2026-08-28,Kubasaki (Okinawa),7,Kinnick (Yokosuka),54,0,JAPAN,JAPAN
+2,2026-08-28,NFL Academy (Loughborough),28,Archbishop Hoban (Akron),13,0,UK,
