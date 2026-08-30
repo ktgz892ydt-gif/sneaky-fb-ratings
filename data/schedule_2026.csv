@@ -1,24 +1,5 @@
 week,date,time,away,home,neutral,away_state,home_state
 1,2026-08-21,5am,Kubasaki (Okinawa),Kadena (Okinawa),0,JAPAN,JAPAN
-2,2026-08-27,6pm,Dunbar (Dayton),Stivers (Dayton),0,,
-2,2026-08-29,5pm,Peebles (club) (Peebles),Columbus Crusaders (club) (Columbus),0,,
-2,2026-08-29,6pm,Expression Prep Academy (Huntington),North Adams (club) (Seaman),0,WV,
-2,2026-08-29,6pm,Phelps,Shelby Valley (Pikeville),0,KY,KY
-2,2026-08-29,8:30pm,Prestonsburg,Pikeville (Pikeville),0,KY,KY
-2,2026-08-29,6pm,DuBois,Erie (Erie),0,PA,PA
-2,2026-08-29,,South Newton,Greenwood Christian,0,IN,IN
-2,2026-08-29,7pm,Tri-State King's Crusaders (club) (Harlan),St Joseph Central Catholic (Fremont),0,IN,
-2,2026-08-29,3pm,Kosciusko Thunder (club),Wabash,0,IN,IN
-2,2026-08-29,5pm,The St James Academy (Springfield),Lehi,1,VA,UT
-2,2026-08-29,,Annapolis Area Christian (Annapolis),Hewlett Sports Academy (Waldorf),0,MD,MD
-2,2026-08-29,7pm,Model Secondary School f/t Deaf (Washington),Indiana School for the Deaf,0,DC,IN
-2,2026-08-29,7pm,Mount St Michael Academy (Bronx),St Francis Prep (Fresh Meadows),0,NY,NY
-2,2026-08-29,1pm,The Hun School (Princeton),Skyridge (Lehi),1,NJ,UT
-2,2026-08-29,6pm,Camden (Camden),Imhotep Charter (Philadelphia),0,NJ,PA
-2,2026-08-29,8pm,DeSoto (DeSoto),St. Thomas Aquinas (Fort Lauderdale),0,TX,FL
-2,2026-08-29,7:30pm,Cornerstone Christian (San Antonio),IMG Academy (Bradenton),0,TX,FL
-2,2026-08-29,9pm,Mater Dei (Santa Ana),Orem,1,CA,UT
-2,2026-08-29,7pm,Cardinal Gibbons (Raleigh),W. A. Hough (Cornelius),1,NC,NC
 2,2026-08-29,5am,Humphreys (Pyeongtaek),Kadena (Okinawa),0,SOUTH KOREA,JAPAN
 2,2026-08-30,10:45am,Landmark Eagles (club) (Cincinnati),HSAA Angels (club) (Dallas),1,,TX
 2,2026-08-30,1pm,Xaverian (Brooklyn),St John Catholic Prep (Buckeystown),0,NY,MD
@@ -3201,6 +3182,7 @@ week,date,time,away,home,neutral,away_state,home_state
 9,2026-10-16,,Loudoun Sports Academy (Leesburg),Mt Zion Prep (Lanham),0,VA,MD
 9,2026-10-16,6pm,Riverdale Baptist (Upper Marlboro),KIPP DC Legacy College Prep (Washington),0,MD,DC
 9,2026-10-16,,Our Lady of Mount Carmel (Essex),Boys' Latin School (Baltimore),0,MD,MD
+9,2026-10-16,4:15pm,Hewlett Sports Academy (Waldorf),Annapolis Area Christian (Annapolis),0,MD,MD
 9,2026-10-16,7pm,St John's College (Washington),Good Counsel (Wheaton),0,DC,MD
 9,2026-10-16,7pm,St Francis (Hamburg),McDowell (Erie),0,NY,PA
 9,2026-10-16,7pm,Hutchinson Central Technical (Buffalo),Health Sciences (Buffalo),0,NY,NY
@@ -3211,7 +3193,6 @@ week,date,time,away,home,neutral,away_state,home_state
 9,2026-10-16,7pm,Huron Heights (Newmarket),River Rouge (River Rouge),0,ON,MI
 9,2026-10-16,7pm,MU Sports Academy (Delson),The St James Academy (Springfield),0,QB,VA
 9,2026-10-16,10pm,Sports Leadership and Management Academy (Henderson),Bishop Gorman (Las Vegas),0,NV,NV
-9,2026-10-16,,First Academy (Orlando),Hewlett Sports Academy (Waldorf),0,FL,MD
 9,2026-10-16,7pm,South Lake (Groveland),West Orange (Winter Garden),0,FL,FL
 9,2026-10-16,7pm,Rabun Gap - Nacoochee (Rabun Gap),Christ School (Arden),0,GA,NC
 9,2026-10-16,7pm,Middle Creek (Apex),Cardinal Gibbons (Raleigh),0,NC,NC
