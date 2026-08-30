@@ -1,39 +1,23 @@
 week,date,time,away,home,neutral,away_state,home_state
-1,2026-08-22,1:30pm,North Oakland Bucks (club) (Auburn Hills),C4 Lions (club) (Middletown),0,MI,
+1,2026-08-21,5am,Kubasaki (Okinawa),Kadena (Okinawa),0,JAPAN,JAPAN
 2,2026-08-27,6pm,Dunbar (Dayton),Stivers (Dayton),0,,
-2,2026-08-29,1pm,Eastmoor Academy (Columbus),Cincinnati College Prep (Cincinnati),0,,
-2,2026-08-29,6pm,Fairport Harding (Fairport Harbor),St John School (Ashtabula),0,,
-2,2026-08-29,12pm,Lorain (Lorain),Elyria (Elyria),0,,
-2,2026-08-29,3pm,Millersport (Millersport),Gamble Montessori (Cincinnati),0,,
-2,2026-08-29,12pm,Revere (Richfield),Garfield (Akron),0,,
-2,2026-08-29,12pm,Rocky River (Rocky River),John Marshall (Cleveland),0,,
-2,2026-08-29,6pm,St John's (Delphos),Lima Central Catholic (Lima),0,,
-2,2026-08-29,3pm,Warrensville Heights (Warrensville Heights),John F Kennedy (Cleveland),0,,
 2,2026-08-29,5pm,Peebles (club) (Peebles),Columbus Crusaders (club) (Columbus),0,,
 2,2026-08-29,6pm,Expression Prep Academy (Huntington),North Adams (club) (Seaman),0,WV,
 2,2026-08-29,6pm,Phelps,Shelby Valley (Pikeville),0,KY,KY
 2,2026-08-29,8:30pm,Prestonsburg,Pikeville (Pikeville),0,KY,KY
-2,2026-08-29,3:30pm,Farrell (Farrell),Clairton (Clairton),1,PA,PA
 2,2026-08-29,6pm,DuBois,Erie (Erie),0,PA,PA
-2,2026-08-29,12:05pm,Hickory (Hermitage),Westinghouse (Pittsburgh),1,PA,PA
-2,2026-08-29,,Kennedy Catholic (Hermitage),Coventry Christian (Pottstown),0,PA,PA
-2,2026-08-29,12pm,Imani Christian Academy (Pittsburgh),Football North (via Clarkson SS) (Mississauga),1,PA,ON
 2,2026-08-29,,South Newton,Greenwood Christian,0,IN,IN
-2,2026-08-29,4pm,Noblesville Lions (club) (Noblesville),Foxfire (Zanesville),0,IN,
 2,2026-08-29,7pm,Tri-State King's Crusaders (club) (Harlan),St Joseph Central Catholic (Fremont),0,IN,
-2,2026-08-29,,Kosciusko Thunder (club),Wabash,0,IN,IN
-2,2026-08-29,,The St James Academy (Springfield),Lehi,0,VA,UT
+2,2026-08-29,3pm,Kosciusko Thunder (club),Wabash,0,IN,IN
+2,2026-08-29,5pm,The St James Academy (Springfield),Lehi,1,VA,UT
 2,2026-08-29,,Annapolis Area Christian (Annapolis),Hewlett Sports Academy (Waldorf),0,MD,MD
-2,2026-08-29,4pm,Our Lady of Mount Carmel (Essex),Lutheran East (Cleveland Heights),0,MD,
-2,2026-08-29,2:30pm,Mt Zion Prep (Lanham),St John's College (Washington),0,MD,DC
 2,2026-08-29,7pm,Model Secondary School f/t Deaf (Washington),Indiana School for the Deaf,0,DC,IN
-2,2026-08-29,4pm,Monsignor Farrell (Staten Island),Holy Spirit (Absecon),0,NY,NJ
 2,2026-08-29,7pm,Mount St Michael Academy (Bronx),St Francis Prep (Fresh Meadows),0,NY,NY
-2,2026-08-29,11am,The Hun School (Princeton),Skyridge (Lehi),0,NJ,UT
+2,2026-08-29,1pm,The Hun School (Princeton),Skyridge (Lehi),1,NJ,UT
 2,2026-08-29,6pm,Camden (Camden),Imhotep Charter (Philadelphia),0,NJ,PA
-2,2026-08-29,1pm,Salem (Salem),Ironton (Ironton),0,NJ,
-2,2026-08-29,,Cornerstone Christian (San Antonio),IMG Academy (Bradenton),0,TX,FL
-2,2026-08-29,2pm,Bishop Gorman (Las Vegas),Christopher Columbus (Miami),0,NV,FL
+2,2026-08-29,8pm,DeSoto (DeSoto),St. Thomas Aquinas (Fort Lauderdale),0,TX,FL
+2,2026-08-29,7:30pm,Cornerstone Christian (San Antonio),IMG Academy (Bradenton),0,TX,FL
+2,2026-08-29,9pm,Mater Dei (Santa Ana),Orem,1,CA,UT
 2,2026-08-29,7pm,Cardinal Gibbons (Raleigh),W. A. Hough (Cornelius),1,NC,NC
 2,2026-08-29,5am,Humphreys (Pyeongtaek),Kadena (Okinawa),0,SOUTH KOREA,JAPAN
 2,2026-08-30,10:45am,Landmark Eagles (club) (Cincinnati),HSAA Angels (club) (Dallas),1,,TX
@@ -942,6 +926,7 @@ week,date,time,away,home,neutral,away_state,home_state
 4,2026-09-11,7pm,St Thomas More (Hamilton),Grand Rapids Catholic Central,0,ON,MI
 4,2026-09-11,5pm,Huron Heights (Newmarket),Zeeland West (Zeeland),0,ON,MI
 4,2026-09-11,8pm,Milton (Milton),Battle Ground Academy (Franklin),0,GA,TN
+4,2026-09-11,5am,Kubasaki (Okinawa),Kadena (Okinawa),0,JAPAN,JAPAN
 4,2026-09-12,2pm,Cuyahoga Valley Christian Academy (Cuyahoga Falls),Garfield (Akron),0,,
 4,2026-09-12,4pm,Danbury (Lakeside),Kennedy Catholic (Hermitage),0,,PA
 4,2026-09-12,6pm,Fort Loramie (Fort Loramie),Jefferson (Delphos),0,,
@@ -1864,6 +1849,8 @@ week,date,time,away,home,neutral,away_state,home_state
 6,2026-09-25,10pm,Faith Lutheran (Las Vegas),Bishop Gorman (Las Vegas),0,NV,NV
 6,2026-09-25,7pm,West Orange (Winter Garden),Edgewater (Orlando),0,FL,FL
 6,2026-09-25,,King-Drew,Saint Frances Academy (Baltimore),0,CA,MD
+6,2026-09-25,5am,Kubasaki (Okinawa),"American School in Japan (Chōfu, Tokyo)",0,JAPAN,JAPAN
+6,2026-09-25,5am,Kadena (Okinawa),Kinnick (Yokosuka),0,JAPAN,JAPAN
 6,2026-09-26,3pm,Bedford (Bedford),John F Kennedy (Cleveland),0,,
 6,2026-09-26,2pm,Buchtel (Akron),North (Akron),0,,
 6,2026-09-26,5pm,Danbury (Lakeside),Stryker (Stryker),0,,
@@ -2328,6 +2315,7 @@ week,date,time,away,home,neutral,away_state,home_state
 7,2026-10-02,8pm,Rabun Gap - Nacoochee (Rabun Gap),Christian Brothers,0,GA,MO
 7,2026-10-02,7pm,Cardinal Gibbons (Raleigh),Felton Grove (Apex),0,NC,NC
 7,2026-10-02,5am,Humphreys (Pyeongtaek),Kinnick (Yokosuka),0,SOUTH KOREA,JAPAN
+7,2026-10-02,5am,"American School in Japan (Chōfu, Tokyo)",Kadena (Okinawa),0,JAPAN,JAPAN
 7,2026-10-03,7pm,Belmont (Dayton),Manchester (Manchester),0,,
 7,2026-10-03,1pm,Central Catholic (Toledo),Novi Detroit Catholic Central (Novi),0,,MI
 7,2026-10-03,12pm,East (Akron),Ellet (Akron),0,,
@@ -2774,6 +2762,7 @@ week,date,time,away,home,neutral,away_state,home_state
 8,2026-10-09,,IMG Academy (Bradenton),New Palestine,0,FL,IN
 8,2026-10-09,7pm,Rabun Gap - Nacoochee (Rabun Gap),Charlotte Christian (Charlotte),0,GA,NC
 8,2026-10-09,7pm,Cardinal Gibbons (Raleigh),Holly Springs (Holly Springs),0,NC,NC
+8,2026-10-09,5am,Kinnick (Yokosuka),Kubasaki (Okinawa),0,JAPAN,JAPAN
 8,2026-10-10,7pm,Bethel (Tipp City),Lehman Catholic (Sidney),0,,
 8,2026-10-10,2pm,Brooklyn (Brooklyn),Trinity (Garfield Heights),0,,
 8,2026-10-10,12pm,Ellet (Akron),Buchtel (Akron),0,,

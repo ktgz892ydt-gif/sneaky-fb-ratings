@@ -38,7 +38,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 1,2026-08-21,Amanda-Clearcreek (Amanda),12,West Jefferson (West Jefferson),29,0,,
 1,2026-08-21,Anna (Anna),60,Spencerville (Spencerville),0,0,,
 1,2026-08-21,Ansonia (Ansonia),32,Riverside (De Graff),8,0,,
-1,2026-08-21,Arcadia (Arcadia),41,Cory-Rawson (Rawson),14,0,,
+1,2026-08-21,Arcadia (Arcadia),40,Cory-Rawson (Rawson),14,0,,
 1,2026-08-21,Arcanum (Arcanum),7,Covington (Covington),31,0,,
 1,2026-08-21,Ashland (Ashland),28,Bay (Bay Village),7,0,,
 1,2026-08-21,Athens (The Plains),49,Logan (Logan),21,0,,
@@ -127,7 +127,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 1,2026-08-21,Fredericktown (Fredericktown),7,Highland (Marengo),28,0,,
 1,2026-08-21,Fremont Ross (Fremont),0,Tiffin Columbian (Tiffin),1,0,,
 1,2026-08-21,Galion (Galion),12,St Marys Memorial (St Marys),36,0,,
-1,2026-08-21,Gallia Academy (Gallipolis),7,Boyd County (Ashland),45,0,,KY
+1,2026-08-21,Gallia Academy (Gallipolis),7,Boyd County (Ashland),46,0,,KY
 1,2026-08-21,Garfield Heights (Garfield Heights),27,Canfield (Canfield),24,0,,
 1,2026-08-21,Geneva (Geneva),21,Shaker Heights (Shaker Heights),28,0,,
 1,2026-08-21,Genoa Area (Genoa),7,Archbold (Archbold),38,0,,
@@ -195,7 +195,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 1,2026-08-21,Middletown (Middletown),3,Elder (Cincinnati),35,0,,
 1,2026-08-21,Millersport (Millersport),14,Sciotoville Community (Portsmouth),0,0,,
 1,2026-08-21,Milton-Union (West Milton),12,Carlisle (Carlisle),43,0,,
-1,2026-08-21,Mineral Ridge (Mineral Ridge),42,Pymatuning Valley (Andover),7,0,,
+1,2026-08-21,Mineral Ridge (Mineral Ridge),49,Pymatuning Valley (Andover),7,0,,
 1,2026-08-21,Minford (Minford),20,Rock Hill (Ironton),49,0,,
 1,2026-08-21,Minster (Minster),27,Fort Loramie (Fort Loramie),17,0,,
 1,2026-08-21,Mississinawa Valley (Union City),0,Waynesfield-Goshen (Waynesfield),32,0,,
@@ -267,7 +267,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 1,2026-08-21,Sheridan (Thornville),13,Licking Valley (Newark),28,0,,
 1,2026-08-21,Smithville (Smithville),21,Tuslaw (Massillon),14,0,,
 1,2026-08-21,Canton South (Canton),6,Garaway (Sugarcreek),20,0,,
-1,2026-08-21,South (Columbus),39,Mifflin (Columbus),6,0,,
+1,2026-08-21,South (Columbus),42,Mifflin (Columbus),6,0,,
 1,2026-08-21,South (Willoughby),34,Cuyahoga Falls (Cuyahoga Falls),0,0,,
 1,2026-08-21,South Central (Greenwich),12,Willard (Willard),16,0,,
 1,2026-08-21,Southeastern (Chillicothe),28,Fairfield Christian Academy (Lancaster),0,0,,
@@ -395,6 +395,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 1,2026-08-22,Pleasure Ridge Park (Louisville),28,Shelby Valley (Pikeville),13,0,KY,KY
 1,2026-08-22,Wayne County,7,Somerset (Somerset),42,0,KY,KY
 1,2026-08-22,Washtenaw Saints (club),27,Noblesville Lions (club) (Noblesville),46,0,MI,IN
+1,2026-08-22,North Oakland Bucks (club) (Auburn Hills),20,C4 Lions (club) (Middletown),0,0,MI,
 1,2026-08-22,Tri-State King's Crusaders (club) (Harlan),58,Kosciusko Thunder (club),12,0,IN,IN
 1,2026-08-22,Oakland (Murfreesboro),56,Christ Presbyterian Academy (Nashville),7,0,TN,TN
 1,2026-08-22,Orem,14,Skyridge (Lehi),21,0,UT,UT
@@ -845,8 +846,28 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 2,2026-08-28,Loyola Academy (Wilmette),33,Cathedral (Indianapolis),19,0,IL,IN
 2,2026-08-28,Legacy Sport Sciences (Spring),19,Celina (Celina),21,0,TX,TX
 2,2026-08-28,Lutheran North (St Louis),18,Cardinal Ritter (St Louis),30,0,MO,MO
+2,2026-08-28,Panguitch,52,Monument Valley,14,0,UT,UT
 2,2026-08-28,Horizon (Winter Garden),0,West Orange (Winter Garden),53,0,FL,FL
 2,2026-08-28,Rabun Gap - Nacoochee (Rabun Gap),15,Brownsburg,31,0,GA,IN
 2,2026-08-28,Tafuna (Tafuna),0,Liberty (Henderson),42,0,AS,NV
 2,2026-08-28,Kubasaki (Okinawa),7,Kinnick (Yokosuka),54,0,JAPAN,JAPAN
 2,2026-08-28,NFL Academy (Loughborough),28,Archbishop Hoban (Akron),13,0,UK,
+2,2026-08-29,Eastmoor Academy (Columbus),12,Cincinnati College Prep (Cincinnati),38,0,,
+2,2026-08-29,Fairport Harding (Fairport Harbor),0,St John School (Ashtabula),33,0,,
+2,2026-08-29,Lorain (Lorain),42,Elyria (Elyria),22,0,,
+2,2026-08-29,Millersport (Millersport),13,Gamble Montessori (Cincinnati),46,0,,
+2,2026-08-29,Revere (Richfield),28,Garfield (Akron),12,0,,
+2,2026-08-29,Rocky River (Rocky River),63,John Marshall (Cleveland),0,0,,
+2,2026-08-29,St John's (Delphos),0,Lima Central Catholic (Lima),41,0,,
+2,2026-08-29,Warrensville Heights (Warrensville Heights),57,John F Kennedy (Cleveland),0,0,,
+2,2026-08-29,North Oakland Bucks (club) (Auburn Hills),25,Washtenaw Saints (club),34,0,MI,MI
+2,2026-08-29,Farrell (Farrell),33,Clairton (Clairton),6,1,PA,PA
+2,2026-08-29,Hickory (Hermitage),6,Westinghouse (Pittsburgh),20,1,PA,PA
+2,2026-08-29,Kennedy Catholic (Hermitage),16,Coventry Christian (Pottstown),8,0,PA,PA
+2,2026-08-29,Imani Christian Academy (Pittsburgh),20,Football North (via Clarkson SS) (Mississauga),44,1,PA,ON
+2,2026-08-29,Noblesville Lions (club) (Noblesville),42,Foxfire (Zanesville),0,0,IN,
+2,2026-08-29,Our Lady of Mount Carmel (Essex),42,Lutheran East (Cleveland Heights),14,0,MD,
+2,2026-08-29,Mt Zion Prep (Lanham),8,St John's College (Washington),45,0,MD,DC
+2,2026-08-29,Monsignor Farrell (Staten Island),28,Holy Spirit (Absecon),14,1,NY,NJ
+2,2026-08-29,Salem (Salem),14,Ironton (Ironton),55,0,NJ,
+2,2026-08-29,Bishop Gorman (Las Vegas),28,Christopher Columbus (Miami),33,0,NV,FL
