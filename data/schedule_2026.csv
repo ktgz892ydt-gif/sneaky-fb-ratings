@@ -2,32 +2,7 @@ week,date,time,away,home,neutral,away_state,home_state
 1,2026-08-21,5am,Kubasaki (Okinawa),Kadena (Okinawa),0,JAPAN,JAPAN
 2,2026-08-29,5am,Humphreys (Pyeongtaek),Kadena (Okinawa),0,SOUTH KOREA,JAPAN
 3,2026-09-04,8pm,Osceola Grace (club) (Elkhart),Noblesville Lions (club) (Noblesville),0,IN,IN
-3,2026-09-05,7pm,Adena (Frankfort),Landmark Eagles (club) (Cincinnati),0,,
-3,2026-09-05,7pm,Bishop Watterson (Columbus),Ursuline (Youngstown),0,,
-3,2026-09-05,12pm,Cleveland Central Catholic (Cleveland),John Marshall (Cleveland),0,,
-3,2026-09-05,7pm,Cleveland Heights (Cleveland Heights),GlenOak (Canton),1,,
-3,2026-09-05,7pm,Firestone (Akron),Lutheran East (Cleveland Heights),0,,
-3,2026-09-05,4pm,Holgate (Holgate),Kennedy Catholic (Hermitage),0,,PA
-3,2026-09-05,6pm,Jackson-Milton (North Jackson),St John School (Ashtabula),0,,
-3,2026-09-05,2pm,Lake Catholic (Mentor),Buchtel (Akron),0,,
-3,2026-09-05,6pm,Mapleton (Ashland),Crestline (Crestline),0,,
-3,2026-09-05,6pm,Sebring McKinley (Sebring),Danbury (Lakeside),0,,
-3,2026-09-05,7pm,Plymouth (Plymouth),St Mary Central Catholic (Sandusky),0,,
-3,2026-09-05,7pm,Pymatuning Valley (Andover),Valley Christian School (Youngstown),0,,
-3,2026-09-05,6pm,St Joseph Central Catholic (Fremont),Chalker (Southington),0,,
-3,2026-09-05,5pm,Columbus Crusaders (club) (Columbus),Phalen Academy,0,,IN
 3,2026-09-05,5pm,C4 Lions (club) (Middletown),North Adams (club) (Seaman),0,,
-3,2026-09-05,1pm,Perry Traditional Academy (Pittsburgh),Shady Side Academy,0,PA,PA
-3,2026-09-05,3pm,Morristown,Tri-State King's Crusaders (club) (Harlan),0,IN,IN
-3,2026-09-05,3pm,Kosciusko Thunder (club),Greenwood Christian,0,IN,IN
-3,2026-09-05,8pm,Eleanor Roosevelt (Greenbelt),Digital Pioneers Academy (Washington),0,MD,DC
-3,2026-09-05,7pm,DeMatha Catholic (Hyattsville),Imhotep Charter (Philadelphia),0,MD,PA
-3,2026-09-05,7pm,St John's College (Washington),Archbishop Spalding (Severn),1,DC,MD
-3,2026-09-05,3pm,St Francis Prep (Fresh Meadows),Stow-Munroe Falls (Stow),1,NY,
-3,2026-09-05,6pm,Health Sciences (Buffalo),Canisius (Buffalo),1,NY,NY
-3,2026-09-05,1pm,Eagle Academy for Young Men III (Jamaica),St John the Baptist (West Islip),0,NY,NY
-3,2026-09-05,6pm,St Thomas More (Oakdale),St Peter's Prep,0,CT,NJ
-3,2026-09-05,8pm,IMG Academy (Bradenton),Saint Louis School,1,FL,HI
 4,2026-09-10,7pm,Aurora (Aurora),Mayfield (Mayfield),0,,
 4,2026-09-10,7pm,Beachwood (Beachwood),Fairport Harding (Fairport Harbor),0,,
 4,2026-09-10,7pm,Chagrin Falls (Chagrin Falls),Fairview (Fairview Park),0,,
@@ -461,6 +436,7 @@ week,date,time,away,home,neutral,away_state,home_state
 4,2026-09-11,7pm,Holy Names (Windsor),Novi Detroit Catholic Central (Novi),0,ON,MI
 4,2026-09-11,7pm,St Thomas More (Hamilton),Grand Rapids Catholic Central,0,ON,MI
 4,2026-09-11,5pm,Huron Heights (Newmarket),Zeeland West (Zeeland),0,ON,MI
+4,2026-09-11,,Football North (via Clarkson SS) (Mississauga),St Frances Academy (Regional),1,ON,MD
 4,2026-09-11,8pm,Milton (Milton),Battle Ground Academy (Franklin),0,GA,TN
 4,2026-09-11,5am,Kubasaki (Okinawa),Kadena (Okinawa),0,JAPAN,JAPAN
 4,2026-09-12,2pm,Cuyahoga Valley Christian Academy (Cuyahoga Falls),Garfield (Akron),0,,
@@ -1403,7 +1379,7 @@ week,date,time,away,home,neutral,away_state,home_state
 6,2026-09-26,,Landmark Eagles (club) (Cincinnati),C4 Lions (club) (Middletown),0,,
 6,2026-09-26,5pm,Foxfire (Zanesville),North Adams (club) (Seaman),0,,
 6,2026-09-26,6pm,Kennedy Catholic (Hermitage),St Joseph Central Catholic (Fremont),0,PA,
-6,2026-09-26,3pm,Waldron,Tri-State King's Crusaders (club) (Harlan),0,IN,IN
+6,2026-09-26,3pm,Waldron,Fort Wayne King's Crusaders (club) (Harlan),0,IN,IN
 6,2026-09-26,,Greenwood Christian,Morristown,0,IN,IN
 6,2026-09-26,5pm,Noblesville Lions (club) (Noblesville),Columbus Crusaders (club) (Columbus),0,IN,
 6,2026-09-26,,Indianapolis Crimson Knights (club),Kingdom/Christian Life Academy Lions (club) (Hopedale),0,IN,IL
@@ -1780,7 +1756,6 @@ week,date,time,away,home,neutral,away_state,home_state
 7,2026-10-02,7pm,Linsly (Wheeling),University (Morgantown),0,WV,WV
 7,2026-10-02,7:30pm,Ashland Blazer (Ashland),Rowan County,0,KY,KY
 7,2026-10-02,7:30pm,Bath County,East Carter,0,KY,KY
-7,2026-10-02,6pm,Berea,Foxfire (Zanesville),0,KY,
 7,2026-10-02,7:30pm,Boyd County (Ashland),Greenup County (Greenup),0,KY,KY
 7,2026-10-02,7pm,Boyle County (Danville),St Xavier (Louisville),0,KY,KY
 7,2026-10-02,7pm,Campbell County (Alexandria),Newport Central Catholic,0,KY,KY
@@ -1838,7 +1813,7 @@ week,date,time,away,home,neutral,away_state,home_state
 7,2026-10-02,,Bath County,Valley (Wetzel) (Pine Grove),0,VA,WV
 7,2026-10-02,,Beacon Hill (club),Football North (via Clarkson SS) (Mississauga),1,VA,ON
 7,2026-10-02,,Saint Frances Academy (Baltimore),Legacy Sport Sciences (Spring),0,MD,TX
-7,2026-10-02,,John Carroll School (Bel Air),Our Lady of Mount Carmel (Essex),0,MD,MD
+7,2026-10-02,7pm,John Carroll School (Bel Air),Our Lady of Mount Carmel (Essex),0,MD,MD
 7,2026-10-02,7pm,St Mary's Ryken (Leonardtown),Good Counsel (Wheaton),0,MD,MD
 7,2026-10-02,,Mt Zion Prep (Lanham),DeMatha Catholic (Hyattsville),0,MD,MD
 7,2026-10-02,,Friendship Collegiate (Washington),Loudoun Sports Academy (Leesburg),0,DC,VA
@@ -2317,7 +2292,7 @@ week,date,time,away,home,neutral,away_state,home_state
 8,2026-10-10,5pm,C4 Lions (club) (Middletown),Columbus Crusaders (club) (Columbus),0,,
 8,2026-10-10,7pm,Kennedy Catholic (Hermitage),St Mary Central Catholic (Sandusky),0,PA,
 8,2026-10-10,,Wabash,Greenwood Christian,0,IN,IN
-8,2026-10-10,,Kosciusko Thunder (club),Tri-State King's Crusaders (club) (Harlan),0,IN,IN
+8,2026-10-10,,Kosciusko Thunder (club),Fort Wayne King's Crusaders (club) (Harlan),0,IN,IN
 8,2026-10-10,2pm,Bishop McNamara (Forestville),Gonzaga (Washington),0,MD,DC
 8,2026-10-10,4pm,Long Island Lutheran (Brookville),Riverdale Baptist (Upper Marlboro),0,NY,MD
 8,2026-10-10,12pm,The Hun School (Princeton),Naval Academy Prep (Newport),0,NJ,RI
@@ -2769,7 +2744,7 @@ week,date,time,away,home,neutral,away_state,home_state
 9,2026-10-17,4pm,Independence (Coal City),Linsly (Wheeling),0,WV,WV
 9,2026-10-17,1pm,Dearborn Divine Child (Dearborn),Warren De La Salle (Warren),0,MI,MI
 9,2026-10-17,3pm,Calumet Christian (Griffith),Columbus Crusaders (club) (Columbus),0,IN,
-9,2026-10-17,,Greenwood Christian,Tri-State King's Crusaders (club) (Harlan),0,IN,IN
+9,2026-10-17,,Greenwood Christian,Fort Wayne King's Crusaders (club) (Harlan),0,IN,IN
 9,2026-10-17,,Kosciusko Thunder (club),Union (Dugger),0,IN,IN
 9,2026-10-17,2pm,Saint Frances Academy (Baltimore),The Hun School (Princeton),0,MD,NJ
 9,2026-10-17,2pm,Christian Brothers Academy - Syracuse (Syracuse),Canisius (Buffalo),0,NY,NY

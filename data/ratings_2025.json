@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-06T00:41:52+00:00",
+ "generatedAt": "2026-09-06T17:32:08+00:00",
  "season": 2025,
  "weeksLoaded": [
   1,
@@ -130578,11 +130578,11 @@
   "bySeason": {
    "live": {
     "2026": {
-     "games": 358,
-     "accuracy": 0.7179,
-     "logloss": 0.5262,
-     "brier": 0.176,
-     "meanMarginError": 19.43
+     "games": 701,
+     "accuracy": 0.7447,
+     "logloss": 0.5094,
+     "brier": 0.1678,
+     "meanMarginError": 17.82
     }
    },
    "backtest": {
@@ -130611,11 +130611,11 @@
   },
   "overall": {
    "live": {
-    "games": 358,
-    "accuracy": 0.7179,
-    "logloss": 0.5262,
-    "brier": 0.176,
-    "meanMarginError": 19.43
+    "games": 701,
+    "accuracy": 0.7447,
+    "logloss": 0.5094,
+    "brier": 0.1678,
+    "meanMarginError": 17.82
    },
    "backtest": {
     "games": 13751,
@@ -130661,28 +130661,33 @@
    "live": {
     "0.5": {
      "predicted": 0.5,
-     "actual": 0.4082,
-     "n": 49
+     "actual": 0.443,
+     "n": 79
     },
     "0.6": {
      "predicted": 0.6,
-     "actual": 0.6064,
-     "n": 94
+     "actual": 0.6026,
+     "n": 151
     },
     "0.7": {
      "predicted": 0.7,
-     "actual": 0.7419,
-     "n": 93
+     "actual": 0.773,
+     "n": 163
     },
     "0.8": {
      "predicted": 0.8,
-     "actual": 0.881,
-     "n": 84
+     "actual": 0.8415,
+     "n": 164
     },
     "0.9": {
      "predicted": 0.9,
-     "actual": 0.9714,
-     "n": 35
+     "actual": 0.9237,
+     "n": 118
+    },
+    "1.0": {
+     "predicted": 1.0,
+     "actual": 0.9231,
+     "n": 26
     }
    }
   }
@@ -130691,29 +130696,29 @@
   "source": "fantastic50",
   "sourceName": "Drew Pasteur's Ohio Fantastic 50",
   "sourceUrl": "https://www.fantastic50.net/",
-  "sharedGames": 278,
+  "sharedGames": 547,
   "ours": {
-   "accuracy": 0.7194,
-   "logloss": 0.5221,
-   "meanMarginError": 19.07
+   "accuracy": 0.7459,
+   "logloss": 0.5035,
+   "meanMarginError": 17.56
   },
   "theirs": {
-   "accuracy": 0.7698,
-   "logloss": 0.476,
-   "meanMarginError": 14.91
+   "accuracy": 0.766,
+   "logloss": 0.4749,
+   "meanMarginError": 14.36
   },
   "disagreements": {
-   "weWereRight": 10,
-   "theyWereRight": 24,
-   "bothRight": 190,
-   "bothWrong": 54
+   "weWereRight": 28,
+   "theyWereRight": 39,
+   "bothRight": 380,
+   "bothWrong": 100
   },
-  "accuracyGap": -0.0504,
-  "accuracyGapSE": 0.021,
-  "accuracyPValue": 0.0243,
-  "accuracyVerdict": "leaning",
-  "loglossGap": 0.0461,
-  "loglossGapSE": 0.0248,
+  "accuracyGap": -0.0201,
+  "accuracyGapSE": 0.015,
+  "accuracyPValue": 0.2215,
+  "accuracyVerdict": "indistinguishable",
+  "loglossGap": 0.0286,
+  "loglossGapSE": 0.017,
   "loglossVerdict": "leaning"
  },
  "trendCols": "w=throughWeek rating=Alex Points odds=playoff odds"
