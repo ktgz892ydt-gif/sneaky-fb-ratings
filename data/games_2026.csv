@@ -1345,6 +1345,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 3,2026-09-05,Pymatuning Valley (Andover),40,Valley Christian School (Youngstown),0,0,,
 3,2026-09-05,St Joseph Central Catholic (Fremont),34,Chalker (Southington),30,0,,
 3,2026-09-05,Stryker (Stryker),20,Windham (Windham),54,0,,
+3,2026-09-05,C4 Lions (club) (Middletown),18,North Adams (club) (Seaman),0,0,,
 3,2026-09-05,Perry Traditional Academy (Pittsburgh),6,Shady Side Academy,30,0,PA,PA
 3,2026-09-05,The Haverford School (Haverford),25,McDonogh School (Owings Mills),35,1,PA,MD
 3,2026-09-05,Morristown,6,Fort Wayne King's Crusaders (club) (Harlan),36,0,IN,IN
@@ -1489,7 +1490,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 4,2026-09-11,Field (Mogadore),7,Woodridge (Peninsula),62,0,,
 4,2026-09-11,Finneytown (Cincinnati),6,Madeira (Cincinnati),55,0,,
 4,2026-09-11,Firelands (Oberlin),40,Brookside (Sheffield),37,0,,
-4,2026-09-11,Firestone (Akron),6,St Vincent-St Mary (Akron),38,0,,
+4,2026-09-11,Firestone (Akron),6,St Vincent-St Mary (Akron),35,0,,
 4,2026-09-11,Fort Recovery (Fort Recovery),37,St John's (Delphos),20,0,,
 4,2026-09-11,Franklin Heights (Columbus),6,KIPP Columbus (Columbus),20,0,,
 4,2026-09-11,Fredericktown (Fredericktown),7,Danville (Danville),52,0,,
@@ -1520,7 +1521,9 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 4,2026-09-11,Indian Lake (Lewistown),7,London (London),29,0,,
 4,2026-09-11,Ironton (Ironton),35,Somerset (Somerset),9,0,,KY
 4,2026-09-11,Jackson (Massillon),44,Warren G Harding (Warren),37,0,,
+4,2026-09-11,John Adams (Cleveland),14,Rhodes (Cleveland),44,0,,
 4,2026-09-11,John Glenn (New Concord),55,River View (Warsaw),0,0,,
+4,2026-09-11,John Marshall (Cleveland),28,John F Kennedy (Cleveland),12,0,,
 4,2026-09-11,Kirtland (Kirtland),50,Rootstown (Rootstown),7,0,,
 4,2026-09-11,LaBrae (Leavittsburg),0,Garfield (Garrettsville),49,0,,
 4,2026-09-11,Lake (Uniontown),15,Perry (Massillon),9,0,,
@@ -1530,7 +1533,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 4,2026-09-11,La Salle (Cincinnati),0,Elder (Cincinnati),35,0,,
 4,2026-09-11,Lehman Catholic (Sidney),6,Northridge (Dayton),21,0,,
 4,2026-09-11,Leipsic (Leipsic),55,Arlington (Arlington),0,0,,
-4,2026-09-11,Liberty (Youngstown),27,Crestview (Columbiana),7,0,,
+4,2026-09-11,Liberty (Youngstown),37,Crestview (Columbiana),7,0,,
 4,2026-09-11,Licking Valley (Newark),54,Lakewood (Hebron),7,0,,
 4,2026-09-11,Lima Senior (Lima),42,Tiffin Columbian (Tiffin),33,0,,
 4,2026-09-11,Lima Central Catholic (Lima),13,Columbus Grove (Columbus Grove),6,0,,
@@ -1678,7 +1681,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 4,2026-09-11,Waterford (Waterford),0,Fort Frye (Beverly),20,0,,
 4,2026-09-11,Waverly (Waverly),42,Valley (Lucasville),25,0,,
 4,2026-09-11,Wayne (Huber Heights),42,Springboro (Springboro),26,0,,
-4,2026-09-11,Waynedale (Apple Creek),13,Smithville (Smithville),43,0,,
+4,2026-09-11,Waynedale (Apple Creek),13,Smithville (Smithville),46,0,,
 4,2026-09-11,Wellston (Wellston),38,Trimble (Glouster),32,0,,
 4,2026-09-11,Wellsville (Wellsville),30,Southern (Salineville),34,0,,
 4,2026-09-11,West (Columbus),44,Eastmoor Academy (Columbus),0,0,,
@@ -1733,6 +1736,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 4,2026-09-11,Brother Rice (Bloomfield Hills),31,Warren De La Salle (Warren),28,0,MI,MI
 4,2026-09-11,Burr Oak,78,North Adams-Jerome (North Adams),0,0,MI,MI
 4,2026-09-11,Climax-Scotts,34,Adrian Lenawee Christian (Adrian),19,0,MI,MI
+4,2026-09-11,Detroit King (Detroit),41,Detroit Renaissance,0,0,MI,MI
 4,2026-09-11,Erie Mason (Erie),8,Montpelier (Montpelier),39,0,MI,
 4,2026-09-11,New Boston Huron,15,Monroe St Mary Catholic Central (Monroe),55,0,MI,MI
 4,2026-09-11,Ottawa Lake Whiteford (Ottawa Lake),48,Hilltop (West Unity),14,0,MI,
@@ -1763,6 +1767,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 4,2026-09-11,South Dearborn (Aurora),21,Richmond (Richmond),19,0,IN,IN
 4,2026-09-11,Southport (Indianapolis),28,Terre Haute North Vigo,14,0,IN,IN
 4,2026-09-11,Phalen Academy,24,Blackhawk Christian (Fort Wayne),42,0,IN,IN
+4,2026-09-11,Noblesville Lions (club) (Noblesville),0,Purdue Poly - Englewood (Indianapolis),26,0,IN,IN
 4,2026-09-11,Baylor (Chattanooga),35,Trinity (Louisville),27,0,TN,KY
 4,2026-09-11,Christ Presbyterian Academy (Nashville),14,Archbishop Moeller (Cincinnati),42,0,TN,
 4,2026-09-11,Grace Baptist Academy,7,Middle Tennessee Christian School (Murfreesboro),55,0,TN,TN
@@ -1789,3 +1794,27 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 4,2026-09-11,Huron Heights (Newmarket),0,Zeeland West (Zeeland),24,0,ON,MI
 4,2026-09-11,Milton (Milton),42,Battle Ground Academy (Franklin),21,0,GA,TN
 4,2026-09-11,Kubasaki (Okinawa),12,Kadena (Okinawa),18,0,JAPAN,JAPAN
+4,2026-09-12,Cuyahoga Valley Christian Academy (Cuyahoga Falls),34,Garfield (Akron),0,0,,
+4,2026-09-12,Danbury (Lakeside),60,Kennedy Catholic (Hermitage),6,0,,PA
+4,2026-09-12,Fort Loramie (Fort Loramie),28,Jefferson (Delphos),18,0,,
+4,2026-09-12,Gilmour Academy (Gates Mills),7,Lake Catholic (Mentor),14,0,,
+4,2026-09-12,Lutheran East (Cleveland Heights),6,Buchtel (Akron),8,0,,
+4,2026-09-12,Millersport (Millersport),6,Tuscarawas Central Catholic (New Philadelphia),10,0,,
+4,2026-09-12,Plymouth (Plymouth),16,St Joseph Central Catholic (Fremont),66,0,,
+4,2026-09-12,St Mary Central Catholic (Sandusky),48,Stryker (Stryker),6,0,,
+4,2026-09-12,Warrensville Heights (Warrensville Heights),0,Cleveland Central Catholic (Cleveland),14,0,,
+4,2026-09-12,Clark Montessori (Cincinnati),20,Gamble Montessori (Cincinnati),36,0,,
+4,2026-09-12,Columbus Crusaders (club) (Columbus),0,Washtenaw Saints (club),3,0,,MI
+4,2026-09-12,Foxfire (Zanesville),0,C4 Lions (club) (Middletown),38,0,,
+4,2026-09-12,Expression Prep Academy (Huntington),14,Notre Dame (Portsmouth),35,0,WV,
+4,2026-09-12,Kiski Prep (Saltsburg),43,St James (Hagerstown),0,0,PA,MD
+4,2026-09-12,Saint Joseph's Prep (Philadelphia),3,Bergen Catholic (Oradell),33,0,PA,NJ
+4,2026-09-12,Malvern Prep (Malvern),21,Imhotep Charter (Philadelphia),27,0,PA,PA
+4,2026-09-12,Union (Dugger),58,Greenwood Christian,12,0,IN,IN
+4,2026-09-12,St Joseph's Collegiate (Buffalo),38,John Carroll School (Bel Air),49,0,NY,MD
+4,2026-09-12,Lewis J Bennett (Buffalo),0,St John's College (Washington),55,0,NY,DC
+4,2026-09-12,Holy Cross (Flushing),8,St Francis Prep (Fresh Meadows),10,0,NY,NY
+4,2026-09-12,St Joseph by-the-Sea (Staten Island),35,Long Island Lutheran (Brookville),7,0,NY,NY
+4,2026-09-12,Paramus Catholic (Paramus),20,Iona Prep (New Rochelle),63,0,NJ,NY
+4,2026-09-12,DePaul Catholic (Wayne),18,Monsignor Farrell (Staten Island),21,0,NJ,NY
+4,2026-09-12,Audubon (Audubon),20,Salem (Salem),22,0,NJ,NJ

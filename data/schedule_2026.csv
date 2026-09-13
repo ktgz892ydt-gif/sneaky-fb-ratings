@@ -2,39 +2,9 @@ week,date,time,away,home,neutral,away_state,home_state
 1,2026-08-21,5am,Kubasaki (Okinawa),Kadena (Okinawa),0,JAPAN,JAPAN
 2,2026-08-29,5am,Humphreys (Pyeongtaek),Kadena (Okinawa),0,SOUTH KOREA,JAPAN
 3,2026-09-04,8pm,Osceola Grace (club) (Elkhart),Noblesville Lions (club) (Noblesville),0,IN,IN
-3,2026-09-05,5pm,C4 Lions (club) (Middletown),North Adams (club) (Seaman),0,,
-4,2026-09-11,4pm,John Adams (Cleveland),Rhodes (Cleveland),0,,
-4,2026-09-11,4pm,John Marshall (Cleveland),John F Kennedy (Cleveland),0,,
-4,2026-09-11,5pm,Detroit King (Detroit),Detroit Renaissance,0,MI,MI
-4,2026-09-11,7pm,Noblesville Lions (club) (Noblesville),Purdue Poly - Englewood (Indianapolis),0,IN,IN
 4,2026-09-11,6pm,Eagle Academy for Young Men II (Brooklyn),La Salle Academy (Providence),0,NY,RI
-4,2026-09-12,2pm,Cuyahoga Valley Christian Academy (Cuyahoga Falls),Garfield (Akron),0,,
-4,2026-09-12,4pm,Danbury (Lakeside),Kennedy Catholic (Hermitage),0,,PA
-4,2026-09-12,6pm,Fort Loramie (Fort Loramie),Jefferson (Delphos),0,,
-4,2026-09-12,7pm,Gilmour Academy (Gates Mills),Lake Catholic (Mentor),0,,
-4,2026-09-12,1pm,Lutheran East (Cleveland Heights),Buchtel (Akron),0,,
-4,2026-09-12,6pm,Millersport (Millersport),Tuscarawas Central Catholic (New Philadelphia),0,,
-4,2026-09-12,7pm,Plymouth (Plymouth),St Joseph Central Catholic (Fremont),0,,
-4,2026-09-12,5pm,St Mary Central Catholic (Sandusky),Stryker (Stryker),0,,
-4,2026-09-12,12pm,Warrensville Heights (Warrensville Heights),Cleveland Central Catholic (Cleveland),0,,
-4,2026-09-12,1pm,Clark Montessori (Cincinnati),Gamble Montessori (Cincinnati),0,,
-4,2026-09-12,1:30pm,Columbus Crusaders (club) (Columbus),Washtenaw Saints (club),0,,MI
 4,2026-09-12,2pm,Landmark Eagles (club) (Cincinnati),Osceola Grace (club) (Elkhart),0,,IN
 4,2026-09-12,7pm,West Union (club) (West Union),North Adams (club) (Seaman),0,,
-4,2026-09-12,1pm,Foxfire (Zanesville),C4 Lions (club) (Middletown),0,,
-4,2026-09-12,4pm,Expression Prep Academy (Huntington),Notre Dame (Portsmouth),0,WV,
-4,2026-09-12,1pm,Kiski Prep (Saltsburg),St James (Hagerstown),0,PA,MD
-4,2026-09-12,1pm,Saint Joseph's Prep (Philadelphia),Bergen Catholic (Oradell),0,PA,NJ
-4,2026-09-12,7pm,Malvern Prep (Malvern),Imhotep Charter (Philadelphia),0,PA,PA
-4,2026-09-12,,Union (Dugger),Greenwood Christian,0,IN,IN
-4,2026-09-12,12pm,St Joseph's Collegiate (Buffalo),John Carroll School (Bel Air),0,NY,MD
-4,2026-09-12,2pm,Lewis J Bennett (Buffalo),St John's College (Washington),0,NY,DC
-4,2026-09-12,7:30pm,Holy Cross (Flushing),St Francis Prep (Fresh Meadows),0,NY,NY
-4,2026-09-12,1pm,St Joseph by-the-Sea (Staten Island),Long Island Lutheran (Brookville),0,NY,NY
-4,2026-09-12,1:30pm,Paramus Catholic (Paramus),Iona Prep (New Rochelle),0,NJ,NY
-4,2026-09-12,1pm,DePaul Catholic (Wayne),Monsignor Farrell (Staten Island),0,NJ,NY
-4,2026-09-12,12pm,Audubon (Audubon),Salem (Salem),0,NJ,NJ
-4,2026-09-12,,Football North (via Clarkson SS) (Mississauga),St Frances Academy (Regional),1,ON,MD
 4,2026-09-12,7pm,California School f/t Deaf (Riverside),Indiana School for the Deaf,0,CA,IN
 4,2026-09-14,5pm,Huron Heights (Newmarket),Maple Ridge (Barrie),0,ON,ON
 5,2026-09-17,7pm,Beechcroft (Columbus),Linden McKinley (Columbus),0,,
@@ -101,7 +71,6 @@ week,date,time,away,home,neutral,away_state,home_state
 5,2026-09-18,7pm,Canfield (Canfield),Youngstown (Youngstown),0,,
 5,2026-09-18,7pm,Cardington-Lincoln (Cardington),Fredericktown (Fredericktown),0,,
 5,2026-09-18,7pm,Archbishop Carroll (Dayton),Talawanda (Oxford),0,,
-5,2026-09-18,7pm,Catholic Central (Springfield),West Jefferson (West Jefferson),0,,
 5,2026-09-18,7pm,Catholic Central (Steubenville),Buckeye Local (Rayland),0,,
 5,2026-09-18,7pm,Cedarville (Cedarville),Triad (North Lewisburg),0,,
 5,2026-09-18,7pm,Canton Central Catholic (Canton),Firelands (Oberlin),0,,
@@ -359,7 +328,7 @@ week,date,time,away,home,neutral,away_state,home_state
 5,2026-09-18,7pm,Walnut Hills (Cincinnati),Winton Woods (Cincinnati),0,,
 5,2026-09-18,7pm,Wapakoneta (Wapakoneta),St Marys Memorial (St Marys),0,,
 5,2026-09-18,7pm,Massillon Washington (Massillon),St Edward (Lakewood),0,,
-5,2026-09-18,6:30pm,Washington (Washington Court House),Shroder (Cincinnati),0,,
+5,2026-09-18,7pm,Washington (Washington Court House),West Jefferson (West Jefferson),0,,
 5,2026-09-18,7pm,Wauseon (Wauseon),Patrick Henry (Hamler),0,,
 5,2026-09-18,7pm,Waverly (Waverly),Portsmouth West (West Portsmouth),0,,
 5,2026-09-18,7pm,Waynesville (Waynesville),Oakwood (Dayton),0,,
@@ -459,6 +428,7 @@ week,date,time,away,home,neutral,away_state,home_state
 5,2026-09-18,7pm,Middle Tennessee Christian School (Murfreesboro),Concord Christian School (Knoxville),0,TN,TN
 5,2026-09-18,,Loudoun Sports Academy (Leesburg),DeMatha Catholic (Hyattsville),0,VA,MD
 5,2026-09-18,7:30pm,Mt Zion Prep (Lanham),The St James Performance Academy (Springfield),0,MD,VA
+5,2026-09-18,5pm,St Frances Academy (Regional),Football North (via Clarkson SS) (Mississauga),1,MD,ON
 5,2026-09-18,,Hewlett Sports Academy (Waldorf),Saint Frances Academy (Baltimore),0,MD,MD
 5,2026-09-18,6:30pm,Archbishop Carroll (Washington),Gonzaga (Washington),0,DC,DC
 5,2026-09-18,6:30pm,St John's College (Washington),West Boca Raton (Boca Raton),0,DC,FL
