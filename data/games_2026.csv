@@ -1796,7 +1796,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 4,2026-09-11,Kubasaki (Okinawa),12,Kadena (Okinawa),18,0,JAPAN,JAPAN
 4,2026-09-12,Cuyahoga Valley Christian Academy (Cuyahoga Falls),34,Garfield (Akron),0,0,,
 4,2026-09-12,Danbury (Lakeside),60,Kennedy Catholic (Hermitage),6,0,,PA
-4,2026-09-12,Fort Loramie (Fort Loramie),28,Jefferson (Delphos),18,0,,
+4,2026-09-12,Fort Loramie (Fort Loramie),28,Jefferson (Delphos),24,0,,
 4,2026-09-12,Gilmour Academy (Gates Mills),7,Lake Catholic (Mentor),14,0,,
 4,2026-09-12,Lutheran East (Cleveland Heights),6,Buchtel (Akron),8,0,,
 4,2026-09-12,Millersport (Millersport),6,Tuscarawas Central Catholic (New Philadelphia),10,0,,
@@ -1805,6 +1805,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 4,2026-09-12,Warrensville Heights (Warrensville Heights),0,Cleveland Central Catholic (Cleveland),14,0,,
 4,2026-09-12,Clark Montessori (Cincinnati),20,Gamble Montessori (Cincinnati),36,0,,
 4,2026-09-12,Columbus Crusaders (club) (Columbus),0,Washtenaw Saints (club),3,0,,MI
+4,2026-09-12,Landmark Eagles (club) (Cincinnati),15,Osceola Grace (club) (Elkhart),49,0,,IN
 4,2026-09-12,Foxfire (Zanesville),0,C4 Lions (club) (Middletown),38,0,,
 4,2026-09-12,Expression Prep Academy (Huntington),14,Notre Dame (Portsmouth),35,0,WV,
 4,2026-09-12,Kiski Prep (Saltsburg),43,St James (Hagerstown),0,0,PA,MD
@@ -1818,3 +1819,5 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 4,2026-09-12,Paramus Catholic (Paramus),20,Iona Prep (New Rochelle),63,0,NJ,NY
 4,2026-09-12,DePaul Catholic (Wayne),18,Monsignor Farrell (Staten Island),21,0,NJ,NY
 4,2026-09-12,Audubon (Audubon),20,Salem (Salem),22,0,NJ,NJ
+4,2026-09-12,California School f/t Deaf (Riverside),8,Indiana School for the Deaf,6,0,CA,IN
+4,2026-09-13,Baldwin (Wailuku),43,Kulanihako'i (Kihei),6,0,HI,HI
