@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-13T19:34:45+00:00",
+ "generatedAt": "2026-10-24T15:52:17+00:00",
  "season": 2025,
  "weeksLoaded": [
   1,
@@ -130705,7 +130705,7 @@
   "theirs": {
    "accuracy": 0.8002,
    "logloss": 0.4351,
-   "meanMarginError": 13.91
+   "meanMarginError": 13.92
   },
   "disagreements": {
    "weWereRight": 34,
