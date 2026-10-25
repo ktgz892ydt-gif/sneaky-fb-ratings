@@ -4198,8 +4198,9 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 10,2026-10-22,Woodward (Cincinnati),0,Aiken (Cincinnati),22,0,,
 10,2026-10-22,Woodward (Toledo),0,Start (Toledo),42,0,,
 10,2026-10-22,Camden-Frontier (Camden),0,Britton-Deerfield (Britton),70,0,MI,MI
+10,2026-10-22,Colon,42,North Adams-Jerome (North Adams),6,0,MI,MI
 10,2026-10-22,Brashear (Pittsburgh),14,University Prep (USO co-op) (Pittsburgh),52,1,PA,PA
-10,2026-10-23,Ada (Ada),14,Pandora-Gilboa (Pandora),43,0,,
+10,2026-10-23,Ada (Ada),20,Pandora-Gilboa (Pandora),43,0,,
 10,2026-10-23,Amanda-Clearcreek (Amanda),7,Bloom-Carroll (Carroll),21,0,,
 10,2026-10-23,Anderson (Cincinnati),69,Loveland (Loveland),7,0,,
 10,2026-10-23,Anna (Anna),29,Versailles (Versailles),22,0,,
@@ -4220,7 +4221,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 10,2026-10-23,Bellaire (Bellaire),21,Martins Ferry (Martins Ferry),54,0,,
 10,2026-10-23,Beechcroft (Columbus),25,Northland (Columbus),14,0,,
 10,2026-10-23,Bellevue (Bellevue),28,Vermilion (Vermilion),7,0,,
-10,2026-10-23,Belpre (Belpre),6,Waterford (Waterford),58,0,,
+10,2026-10-23,Belpre (Belpre),6,Waterford (Waterford),65,0,,
 10,2026-10-23,Benedictine (Cleveland),32,St Vincent-St Mary (Akron),7,0,,
 10,2026-10-23,Benjamin Logan (Bellefontaine),49,Shawnee (Springfield),6,0,,
 10,2026-10-23,Berkshire (Burton),7,Kirtland (Kirtland),49,0,,
@@ -4279,7 +4280,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 10,2026-10-23,Dover (Dover),32,New Philadelphia (New Philadelphia),28,0,,
 10,2026-10-23,Dublin Scioto (Dublin),13,Westerville North (Westerville),16,0,,
 10,2026-10-23,East (Columbus),25,Linden McKinley (Columbus),10,0,,
-10,2026-10-23,Sciotoville Community (Portsmouth),14,Notre Dame (Portsmouth),49,0,,
+10,2026-10-23,Sciotoville Community (Portsmouth),14,Notre Dame (Portsmouth),48,0,,
 10,2026-10-23,East Canton (East Canton),33,Malvern (Malvern),12,0,,
 10,2026-10-23,Eastmoor Academy (Columbus),18,Africentric Early College (Columbus),30,0,,
 10,2026-10-23,Edgewood (Trenton),62,Monroe (Monroe),35,0,,
@@ -4565,11 +4566,12 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 10,2026-10-23,Portage Central (Portage),28,St Joseph,14,0,MI,MI
 10,2026-10-23,Southfield Christian,35,Waldron (Waldron),20,0,MI,MI
 10,2026-10-23,Bedford (Temperance),7,Grand Ledge,35,0,MI,MI
+10,2026-10-23,Everett (Everett),0,Meyersdale,21,0,PA,PA
 10,2026-10-23,Butler (Butler),22,Erie (Erie),14,0,PA,PA
 10,2026-10-23,Pine-Richland (Gibsonia),47,North Hills,7,0,PA,PA
 10,2026-10-23,Western Beaver (Industry),15,Beaver Falls,14,0,PA,PA
 10,2026-10-23,Leechburg,12,Jeannette (Jeannette),42,0,PA,PA
-10,2026-10-23,Taylor Allderdice (Pittsburgh),8,Westinghouse (Pittsburgh),50,1,PA,PA
+10,2026-10-23,Taylor Allderdice (Pittsburgh),6,Westinghouse (Pittsburgh),50,1,PA,PA
 10,2026-10-23,McDowell (Erie),47,Meadville,7,0,PA,PA
 10,2026-10-23,Harbor Creek (Harborcreek),6,Cathedral Prep (Erie),56,0,PA,PA
 10,2026-10-23,Mercer,0,Farrell (Farrell),73,0,PA,PA
@@ -4594,6 +4596,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 10,2026-10-23,Gonzaga (Washington),21,Good Counsel (Wheaton),3,0,DC,MD
 10,2026-10-23,Digital Pioneers Academy (Washington),6,Steubenville (Steubenville),40,0,DC,
 10,2026-10-23,St Mary's (Lancaster),21,Bishop Timon - St Jude (Buffalo),38,0,NY,NY
+10,2026-10-23,Eagle Academy for Young Men II (Brooklyn),1,Canarsie Campus (Brooklyn),0,0,NY,NY
 10,2026-10-23,The Hun School (Princeton),24,Cornerstone Christian (San Antonio),14,0,NJ,TX
 10,2026-10-23,DePaul Catholic (Wayne),7,Paramus Catholic (Paramus),21,0,NJ,NJ
 10,2026-10-23,Salem (Salem),52,Pennsville Memorial (Pennsville),12,0,NJ,NJ
@@ -4604,3 +4607,29 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 10,2026-10-23,Olympia (Orlando),3,West Orange (Winter Garden),34,0,FL,FL
 10,2026-10-23,Cardinal Gibbons (Raleigh),50,Sanderson (Raleigh),12,0,NC,NC
 10,2026-10-23,Cabarrus (Cannon/Concord co-op),20,Rabun Gap - Nacoochee (Rabun Gap),52,0,NC,GA
+10,2026-10-24,Buchtel (Akron),6,East (Akron),26,0,,
+10,2026-10-24,Canton McKinley (Canton),0,Massillon Washington (Massillon),31,0,,
+10,2026-10-24,Youngstown (Youngstown),8,Garfield Heights (Garfield Heights),12,0,,
+10,2026-10-24,East Palestine (East Palestine),14,Valley Christian School (Youngstown),19,0,,
+10,2026-10-24,Holgate (Holgate),42,Chalker (Southington),58,0,,
+10,2026-10-24,Garfield (Akron),14,Ellet (Akron),41,0,,
+10,2026-10-24,North (Akron),6,Firestone (Akron),56,0,,
+10,2026-10-24,St Mary Central Catholic (Sandusky),53,St Joseph Central Catholic (Fremont),14,0,,
+10,2026-10-24,Shaker Heights (Shaker Heights),28,Cleveland Heights (Cleveland Heights),25,0,,
+10,2026-10-24,Shaw (East Cleveland),0,Cleveland Central Catholic (Cleveland),26,0,,
+10,2026-10-24,Southern (Racine),14,Eastern (Reedsville),49,0,,
+10,2026-10-24,Utica (Utica),28,Newark Catholic (Newark),35,0,,
+10,2026-10-24,Wellsville (Wellsville),14,Catholic Central (Steubenville),39,0,,
+10,2026-10-24,Windham (Windham),44,Danbury (Lakeside),58,0,,
+10,2026-10-24,Withrow (Cincinnati),42,Taft (Cincinnati),0,0,,
+10,2026-10-24,C4 Lions (club) (Middletown),6,Noblesville Lions (club) (Noblesville),41,0,,IN
+10,2026-10-24,Frankfort (Ridgeley),55,Wahama (Mason),27,0,WV,WV
+10,2026-10-24,Expression Prep Academy (Huntington),48,North Adams (club) (Seaman),6,0,WV,
+10,2026-10-24,Lumen Christi (Jackson),21,Dearborn Divine Child (Dearborn),28,1,MI,MI
+10,2026-10-24,Novi Detroit Catholic Central (Novi),25,Brother Rice (Bloomfield Hills),31,1,MI,MI
+10,2026-10-24,Calumet Christian (Griffith),0,Osceola Grace (club) (Elkhart),54,0,IN,IN
+10,2026-10-24,Archbishop Curley (Baltimore),7,Our Lady of Mount Carmel (Essex),30,0,MD,MD
+10,2026-10-24,Canisius (Buffalo),15,Monroe (Rochester),42,0,NY,NY
+10,2026-10-24,Christian Brothers Academy - Syracuse (Syracuse),27,St Joseph's Collegiate (Buffalo),10,0,NY,NY
+10,2026-10-24,Health Sciences (Buffalo),46,Niagara Falls (Niagara Falls),0,0,NY,NY
+10,2026-10-24,Kinnick (Yokosuka),27,Humphreys (Pyeongtaek),28,0,JAPAN,SOUTH KOREA
