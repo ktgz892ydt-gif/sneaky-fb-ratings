@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-01T06:18:53+00:00",
+ "generatedAt": "2026-11-01T21:17:13+00:00",
  "season": 2025,
  "weeksLoaded": [
   1,
@@ -130579,10 +130579,10 @@
    "live": {
     "2026": {
      "games": 1533,
-     "accuracy": 0.7873,
-     "logloss": 0.4539,
-     "brier": 0.1478,
-     "meanMarginError": 16.12
+     "accuracy": 0.7867,
+     "logloss": 0.4555,
+     "brier": 0.1483,
+     "meanMarginError": 16.13
     }
    },
    "backtest": {
@@ -130612,10 +130612,10 @@
   "overall": {
    "live": {
     "games": 1533,
-    "accuracy": 0.7873,
-    "logloss": 0.4539,
-    "brier": 0.1478,
-    "meanMarginError": 16.12
+    "accuracy": 0.7867,
+    "logloss": 0.4555,
+    "brier": 0.1483,
+    "meanMarginError": 16.13
    },
    "backtest": {
     "games": 13751,
@@ -130681,7 +130681,7 @@
     },
     "0.9": {
      "predicted": 0.9,
-     "actual": 0.9162,
+     "actual": 0.9133,
      "n": 346
     },
     "1.0": {
