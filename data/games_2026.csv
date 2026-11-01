@@ -4699,7 +4699,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 11,2026-10-30,Kenton Ridge (Springfield),30,Oakwood (Dayton),21,0,,
 11,2026-10-30,New Richmond (New Richmond),26,Wilmington (Wilmington),34,0,,
 11,2026-10-30,Bellaire (Bellaire),0,Martins Ferry (Martins Ferry),35,0,,
-11,2026-10-30,Canton Central Catholic (Canton),16,Liberty (Youngstown),26,0,,
+11,2026-10-30,Canton Central Catholic (Canton),1,Liberty (Youngstown),0,0,,
 11,2026-10-30,Chagrin Falls (Chagrin Falls),12,Conneaut (Conneaut),18,0,,
 11,2026-10-30,Fairless (Brewster),14,Cardinal Mooney (Youngstown),47,0,,
 11,2026-10-30,Coldwater (Coldwater),27,Genoa Area (Genoa),26,0,,
@@ -4750,3 +4750,5 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 11,2026-10-29,Middle Tennessee Christian School (Murfreesboro),14,Providence Christian Academy (Murfreesboro),11,0,TN,TN
 11,2026-10-30,Meadville,7,Cathedral Prep (Erie),41,0,PA,PA
 11,2026-10-30,New Dorp (Staten Island),0,Eagle Academy for Young Men II (Brooklyn),55,0,NY,NY
+11,2026-10-31,Chalker (Southington),20,St Mary Central Catholic (Sandusky),49,0,,
+11,2026-10-31,Plymouth (Plymouth),8,St Joseph Central Catholic (Fremont),40,0,,

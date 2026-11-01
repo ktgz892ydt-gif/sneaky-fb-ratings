@@ -2,7 +2,7 @@ week,date,time,away,home,neutral,away_state,home_state
 5,2026-09-19,7pm,C4 Lions (club) (Middletown),West Union (club) (West Union),0,,
 9,2026-10-17,6pm,Peebles (club) (Peebles),West Union (club) (West Union),0,,
 10,2026-10-24,7pm,West Union (club) (West Union),Peebles (club) (Peebles),0,,
-11,2026-10-30,,University School (Hunting Valley),Glenville (Cleveland),0,,
+11,2026-10-31,12pm,University School (Hunting Valley),Glenville (Cleveland),0,,
 11,2026-10-29,7pm,Castlewood,Tri-Cities Christian Academy (Blountville),0,VA,TN
 11,2026-10-30,7pm,Clay-Battelle (Blacksville),Madonna (Weirton),0,WV,WV
 11,2026-10-30,7pm,East Hardy (Baker),Cameron (Cameron),0,WV,WV
@@ -53,8 +53,6 @@ week,date,time,away,home,neutral,away_state,home_state
 11,2026-10-30,7pm,West Orange (Winter Garden),Jones (Orlando),0,FL,FL
 11,2026-10-30,7pm,Cary (Cary),Cardinal Gibbons (Raleigh),0,NC,NC
 11,2026-10-30,8:30pm,AZ Compass Prep (Chandler),Cornerstone Christian (San Antonio),0,AZ,TX
-11,2026-10-31,6pm,Chalker (Southington),St Mary Central Catholic (Sandusky),0,,
-11,2026-10-31,7pm,Plymouth (Plymouth),St Joseph Central Catholic (Fremont),0,,
 11,2026-10-31,5pm,C4 Lions (club) (Middletown),Columbus Crusaders (club) (Columbus),0,,
 11,2026-10-31,3pm,University Prep (USO co-op) (Pittsburgh),Westinghouse (Pittsburgh),1,PA,PA
 11,2026-10-31,,Kiski Prep (Saltsburg),Linsly (Wheeling),0,PA,WV
@@ -126,8 +124,8 @@ week,date,time,away,home,neutral,away_state,home_state
 12,2026-11-06,7pm,Valley View (Germantown),London (London),0,,
 12,2026-11-06,7pm,Wilmington (Wilmington),Cincinnati Hills Christian Academy (Cincinnati),0,,
 12,2026-11-06,7pm,Cardinal Mooney (Youngstown),Girard (Girard),0,,
+12,2026-11-06,7pm,Canton Central Catholic (Canton),Perry (Perry),0,,
 12,2026-11-06,7pm,Conneaut (Conneaut),Garfield (Garrettsville),0,,
-12,2026-11-06,7pm,Liberty (Youngstown),Perry (Perry),0,,
 12,2026-11-06,7pm,Martins Ferry (Martins Ferry),Barnesville (Barnesville),0,,
 12,2026-11-06,7pm,Bluffton (Bluffton),Archbold (Archbold),0,,
 12,2026-11-06,7pm,Coldwater (Coldwater),Triway (Wooster),0,,
@@ -192,6 +190,7 @@ week,date,time,away,home,neutral,away_state,home_state
 12,2026-11-06,,Legacy Sport Sciences (Spring),Catholic (Baton Rouge),0,TX,LA
 12,2026-11-06,8pm,Westwood (Austin),Lake Travis (Austin),0,TX,TX
 12,2026-11-06,10pm,CIVICA Academy (North Las Vegas),Bishop Gorman (Las Vegas),0,NV,NV
+12,2026-11-07,6pm,St Joseph Central Catholic (Fremont),St Mary Central Catholic (Sandusky),1,,
 12,2026-11-07,5pm,Linsly (Wheeling),Wyoming Seminary,0,WV,PA
 12,2026-11-07,7pm,Good Counsel (Wheaton),Bishop McNamara (Forestville),0,MD,MD
 12,2026-11-07,1pm,Concordia Prep (Towson),Long Island Lutheran (Brookville),0,MD,NY

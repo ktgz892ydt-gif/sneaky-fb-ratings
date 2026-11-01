@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-31T17:14:05+00:00",
+ "generatedAt": "2026-11-01T06:18:53+00:00",
  "season": 2025,
  "weeksLoaded": [
   1,
@@ -130578,11 +130578,11 @@
   "bySeason": {
    "live": {
     "2026": {
-     "games": 1421,
-     "accuracy": 0.7875,
-     "logloss": 0.4554,
-     "brier": 0.148,
-     "meanMarginError": 16.35
+     "games": 1533,
+     "accuracy": 0.7873,
+     "logloss": 0.4539,
+     "brier": 0.1478,
+     "meanMarginError": 16.12
     }
    },
    "backtest": {
@@ -130611,11 +130611,11 @@
   },
   "overall": {
    "live": {
-    "games": 1421,
-    "accuracy": 0.7875,
-    "logloss": 0.4554,
-    "brier": 0.148,
-    "meanMarginError": 16.35
+    "games": 1533,
+    "accuracy": 0.7873,
+    "logloss": 0.4539,
+    "brier": 0.1478,
+    "meanMarginError": 16.12
    },
    "backtest": {
     "games": 13751,
@@ -130661,33 +130661,33 @@
    "live": {
     "0.5": {
      "predicted": 0.5,
-     "actual": 0.4615,
-     "n": 117
+     "actual": 0.472,
+     "n": 125
     },
     "0.6": {
      "predicted": 0.6,
-     "actual": 0.6654,
-     "n": 254
+     "actual": 0.6606,
+     "n": 274
     },
     "0.7": {
      "predicted": 0.7,
-     "actual": 0.7447,
-     "n": 282
+     "actual": 0.7416,
+     "n": 298
     },
     "0.8": {
      "predicted": 0.8,
-     "actual": 0.8339,
-     "n": 295
+     "actual": 0.8226,
+     "n": 310
     },
     "0.9": {
      "predicted": 0.9,
-     "actual": 0.9126,
-     "n": 309
+     "actual": 0.9162,
+     "n": 346
     },
     "1.0": {
      "predicted": 1.0,
-     "actual": 0.9695,
-     "n": 164
+     "actual": 0.9722,
+     "n": 180
     }
    }
   }
