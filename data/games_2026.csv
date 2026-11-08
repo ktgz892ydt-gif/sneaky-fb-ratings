@@ -826,7 +826,7 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 2,2026-08-28,Southern Huntingdon County,47,Everett (Everett),7,0,PA,PA
 2,2026-08-28,Shaler,14,Butler (Butler),17,0,PA,PA
 2,2026-08-28,Pine-Richland (Gibsonia),48,Avon (Avon),18,0,PA,
-2,2026-08-28,Canevin Catholic,40,University Prep (USO co-op) (Pittsburgh),0,1,PA,PA
+2,2026-08-28,Bishop Canevin,40,University Prep (USO co-op) (Pittsburgh),0,1,PA,PA
 2,2026-08-28,Taylor Allderdice (Pittsburgh),24,Fox Chapel,27,0,PA,PA
 2,2026-08-28,Brashear (Pittsburgh),0,McKeesport (McKeesport),61,0,PA,PA
 2,2026-08-28,Carrick (Pittsburgh),18,Carlynton,20,0,PA,PA
@@ -4749,10 +4749,61 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 11,2026-10-30,Tri-County North (Lewisburg),13,Fort Loramie (Fort Loramie),43,0,,
 11,2026-10-30,Upper Scioto Valley (McGuffey),34,Cincinnati Country Day (Cincinnati),41,0,,
 11,2026-10-29,Middle Tennessee Christian School (Murfreesboro),14,Providence Christian Academy (Murfreesboro),11,0,TN,TN
+11,2026-10-30,Clay-Battelle (Blacksville),49,Madonna (Weirton),20,0,WV,WV
+11,2026-10-30,East Hardy (Baker),28,Cameron (Cameron),21,0,WV,WV
+11,2026-10-30,Elkins,49,Brooke (Wellsburg),12,0,WV,WV
+11,2026-10-30,Liberty (Raleigh),28,St Marys (St Marys),35,0,WV,WV
+11,2026-10-30,Moorefield,37,Weir (Weirton),14,0,WV,WV
+11,2026-10-30,Valley (Wetzel) (Pine Grove),26,Magnolia (New Martinsville),38,0,WV,WV
+11,2026-10-30,Wahama (Mason),73,Gilmer County (Glenville),8,0,WV,WV
+11,2026-10-30,Wayne,6,Williamstown (Williamstown),46,0,WV,WV
+11,2026-10-30,Ashland Blazer (Ashland),20,Lexington Catholic (Lexington),42,0,KY,KY
+11,2026-10-30,Beechwood (Fort Mitchell),62,Campbell County (Alexandria),6,0,KY,KY
+11,2026-10-30,Bellevue (Bellevue),7,Holy Cross (Covington),48,0,KY,KY
+11,2026-10-30,Boyd County (Ashland),14,Lawrence County,42,0,KY,KY
+11,2026-10-30,Breathitt County (Jackson),8,Russell (Russell),24,0,KY,KY
+11,2026-10-30,East Carter,13,Raceland (Raceland),42,0,KY,KY
+11,2026-10-30,Fairview (Ashland),8,Lewis County (Vanceburg),27,0,KY,KY
+11,2026-10-30,Hazard,7,Somerset (Somerset),54,0,KY,KY
+11,2026-10-30,Lafayette (Lexington),19,Oldham County,38,0,KY,KY
+11,2026-10-30,Letcher County Central,0,Belfry (Belfry),49,0,KY,KY
+11,2026-10-30,Lexington Christian (Lexington),43,Pleasure Ridge Park (Louisville),6,0,KY,KY
+11,2026-10-30,Lloyd Memorial (Erlanger),42,Boone County,16,0,KY,KY
+11,2026-10-30,Montgomery County,29,Greenup County (Greenup),63,0,KY,KY
+11,2026-10-30,Newport Central Catholic,27,Mason County,13,0,KY,KY
+11,2026-10-30,Pikeville (Pikeville),47,Bracken County,0,0,KY,KY
+11,2026-10-30,Ryle (Union),20,Dixie Heights (Edgewood),19,0,KY,KY
+11,2026-10-30,Simon Kenton (Independence),14,Cooper (Union),25,0,KY,KY
+11,2026-10-30,St Xavier (Louisville),16,Madison Central,28,0,KY,KY
+11,2026-10-30,Great Crossing (Georgetown),14,Corbin (Corbin),56,0,KY,KY
+11,2026-10-30,Everett (Everett),12,Curwensville,23,0,PA,PA
+11,2026-10-30,Meyersdale,27,Juniata Valley,29,0,PA,PA
+11,2026-10-30,Pine-Richland (Gibsonia),49,Plum,21,0,PA,PA
+11,2026-10-30,Jeannette (Jeannette),0,Clairton (Clairton),42,0,PA,PA
+11,2026-10-30,Western Beaver (Industry),27,Neshannock,24,0,PA,PA
+11,2026-10-30,Brashear (Pittsburgh),26,Butler (Butler),55,0,PA,PA
+11,2026-10-30,Moniteau (West Sunbury),8,Central Clarion (co-op),73,0,PA,PA
 11,2026-10-30,Meadville,7,Cathedral Prep (Erie),41,0,PA,PA
+11,2026-10-30,Baylor (Chattanooga),21,Knoxville Catholic,7,0,TN,TN
+11,2026-10-30,McCallie,31,Christ Presbyterian Academy (Nashville),26,0,TN,TN
+11,2026-10-30,Oakland (Murfreesboro),34,Riverdale,36,0,TN,TN
+11,2026-10-30,Canisius (Buffalo),28,Bishop Timon - St Jude (Buffalo),0,0,NY,NY
+11,2026-10-30,St Joseph's Collegiate (Buffalo),13,St Francis (Hamburg),43,0,NY,NY
 11,2026-10-30,New Dorp (Staten Island),0,Eagle Academy for Young Men II (Brooklyn),55,0,NY,NY
+11,2026-10-30,Salesianum (Wilmington),10,Middletown (Middletown),35,0,DE,DE
+11,2026-10-30,Lake Travis (Austin),31,Round Rock (Round Rock),14,0,TX,TX
+11,2026-10-30,Huron Heights (Newmarket),7,Martinsburg (Martinsburg),49,0,ON,WV
+11,2026-10-30,Mater Academy East (Las Vegas),7,Bishop Gorman (Las Vegas),50,0,NV,NV
+11,2026-10-30,West Orange (Winter Garden),25,Jones (Orlando),24,0,FL,FL
+11,2026-10-30,Cary (Cary),7,Cardinal Gibbons (Raleigh),43,0,NC,NC
+11,2026-10-30,AZ Compass Prep (Chandler),25,Cornerstone Christian (San Antonio),41,0,AZ,TX
 11,2026-10-31,Chalker (Southington),20,St Mary Central Catholic (Sandusky),49,0,,
 11,2026-10-31,Plymouth (Plymouth),8,St Joseph Central Catholic (Fremont),40,0,,
+11,2026-10-31,University Prep (USO co-op) (Pittsburgh),0,Westinghouse (Pittsburgh),50,1,PA,PA
+11,2026-10-31,Kiski Prep (Saltsburg),45,Linsly (Wheeling),8,0,PA,WV
+11,2026-10-31,DeMatha Catholic (Hyattsville),30,Gonzaga (Washington),14,0,MD,DC
+11,2026-10-31,St Francis Prep (Fresh Meadows),20,Kellenberg Memorial (Uniondale),37,0,NY,NY
+11,2026-10-31,Pennington (Pennington),35,Long Island Lutheran (Brookville),0,0,NJ,NY
 12,2026-11-06,Canton McKinley (Canton),27,Austintown-Fitch (Austintown),22,0,,
 12,2026-11-06,Hudson (Hudson),44,Jackson (Massillon),14,0,,
 12,2026-11-06,St Ignatius (Cleveland),19,St Edward (Lakewood),38,0,,
@@ -4865,3 +4916,46 @@ week,date,away,away_score,home,home_score,neutral,away_state,home_state
 12,2026-11-06,Fort Loramie (Fort Loramie),0,Marion Local (Maria Stein),49,0,,
 12,2026-11-06,Fort Recovery (Fort Recovery),7,Minster (Minster),49,0,,
 12,2026-11-06,New Bremen (New Bremen),27,Ansonia (Ansonia),12,0,,
+12,2026-11-05,Southern (Louisville),0,Simon Kenton (Independence),56,0,KY,KY
+12,2026-11-06,Cameron (Cameron),54,Pendleton County,27,0,WV,WV
+12,2026-11-06,Clay-Battelle (Blacksville),36,Magnolia (New Martinsville),22,0,WV,WV
+12,2026-11-06,Hampshire,28,Oak Glen (New Cumberland),20,0,WV,WV
+12,2026-11-06,John Marshall (Glen Dale),21,Wheeling Park (Wheeling),14,0,WV,WV
+12,2026-11-06,Madonna (Weirton),20,Tucker County (Hambleton),36,0,WV,WV
+12,2026-11-06,Richwood,14,Valley (Wetzel) (Pine Grove),20,0,WV,WV
+12,2026-11-06,St Marys (St Marys),28,Wirt County (Elizabeth),20,0,WV,WV
+12,2026-11-06,Wahama (Mason),56,Man,0,0,WV,WV
+12,2026-11-06,Weir (Weirton),6,Brooke (Wellsburg),45,0,WV,WV
+12,2026-11-06,Wheeling Central Catholic (Wheeling),35,Williamstown (Williamstown),33,0,WV,WV
+12,2026-11-06,Winfield,28,Point Pleasant (Point Pleasant),12,0,WV,WV
+12,2026-11-06,Ballard,13,St Xavier (Louisville),37,0,KY,KY
+12,2026-11-06,Bellevue (Bellevue),7,Holy Cross (Covington),41,0,KY,KY
+12,2026-11-06,Boyd County (Ashland),0,Highlands (Fort Thomas),50,0,KY,KY
+12,2026-11-06,Carroll County (Carrollton),14,Russell (Russell),29,0,KY,KY
+12,2026-11-06,East Carter,6,Lloyd Memorial (Erlanger),35,0,KY,KY
+12,2026-11-06,Johnson Central,7,Covington Catholic (Park Hills),35,0,KY,KY
+12,2026-11-06,Mason County,21,Greenup County (Greenup),41,0,KY,KY
+12,2026-11-06,Pleasure Ridge Park (Louisville),0,Trinity (Louisville),49,0,KY,KY
+12,2026-11-06,Russell County,7,Corbin (Corbin),64,0,KY,KY
+12,2026-11-06,Washington County,6,Somerset (Somerset),42,0,KY,KY
+12,2026-11-06,Collins (Shelbyville),45,Dixie Heights (Edgewood),35,0,KY,KY
+12,2026-11-06,Beaver Falls,28,McGuffey,7,0,PA,PA
+12,2026-11-06,Freedom,8,Steel Valley,47,0,PA,PA
+12,2026-11-06,Chartiers Houston,22,Western Beaver (Industry),44,0,PA,PA
+12,2026-11-06,Monessen,6,Jeannette (Jeannette),0,0,PA,PA
+12,2026-11-06,Fort LeBoeuf,35,Corry (Corry),27,1,PA,PA
+12,2026-11-06,North East (North East),6,Grove City,42,1,PA,PA
+12,2026-11-06,Central Clarion (co-op),7,Karns City,28,1,PA,PA
+12,2026-11-06,Christ Presbyterian Academy (Nashville),34,Christian Brothers (Memphis),14,0,TN,TN
+12,2026-11-06,Oakland (Murfreesboro),36,Lebanon,14,0,TN,TN
+12,2026-11-06,Tottenville (Staten Island),14,Eagle Academy for Young Men II (Brooklyn),38,0,NY,NY
+12,2026-11-06,Paul M. Hodgson Vo-Tech (Newark),0,Middletown (Middletown),42,0,DE,DE
+12,2026-11-06,Legacy Sport Sciences (Spring),13,Catholic (Baton Rouge),49,0,TX,LA
+12,2026-11-06,Westwood (Austin),0,Lake Travis (Austin),58,0,TX,TX
+12,2026-11-06,CIVICA Academy (North Las Vegas),0,Bishop Gorman (Las Vegas),54,0,NV,NV
+12,2026-11-07,St Joseph Central Catholic (Fremont),25,St Mary Central Catholic (Sandusky),35,1,,
+12,2026-11-07,Linsly (Wheeling),14,Wyoming Seminary,28,0,WV,PA
+12,2026-11-07,University Prep (USO co-op) (Pittsburgh),6,Clearfield,34,1,PA,PA
+12,2026-11-07,Good Counsel (Wheaton),28,Bishop McNamara (Forestville),21,0,MD,MD
+12,2026-11-07,St Francis Prep (Fresh Meadows),7,Kellenberg Memorial (Uniondale),23,0,NY,NY
+12,2026-11-07,NFL Academy (Loughborough),56,Spanish National Team U19,9,0,UK,SPAIN
