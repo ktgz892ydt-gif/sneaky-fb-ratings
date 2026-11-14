@@ -10,6 +10,6 @@ Pygments==2.21.0
 pytest==8.4.2
 requests==2.34.2
 scipy==1.18.1
-soupsieve==4.0.1
+soupsieve==4.1.1
 typing_extensions==4.16.0
 urllib3==2.8.0
